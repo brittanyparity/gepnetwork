@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
-import gepLogo from './imports/gepn_wplogo_light_v1-1.png'
+
+const GEP_LOGO = '/gep-logo.png'
 
 // ─── Images ────────────────────────────────────────────────────────────────
 const HERO_IMG = 'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=1920&h=1080&fit=crop&auto=format'
@@ -181,7 +182,7 @@ function Header({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: (v:
         {/* Logo */}
         <a href="#" className="flex-shrink-0">
           <img
-            src={gepLogo}
+            src={GEP_LOGO}
             alt="GEP Network"
             className="h-10 w-auto object-contain"
           />
@@ -853,7 +854,7 @@ function Footer() {
           {/* Brand */}
           <div className="lg:col-span-1">
             <img
-              src={gepLogo}
+              src={GEP_LOGO}
               alt="GEP Network"
               className="h-10 w-auto object-contain mb-4"
             />
