@@ -1,0 +1,12 @@
+{
+  "title": "GEP Network",
+  "description": "Full-service live event production for concerts, tours, festivals, and corporate events — backed by 40+ years of industry expertise.",
+  "language": "en",
+  "robots": {
+    "index": true
+  },
+  "accessibility": {
+    "addBypassLinks": true,
+    "ignoreReducedMotion": false
+  }
+}
