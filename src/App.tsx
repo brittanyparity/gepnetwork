@@ -1,6 +1,106 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, type CSSProperties, type FormEvent } from 'react'
 
 const GEP_LOGO = '/gep-logo.png'
+const HERO_VIDEO = '/gep-hero-video.mp4'
+
+type ColorScheme = {
+  id: string
+  name: string
+  vars: Record<string, string>
+}
+
+const COLOR_SCHEMES: ColorScheme[] = [
+  {
+    id: 'classic',
+    name: 'Classic Gold',
+    vars: {
+      '--gep-bg': '#000032',
+      '--gep-bg-alt': '#000040',
+      '--gep-card': '#00003e',
+      '--gep-footer': '#00002a',
+      '--gep-accent': '#FFC52F',
+      '--gep-accent-text': '#000032',
+      '--gep-header-scrolled': 'rgba(0,0,64,0.97)',
+      '--gep-overlay-top': 'rgba(0,0,64,0.55)',
+      '--gep-overlay-mid': 'rgba(0,0,64,0.45)',
+      '--gep-overlay-bottom': 'rgba(0,0,64,0.88)',
+      '--gep-card-overlay': 'rgba(0,0,64,0.92)',
+      '--gep-staffing-overlay': 'rgba(0,0,50,0.75)',
+    },
+  },
+  {
+    id: 'electric',
+    name: 'Electric Blue',
+    vars: {
+      '--gep-bg': '#001428',
+      '--gep-bg-alt': '#001e3c',
+      '--gep-card': '#002850',
+      '--gep-footer': '#000c18',
+      '--gep-accent': '#00D4FF',
+      '--gep-accent-text': '#001428',
+      '--gep-header-scrolled': 'rgba(0,20,40,0.97)',
+      '--gep-overlay-top': 'rgba(0,20,40,0.55)',
+      '--gep-overlay-mid': 'rgba(0,20,40,0.45)',
+      '--gep-overlay-bottom': 'rgba(0,20,40,0.88)',
+      '--gep-card-overlay': 'rgba(0,20,40,0.92)',
+      '--gep-staffing-overlay': 'rgba(0,20,40,0.75)',
+    },
+  },
+  {
+    id: 'crimson',
+    name: 'Crimson Stage',
+    vars: {
+      '--gep-bg': '#1a0008',
+      '--gep-bg-alt': '#2d0010',
+      '--gep-card': '#3d0018',
+      '--gep-footer': '#0d0004',
+      '--gep-accent': '#E8194A',
+      '--gep-accent-text': '#1a0008',
+      '--gep-header-scrolled': 'rgba(26,0,8,0.97)',
+      '--gep-overlay-top': 'rgba(26,0,8,0.55)',
+      '--gep-overlay-mid': 'rgba(26,0,8,0.45)',
+      '--gep-overlay-bottom': 'rgba(26,0,8,0.88)',
+      '--gep-card-overlay': 'rgba(26,0,8,0.92)',
+      '--gep-staffing-overlay': 'rgba(26,0,8,0.75)',
+    },
+  },
+  {
+    id: 'emerald',
+    name: 'Emerald Night',
+    vars: {
+      '--gep-bg': '#001a0f',
+      '--gep-bg-alt': '#002818',
+      '--gep-card': '#003622',
+      '--gep-footer': '#000d08',
+      '--gep-accent': '#2ECC71',
+      '--gep-accent-text': '#001a0f',
+      '--gep-header-scrolled': 'rgba(0,26,15,0.97)',
+      '--gep-overlay-top': 'rgba(0,26,15,0.55)',
+      '--gep-overlay-mid': 'rgba(0,26,15,0.45)',
+      '--gep-overlay-bottom': 'rgba(0,26,15,0.88)',
+      '--gep-card-overlay': 'rgba(0,26,15,0.92)',
+      '--gep-staffing-overlay': 'rgba(0,26,15,0.75)',
+    },
+  },
+  {
+    id: 'platinum',
+    name: 'Platinum',
+    vars: {
+      '--gep-bg': '#0f0f12',
+      '--gep-bg-alt': '#1a1a1f',
+      '--gep-card': '#222228',
+      '--gep-footer': '#080809',
+      '--gep-accent': '#C8C8D0',
+      '--gep-accent-text': '#0f0f12',
+      '--gep-header-scrolled': 'rgba(15,15,18,0.97)',
+      '--gep-overlay-top': 'rgba(15,15,18,0.55)',
+      '--gep-overlay-mid': 'rgba(15,15,18,0.45)',
+      '--gep-overlay-bottom': 'rgba(15,15,18,0.88)',
+      '--gep-card-overlay': 'rgba(15,15,18,0.92)',
+      '--gep-staffing-overlay': 'rgba(15,15,18,0.75)',
+    },
+  },
+]
 
 // ─── Images ────────────────────────────────────────────────────────────────
 const HERO_IMG = 'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=1920&h=1080&fit=crop&auto=format'
@@ -20,7 +120,7 @@ const NAV_LINKS = ['Home', 'About Us', 'Services', 'Storage', 'Events', 'Contact
 const STATS = [
   { value: '40+', label: 'Years Experience' },
   { value: '500+', label: 'Productions' },
-  { value: 'National', label: 'Staffing Network' },
+  { value: 'International', label: 'Staffing Network' },
   { value: 'Tours • Festivals', label: 'Corporate Events' },
 ]
 
@@ -84,6 +184,42 @@ const SERVICES = [
     icon: '◐',
     desc: 'Creative production design support — stage layouts, sight-line planning, and visual concept development in collaboration with your team.',
     img: 'https://images.unsplash.com/photo-1599739291060-4578e77dac5d?w=600&h=500&fit=crop&auto=format',
+  },
+  {
+    title: 'Merch',
+    icon: '◫',
+    desc: 'Tour and event merchandise programs — sourcing, inventory management, on-site sales operations, and fulfillment logistics.',
+    img: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=500&fit=crop&auto=format',
+  },
+  {
+    title: 'Artist Booking',
+    icon: '◑',
+    desc: 'Talent booking and routing support — connecting artists with the right venues, dates, and production teams for successful engagements.',
+    img: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&h=500&fit=crop&auto=format',
+  },
+  {
+    title: 'Pre-Production Development',
+    icon: '◧',
+    desc: 'Concept-to-call-sheet planning — budgets, schedules, vendor coordination, and technical design before the first load-in.',
+    img: 'https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=600&h=500&fit=crop&auto=format',
+  },
+  {
+    title: 'Post-Production Development',
+    icon: '◨',
+    desc: 'Wrap-out support including content capture coordination, asset archiving, settlement documentation, and debrief reporting.',
+    img: 'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=600&h=500&fit=crop&auto=format',
+  },
+  {
+    title: 'Tour & Event Consultation',
+    icon: '◩',
+    desc: 'Strategic advisory for tours, festivals, and one-off events — feasibility studies, risk assessment, and operational roadmaps.',
+    img: 'https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?w=600&h=500&fit=crop&auto=format',
+  },
+  {
+    title: 'Budget Development',
+    icon: '◪',
+    desc: 'Detailed production budgets built from real-world touring data — line-item accuracy, contingency planning, and vendor cost modeling.',
+    img: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&h=500&fit=crop&auto=format',
   },
 ]
 
@@ -158,7 +294,40 @@ const TESTIMONIALS = [
 // ─── Sub-components ─────────────────────────────────────────────────────────
 
 function GoldRule() {
-  return <div className="w-12 h-px bg-[#FFC52F] mb-6" />
+  return <div className="w-12 h-px mb-6" style={{ background: 'var(--gep-accent)' }} />
+}
+
+function ColorSchemePicker({ value, onChange }: { value: string; onChange: (id: string) => void }) {
+  return (
+    <div
+      className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-2"
+      style={{ fontFamily: 'Inter, sans-serif' }}
+    >
+      <label htmlFor="color-scheme" className="text-[10px] tracking-[0.2em] uppercase text-white/40">
+        Color Scheme
+      </label>
+      <select
+        id="color-scheme"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="px-4 py-2.5 text-xs tracking-wide border cursor-pointer appearance-none pr-8"
+        style={{
+          background: 'var(--gep-card)',
+          color: 'white',
+          borderColor: 'rgba(255,255,255,0.15)',
+          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='white' fill-opacity='0.5' d='M3 5l3 3 3-3'/%3E%3C/svg%3E")`,
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'right 12px center',
+        }}
+      >
+        {COLOR_SCHEMES.map((scheme) => (
+          <option key={scheme.id} value={scheme.id} style={{ background: '#000032' }}>
+            {scheme.name}
+          </option>
+        ))}
+      </select>
+    </div>
+  )
 }
 
 function Header({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: (v: boolean) => void }) {
@@ -173,7 +342,7 @@ function Header({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: (v:
     <header
       className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
       style={{
-        background: scrolled ? 'rgba(0,0,64,0.97)' : 'transparent',
+        background: scrolled ? 'var(--gep-header-scrolled)' : 'transparent',
         backdropFilter: scrolled ? 'blur(12px)' : 'none',
         borderBottom: scrolled ? '1px solid rgba(255,255,255,0.06)' : '1px solid transparent',
       }}
@@ -184,7 +353,7 @@ function Header({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: (v:
           <img
             src={GEP_LOGO}
             alt="GEP Network"
-            className="h-10 w-auto object-contain"
+            className="h-16 lg:h-[4.75rem] w-auto object-contain"
           />
         </a>
 
@@ -216,8 +385,8 @@ function Header({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: (v:
             className="px-5 py-2.5 text-xs tracking-widest uppercase font-semibold transition-all duration-200 hover:opacity-90"
             style={{
               fontFamily: 'Inter, sans-serif',
-              background: '#FFC52F',
-              color: '#000032',
+              background: 'var(--gep-accent)',
+              color: 'var(--gep-accent-text)',
             }}
           >
             Request a Quote
@@ -238,7 +407,7 @@ function Header({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: (v:
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="lg:hidden border-t border-white/08 bg-[#000032]">
+        <div className="lg:hidden border-t border-white/08" style={{ background: 'var(--gep-bg)' }}>
           <nav className="flex flex-col px-6 py-6 gap-4">
             {NAV_LINKS.map((link) => (
               <a
@@ -254,7 +423,7 @@ function Header({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: (v:
             <a
               href="#contact"
               className="mt-2 px-5 py-3 text-xs tracking-widest uppercase font-semibold text-center"
-              style={{ background: '#FFC52F', color: '#000032', fontFamily: 'Inter, sans-serif' }}
+              style={{ background: 'var(--gep-accent)', color: 'var(--gep-accent-text)', fontFamily: 'Inter, sans-serif' }}
               onClick={() => setMenuOpen(false)}
             >
               Request a Quote
@@ -268,7 +437,7 @@ function Header({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: (v:
 
 function Hero() {
   return (
-    <section className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-[#000032]">
+    <section className="relative w-full min-h-screen flex items-center justify-center overflow-hidden" style={{ background: 'var(--gep-bg)' }}>
       {/* Background video */}
       <video
         autoPlay
@@ -279,16 +448,19 @@ function Hero() {
         className="absolute inset-0 w-full h-full object-cover"
         style={{ objectPosition: 'center center' }}
       >
-        <source src="https://videos.pexels.com/video-files/3975494/3975494-hd_1920_1080_24fps.mp4" type="video/mp4" />
-        <source src="https://videos.pexels.com/video-files/33540449/14261770_1440_2560_24fps.mp4" type="video/mp4" />
-        {/* Fallback image if video fails */}
+        <source src={HERO_VIDEO} type="video/mp4" />
         <img src={HERO_IMG} alt="Live concert stage production" className="absolute inset-0 w-full h-full object-cover" />
       </video>
       {/* Dark overlay */}
-      <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(0,0,64,0.55) 0%, rgba(0,0,64,0.45) 50%, rgba(0,0,64,0.88) 100%)' }} />
+      <div
+        className="absolute inset-0"
+        style={{
+          background: 'linear-gradient(to bottom, var(--gep-overlay-top) 0%, var(--gep-overlay-mid) 50%, var(--gep-overlay-bottom) 100%)',
+        }}
+      />
 
       <div className="relative z-10 text-center max-w-5xl mx-auto px-6 pt-20">
-        <p className="text-[#FFC52F] text-xs tracking-[0.35em] uppercase mb-6" style={{ fontFamily: 'Inter, sans-serif' }}>
+        <p className="text-xs tracking-[0.35em] uppercase mb-6" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-accent)' }}>
           Full-Service Live Event Production
         </p>
         <h1
@@ -301,7 +473,7 @@ function Hero() {
           }}
         >
           Production<br />
-          <span style={{ color: '#FFC52F' }}>Without</span> Limits
+          <span style={{ color: 'var(--gep-accent)' }}>Without</span> Limits
         </h1>
         <p className="text-white/60 text-base lg:text-lg max-w-xl mx-auto mb-10 leading-relaxed" style={{ fontFamily: 'Inter, sans-serif' }}>
           GEP Network executes concerts, tours, festivals, and corporate events at the highest level — backed by 40+ years of industry expertise.
@@ -310,7 +482,7 @@ function Hero() {
           <a
             href="#contact"
             className="px-8 py-4 text-xs tracking-widest uppercase font-semibold transition-all duration-200 hover:opacity-90"
-            style={{ background: '#FFC52F', color: '#000032', fontFamily: 'Inter, sans-serif' }}
+            style={{ background: 'var(--gep-accent)', color: 'var(--gep-accent-text)', fontFamily: 'Inter, sans-serif' }}
           >
             Request a Quote
           </a>
@@ -335,14 +507,14 @@ function Hero() {
 
 function StatsBar() {
   return (
-    <div className="bg-[#FFC52F] py-5">
+    <div className="py-5" style={{ background: 'var(--gep-accent)' }}>
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-0 divide-y lg:divide-y-0 lg:divide-x divide-black/20">
           {STATS.map((s) => (
             <div key={s.value} className="text-center py-4 px-6">
               <div
-                className="text-[#000032] uppercase leading-none mb-1"
-                style={{ fontFamily: 'Barlow Condensed, sans-serif', fontWeight: 800, fontSize: '2rem', letterSpacing: '0.02em' }}
+                className="uppercase leading-none mb-1"
+                style={{ fontFamily: 'Barlow Condensed, sans-serif', fontWeight: 800, fontSize: '2rem', letterSpacing: '0.02em', color: 'var(--gep-accent-text)' }}
               >
                 {s.value}
               </div>
@@ -377,7 +549,7 @@ function ProductionsCarousel() {
   }
 
   return (
-    <section className="py-24 bg-[#000032] overflow-hidden">
+    <section className="py-24 overflow-hidden" style={{ background: 'var(--gep-bg)' }}>
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10 mb-10">
         <GoldRule />
         <div className="flex items-end justify-between">
@@ -393,7 +565,7 @@ function ProductionsCarousel() {
             <button
               onClick={() => scroll('left')}
               disabled={!canScrollLeft}
-              className="w-10 h-10 flex items-center justify-center border border-white/15 hover:border-[#FFC52F] hover:text-[#FFC52F] transition-all duration-200 disabled:opacity-20 text-white"
+              className="w-10 h-10 flex items-center justify-center border border-white/15 transition-all duration-200 disabled:opacity-20 text-white hover:border-[color:var(--gep-accent)] hover:text-[color:var(--gep-accent)]"
               aria-label="Scroll left"
             >
               ‹
@@ -401,7 +573,7 @@ function ProductionsCarousel() {
             <button
               onClick={() => scroll('right')}
               disabled={!canScrollRight}
-              className="w-10 h-10 flex items-center justify-center border border-white/15 hover:border-[#FFC52F] hover:text-[#FFC52F] transition-all duration-200 disabled:opacity-20 text-white"
+              className="w-10 h-10 flex items-center justify-center border border-white/15 transition-all duration-200 disabled:opacity-20 text-white hover:border-[color:var(--gep-accent)] hover:text-[color:var(--gep-accent)]"
               aria-label="Scroll right"
             >
               ›
@@ -419,8 +591,8 @@ function ProductionsCarousel() {
         {PRODUCTIONS.map((p) => (
           <div
             key={p.name}
-            className="flex-shrink-0 relative group overflow-hidden bg-[#00003e]"
-            style={{ width: 280, height: 370, scrollSnapAlign: 'start' }}
+            className="flex-shrink-0 relative group overflow-hidden"
+            style={{ width: 280, height: 370, scrollSnapAlign: 'start', background: 'var(--gep-card)' }}
           >
             <img
               src={p.img}
@@ -429,14 +601,15 @@ function ProductionsCarousel() {
             />
             <div
               className="absolute inset-0 transition-all duration-300"
-              style={{ background: 'linear-gradient(to top, rgba(0,0,64,0.92) 0%, rgba(0,0,64,0.2) 60%, transparent 100%)' }}
+              style={{ background: 'linear-gradient(to top, var(--gep-card-overlay) 0%, rgba(0,0,64,0.2) 60%, transparent 100%)' }}
             />
             {/* Gold top accent on hover */}
             <div
-              className="absolute top-0 left-0 right-0 h-0.5 bg-[#FFC52F] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              className="absolute top-0 left-0 right-0 h-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              style={{ background: 'var(--gep-accent)' }}
             />
             <div className="absolute bottom-0 left-0 right-0 p-5">
-              <p className="text-[#FFC52F] text-[10px] tracking-widest uppercase mb-1" style={{ fontFamily: 'Inter, sans-serif' }}>{p.type}</p>
+              <p className="text-[10px] tracking-widest uppercase mb-1" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-accent)' }}>{p.type}</p>
               <h3
                 className="text-white uppercase leading-tight"
                 style={{ fontFamily: 'Barlow Condensed, sans-serif', fontWeight: 700, fontSize: '1.5rem', letterSpacing: '0.02em' }}
@@ -457,7 +630,7 @@ function WhyGEP() {
   return (
     <section
       className="relative py-28 overflow-hidden"
-      style={{ background: '#000040' }}
+      style={{ background: 'var(--gep-bg-alt)' }}
     >
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-16 items-center">
         <div>
@@ -476,8 +649,8 @@ function WhyGEP() {
           </p>
           <a
             href="#contact"
-            className="inline-flex items-center gap-3 text-[#FFC52F] text-xs tracking-widest uppercase font-semibold hover:gap-5 transition-all duration-200"
-            style={{ fontFamily: 'Inter, sans-serif' }}
+            className="inline-flex items-center gap-3 text-xs tracking-widest uppercase font-semibold hover:gap-5 transition-all duration-200"
+            style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-accent)' }}
           >
             Start a Conversation <span className="text-lg leading-none">→</span>
           </a>
@@ -490,10 +663,10 @@ function WhyGEP() {
             { n: '50+', l: 'Active Crew Members' },
             { n: '100%', l: 'Client Retention Rate' },
           ].map((s) => (
-            <div key={s.l} className="bg-[#000040] p-10 flex flex-col justify-end">
+            <div key={s.l} className="p-10 flex flex-col justify-end" style={{ background: 'var(--gep-bg-alt)' }}>
               <div
-                className="text-[#FFC52F] uppercase leading-none mb-2"
-                style={{ fontFamily: 'Barlow Condensed, sans-serif', fontWeight: 900, fontSize: '3.5rem' }}
+                className="uppercase leading-none mb-2"
+                style={{ fontFamily: 'Barlow Condensed, sans-serif', fontWeight: 900, fontSize: '3.5rem', color: 'var(--gep-accent)' }}
               >
                 {s.n}
               </div>
@@ -508,7 +681,7 @@ function WhyGEP() {
 
 function ServicesGrid() {
   return (
-    <section id="services" className="py-24 bg-[#000032]">
+    <section id="services" className="py-24" style={{ background: 'var(--gep-bg)' }}>
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
         <GoldRule />
         <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-14 gap-4">
@@ -519,7 +692,7 @@ function ServicesGrid() {
             What We Do
           </h2>
           <p className="text-white/40 text-sm max-w-xs" style={{ fontFamily: 'Inter, sans-serif' }}>
-            Hover a card to learn more. Eight disciplines, one point of contact.
+            Hover a card to learn more. Full-spectrum production services, one point of contact.
           </p>
         </div>
 
@@ -533,7 +706,7 @@ function ServicesGrid() {
               <div className="flip-card-inner">
 
                 {/* Front */}
-                <div className="flip-card-front overflow-hidden bg-[#00003e]">
+                <div className="flip-card-front overflow-hidden" style={{ background: 'var(--gep-card)' }}>
                   <img
                     src={svc.img}
                     alt={svc.title}
@@ -542,7 +715,7 @@ function ServicesGrid() {
                   />
                   <div
                     className="flex items-center justify-center px-4"
-                    style={{ height: '25%', background: '#00003e' }}
+                    style={{ height: '25%', background: 'var(--gep-card)' }}
                   >
                     <h3
                       className="text-white uppercase text-center leading-tight"
@@ -556,23 +729,23 @@ function ServicesGrid() {
                 {/* Back */}
                 <div
                   className="flip-card-back flex flex-col items-center justify-center p-8 text-center"
-                  style={{ background: '#FFC52F' }}
+                  style={{ background: 'var(--gep-accent)' }}
                 >
                   <div
                     className="text-3xl mb-5"
-                    style={{ color: '#000032' }}
+                    style={{ color: 'var(--gep-accent-text)' }}
                   >
                     {svc.icon}
                   </div>
                   <h3
                     className="uppercase mb-4 leading-tight"
-                    style={{ fontFamily: 'Barlow Condensed, sans-serif', fontWeight: 800, fontSize: '1.15rem', letterSpacing: '0.06em', color: '#000032' }}
+                    style={{ fontFamily: 'Barlow Condensed, sans-serif', fontWeight: 800, fontSize: '1.15rem', letterSpacing: '0.06em', color: 'var(--gep-accent-text)' }}
                   >
                     {svc.title}
                   </h3>
                   <p
                     className="text-sm leading-relaxed"
-                    style={{ fontFamily: 'Inter, sans-serif', color: 'rgba(0,0,50,0.8)' }}
+                    style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-accent-text)', opacity: 0.85 }}
                   >
                     {svc.desc}
                   </p>
@@ -587,9 +760,150 @@ function ServicesGrid() {
   )
 }
 
-function StorageSection() {
+function StorageInquiryModal({ onClose }: { onClose: () => void }) {
+  const [submitted, setSubmitted] = useState(false)
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    company: '',
+    phone: '',
+    message: '',
+  })
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault()
+    setSubmitted(true)
+  }
+
+  const inputClass =
+    'w-full px-4 py-3 text-sm bg-white/05 border border-white/10 text-white placeholder:text-white/30 focus:outline-none focus:border-[color:var(--gep-accent)] transition-colors'
+
   return (
-    <section id="storage" className="py-24 bg-[#000040]">
+    <div
+      className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+      style={{ background: 'rgba(0,0,0,0.75)', backdropFilter: 'blur(4px)' }}
+      onClick={onClose}
+    >
+      <div
+        className="relative w-full max-w-lg p-8 lg:p-10 border border-white/10"
+        style={{ background: 'var(--gep-card)' }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 text-white/40 hover:text-white text-xl leading-none transition-colors"
+          aria-label="Close"
+        >
+          ×
+        </button>
+
+        {submitted ? (
+          <div className="text-center py-6">
+            <div
+              className="w-12 h-12 mx-auto mb-5 flex items-center justify-center text-2xl"
+              style={{ background: 'var(--gep-accent)', color: 'var(--gep-accent-text)' }}
+            >
+              ✓
+            </div>
+            <h3
+              className="text-white uppercase mb-3"
+              style={{ fontFamily: 'Barlow Condensed, sans-serif', fontWeight: 800, fontSize: '1.75rem' }}
+            >
+              Inquiry Received
+            </h3>
+            <p className="text-white/55 text-sm leading-relaxed mb-8" style={{ fontFamily: 'Inter, sans-serif' }}>
+              Thank you for your interest in GEP tour storage. Our team will review your request and respond within one business day.
+            </p>
+            <button
+              onClick={onClose}
+              className="px-8 py-3 text-xs tracking-widest uppercase font-semibold"
+              style={{ background: 'var(--gep-accent)', color: 'var(--gep-accent-text)', fontFamily: 'Inter, sans-serif' }}
+            >
+              Close
+            </button>
+          </div>
+        ) : (
+          <>
+            <GoldRule />
+            <h3
+              className="text-white uppercase mb-2"
+              style={{ fontFamily: 'Barlow Condensed, sans-serif', fontWeight: 800, fontSize: '1.75rem' }}
+            >
+              Storage Inquiry
+            </h3>
+            <p className="text-white/45 text-sm mb-8" style={{ fontFamily: 'Inter, sans-serif' }}>
+              Tell us about your storage needs and we will follow up with availability and pricing.
+            </p>
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <input
+                  required
+                  type="text"
+                  placeholder="Full Name *"
+                  value={form.name}
+                  onChange={(e) => setForm({ ...form, name: e.target.value })}
+                  className={inputClass}
+                  style={{ fontFamily: 'Inter, sans-serif' }}
+                />
+                <input
+                  required
+                  type="email"
+                  placeholder="Email *"
+                  value={form.email}
+                  onChange={(e) => setForm({ ...form, email: e.target.value })}
+                  className={inputClass}
+                  style={{ fontFamily: 'Inter, sans-serif' }}
+                />
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <input
+                  type="text"
+                  placeholder="Company / Tour"
+                  value={form.company}
+                  onChange={(e) => setForm({ ...form, company: e.target.value })}
+                  className={inputClass}
+                  style={{ fontFamily: 'Inter, sans-serif' }}
+                />
+                <input
+                  type="tel"
+                  placeholder="Phone"
+                  value={form.phone}
+                  onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                  className={inputClass}
+                  style={{ fontFamily: 'Inter, sans-serif' }}
+                />
+              </div>
+              <textarea
+                required
+                rows={4}
+                placeholder="Describe your storage needs — gear type, duration, estimated volume... *"
+                value={form.message}
+                onChange={(e) => setForm({ ...form, message: e.target.value })}
+                className={`${inputClass} resize-none`}
+                style={{ fontFamily: 'Inter, sans-serif' }}
+              />
+              <button
+                type="submit"
+                className="mt-2 px-8 py-4 text-xs tracking-widest uppercase font-semibold transition-opacity hover:opacity-90"
+                style={{ background: 'var(--gep-accent)', color: 'var(--gep-accent-text)', fontFamily: 'Inter, sans-serif' }}
+              >
+                Submit Inquiry
+              </button>
+            </form>
+          </>
+        )}
+      </div>
+    </div>
+  )
+}
+
+function StorageSection() {
+  const [showForm, setShowForm] = useState(false)
+
+  return (
+    <>
+      {showForm && <StorageInquiryModal onClose={() => setShowForm(false)} />}
+      <section id="storage" className="py-24" style={{ background: 'var(--gep-bg-alt)' }}>
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
         <GoldRule />
         <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-14 gap-4">
@@ -606,7 +920,7 @@ function StorageSection() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
           {STORAGE_FEATURES.map((f) => (
-            <div key={f.title} className="relative group overflow-hidden bg-[#00003e]" style={{ height: 380 }}>
+            <div key={f.title} className="relative group overflow-hidden" style={{ height: 380, background: 'var(--gep-card)' }}>
               <img
                 src={f.img}
                 alt={f.title}
@@ -617,7 +931,8 @@ function StorageSection() {
                 style={{ background: 'linear-gradient(to top, rgba(0,0,64,0.95) 0%, rgba(0,0,64,0.5) 55%, rgba(0,0,64,0.25) 100%)' }}
               />
               <div
-                className="absolute top-0 left-0 right-0 h-0.5 bg-[#FFC52F] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                className="absolute top-0 left-0 right-0 h-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              style={{ background: 'var(--gep-accent)' }}
               />
               <div className="absolute bottom-0 left-0 right-0 p-7">
                 <h3
@@ -633,22 +948,36 @@ function StorageSection() {
         </div>
 
         <div className="mt-8 text-center">
-          <a
-            href="#contact"
-            className="inline-block px-8 py-4 text-xs tracking-widest uppercase font-semibold border border-[#FFC52F] text-[#FFC52F] hover:bg-[#FFC52F] hover:text-[#000032] transition-all duration-200"
-            style={{ fontFamily: 'Inter, sans-serif' }}
+          <button
+            type="button"
+            onClick={() => setShowForm(true)}
+            className="inline-block px-8 py-4 text-xs tracking-widest uppercase font-semibold border transition-all duration-200 hover:opacity-90 cursor-pointer"
+            style={{
+              fontFamily: 'Inter, sans-serif',
+              borderColor: 'var(--gep-accent)',
+              color: 'var(--gep-accent)',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'var(--gep-accent)'
+              e.currentTarget.style.color = 'var(--gep-accent-text)'
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'transparent'
+              e.currentTarget.style.color = 'var(--gep-accent)'
+            }}
           >
             Inquire About Storage
-          </a>
+          </button>
         </div>
       </div>
     </section>
+    </>
   )
 }
 
 function ClientLogoWall() {
   return (
-    <section className="py-20 bg-[#000032] border-t border-b border-white/05">
+    <section className="py-20 border-t border-b border-white/05" style={{ background: 'var(--gep-bg)' }}>
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
         <p
           className="text-white/30 text-xs tracking-[0.3em] uppercase text-center mb-12"
@@ -660,8 +989,10 @@ function ClientLogoWall() {
           {CLIENTS.map((client) => (
             <div
               key={client.name}
-              className="bg-[#000032] flex items-center justify-center py-8 px-8 group hover:bg-[#00003e] transition-colors duration-200"
-              style={{ minHeight: 96 }}
+              className="flex items-center justify-center py-8 px-8 group transition-colors duration-200"
+              style={{ minHeight: 96, background: 'var(--gep-bg)' }}
+              onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--gep-card)' }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = 'var(--gep-bg)' }}
             >
               <img
                 src={`https://logo.clearbit.com/${client.domain}`}
@@ -693,7 +1024,7 @@ function ProductionStaffing() {
   return (
     <section
       className="relative py-28 overflow-hidden"
-      style={{ background: '#000032' }}
+      style={{ background: 'var(--gep-bg)' }}
     >
       {/* Background image */}
       <img
@@ -702,8 +1033,8 @@ function ProductionStaffing() {
         aria-hidden="true"
         className="absolute inset-0 w-full h-full object-cover"
       />
-      {/* Blue overlay at reduced opacity */}
-      <div className="absolute inset-0" style={{ background: 'rgba(0,0,50,0.75)' }} />
+      {/* Overlay */}
+      <div className="absolute inset-0" style={{ background: 'var(--gep-staffing-overlay)' }} />
 
       <div className="relative max-w-[1400px] mx-auto px-6 lg:px-10">
         <GoldRule />
@@ -719,11 +1050,11 @@ function ProductionStaffing() {
               We provide experienced, vetted production personnel across every discipline — ready to deploy nationwide on short notice.
             </p>
             <a
-              href="mailto:staffing@gepnetwork.com"
-              className="inline-flex items-center gap-2 text-[#FFC52F] text-xs tracking-widest uppercase font-semibold hover:gap-4 transition-all duration-200"
-              style={{ fontFamily: 'Inter, sans-serif' }}
+              href="#contact"
+              className="inline-flex items-center gap-2 text-xs tracking-widest uppercase font-semibold hover:gap-4 transition-all duration-200"
+              style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-accent)' }}
             >
-              staffing@gepnetwork.com
+              Request Staffing <span className="text-lg leading-none">→</span>
             </a>
           </div>
 
@@ -734,7 +1065,7 @@ function ProductionStaffing() {
                 className="flex items-center gap-4 px-6 py-4 border-b border-r border-white/07 hover:bg-white/03 transition-colors duration-200 group"
                 style={{ borderRight: i % 2 === 0 ? '1px solid rgba(255,255,255,0.07)' : 'none' }}
               >
-                <span className="w-1 h-1 rounded-full bg-[#FFC52F] flex-shrink-0 group-hover:w-2 transition-all duration-200" />
+                <span className="w-1 h-1 rounded-full flex-shrink-0 group-hover:w-2 transition-all duration-200" style={{ background: 'var(--gep-accent)' }} />
                 <span
                   className="text-white/70 group-hover:text-white text-sm transition-colors duration-200"
                   style={{ fontFamily: 'Inter, sans-serif' }}
@@ -752,9 +1083,18 @@ function ProductionStaffing() {
 
 function Testimonials() {
   const [active, setActive] = useState(0)
+  const [paused, setPaused] = useState(false)
+
+  useEffect(() => {
+    if (paused) return
+    const timer = setInterval(() => {
+      setActive((prev) => (prev + 1) % TESTIMONIALS.length)
+    }, 5000)
+    return () => clearInterval(timer)
+  }, [paused])
 
   return (
-    <section className="py-24 bg-[#000040]">
+    <section className="py-24" style={{ background: 'var(--gep-bg-alt)' }}>
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
         <GoldRule />
         <h2
@@ -764,16 +1104,20 @@ function Testimonials() {
           What They're Saying
         </h2>
 
-        <div className="relative">
+        <div
+          className="relative"
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+        >
           {/* Quote card */}
-          <div className="border border-white/07 p-10 lg:p-14 relative" style={{ background: '#00003e' }}>
+          <div className="border border-white/07 p-10 lg:p-14 relative overflow-hidden" style={{ background: 'var(--gep-card)' }}>
             <div
-              className="text-[#FFC52F] absolute top-10 left-10 leading-none select-none"
-              style={{ fontFamily: 'Barlow Condensed, sans-serif', fontSize: '6rem', opacity: 0.15, lineHeight: 0.7 }}
+              className="absolute top-10 left-10 leading-none select-none"
+              style={{ fontFamily: 'Barlow Condensed, sans-serif', fontSize: '6rem', opacity: 0.15, lineHeight: 0.7, color: 'var(--gep-accent)' }}
             >
               "
             </div>
-            <blockquote className="relative z-10">
+            <blockquote key={active} className="relative z-10 animate-fade-up">
               <p
                 className="text-white text-lg lg:text-2xl leading-relaxed mb-8 max-w-3xl"
                 style={{ fontFamily: 'Inter, sans-serif', fontWeight: 300 }}
@@ -781,7 +1125,7 @@ function Testimonials() {
                 "{TESTIMONIALS[active].quote}"
               </p>
               <div className="flex items-center gap-4">
-                <div className="w-8 h-px bg-[#FFC52F]" />
+                <div className="w-8 h-px" style={{ background: 'var(--gep-accent)' }} />
                 <div>
                   <p className="text-white text-sm font-semibold" style={{ fontFamily: 'Inter, sans-serif' }}>{TESTIMONIALS[active].author}</p>
                   <p className="text-white/40 text-xs" style={{ fontFamily: 'Inter, sans-serif' }}>{TESTIMONIALS[active].title}</p>
@@ -800,7 +1144,7 @@ function Testimonials() {
                 style={{
                   width: i === active ? 24 : 8,
                   height: 3,
-                  background: i === active ? '#FFC52F' : 'rgba(255,255,255,0.2)',
+                  background: i === active ? 'var(--gep-accent)' : 'rgba(255,255,255,0.2)',
                 }}
                 aria-label={`Testimonial ${i + 1}`}
               />
@@ -812,33 +1156,34 @@ function Testimonials() {
   )
 }
 
-function CareersTeaser() {
+function ClientCTA() {
   return (
     <section
-      className="relative py-24 overflow-hidden bg-[#FFC52F]"
+      className="relative py-24 overflow-hidden"
+      style={{ background: 'var(--gep-accent)' }}
     >
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10 flex flex-col lg:flex-row items-center justify-between gap-8">
         <div>
-          <p className="text-black/50 text-xs tracking-[0.3em] uppercase mb-3" style={{ fontFamily: 'Inter, sans-serif' }}>
-            Join the Crew
+          <p className="text-xs tracking-[0.3em] uppercase mb-3" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-accent-text)', opacity: 0.55 }}>
+            Partner With GEP
           </p>
           <h2
-            className="text-[#000032] uppercase leading-tight"
-            style={{ fontFamily: 'Barlow Condensed, sans-serif', fontWeight: 900, fontSize: 'clamp(2.5rem, 5vw, 4rem)', letterSpacing: '0.02em' }}
+            className="uppercase leading-tight"
+            style={{ fontFamily: 'Barlow Condensed, sans-serif', fontWeight: 900, fontSize: 'clamp(2.5rem, 5vw, 4rem)', letterSpacing: '0.02em', color: 'var(--gep-accent-text)' }}
           >
-            Careers at GEP Network
+            Ready to Produce<br />Your Next Event?
           </h2>
         </div>
         <div className="flex flex-col sm:flex-row gap-4 items-center">
-          <p className="text-black/60 text-sm max-w-xs text-center sm:text-right" style={{ fontFamily: 'Inter, sans-serif' }}>
-            We're always looking for experienced production professionals ready to work at the highest level.
+          <p className="text-sm max-w-xs text-center sm:text-right" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-accent-text)', opacity: 0.65 }}>
+            From arena tours to festival seasons — let's build something unforgettable together.
           </p>
           <a
-            href="mailto:careers@gepnetwork.com"
-            className="flex-shrink-0 px-8 py-4 text-xs tracking-widest uppercase font-semibold bg-[#000032] text-white hover:bg-[#0a0042] transition-colors duration-200"
-            style={{ fontFamily: 'Inter, sans-serif' }}
+            href="#contact"
+            className="flex-shrink-0 px-8 py-4 text-xs tracking-widest uppercase font-semibold transition-opacity hover:opacity-90"
+            style={{ fontFamily: 'Inter, sans-serif', background: 'var(--gep-accent-text)', color: 'var(--gep-accent)' }}
           >
-            Apply Now
+            Request a Quote
           </a>
         </div>
       </div>
@@ -848,7 +1193,7 @@ function CareersTeaser() {
 
 function Footer() {
   return (
-    <footer id="contact" className="bg-[#00002a] pt-20 pb-10 border-t border-white/05">
+    <footer id="contact" className="pt-20 pb-10 border-t border-white/05" style={{ background: 'var(--gep-footer)' }}>
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Brand */}
@@ -856,7 +1201,7 @@ function Footer() {
             <img
               src={GEP_LOGO}
               alt="GEP Network"
-              className="h-10 w-auto object-contain mb-4"
+              className="h-14 w-auto object-contain mb-4"
             />
             <p className="text-white/35 text-sm leading-relaxed mb-6" style={{ fontFamily: 'Inter, sans-serif' }}>
               Full-service live event production. 40+ years of experience. Nationwide reach.
@@ -873,7 +1218,7 @@ function Footer() {
                   href={s.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-white/30 hover:text-[#FFC52F] text-xs tracking-widest uppercase transition-colors duration-200"
+                  className="text-white/30 hover:text-[color:var(--gep-accent)] text-xs tracking-widest uppercase transition-colors duration-200"
                   style={{ fontFamily: 'Inter, sans-serif' }}
                 >
                   {s.name}
@@ -900,26 +1245,14 @@ function Footer() {
             <div className="flex flex-col gap-4">
               <div>
                 <p className="text-white/25 text-[10px] uppercase tracking-wider mb-1" style={{ fontFamily: 'Inter, sans-serif' }}>General</p>
-                <a href="mailto:info@gepnetwork.com" className="text-white/60 hover:text-white text-sm transition-colors" style={{ fontFamily: 'Inter, sans-serif' }}>
-                  info@gepnetwork.com
+                <a href="mailto:admin@gepnetwork.com" className="text-white/60 hover:text-white text-sm transition-colors" style={{ fontFamily: 'Inter, sans-serif' }}>
+                  admin@gepnetwork.com
                 </a>
               </div>
               <div>
                 <p className="text-white/25 text-[10px] uppercase tracking-wider mb-1" style={{ fontFamily: 'Inter, sans-serif' }}>Bookings</p>
                 <a href="mailto:bookings@gepnetwork.com" className="text-white/60 hover:text-white text-sm transition-colors" style={{ fontFamily: 'Inter, sans-serif' }}>
                   bookings@gepnetwork.com
-                </a>
-              </div>
-              <div>
-                <p className="text-white/25 text-[10px] uppercase tracking-wider mb-1" style={{ fontFamily: 'Inter, sans-serif' }}>Staffing</p>
-                <a href="mailto:staffing@gepnetwork.com" className="text-white/60 hover:text-white text-sm transition-colors" style={{ fontFamily: 'Inter, sans-serif' }}>
-                  staffing@gepnetwork.com
-                </a>
-              </div>
-              <div>
-                <p className="text-white/25 text-[10px] uppercase tracking-wider mb-1" style={{ fontFamily: 'Inter, sans-serif' }}>Careers</p>
-                <a href="mailto:careers@gepnetwork.com" className="text-white/60 hover:text-white text-sm transition-colors" style={{ fontFamily: 'Inter, sans-serif' }}>
-                  careers@gepnetwork.com
                 </a>
               </div>
             </div>
@@ -955,9 +1288,14 @@ function Footer() {
 // ─── App ─────────────────────────────────────────────────────────────────────
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [colorScheme, setColorScheme] = useState('classic')
+  const scheme = COLOR_SCHEMES.find((s) => s.id === colorScheme) ?? COLOR_SCHEMES[0]
 
   return (
-    <div className="min-h-screen bg-[#000032] text-white overflow-x-hidden">
+    <div
+      className="min-h-screen text-white overflow-x-hidden"
+      style={{ ...scheme.vars, background: 'var(--gep-bg)' } as CSSProperties}
+    >
       <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
       <Hero />
       <StatsBar />
@@ -968,8 +1306,9 @@ export default function App() {
       <ClientLogoWall />
       <ProductionStaffing />
       <Testimonials />
-      <CareersTeaser />
+      <ClientCTA />
       <Footer />
+      <ColorSchemePicker value={colorScheme} onChange={setColorScheme} />
     </div>
   )
 }
