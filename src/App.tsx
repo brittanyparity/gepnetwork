@@ -353,7 +353,7 @@ function Header({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: (v:
           <img
             src={GEP_LOGO}
             alt="GEP Network"
-            className="h-16 lg:h-[4.75rem] w-auto object-contain"
+            className="h-12 w-auto object-contain"
           />
         </a>
 
@@ -1201,7 +1201,7 @@ function Footer() {
             <img
               src={GEP_LOGO}
               alt="GEP Network"
-              className="h-14 w-auto object-contain mb-4"
+              className="h-12 w-auto object-contain mb-4"
             />
             <p className="text-white/35 text-sm leading-relaxed mb-6" style={{ fontFamily: 'Inter, sans-serif' }}>
               Full-service live event production. 40+ years of experience. Nationwide reach.
