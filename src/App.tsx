@@ -412,13 +412,13 @@ function Header({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: (v:
           <nav className="flex flex-col px-6 py-6 gap-4">
             {NAV_LINKS.map((link) => (
               <a
-                key={link}
-                href="#"
+                key={link.label}
+                href={link.href}
                 className="text-white/70 hover:text-white text-sm tracking-widest uppercase transition-colors"
                 onClick={() => setMenuOpen(false)}
                 style={{ fontFamily: 'Inter, sans-serif' }}
               >
-                {link}
+                {link.label}
               </a>
             ))}
             <a
@@ -1227,8 +1227,8 @@ function Footer() {
             <p className="text-white/20 text-[10px] tracking-[0.3em] uppercase mb-5" style={{ fontFamily: 'Inter, sans-serif' }}>Navigate</p>
             <nav className="flex flex-col gap-3">
               {NAV_LINKS.map((link) => (
-                <a key={link} href="#" className="text-white/50 hover:text-white text-sm transition-colors duration-200" style={{ fontFamily: 'Inter, sans-serif' }}>
-                  {link}
+                <a key={link.label} href={link.href} className="text-white/50 hover:text-white text-sm transition-colors duration-200" style={{ fontFamily: 'Inter, sans-serif' }}>
+                  {link.label}
                 </a>
               ))}
             </nav>
