@@ -1191,7 +1191,7 @@ function Footer() {
               className="h-12 w-auto object-contain mb-4"
             />
             <p className="text-white/35 text-sm leading-relaxed mb-6" style={{ fontFamily: 'Inter, sans-serif' }}>
-              Full-service live event production. 40+ years of experience. Nationwide reach.
+              Full-service live event production. 40+ years of experience. Global reach.
             </p>
             {/* Social */}
             <div className="flex gap-4">
