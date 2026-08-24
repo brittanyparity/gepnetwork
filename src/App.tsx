@@ -131,7 +131,7 @@ const PRODUCTIONS = [
   { name: 'Playboi Carti - Antagonist Tour', img: CONCERT4, type: 'Tour' },
   { name: 'Don Toliver - Nitrous Tour', img: CONCERT5, type: 'Tour' },
   { name: 'Mary J. Blige - The For My Fans Tour', img: CONCERT1, type: 'Tour' },
-  { name: 'Jill Scott - To Whom This May Concern', img: CONCERT2, type: 'Tour' },
+  { name: 'Jill Scott - To Whom This May Concern Tour', img: CONCERT2, type: 'Tour' },
   { name: 'Kendrick Lamar - GNX Tour', img: CONCERT3, type: 'Tour' },
   { name: 'Nicki Minaj - Pink Friday 2 World Tour', img: CONCERT4, type: 'Tour' },
 ]
