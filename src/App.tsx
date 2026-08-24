@@ -125,15 +125,15 @@ const STATS = [
 ]
 
 const PRODUCTIONS = [
-  { name: 'Roots Picnic', img: CONCERT1, type: 'Festival' },
-  { name: 'Rolling Loud', img: CONCERT2, type: 'Festival' },
-  { name: 'J. Cole', img: CONCERT3, type: 'Concert Tour' },
-  { name: 'Playboi Carti', img: CONCERT4, type: 'Concert Tour' },
-  { name: 'Don Toliver', img: CONCERT5, type: 'Concert Tour' },
-  { name: 'Mary J. Blige', img: CONCERT1, type: 'Concert Tour' },
-  { name: 'Jill Scott', img: CONCERT2, type: 'Concert Tour' },
-  { name: 'Kendrick Lamar', img: CONCERT3, type: 'Concert Tour' },
-  { name: 'Nicki Minaj', img: CONCERT4, type: 'Concert Tour' },
+  { name: 'Roots Picnic 2026', img: CONCERT1, type: 'Festival' },
+  { name: 'Rolling Loud 2026', img: CONCERT2, type: 'Festival' },
+  { name: 'J. Cole - The Fall Off Tour', img: CONCERT3, type: 'Tour' },
+  { name: 'Playboi Carti - Antagonist Tour', img: CONCERT4, type: 'Tour' },
+  { name: 'Don Toliver - Nitrous Tour', img: CONCERT5, type: 'Tour' },
+  { name: 'Mary J. Blige - The For My Fans Tour', img: CONCERT1, type: 'Tour' },
+  { name: 'Jill Scott - To Whom This May Concern', img: CONCERT2, type: 'Tour' },
+  { name: 'Kendrick Lamar - GNX Tour', img: CONCERT3, type: 'Tour' },
+  { name: 'Nicki Minaj - Pink Friday 2 World Tour', img: CONCERT4, type: 'Tour' },
 ]
 
 const SERVICES = [
