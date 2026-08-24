@@ -1076,7 +1076,7 @@ function Testimonials() {
     if (paused) return
     const timer = setInterval(() => {
       setActive((prev) => (prev + 1) % TESTIMONIALS.length)
-    }, 3000)
+    }, 2000)
     return () => clearInterval(timer)
   }, [paused])
 
