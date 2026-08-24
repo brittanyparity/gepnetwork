@@ -115,7 +115,14 @@ const WAREHOUSE3 = 'https://images.unsplash.com/photo-1771531072574-af6ed6b954c0
 const STAGE_BG = 'https://images.unsplash.com/photo-1558620013-a08999547a36?w=1920&h=900&fit=crop&auto=format'
 
 // ─── Data ───────────────────────────────────────────────────────────────────
-const NAV_LINKS = ['Home', 'About Us', 'Services', 'Storage', 'Events', 'Contact Us']
+const NAV_LINKS = [
+  {label: 'Home', href: '#'}, 
+  {label: 'About Us', href: '#about'}, 
+  {label: 'Services', href: '#services'}, 
+  {label: 'Storage', href: '#storage'}, 
+  {label: 'Events', href: '#events'}, 
+  {label: 'Contact Us', href: '#contact'}, 
+]
 
 const STATS = [
   { value: '40+', label: 'Years Experience' },
@@ -361,12 +368,12 @@ function Header({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: (v:
         <nav className="hidden lg:flex items-center gap-8">
           {NAV_LINKS.map((link) => (
             <a
-              key={link}
-              href="#"
+              key={link.label}
+              href={link.href}
               className="text-white/60 hover:text-white text-xs tracking-widest uppercase transition-colors duration-200"
               style={{ fontFamily: 'Inter, sans-serif' }}
             >
-              {link}
+              {link.label}
             </a>
           ))}
         </nav>
@@ -536,7 +543,7 @@ function ProductionsCarousel() {
   }
 
   return (
-    <section className="py-24 overflow-hidden" style={{ background: 'var(--gep-bg)' }}>
+    <section id="events" className="py-24 overflow-hidden" style={{ background: 'var(--gep-bg)' }}>
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10 mb-10">
         <GoldRule />
         <div className="flex items-end justify-between">
@@ -616,7 +623,8 @@ function ProductionsCarousel() {
 function WhyGEP() {
   return (
     <section
-      className="relative py-28 overflow-hidden"
+    id="about"  
+    className="relative py-28 overflow-hidden"
       style={{ background: 'var(--gep-bg-alt)' }}
     >
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-16 items-center">
