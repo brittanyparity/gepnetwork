@@ -371,17 +371,11 @@ function Header({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: (v:
           ))}
         </nav>
 
-        {/* Right: phone + CTA */}
+        {/* Right: phone */}
         <div className="hidden lg:flex items-center gap-6">
+          
           <a
             href="tel:8774376381"
-            className="text-white/50 hover:text-white/80 text-xs tracking-wide transition-colors"
-            style={{ fontFamily: 'Inter, sans-serif' }}
-          >
-            877-437-6381
-          </a>
-          <a
-            href="#contact"
             className="px-5 py-2.5 text-xs tracking-widest uppercase font-semibold transition-all duration-200 hover:opacity-90"
             style={{
               fontFamily: 'Inter, sans-serif',
@@ -389,7 +383,7 @@ function Header({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: (v:
               color: 'var(--gep-accent-text)',
             }}
           >
-            Request a Quote
+            877-437-6381
           </a>
         </div>
 
@@ -421,12 +415,12 @@ function Header({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: (v:
               </a>
             ))}
             <a
-              href="#contact"
+              href="tel:8774376381"
               className="mt-2 px-5 py-3 text-xs tracking-widest uppercase font-semibold text-center"
               style={{ background: 'var(--gep-accent)', color: 'var(--gep-accent-text)', fontFamily: 'Inter, sans-serif' }}
               onClick={() => setMenuOpen(false)}
             >
-              Request a Quote
+              877-437-6381
             </a>
           </nav>
         </div>
@@ -479,13 +473,6 @@ function Hero() {
           GEP Network executes concerts, tours, festivals, and corporate events at the highest level — backed by 40+ years of industry expertise.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <a
-            href="#contact"
-            className="px-8 py-4 text-xs tracking-widest uppercase font-semibold transition-all duration-200 hover:opacity-90"
-            style={{ background: 'var(--gep-accent)', color: 'var(--gep-accent-text)', fontFamily: 'Inter, sans-serif' }}
-          >
-            Request a Quote
-          </a>
           <a
             href="#services"
             className="px-8 py-4 text-xs tracking-widest uppercase font-semibold border transition-all duration-200 hover:border-white/50 hover:text-white"
@@ -1179,11 +1166,11 @@ function ClientCTA() {
             From arena tours to festival seasons — let's build something unforgettable together.
           </p>
           <a
-            href="#contact"
+            href="tel:8774376381"
             className="flex-shrink-0 px-8 py-4 text-xs tracking-widest uppercase font-semibold transition-opacity hover:opacity-90"
             style={{ fontFamily: 'Inter, sans-serif', background: 'var(--gep-accent-text)', color: 'var(--gep-accent)' }}
           >
-            Request a Quote
+            877-437-6381
           </a>
         </div>
       </div>
