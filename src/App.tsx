@@ -1001,11 +1001,11 @@ function ProductionStaffing() {
           We provide experienced, vetted production personnel across every discipline — ready to deploy nationwide on short notice.
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-4 max-w-2xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 max-w-md mx-auto">
           {STAFFING_ROLES.map((role) => (
             <div
               key={role}
-              className="flex items-center justify-center sm:justify-start gap-3 px-4 py-2 hover:bg-white/03 transition-colors duration-200 group"
+              className="flex items-center justify-center sm:justify-start gap-3 px-2 py-2 hover:bg-white/03 transition-colors duration-200 group"
             >
               <span className="w-1 h-1 rounded-full flex-shrink-0 group-hover:w-2 transition-all duration-200" style={{ background: 'var(--gep-accent)' }} />
               <span
@@ -1016,15 +1016,16 @@ function ProductionStaffing() {
               </span>
             </div>
           ))}
+          <div className="flex items-center justify-center sm:justify-end px-2 py-2">
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-2 text-xs tracking-widest uppercase font-semibold hover:gap-4 transition-all duration-200"
+              style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-accent)' }}
+            >
+              Learn More <span className="text-lg leading-none">→</span>
+            </a>
+          </div>
         </div>
-
-        <a
-          href="#contact"
-          className="inline-flex items-center gap-2 mt-10 text-xs tracking-widest uppercase font-semibold hover:gap-4 transition-all duration-200"
-          style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-accent)' }}
-        >
-          Learn More <span className="text-lg leading-none">→</span>
-        </a>
       </div>
     </section>
   )
