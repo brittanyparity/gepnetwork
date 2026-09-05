@@ -986,18 +986,11 @@ function ProductionStaffing() {
         >
           Production Staffing
         </h2>
-        <p className="text-white/50 text-sm leading-relaxed mb-8 max-w-xl mx-auto" style={{ fontFamily: 'Inter, sans-serif' }}>
+        <p className="text-white/50 text-sm leading-relaxed mb-14 max-w-xl mx-auto" style={{ fontFamily: 'Inter, sans-serif' }}>
           We provide experienced, vetted production personnel across every discipline — ready to deploy nationwide on short notice.
         </p>
-        <a
-          href="#contact"
-          className="inline-flex items-center gap-2 text-xs tracking-widest uppercase font-semibold hover:gap-4 transition-all duration-200"
-          style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-accent)' }}
-        >
-          Request Staffing <span className="text-lg leading-none">→</span>
-        </a>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-4 mt-14 max-w-2xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-4 max-w-2xl mx-auto">
           {STAFFING_ROLES.map((role) => (
             <div
               key={role}
@@ -1013,6 +1006,14 @@ function ProductionStaffing() {
             </div>
           ))}
         </div>
+
+        <a
+          href="#contact"
+          className="inline-flex items-center gap-2 mt-10 text-xs tracking-widest uppercase font-semibold hover:gap-4 transition-all duration-200"
+          style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-accent)' }}
+        >
+          Learn More <span className="text-lg leading-none">→</span>
+        </a>
       </div>
     </section>
   )
