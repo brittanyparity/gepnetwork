@@ -17,7 +17,7 @@ const COLOR_SCHEMES: ColorScheme[] = [
       '--gep-bg': '#F5F5F7',
       '--gep-bg-alt': '#FFFFFF',
       '--gep-card': '#FFFFFF',
-      '--gep-footer': '#000032',
+      '--gep-footer': 'linear-gradient(180deg, #000000 0%, #000032 100%)',
       '--gep-accent': '#FFC52F',
       '--gep-accent-text': '#000032',
       '--gep-header-scrolled': 'rgba(0,0,50,0.97)',
@@ -41,7 +41,7 @@ const COLOR_SCHEMES: ColorScheme[] = [
       '--gep-bg': '#000032',
       '--gep-bg-alt': '#000040',
       '--gep-card': '#00003e',
-      '--gep-footer': '#00002a',
+      '--gep-footer': 'linear-gradient(180deg, #000000 0%, #000032 100%)',
       '--gep-accent': '#FFC52F',
       '--gep-accent-text': '#000032',
       '--gep-header-scrolled': 'rgba(0,0,64,0.97)',
@@ -65,9 +65,9 @@ const COLOR_SCHEMES: ColorScheme[] = [
       '--gep-bg': '#FFFFFF',
       '--gep-bg-alt': '#F5F5F7',
       '--gep-card': '#F5F5F7',
-      '--gep-footer': '#111111',
-      '--gep-accent': '#1D1D1F',
-      '--gep-accent-text': '#FFFFFF',
+      '--gep-footer': 'linear-gradient(180deg, #000000 0%, #000032 100%)',
+      '--gep-accent': '#FFC52F',
+      '--gep-accent-text': '#000032',
       '--gep-header-scrolled': 'rgba(0,0,0,0.93)',
       '--gep-overlay-top': 'rgba(0,0,0,0.45)',
       '--gep-overlay-mid': 'rgba(0,0,0,0.38)',
@@ -79,7 +79,7 @@ const COLOR_SCHEMES: ColorScheme[] = [
       '--gep-logo-filter': 'none',
       '--gep-client-logo-filter': 'brightness(0)',
       '--gep-divider': 'rgba(0,0,0,0.08)',
-      '--gep-hero-word': '#C8C8D0',
+      '--gep-hero-word': '#FFC52F',
     },
   },
   {
@@ -89,9 +89,9 @@ const COLOR_SCHEMES: ColorScheme[] = [
       '--gep-bg': '#0f0f12',
       '--gep-bg-alt': '#1a1a1f',
       '--gep-card': '#222228',
-      '--gep-footer': '#080809',
-      '--gep-accent': '#C8C8D0',
-      '--gep-accent-text': '#0f0f12',
+      '--gep-footer': 'linear-gradient(180deg, #000000 0%, #000032 100%)',
+      '--gep-accent': '#FFC52F',
+      '--gep-accent-text': '#000032',
       '--gep-header-scrolled': 'rgba(15,15,18,0.97)',
       '--gep-overlay-top': 'rgba(15,15,18,0.55)',
       '--gep-overlay-mid': 'rgba(15,15,18,0.45)',
@@ -103,7 +103,7 @@ const COLOR_SCHEMES: ColorScheme[] = [
       '--gep-logo-filter': 'none',
       '--gep-client-logo-filter': 'brightness(0) invert(1)',
       '--gep-divider': 'rgba(255,255,255,0.07)',
-      '--gep-hero-word': '#C8C8D0',
+      '--gep-hero-word': '#FFC52F',
     },
   },
 ]
@@ -1131,7 +1131,7 @@ function ClientCTA() {
 
 function Footer() {
   return (
-    <footer id="contact" className="pt-20 pb-10" style={{ borderTop: '1px solid var(--gep-divider)', background: 'var(--gep-footer)' }}>
+    <footer id="contact" className="pt-20 pb-10" style={{ borderTop: '1px solid rgba(255,255,255,0.07)', background: 'var(--gep-footer)' }}>
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Brand */}
@@ -1211,7 +1211,7 @@ function Footer() {
           </div>
         </div>
 
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4" style={{ borderTop: "1px solid var(--gep-divider)" }}>
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4" style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}>
           <p className="text-white/20 text-xs" style={{ fontFamily: 'Inter, sans-serif' }}>
             © {new Date().getFullYear()} GEP Network, Inc. All rights reserved.
           </p>
