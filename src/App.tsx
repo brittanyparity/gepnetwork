@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, type CSSProperties, type FormEvent } from 'react'
+import { useState, useEffect, type CSSProperties, type FormEvent } from 'react'
 
 const GEP_LOGO = '/gep-logo.png'
 const HERO_VIDEO = '/gep-hero-video.mp4'
@@ -26,6 +26,10 @@ const COLOR_SCHEMES: ColorScheme[] = [
       '--gep-overlay-bottom': 'rgba(0,0,64,0.88)',
       '--gep-card-overlay': 'rgba(0,0,64,0.92)',
       '--gep-staffing-overlay': 'rgba(0,0,50,0.75)',
+      '--gep-text': '#ffffff',
+      '--gep-text-muted': 'rgba(255,255,255,0.6)',
+      '--gep-logo-filter': 'none',
+      '--gep-client-logo-filter': 'brightness(0) invert(1)',
     },
   },
   {
@@ -44,6 +48,10 @@ const COLOR_SCHEMES: ColorScheme[] = [
       '--gep-overlay-bottom': 'rgba(0,20,40,0.88)',
       '--gep-card-overlay': 'rgba(0,20,40,0.92)',
       '--gep-staffing-overlay': 'rgba(0,20,40,0.75)',
+      '--gep-text': '#ffffff',
+      '--gep-text-muted': 'rgba(255,255,255,0.6)',
+      '--gep-logo-filter': 'none',
+      '--gep-client-logo-filter': 'brightness(0) invert(1)',
     },
   },
   {
@@ -62,6 +70,10 @@ const COLOR_SCHEMES: ColorScheme[] = [
       '--gep-overlay-bottom': 'rgba(26,0,8,0.88)',
       '--gep-card-overlay': 'rgba(26,0,8,0.92)',
       '--gep-staffing-overlay': 'rgba(26,0,8,0.75)',
+      '--gep-text': '#ffffff',
+      '--gep-text-muted': 'rgba(255,255,255,0.6)',
+      '--gep-logo-filter': 'none',
+      '--gep-client-logo-filter': 'brightness(0) invert(1)',
     },
   },
   {
@@ -80,6 +92,10 @@ const COLOR_SCHEMES: ColorScheme[] = [
       '--gep-overlay-bottom': 'rgba(0,26,15,0.88)',
       '--gep-card-overlay': 'rgba(0,26,15,0.92)',
       '--gep-staffing-overlay': 'rgba(0,26,15,0.75)',
+      '--gep-text': '#ffffff',
+      '--gep-text-muted': 'rgba(255,255,255,0.6)',
+      '--gep-logo-filter': 'none',
+      '--gep-client-logo-filter': 'brightness(0) invert(1)',
     },
   },
   {
@@ -98,6 +114,76 @@ const COLOR_SCHEMES: ColorScheme[] = [
       '--gep-overlay-bottom': 'rgba(15,15,18,0.88)',
       '--gep-card-overlay': 'rgba(15,15,18,0.92)',
       '--gep-staffing-overlay': 'rgba(15,15,18,0.75)',
+      '--gep-text': '#ffffff',
+      '--gep-text-muted': 'rgba(255,255,255,0.6)',
+      '--gep-logo-filter': 'none',
+      '--gep-client-logo-filter': 'brightness(0) invert(1)',
+    },
+  },
+  {
+    id: 'soft-ivory',
+    name: 'Soft Ivory',
+    vars: {
+      '--gep-bg': '#f4f2ec',
+      '--gep-bg-alt': '#ebe8e0',
+      '--gep-card': '#ffffff',
+      '--gep-footer': '#e3e0d8',
+      '--gep-accent': '#B8922A',
+      '--gep-accent-text': '#ffffff',
+      '--gep-header-scrolled': 'rgba(244,242,236,0.97)',
+      '--gep-overlay-top': 'rgba(244,242,236,0.12)',
+      '--gep-overlay-mid': 'rgba(244,242,236,0.08)',
+      '--gep-overlay-bottom': 'rgba(244,242,236,0.28)',
+      '--gep-card-overlay': 'rgba(26,26,50,0.82)',
+      '--gep-staffing-overlay': 'rgba(244,242,236,0.55)',
+      '--gep-text': '#1a1a32',
+      '--gep-text-muted': 'rgba(26,26,50,0.55)',
+      '--gep-logo-filter': 'brightness(0)',
+      '--gep-client-logo-filter': 'brightness(0)',
+    },
+  },
+  {
+    id: 'light-slate',
+    name: 'Light Slate',
+    vars: {
+      '--gep-bg': '#eef1f6',
+      '--gep-bg-alt': '#e2e7ef',
+      '--gep-card': '#f8f9fb',
+      '--gep-footer': '#d8dde6',
+      '--gep-accent': '#2563eb',
+      '--gep-accent-text': '#ffffff',
+      '--gep-header-scrolled': 'rgba(238,241,246,0.97)',
+      '--gep-overlay-top': 'rgba(238,241,246,0.10)',
+      '--gep-overlay-mid': 'rgba(238,241,246,0.06)',
+      '--gep-overlay-bottom': 'rgba(238,241,246,0.25)',
+      '--gep-card-overlay': 'rgba(15,23,42,0.80)',
+      '--gep-staffing-overlay': 'rgba(238,241,246,0.50)',
+      '--gep-text': '#0f172a',
+      '--gep-text-muted': 'rgba(15,23,42,0.55)',
+      '--gep-logo-filter': 'brightness(0)',
+      '--gep-client-logo-filter': 'brightness(0)',
+    },
+  },
+  {
+    id: 'warm-sand',
+    name: 'Warm Sand',
+    vars: {
+      '--gep-bg': '#f7f3ed',
+      '--gep-bg-alt': '#ede6db',
+      '--gep-card': '#fffcf7',
+      '--gep-footer': '#e8e0d4',
+      '--gep-accent': '#c45c26',
+      '--gep-accent-text': '#ffffff',
+      '--gep-header-scrolled': 'rgba(247,243,237,0.97)',
+      '--gep-overlay-top': 'rgba(247,243,237,0.14)',
+      '--gep-overlay-mid': 'rgba(247,243,237,0.09)',
+      '--gep-overlay-bottom': 'rgba(247,243,237,0.30)',
+      '--gep-card-overlay': 'rgba(40,30,20,0.78)',
+      '--gep-staffing-overlay': 'rgba(247,243,237,0.52)',
+      '--gep-text': '#2a2218',
+      '--gep-text-muted': 'rgba(42,34,24,0.55)',
+      '--gep-logo-filter': 'brightness(0)',
+      '--gep-client-logo-filter': 'brightness(0)',
     },
   },
 ]
@@ -124,12 +210,6 @@ const NAV_LINKS = [
   {label: 'Contact Us', href: '#contact'}, 
 ]
 
-const STATS = [
-  { value: '40+', label: 'Years Experience' },
-  { value: '500+', label: 'Productions' },
-  { value: 'International', label: 'Staffing Network' },
-  { value: 'Tours • Festivals', label: 'Corporate Events' },
-]
 
 const PRODUCTIONS = [
   { name: 'Roots Picnic 2026', img: CONCERT1, type: 'Festival' },
@@ -310,7 +390,7 @@ function ColorSchemePicker({ value, onChange }: { value: string; onChange: (id: 
       className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-2"
       style={{ fontFamily: 'Inter, sans-serif' }}
     >
-      <label htmlFor="color-scheme" className="text-[10px] tracking-[0.2em] uppercase text-white/40">
+      <label htmlFor="color-scheme" className="text-[10px] tracking-[0.2em] uppercase" style={{ color: 'var(--gep-text-muted)' }}>
         Color Scheme
       </label>
       <select
@@ -320,8 +400,8 @@ function ColorSchemePicker({ value, onChange }: { value: string; onChange: (id: 
         className="px-4 py-2.5 text-xs tracking-wide border cursor-pointer appearance-none pr-8"
         style={{
           background: 'var(--gep-card)',
-          color: 'white',
-          borderColor: 'rgba(255,255,255,0.15)',
+          color: 'var(--gep-text)',
+          borderColor: 'rgba(128,128,128,0.25)',
           backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='white' fill-opacity='0.5' d='M3 5l3 3 3-3'/%3E%3C/svg%3E")`,
           backgroundRepeat: 'no-repeat',
           backgroundPosition: 'right 12px center',
@@ -354,33 +434,33 @@ function Header({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: (v:
         borderBottom: scrolled ? '1px solid rgba(255,255,255,0.06)' : '1px solid transparent',
       }}
     >
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-10 h-20 flex items-center justify-between">
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-10 h-20 flex items-center">
         {/* Logo */}
         <a href="#" className="flex-shrink-0">
           <img
             src={GEP_LOGO}
             alt="GEP Network"
             className="h-12 w-auto object-contain"
+            style={{ filter: 'var(--gep-logo-filter)' }}
           />
         </a>
 
-        {/* Desktop Nav */}
-        <nav className="hidden lg:flex items-center gap-8">
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className="text-white/60 hover:text-white text-xs tracking-widest uppercase transition-colors duration-200"
-              style={{ fontFamily: 'Inter, sans-serif' }}
-            >
-              {link.label}
-            </a>
-          ))}
-        </nav>
-
-        {/* Right: phone */}
-        <div className="hidden lg:flex items-center gap-6">
-          
+        {/* Desktop Nav + Call — grouped and right-aligned */}
+        <div className="hidden lg:flex items-center gap-8 ml-auto">
+          <nav className="flex items-center gap-8">
+            {NAV_LINKS.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                className="text-xs tracking-widest uppercase transition-colors duration-200 hover:opacity-100"
+                style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-text-muted)' }}
+                onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--gep-text)' }}
+                onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--gep-text-muted)' }}
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
           <a
             href="tel:8774376381"
             className="px-5 py-2.5 text-xs tracking-widest uppercase font-semibold transition-all duration-200 hover:opacity-90"
@@ -396,13 +476,13 @@ function Header({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: (v:
 
         {/* Mobile hamburger */}
         <button
-          className="lg:hidden flex flex-col gap-1.5 p-2"
+          className="lg:hidden flex flex-col gap-1.5 p-2 ml-auto"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
         >
-          <span className={`block w-6 h-px bg-white transition-all duration-200 ${menuOpen ? 'rotate-45 translate-y-2' : ''}`} />
-          <span className={`block w-6 h-px bg-white transition-all duration-200 ${menuOpen ? 'opacity-0' : ''}`} />
-          <span className={`block w-6 h-px bg-white transition-all duration-200 ${menuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+          <span className={`block w-6 h-px transition-all duration-200 ${menuOpen ? 'rotate-45 translate-y-2' : ''}`} style={{ background: 'var(--gep-text)' }} />
+          <span className={`block w-6 h-px transition-all duration-200 ${menuOpen ? 'opacity-0' : ''}`} style={{ background: 'var(--gep-text)' }} />
+          <span className={`block w-6 h-px transition-all duration-200 ${menuOpen ? '-rotate-45 -translate-y-2' : ''}`} style={{ background: 'var(--gep-text)' }} />
         </button>
       </div>
 
@@ -414,9 +494,9 @@ function Header({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: (v:
               <a
                 key={link.label}
                 href={link.href}
-                className="text-white/70 hover:text-white text-sm tracking-widest uppercase transition-colors"
+                className="text-sm tracking-widest uppercase transition-colors"
                 onClick={() => setMenuOpen(false)}
-                style={{ fontFamily: 'Inter, sans-serif' }}
+                style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-text-muted)' }}
               >
                 {link.label}
               </a>
@@ -499,122 +579,63 @@ function Hero() {
   )
 }
 
-function StatsBar() {
-  return (
-    <div className="py-5" style={{ background: 'var(--gep-accent)' }}>
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-0 divide-y lg:divide-y-0 lg:divide-x divide-black/20">
-          {STATS.map((s) => (
-            <div key={s.value} className="text-center py-4 px-6">
-              <div
-                className="uppercase leading-none mb-1"
-                style={{ fontFamily: 'Barlow Condensed, sans-serif', fontWeight: 800, fontSize: '2rem', letterSpacing: '0.02em', color: 'var(--gep-accent-text)' }}
-              >
-                {s.value}
-              </div>
-              <div className="text-black/70 text-[11px] tracking-widest uppercase" style={{ fontFamily: 'Inter, sans-serif' }}>
-                {s.label}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  )
-}
-
-function ProductionsCarousel() {
-  const scrollRef = useRef<HTMLDivElement>(null)
-  const [canScrollLeft, setCanScrollLeft] = useState(false)
-  const [canScrollRight, setCanScrollRight] = useState(true)
-
-  const checkScroll = () => {
-    const el = scrollRef.current
-    if (!el) return
-    setCanScrollLeft(el.scrollLeft > 10)
-    setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 10)
-  }
-
-  const scroll = (dir: 'left' | 'right') => {
-    const el = scrollRef.current
-    if (!el) return
-    el.scrollBy({ left: dir === 'right' ? 320 : -320, behavior: 'smooth' })
-    setTimeout(checkScroll, 350)
-  }
+function RecentProjectsCarousel() {
+  const [paused, setPaused] = useState(false)
+  const marqueeItems = [...PRODUCTIONS, ...PRODUCTIONS]
 
   return (
     <section id="events" className="py-24 overflow-hidden" style={{ background: 'var(--gep-bg)' }}>
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10 mb-10">
         <GoldRule />
-        <div className="flex items-end justify-between">
-          <div>
-            <h2
-              className="text-white uppercase leading-none"
-              style={{ fontFamily: 'Barlow Condensed, sans-serif', fontWeight: 800, fontSize: 'clamp(2.5rem, 5vw, 4rem)', letterSpacing: '0.02em' }}
-            >
-              Featured Productions
-            </h2>
-          </div>
-          <div className="flex gap-2">
-            <button
-              onClick={() => scroll('left')}
-              disabled={!canScrollLeft}
-              className="w-10 h-10 flex items-center justify-center border border-white/15 transition-all duration-200 disabled:opacity-20 text-white hover:border-[color:var(--gep-accent)] hover:text-[color:var(--gep-accent)]"
-              aria-label="Scroll left"
-            >
-              ‹
-            </button>
-            <button
-              onClick={() => scroll('right')}
-              disabled={!canScrollRight}
-              className="w-10 h-10 flex items-center justify-center border border-white/15 transition-all duration-200 disabled:opacity-20 text-white hover:border-[color:var(--gep-accent)] hover:text-[color:var(--gep-accent)]"
-              aria-label="Scroll right"
-            >
-              ›
-            </button>
-          </div>
-        </div>
+        <h2
+          className="uppercase leading-none"
+          style={{ fontFamily: 'Barlow Condensed, sans-serif', fontWeight: 800, fontSize: 'clamp(2.5rem, 5vw, 4rem)', letterSpacing: '0.02em', color: 'var(--gep-text)' }}
+        >
+          Recent Projects
+        </h2>
       </div>
 
       <div
-        ref={scrollRef}
-        onScroll={checkScroll}
-        className="flex gap-4 overflow-x-auto hide-scrollbar px-6 lg:px-10"
-        style={{ scrollSnapType: 'x mandatory' }}
+        className="overflow-hidden"
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
       >
-        {PRODUCTIONS.map((p) => (
-          <div
-            key={p.name}
-            className="flex-shrink-0 relative group overflow-hidden"
-            style={{ width: 280, height: 370, scrollSnapAlign: 'start', background: 'var(--gep-card)' }}
-          >
-            <img
-              src={p.img}
-              alt={p.name}
-              className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-            />
-            <div
-              className="absolute inset-0 transition-all duration-300"
-              style={{ background: 'linear-gradient(to top, var(--gep-card-overlay) 0%, rgba(0,0,64,0.2) 60%, transparent 100%)' }}
-            />
-            {/* Gold top accent on hover */}
-            <div
-              className="absolute top-0 left-0 right-0 h-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-              style={{ background: 'var(--gep-accent)' }}
-            />
-            <div className="absolute bottom-0 left-0 right-0 p-5">
-              <p className="text-[10px] tracking-widest uppercase mb-1" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-accent)' }}>{p.type}</p>
-              <h3
-                className="text-white uppercase leading-tight"
-                style={{ fontFamily: 'Barlow Condensed, sans-serif', fontWeight: 700, fontSize: '1.5rem', letterSpacing: '0.02em' }}
-              >
-                {p.name}
-              </h3>
-            </div>
-          </div>
-        ))}
-        {/* Fade end spacer */}
-        <div className="flex-shrink-0 w-6" />
+        <div
+          className="flex gap-4 animate-marquee w-max"
+          style={{ animationPlayState: paused ? 'paused' : 'running' }}
+        >
+          {marqueeItems.map((p, i) => (
+            <a
+              key={`${p.name}-${i}`}
+              href="#events"
+              className="flex-shrink-0 relative group overflow-hidden block"
+              style={{ width: 280, height: 370, background: 'var(--gep-card)' }}
+            >
+              <img
+                src={p.img}
+                alt={p.name}
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <div
+                className="absolute inset-0 transition-all duration-300"
+                style={{ background: 'linear-gradient(to top, var(--gep-card-overlay) 0%, rgba(0,0,64,0.2) 60%, transparent 100%)' }}
+              />
+              <div
+                className="absolute top-0 left-0 right-0 h-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                style={{ background: 'var(--gep-accent)' }}
+              />
+              <div className="absolute bottom-0 left-0 right-0 p-5">
+                <p className="text-[10px] tracking-widest uppercase mb-1" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-accent)' }}>{p.type}</p>
+                <h3
+                  className="text-white uppercase leading-tight"
+                  style={{ fontFamily: 'Barlow Condensed, sans-serif', fontWeight: 700, fontSize: '1.5rem', letterSpacing: '0.02em' }}
+                >
+                  {p.name}
+                </h3>
+              </div>
+            </a>
+          ))}
+        </div>
       </div>
     </section>
   )
@@ -631,15 +652,15 @@ function WhyGEP() {
         <div>
           <GoldRule />
           <h2
-            className="text-white uppercase leading-tight mb-8"
-            style={{ fontFamily: 'Barlow Condensed, sans-serif', fontWeight: 800, fontSize: 'clamp(2.5rem, 4vw, 3.5rem)', letterSpacing: '0.02em' }}
+            className="uppercase leading-tight mb-8"
+            style={{ fontFamily: 'Barlow Condensed, sans-serif', fontWeight: 800, fontSize: 'clamp(2.5rem, 4vw, 3.5rem)', letterSpacing: '0.02em', color: 'var(--gep-text)' }}
           >
             Why GEP<br />Is the Right Choice
           </h2>
-          <p className="text-white/60 text-base leading-relaxed mb-6" style={{ fontFamily: 'Inter, sans-serif' }}>
+          <p className="text-base leading-relaxed mb-6" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-text-muted)' }}>
             For over four decades, GEP Network has been the production partner that the live entertainment industry turns to when execution matters most. We don't just staff shows — we build the infrastructure that makes them legendary.
           </p>
-          <p className="text-white/60 text-base leading-relaxed mb-10" style={{ fontFamily: 'Inter, sans-serif' }}>
+          <p className="text-base leading-relaxed mb-10" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-text-muted)' }}>
             From 30,000-seat arenas to international festivals, our coordinators, managers, and crew are embedded in your production from first call to final load-out. We know the business because we've lived it.
           </p>
           <a
@@ -665,7 +686,7 @@ function WhyGEP() {
               >
                 {s.n}
               </div>
-              <div className="text-white/40 text-xs tracking-widest uppercase" style={{ fontFamily: 'Inter, sans-serif' }}>{s.l}</div>
+              <div className="text-xs tracking-widest uppercase" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-text-muted)' }}>{s.l}</div>
             </div>
           ))}
         </div>
@@ -681,12 +702,12 @@ function ServicesGrid() {
         <GoldRule />
         <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-14 gap-4">
           <h2
-            className="text-white uppercase leading-tight"
-            style={{ fontFamily: 'Barlow Condensed, sans-serif', fontWeight: 800, fontSize: 'clamp(2.5rem, 5vw, 4rem)', letterSpacing: '0.02em' }}
+            className="uppercase leading-tight"
+            style={{ fontFamily: 'Barlow Condensed, sans-serif', fontWeight: 800, fontSize: 'clamp(2.5rem, 5vw, 4rem)', letterSpacing: '0.02em', color: 'var(--gep-text)' }}
           >
             What We Do
           </h2>
-          <p className="text-white/40 text-sm max-w-xs" style={{ fontFamily: 'Inter, sans-serif' }}>
+          <p className="text-sm max-w-xs" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-text-muted)' }}>
             Hover a card to learn more. Full-spectrum production services, one point of contact.
           </p>
         </div>
@@ -713,8 +734,8 @@ function ServicesGrid() {
                     style={{ height: '25%', background: 'var(--gep-card)' }}
                   >
                     <h3
-                      className="text-white uppercase text-center leading-tight"
-                      style={{ fontFamily: 'Barlow Condensed, sans-serif', fontWeight: 700, fontSize: '1.1rem', letterSpacing: '0.06em' }}
+                      className="uppercase text-center leading-tight"
+                      style={{ fontFamily: 'Barlow Condensed, sans-serif', fontWeight: 700, fontSize: '1.1rem', letterSpacing: '0.06em', color: 'var(--gep-text)' }}
                     >
                       {svc.title}
                     </h3>
@@ -903,12 +924,12 @@ function StorageSection() {
         <GoldRule />
         <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-14 gap-4">
           <h2
-            className="text-white uppercase leading-tight"
-            style={{ fontFamily: 'Barlow Condensed, sans-serif', fontWeight: 800, fontSize: 'clamp(2.5rem, 5vw, 4rem)', letterSpacing: '0.02em' }}
+            className="uppercase leading-tight"
+            style={{ fontFamily: 'Barlow Condensed, sans-serif', fontWeight: 800, fontSize: 'clamp(2.5rem, 5vw, 4rem)', letterSpacing: '0.02em', color: 'var(--gep-text)' }}
           >
             Tour Storage
           </h2>
-          <p className="text-white/40 text-sm max-w-xs" style={{ fontFamily: 'Inter, sans-serif' }}>
+          <p className="text-sm max-w-xs" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-text-muted)' }}>
             Secure, accessible storage built for the music industry — not general warehousing.
           </p>
         </div>
@@ -975,12 +996,12 @@ function ClientLogoWall() {
     <section className="py-20 border-t border-b border-white/05" style={{ background: 'var(--gep-bg)' }}>
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
         <p
-          className="text-white/30 text-xs tracking-[0.3em] uppercase text-center mb-12"
-          style={{ fontFamily: 'Inter, sans-serif' }}
+          className="text-xs tracking-[0.3em] uppercase text-center mb-12"
+          style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-text-muted)' }}
         >
           Trusted by the Industry's Best
         </p>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-px bg-white/05">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
           {CLIENTS.map((client) => (
             <div
               key={client.name}
@@ -993,7 +1014,7 @@ function ClientLogoWall() {
                 src={`https://logo.clearbit.com/${client.domain}`}
                 alt={client.name}
                 className="max-h-8 w-auto object-contain opacity-40 group-hover:opacity-80 transition-opacity duration-200"
-                style={{ filter: 'brightness(0) invert(1)' }}
+                style={{ filter: 'var(--gep-client-logo-filter)' }}
                 onError={(e) => {
                   const target = e.currentTarget
                   target.style.display = 'none'
@@ -1002,8 +1023,8 @@ function ClientLogoWall() {
                 }}
               />
               <span
-                className="text-white/30 group-hover:text-white/70 text-sm font-semibold tracking-widest uppercase transition-colors duration-200 text-center"
-                style={{ fontFamily: 'Barlow Condensed, sans-serif', letterSpacing: '0.15em', display: 'none' }}
+                className="text-sm font-semibold tracking-widest uppercase transition-colors duration-200 text-center"
+                style={{ fontFamily: 'Barlow Condensed, sans-serif', letterSpacing: '0.15em', display: 'none', color: 'var(--gep-text-muted)' }}
               >
                 {client.name}
               </span>
@@ -1031,45 +1052,42 @@ function ProductionStaffing() {
       {/* Overlay */}
       <div className="absolute inset-0" style={{ background: 'var(--gep-staffing-overlay)' }} />
 
-      <div className="relative max-w-[1400px] mx-auto px-6 lg:px-10">
-        <GoldRule />
-        <div className="flex flex-col lg:flex-row lg:items-start gap-16">
-          <div className="lg:w-1/3">
-            <h2
-              className="text-white uppercase leading-tight mb-6"
-              style={{ fontFamily: 'Barlow Condensed, sans-serif', fontWeight: 800, fontSize: 'clamp(2.5rem, 4vw, 3.5rem)', letterSpacing: '0.02em' }}
-            >
-              Production<br />Staffing
-            </h2>
-            <p className="text-white/50 text-sm leading-relaxed mb-8" style={{ fontFamily: 'Inter, sans-serif' }}>
-              We provide experienced, vetted production personnel across every discipline — ready to deploy nationwide on short notice.
-            </p>
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-2 text-xs tracking-widest uppercase font-semibold hover:gap-4 transition-all duration-200"
-              style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-accent)' }}
-            >
-              Request Staffing <span className="text-lg leading-none">→</span>
-            </a>
-          </div>
+      <div className="relative max-w-[900px] mx-auto px-6 lg:px-10 text-center">
+        <div className="flex justify-center">
+          <GoldRule />
+        </div>
+        <h2
+          className="text-white uppercase leading-tight mb-6"
+          style={{ fontFamily: 'Barlow Condensed, sans-serif', fontWeight: 800, fontSize: 'clamp(2.5rem, 4vw, 3.5rem)', letterSpacing: '0.02em' }}
+        >
+          Production Staffing
+        </h2>
+        <p className="text-white/50 text-sm leading-relaxed mb-8 max-w-xl mx-auto" style={{ fontFamily: 'Inter, sans-serif' }}>
+          We provide experienced, vetted production personnel across every discipline — ready to deploy nationwide on short notice.
+        </p>
+        <a
+          href="#contact"
+          className="inline-flex items-center gap-2 text-xs tracking-widest uppercase font-semibold hover:gap-4 transition-all duration-200"
+          style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-accent)' }}
+        >
+          Request Staffing <span className="text-lg leading-none">→</span>
+        </a>
 
-          <div className="lg:w-2/3 grid grid-cols-1 sm:grid-cols-2 gap-0 border border-white/07">
-            {STAFFING_ROLES.map((role, i) => (
-              <div
-                key={role}
-                className="flex items-center gap-4 px-6 py-4 border-b border-r border-white/07 hover:bg-white/03 transition-colors duration-200 group"
-                style={{ borderRight: i % 2 === 0 ? '1px solid rgba(255,255,255,0.07)' : 'none' }}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-4 mt-14 max-w-2xl mx-auto">
+          {STAFFING_ROLES.map((role) => (
+            <div
+              key={role}
+              className="flex items-center justify-center sm:justify-start gap-3 px-4 py-2 hover:bg-white/03 transition-colors duration-200 group"
+            >
+              <span className="w-1 h-1 rounded-full flex-shrink-0 group-hover:w-2 transition-all duration-200" style={{ background: 'var(--gep-accent)' }} />
+              <span
+                className="text-white/70 group-hover:text-white text-sm transition-colors duration-200"
+                style={{ fontFamily: 'Inter, sans-serif' }}
               >
-                <span className="w-1 h-1 rounded-full flex-shrink-0 group-hover:w-2 transition-all duration-200" style={{ background: 'var(--gep-accent)' }} />
-                <span
-                  className="text-white/70 group-hover:text-white text-sm transition-colors duration-200"
-                  style={{ fontFamily: 'Inter, sans-serif' }}
-                >
-                  {role}
-                </span>
-              </div>
-            ))}
-          </div>
+                {role}
+              </span>
+            </div>
+          ))}
         </div>
       </div>
     </section>
@@ -1093,8 +1111,8 @@ function Testimonials() {
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
         <GoldRule />
         <h2
-          className="text-white uppercase leading-tight mb-16"
-          style={{ fontFamily: 'Barlow Condensed, sans-serif', fontWeight: 800, fontSize: 'clamp(2.5rem, 5vw, 4rem)', letterSpacing: '0.02em' }}
+          className="uppercase leading-tight mb-16"
+          style={{ fontFamily: 'Barlow Condensed, sans-serif', fontWeight: 800, fontSize: 'clamp(2.5rem, 5vw, 4rem)', letterSpacing: '0.02em', color: 'var(--gep-text)' }}
         >
           What They're Saying
         </h2>
@@ -1114,16 +1132,16 @@ function Testimonials() {
             </div>
             <blockquote key={active} className="relative z-10 animate-fade-up">
               <p
-                className="text-white text-lg lg:text-2xl leading-relaxed mb-8 max-w-3xl"
-                style={{ fontFamily: 'Inter, sans-serif', fontWeight: 300 }}
+                className="text-lg lg:text-2xl leading-relaxed mb-8 max-w-3xl"
+                style={{ fontFamily: 'Inter, sans-serif', fontWeight: 300, color: 'var(--gep-text)' }}
               >
                 "{TESTIMONIALS[active].quote}"
               </p>
               <div className="flex items-center gap-4">
                 <div className="w-8 h-px" style={{ background: 'var(--gep-accent)' }} />
                 <div>
-                  <p className="text-white text-sm font-semibold" style={{ fontFamily: 'Inter, sans-serif' }}>{TESTIMONIALS[active].author}</p>
-                  <p className="text-white/40 text-xs" style={{ fontFamily: 'Inter, sans-serif' }}>{TESTIMONIALS[active].title}</p>
+                  <p className="text-sm font-semibold" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-text)' }}>{TESTIMONIALS[active].author}</p>
+                  <p className="text-xs" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-text-muted)' }}>{TESTIMONIALS[active].title}</p>
                 </div>
               </div>
             </blockquote>
@@ -1197,6 +1215,7 @@ function Footer() {
               src={GEP_LOGO}
               alt="GEP Network"
               className="h-12 w-auto object-contain mb-4"
+              style={{ filter: 'var(--gep-logo-filter)' }}
             />
             <p className="text-white/35 text-sm leading-relaxed mb-6" style={{ fontFamily: 'Inter, sans-serif' }}>
               Full-service live event production. 40+ years of experience. Global reach.
@@ -1288,17 +1307,16 @@ export default function App() {
 
   return (
     <div
-      className="min-h-screen text-white overflow-x-hidden"
-      style={{ ...scheme.vars, background: 'var(--gep-bg)' } as CSSProperties}
+      className="min-h-screen overflow-x-hidden"
+      style={{ ...scheme.vars, background: 'var(--gep-bg)', color: 'var(--gep-text)' } as CSSProperties}
     >
       <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
       <Hero />
-      <StatsBar />
-      <ProductionsCarousel />
+      <ClientLogoWall />
+      <RecentProjectsCarousel />
       <WhyGEP />
       <ServicesGrid />
       <StorageSection />
-      <ClientLogoWall />
       <ProductionStaffing />
       <Testimonials />
       <ClientCTA />
