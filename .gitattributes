@@ -151,3 +151,5 @@
 # ---------------------------------------------------------------------------
 public/**            !filter !diff !merge
 src/imports/gepn_wplogo_light_v1-1.png !filter !diff !merge
+src/imports/*-logo-*.png !filter !diff !merge
+src/imports/*-logo-*.svg !filter !diff !merge

@@ -1,7 +1,29 @@
 import { useState, useEffect, type CSSProperties, type FormEvent } from 'react'
+import liveNationColor from './imports/live-nation-logo-color.png'
+import liveNationWhite from './imports/live-nation-logo-white.png'
+import aegPresentsColor from './imports/aeg-presents-logo-color.png'
+import aegPresentsWhite from './imports/aeg-presents-logo-white.png'
+import betColor from './imports/BET-logo-color.png'
+import betWhite from './imports/BET-logo-white.png'
+import rocNationColor from './imports/rocnation-logo-color.png'
+import rocNationWhite from './imports/rocnation-logo-white.png'
+import atlanticRecordsColor from './imports/atlantic-records-logo-color.png'
+import atlanticRecordsWhite from './imports/atlantic-records-logo-white.png'
+import defJamColor from './imports/def-jam-logo-color.png'
+import defJamWhite from './imports/def-jam-logo-white.png'
+import universalMusicColor from './imports/universal-music-logo-color.png'
+import universalMusicWhite from './imports/universal-music-logo-white.png'
+import warnerMusicColor from './imports/warner-music-logo-color.png'
+import warnerMusicWhite from './imports/warner-music-logo-white.png'
+import sonyMusicColor from './imports/sony-music-logo-color.png'
+import sonyMusicWhite from './imports/sony-music-logo-white.png'
+import republicRecordsColor from './imports/republic-records-logo-color.svg'
+import republicRecordsWhite from './imports/republic-records-logo-white.png'
 
 const GEP_LOGO = '/gep-logo.png'
 const HERO_VIDEO = '/gep-hero-video.mp4'
+
+const LIGHT_COLOR_SCHEMES = new Set(['navy-gold-light', 'light-slate'])
 
 type ColorScheme = {
   id: string
@@ -249,16 +271,16 @@ const STORAGE_FEATURES = [
 ]
 
 const CLIENTS = [
-  { name: 'Live Nation', domain: 'livenation.com' },
-  { name: 'AEG Presents', domain: 'aegpresents.com' },
-  { name: 'BET', domain: 'bet.com' },
-  { name: 'Roc Nation', domain: 'rocnation.com' },
-  { name: 'Atlantic Records', domain: 'atlanticrecords.com' },
-  { name: 'Def Jam', domain: 'defjam.com' },
-  { name: 'Universal Music', domain: 'universalmusic.com' },
-  { name: 'Warner Music', domain: 'wmg.com' },
-  { name: 'Sony Music', domain: 'sonymusic.com' },
-  { name: 'Republic Records', domain: 'republicrecords.com' },
+  { name: 'Live Nation', colorLogo: liveNationColor, whiteLogo: liveNationWhite },
+  { name: 'AEG Presents', colorLogo: aegPresentsColor, whiteLogo: aegPresentsWhite },
+  { name: 'BET', colorLogo: betColor, whiteLogo: betWhite },
+  { name: 'Roc Nation', colorLogo: rocNationColor, whiteLogo: rocNationWhite },
+  { name: 'Atlantic Records', colorLogo: atlanticRecordsColor, whiteLogo: atlanticRecordsWhite },
+  { name: 'Def Jam', colorLogo: defJamColor, whiteLogo: defJamWhite },
+  { name: 'Universal Music', colorLogo: universalMusicColor, whiteLogo: universalMusicWhite },
+  { name: 'Warner Music', colorLogo: warnerMusicColor, whiteLogo: warnerMusicWhite },
+  { name: 'Sony Music', colorLogo: sonyMusicColor, whiteLogo: sonyMusicWhite },
+  { name: 'Republic Records', colorLogo: republicRecordsColor, whiteLogo: republicRecordsWhite },
 ]
 
 const STAFFING_ROLES = [
@@ -915,7 +937,9 @@ function StorageSection() {
   )
 }
 
-function ClientLogoWall() {
+function ClientLogoWall({ colorScheme }: { colorScheme: string }) {
+  const useColorLogos = LIGHT_COLOR_SCHEMES.has(colorScheme)
+
   return (
     <section className="py-20" style={{ borderTop: '1px solid var(--gep-divider)', borderBottom: '1px solid var(--gep-divider)', background: 'var(--gep-bg)' }}>
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
@@ -935,23 +959,10 @@ function ClientLogoWall() {
               onMouseLeave={(e) => { e.currentTarget.style.background = 'var(--gep-bg)' }}
             >
               <img
-                src={`https://logo.clearbit.com/${client.domain}`}
+                src={useColorLogos ? client.colorLogo : client.whiteLogo}
                 alt={client.name}
-                className="max-h-8 w-auto object-contain opacity-40 group-hover:opacity-80 transition-opacity duration-200"
-                style={{ filter: 'var(--gep-client-logo-filter)' }}
-                onError={(e) => {
-                  const target = e.currentTarget
-                  target.style.display = 'none'
-                  const fallback = target.nextElementSibling as HTMLElement
-                  if (fallback) fallback.style.display = 'block'
-                }}
+                className="max-h-8 w-auto object-contain opacity-50 group-hover:opacity-90 transition-opacity duration-200"
               />
-              <span
-                className="text-sm font-semibold tracking-widest uppercase transition-colors duration-200 text-center"
-                style={{ fontFamily: 'Barlow Condensed, sans-serif', letterSpacing: '0.15em', display: 'none', color: 'var(--gep-text-muted)' }}
-              >
-                {client.name}
-              </span>
             </div>
           ))}
         </div>
@@ -1237,7 +1248,7 @@ export default function App() {
     >
       <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
       <Hero />
-      <ClientLogoWall />
+      <ClientLogoWall colorScheme={colorScheme} />
       <RecentProjectsCarousel />
       <WhyGEP />
       <ServicesGrid />
