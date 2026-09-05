@@ -11,8 +11,32 @@ type ColorScheme = {
 
 const COLOR_SCHEMES: ColorScheme[] = [
   {
+    id: 'navy-gold-light',
+    name: 'Classic Light',
+    vars: {
+      '--gep-bg': '#F5F5F7',
+      '--gep-bg-alt': '#FFFFFF',
+      '--gep-card': '#FFFFFF',
+      '--gep-footer': '#000032',
+      '--gep-accent': '#FFC52F',
+      '--gep-accent-text': '#000032',
+      '--gep-header-scrolled': 'rgba(0,0,50,0.97)',
+      '--gep-overlay-top': 'rgba(0,0,50,0.50)',
+      '--gep-overlay-mid': 'rgba(0,0,50,0.40)',
+      '--gep-overlay-bottom': 'rgba(0,0,50,0.85)',
+      '--gep-card-overlay': 'rgba(0,0,50,0.78)',
+      '--gep-staffing-overlay': 'rgba(0,0,50,0.68)',
+      '--gep-text': '#1D1D1F',
+      '--gep-text-muted': '#6E6E73',
+      '--gep-logo-filter': 'none',
+      '--gep-client-logo-filter': 'brightness(0)',
+      '--gep-divider': 'rgba(0,0,0,0.08)',
+      '--gep-hero-word': '#FFC52F',
+    },
+  },
+  {
     id: 'classic',
-    name: 'Classic Gold',
+    name: 'Classic Dark',
     vars: {
       '--gep-bg': '#000032',
       '--gep-bg-alt': '#000040',
@@ -30,77 +54,37 @@ const COLOR_SCHEMES: ColorScheme[] = [
       '--gep-text-muted': 'rgba(255,255,255,0.6)',
       '--gep-logo-filter': 'none',
       '--gep-client-logo-filter': 'brightness(0) invert(1)',
+      '--gep-divider': 'rgba(255,255,255,0.07)',
+      '--gep-hero-word': '#FFC52F',
     },
   },
   {
-    id: 'electric',
-    name: 'Electric Blue',
+    id: 'light-slate',
+    name: 'Platinum Light',
     vars: {
-      '--gep-bg': '#001428',
-      '--gep-bg-alt': '#001e3c',
-      '--gep-card': '#002850',
-      '--gep-footer': '#000c18',
-      '--gep-accent': '#00D4FF',
-      '--gep-accent-text': '#001428',
-      '--gep-header-scrolled': 'rgba(0,20,40,0.97)',
-      '--gep-overlay-top': 'rgba(0,20,40,0.55)',
-      '--gep-overlay-mid': 'rgba(0,20,40,0.45)',
-      '--gep-overlay-bottom': 'rgba(0,20,40,0.88)',
-      '--gep-card-overlay': 'rgba(0,20,40,0.92)',
-      '--gep-staffing-overlay': 'rgba(0,20,40,0.75)',
-      '--gep-text': '#ffffff',
-      '--gep-text-muted': 'rgba(255,255,255,0.6)',
+      '--gep-bg': '#FFFFFF',
+      '--gep-bg-alt': '#F5F5F7',
+      '--gep-card': '#F5F5F7',
+      '--gep-footer': '#111111',
+      '--gep-accent': '#1D1D1F',
+      '--gep-accent-text': '#FFFFFF',
+      '--gep-header-scrolled': 'rgba(0,0,0,0.93)',
+      '--gep-overlay-top': 'rgba(0,0,0,0.45)',
+      '--gep-overlay-mid': 'rgba(0,0,0,0.38)',
+      '--gep-overlay-bottom': 'rgba(0,0,0,0.78)',
+      '--gep-card-overlay': 'rgba(0,0,0,0.72)',
+      '--gep-staffing-overlay': 'rgba(0,0,0,0.62)',
+      '--gep-text': '#1D1D1F',
+      '--gep-text-muted': '#6E6E73',
       '--gep-logo-filter': 'none',
-      '--gep-client-logo-filter': 'brightness(0) invert(1)',
-    },
-  },
-  {
-    id: 'crimson',
-    name: 'Crimson Stage',
-    vars: {
-      '--gep-bg': '#1a0008',
-      '--gep-bg-alt': '#2d0010',
-      '--gep-card': '#3d0018',
-      '--gep-footer': '#0d0004',
-      '--gep-accent': '#E8194A',
-      '--gep-accent-text': '#1a0008',
-      '--gep-header-scrolled': 'rgba(26,0,8,0.97)',
-      '--gep-overlay-top': 'rgba(26,0,8,0.55)',
-      '--gep-overlay-mid': 'rgba(26,0,8,0.45)',
-      '--gep-overlay-bottom': 'rgba(26,0,8,0.88)',
-      '--gep-card-overlay': 'rgba(26,0,8,0.92)',
-      '--gep-staffing-overlay': 'rgba(26,0,8,0.75)',
-      '--gep-text': '#ffffff',
-      '--gep-text-muted': 'rgba(255,255,255,0.6)',
-      '--gep-logo-filter': 'none',
-      '--gep-client-logo-filter': 'brightness(0) invert(1)',
-    },
-  },
-  {
-    id: 'emerald',
-    name: 'Emerald Night',
-    vars: {
-      '--gep-bg': '#001a0f',
-      '--gep-bg-alt': '#002818',
-      '--gep-card': '#003622',
-      '--gep-footer': '#000d08',
-      '--gep-accent': '#2ECC71',
-      '--gep-accent-text': '#001a0f',
-      '--gep-header-scrolled': 'rgba(0,26,15,0.97)',
-      '--gep-overlay-top': 'rgba(0,26,15,0.55)',
-      '--gep-overlay-mid': 'rgba(0,26,15,0.45)',
-      '--gep-overlay-bottom': 'rgba(0,26,15,0.88)',
-      '--gep-card-overlay': 'rgba(0,26,15,0.92)',
-      '--gep-staffing-overlay': 'rgba(0,26,15,0.75)',
-      '--gep-text': '#ffffff',
-      '--gep-text-muted': 'rgba(255,255,255,0.6)',
-      '--gep-logo-filter': 'none',
-      '--gep-client-logo-filter': 'brightness(0) invert(1)',
+      '--gep-client-logo-filter': 'brightness(0)',
+      '--gep-divider': 'rgba(0,0,0,0.08)',
+      '--gep-hero-word': '#C8C8D0',
     },
   },
   {
     id: 'platinum',
-    name: 'Platinum',
+    name: 'Platinum Dark',
     vars: {
       '--gep-bg': '#0f0f12',
       '--gep-bg-alt': '#1a1a1f',
@@ -118,72 +102,8 @@ const COLOR_SCHEMES: ColorScheme[] = [
       '--gep-text-muted': 'rgba(255,255,255,0.6)',
       '--gep-logo-filter': 'none',
       '--gep-client-logo-filter': 'brightness(0) invert(1)',
-    },
-  },
-  {
-    id: 'soft-ivory',
-    name: 'Soft Ivory',
-    vars: {
-      '--gep-bg': '#f4f2ec',
-      '--gep-bg-alt': '#ebe8e0',
-      '--gep-card': '#ffffff',
-      '--gep-footer': '#e3e0d8',
-      '--gep-accent': '#B8922A',
-      '--gep-accent-text': '#ffffff',
-      '--gep-header-scrolled': 'rgba(244,242,236,0.97)',
-      '--gep-overlay-top': 'rgba(244,242,236,0.12)',
-      '--gep-overlay-mid': 'rgba(244,242,236,0.08)',
-      '--gep-overlay-bottom': 'rgba(244,242,236,0.28)',
-      '--gep-card-overlay': 'rgba(26,26,50,0.82)',
-      '--gep-staffing-overlay': 'rgba(244,242,236,0.55)',
-      '--gep-text': '#1a1a32',
-      '--gep-text-muted': 'rgba(26,26,50,0.55)',
-      '--gep-logo-filter': 'brightness(0)',
-      '--gep-client-logo-filter': 'brightness(0)',
-    },
-  },
-  {
-    id: 'light-slate',
-    name: 'Light Slate',
-    vars: {
-      '--gep-bg': '#eef1f6',
-      '--gep-bg-alt': '#e2e7ef',
-      '--gep-card': '#f8f9fb',
-      '--gep-footer': '#d8dde6',
-      '--gep-accent': '#2563eb',
-      '--gep-accent-text': '#ffffff',
-      '--gep-header-scrolled': 'rgba(238,241,246,0.97)',
-      '--gep-overlay-top': 'rgba(238,241,246,0.10)',
-      '--gep-overlay-mid': 'rgba(238,241,246,0.06)',
-      '--gep-overlay-bottom': 'rgba(238,241,246,0.25)',
-      '--gep-card-overlay': 'rgba(15,23,42,0.80)',
-      '--gep-staffing-overlay': 'rgba(238,241,246,0.50)',
-      '--gep-text': '#0f172a',
-      '--gep-text-muted': 'rgba(15,23,42,0.55)',
-      '--gep-logo-filter': 'brightness(0)',
-      '--gep-client-logo-filter': 'brightness(0)',
-    },
-  },
-  {
-    id: 'warm-sand',
-    name: 'Warm Sand',
-    vars: {
-      '--gep-bg': '#f7f3ed',
-      '--gep-bg-alt': '#ede6db',
-      '--gep-card': '#fffcf7',
-      '--gep-footer': '#e8e0d4',
-      '--gep-accent': '#c45c26',
-      '--gep-accent-text': '#ffffff',
-      '--gep-header-scrolled': 'rgba(247,243,237,0.97)',
-      '--gep-overlay-top': 'rgba(247,243,237,0.14)',
-      '--gep-overlay-mid': 'rgba(247,243,237,0.09)',
-      '--gep-overlay-bottom': 'rgba(247,243,237,0.30)',
-      '--gep-card-overlay': 'rgba(40,30,20,0.78)',
-      '--gep-staffing-overlay': 'rgba(247,243,237,0.52)',
-      '--gep-text': '#2a2218',
-      '--gep-text-muted': 'rgba(42,34,24,0.55)',
-      '--gep-logo-filter': 'brightness(0)',
-      '--gep-client-logo-filter': 'brightness(0)',
+      '--gep-divider': 'rgba(255,255,255,0.07)',
+      '--gep-hero-word': '#C8C8D0',
     },
   },
 ]
@@ -385,6 +305,9 @@ function GoldRule() {
 }
 
 function ColorSchemePicker({ value, onChange }: { value: string; onChange: (id: string) => void }) {
+  const isLightScheme = value === 'navy-gold-light' || value === 'light-slate'
+  const chevronColor = isLightScheme ? '1D1D1F' : 'ffffff'
+
   return (
     <div
       className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-2"
@@ -402,13 +325,13 @@ function ColorSchemePicker({ value, onChange }: { value: string; onChange: (id: 
           background: 'var(--gep-card)',
           color: 'var(--gep-text)',
           borderColor: 'rgba(128,128,128,0.25)',
-          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='white' fill-opacity='0.5' d='M3 5l3 3 3-3'/%3E%3C/svg%3E")`,
+          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23${chevronColor}' fill-opacity='0.5' d='M3 5l3 3 3-3'/%3E%3C/svg%3E")`,
           backgroundRepeat: 'no-repeat',
           backgroundPosition: 'right 12px center',
         }}
       >
         {COLOR_SCHEMES.map((scheme) => (
-          <option key={scheme.id} value={scheme.id} style={{ background: '#000032' }}>
+          <option key={scheme.id} value={scheme.id} style={{ background: 'var(--gep-bg)', color: 'var(--gep-text)' }}>
             {scheme.name}
           </option>
         ))}
@@ -431,7 +354,7 @@ function Header({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: (v:
       style={{
         background: scrolled ? 'var(--gep-header-scrolled)' : 'transparent',
         backdropFilter: scrolled ? 'blur(12px)' : 'none',
-        borderBottom: scrolled ? '1px solid rgba(255,255,255,0.06)' : '1px solid transparent',
+        borderBottom: scrolled ? '1px solid rgba(128,128,128,0.15)' : '1px solid transparent',
       }}
     >
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10 h-20 flex items-center">
@@ -453,9 +376,9 @@ function Header({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: (v:
                 key={link.label}
                 href={link.href}
                 className="text-xs tracking-widest uppercase transition-colors duration-200 hover:opacity-100"
-                style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-text-muted)' }}
-                onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--gep-text)' }}
-                onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--gep-text-muted)' }}
+                style={{ fontFamily: 'Inter, sans-serif', color: 'rgba(255,255,255,0.65)' }}
+                onMouseEnter={(e) => { e.currentTarget.style.color = '#ffffff' }}
+                onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.65)' }}
               >
                 {link.label}
               </a>
@@ -480,15 +403,15 @@ function Header({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: (v:
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
         >
-          <span className={`block w-6 h-px transition-all duration-200 ${menuOpen ? 'rotate-45 translate-y-2' : ''}`} style={{ background: 'var(--gep-text)' }} />
-          <span className={`block w-6 h-px transition-all duration-200 ${menuOpen ? 'opacity-0' : ''}`} style={{ background: 'var(--gep-text)' }} />
-          <span className={`block w-6 h-px transition-all duration-200 ${menuOpen ? '-rotate-45 -translate-y-2' : ''}`} style={{ background: 'var(--gep-text)' }} />
+          <span className={`block w-6 h-px transition-all duration-200 ${menuOpen ? 'rotate-45 translate-y-2' : ''}`} style={{ background: '#ffffff' }} />
+          <span className={`block w-6 h-px transition-all duration-200 ${menuOpen ? 'opacity-0' : ''}`} style={{ background: '#ffffff' }} />
+          <span className={`block w-6 h-px transition-all duration-200 ${menuOpen ? '-rotate-45 -translate-y-2' : ''}`} style={{ background: '#ffffff' }} />
         </button>
       </div>
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="lg:hidden border-t border-white/08" style={{ background: 'var(--gep-bg)' }}>
+        <div className="lg:hidden" style={{ borderTop: '1px solid var(--gep-divider)', background: 'var(--gep-bg)' }}>
           <nav className="flex flex-col px-6 py-6 gap-4">
             {NAV_LINKS.map((link) => (
               <a
@@ -541,7 +464,7 @@ function Hero() {
       />
 
       <div className="relative z-10 text-center max-w-5xl mx-auto px-6 pt-20">
-        <p className="text-xs tracking-[0.35em] uppercase mb-6" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-accent)' }}>
+        <p className="text-xs tracking-[0.35em] uppercase mb-6" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-hero-word, var(--gep-accent))' }}>
           Full-Service Live Event Production
         </p>
         <h1
@@ -554,7 +477,7 @@ function Hero() {
           }}
         >
           Production<br />
-          <span style={{ color: 'var(--gep-accent)' }}>Without</span> Limits
+          <span style={{ color: 'var(--gep-hero-word, var(--gep-accent))' }}>Without</span> Limits
         </h1>
         <p className="text-white/60 text-base lg:text-lg max-w-xl mx-auto mb-10 leading-relaxed" style={{ fontFamily: 'Inter, sans-serif' }}>
           GEP Network executes concerts, tours, festivals, and corporate events at the highest level — backed by 40+ years of industry expertise.
@@ -672,7 +595,7 @@ function WhyGEP() {
           </a>
         </div>
 
-        <div className="grid grid-cols-2 gap-px bg-white/05">
+        <div className="grid grid-cols-2 gap-px" style={{ backgroundColor: "var(--gep-divider)" }}>
           {[
             { n: '40+', l: 'Years in Business' },
             { n: '500+', l: 'Productions Executed' },
@@ -792,7 +715,7 @@ function StorageInquiryModal({ onClose }: { onClose: () => void }) {
   }
 
   const inputClass =
-    'w-full px-4 py-3 text-sm bg-white/05 border border-white/10 text-white placeholder:text-white/30 focus:outline-none focus:border-[color:var(--gep-accent)] transition-colors'
+    'w-full px-4 py-3 text-sm focus:outline-none transition-colors'
 
   return (
     <div
@@ -801,13 +724,14 @@ function StorageInquiryModal({ onClose }: { onClose: () => void }) {
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-lg p-8 lg:p-10 border border-white/10"
-        style={{ background: 'var(--gep-card)' }}
+        className="relative w-full max-w-lg p-8 lg:p-10"
+        style={{ background: 'var(--gep-card)', border: '1px solid var(--gep-divider)' }}
         onClick={(e) => e.stopPropagation()}
       >
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-white/40 hover:text-white text-xl leading-none transition-colors"
+          className="absolute top-4 right-4 text-xl leading-none transition-colors"
+          style={{ color: 'var(--gep-text-muted)' }}
           aria-label="Close"
         >
           ×
@@ -822,12 +746,12 @@ function StorageInquiryModal({ onClose }: { onClose: () => void }) {
               ✓
             </div>
             <h3
-              className="text-white uppercase mb-3"
-              style={{ fontFamily: 'Barlow Condensed, sans-serif', fontWeight: 800, fontSize: '1.75rem' }}
+              className="uppercase mb-3"
+              style={{ fontFamily: 'Barlow Condensed, sans-serif', fontWeight: 800, fontSize: '1.75rem', color: 'var(--gep-text)' }}
             >
               Inquiry Received
             </h3>
-            <p className="text-white/55 text-sm leading-relaxed mb-8" style={{ fontFamily: 'Inter, sans-serif' }}>
+            <p className="text-sm leading-relaxed mb-8" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-text-muted)' }}>
               Thank you for your interest in GEP tour storage. Our team will review your request and respond within one business day.
             </p>
             <button
@@ -842,12 +766,12 @@ function StorageInquiryModal({ onClose }: { onClose: () => void }) {
           <>
             <GoldRule />
             <h3
-              className="text-white uppercase mb-2"
-              style={{ fontFamily: 'Barlow Condensed, sans-serif', fontWeight: 800, fontSize: '1.75rem' }}
+              className="uppercase mb-2"
+              style={{ fontFamily: 'Barlow Condensed, sans-serif', fontWeight: 800, fontSize: '1.75rem', color: 'var(--gep-text)' }}
             >
               Storage Inquiry
             </h3>
-            <p className="text-white/45 text-sm mb-8" style={{ fontFamily: 'Inter, sans-serif' }}>
+            <p className="text-sm mb-8" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-text-muted)' }}>
               Tell us about your storage needs and we will follow up with availability and pricing.
             </p>
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -859,7 +783,7 @@ function StorageInquiryModal({ onClose }: { onClose: () => void }) {
                   value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
                   className={inputClass}
-                  style={{ fontFamily: 'Inter, sans-serif' }}
+                  style={{ fontFamily: 'Inter, sans-serif', background: 'var(--gep-bg)', color: 'var(--gep-text)', border: '1px solid var(--gep-divider)' }}
                 />
                 <input
                   required
@@ -868,7 +792,7 @@ function StorageInquiryModal({ onClose }: { onClose: () => void }) {
                   value={form.email}
                   onChange={(e) => setForm({ ...form, email: e.target.value })}
                   className={inputClass}
-                  style={{ fontFamily: 'Inter, sans-serif' }}
+                  style={{ fontFamily: 'Inter, sans-serif', background: 'var(--gep-bg)', color: 'var(--gep-text)', border: '1px solid var(--gep-divider)' }}
                 />
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -878,7 +802,7 @@ function StorageInquiryModal({ onClose }: { onClose: () => void }) {
                   value={form.company}
                   onChange={(e) => setForm({ ...form, company: e.target.value })}
                   className={inputClass}
-                  style={{ fontFamily: 'Inter, sans-serif' }}
+                  style={{ fontFamily: 'Inter, sans-serif', background: 'var(--gep-bg)', color: 'var(--gep-text)', border: '1px solid var(--gep-divider)' }}
                 />
                 <input
                   type="tel"
@@ -886,7 +810,7 @@ function StorageInquiryModal({ onClose }: { onClose: () => void }) {
                   value={form.phone}
                   onChange={(e) => setForm({ ...form, phone: e.target.value })}
                   className={inputClass}
-                  style={{ fontFamily: 'Inter, sans-serif' }}
+                  style={{ fontFamily: 'Inter, sans-serif', background: 'var(--gep-bg)', color: 'var(--gep-text)', border: '1px solid var(--gep-divider)' }}
                 />
               </div>
               <textarea
@@ -896,7 +820,7 @@ function StorageInquiryModal({ onClose }: { onClose: () => void }) {
                 value={form.message}
                 onChange={(e) => setForm({ ...form, message: e.target.value })}
                 className={`${inputClass} resize-none`}
-                style={{ fontFamily: 'Inter, sans-serif' }}
+                style={{ fontFamily: 'Inter, sans-serif', background: 'var(--gep-bg)', color: 'var(--gep-text)', border: '1px solid var(--gep-divider)' }}
               />
               <button
                 type="submit"
@@ -993,7 +917,7 @@ function StorageSection() {
 
 function ClientLogoWall() {
   return (
-    <section className="py-20 border-t border-b border-white/05" style={{ background: 'var(--gep-bg)' }}>
+    <section className="py-20" style={{ borderTop: '1px solid var(--gep-divider)', borderBottom: '1px solid var(--gep-divider)', background: 'var(--gep-bg)' }}>
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
         <p
           className="text-xs tracking-[0.3em] uppercase text-center mb-12"
@@ -1123,7 +1047,7 @@ function Testimonials() {
           onMouseLeave={() => setPaused(false)}
         >
           {/* Quote card */}
-          <div className="border border-white/07 p-10 lg:p-14 relative overflow-hidden" style={{ background: 'var(--gep-card)' }}>
+          <div className="p-10 lg:p-14 relative overflow-hidden" style={{ border: '1px solid var(--gep-divider)', background: 'var(--gep-card)' }}>
             <div
               className="absolute top-10 left-10 leading-none select-none"
               style={{ fontFamily: 'Barlow Condensed, sans-serif', fontSize: '6rem', opacity: 0.15, lineHeight: 0.7, color: 'var(--gep-accent)' }}
@@ -1157,7 +1081,7 @@ function Testimonials() {
                 style={{
                   width: i === active ? 24 : 8,
                   height: 3,
-                  background: i === active ? 'var(--gep-accent)' : 'rgba(255,255,255,0.2)',
+                  background: i === active ? 'var(--gep-accent)' : 'var(--gep-divider)',
                 }}
                 aria-label={`Testimonial ${i + 1}`}
               />
@@ -1206,7 +1130,7 @@ function ClientCTA() {
 
 function Footer() {
   return (
-    <footer id="contact" className="pt-20 pb-10 border-t border-white/05" style={{ background: 'var(--gep-footer)' }}>
+    <footer id="contact" className="pt-20 pb-10" style={{ borderTop: '1px solid var(--gep-divider)', background: 'var(--gep-footer)' }}>
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Brand */}
@@ -1286,7 +1210,7 @@ function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-white/05 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4" style={{ borderTop: "1px solid var(--gep-divider)" }}>
           <p className="text-white/20 text-xs" style={{ fontFamily: 'Inter, sans-serif' }}>
             © {new Date().getFullYear()} GEP Network, Inc. All rights reserved.
           </p>
@@ -1302,7 +1226,7 @@ function Footer() {
 // ─── App ─────────────────────────────────────────────────────────────────────
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false)
-  const [colorScheme, setColorScheme] = useState('classic')
+  const [colorScheme, setColorScheme] = useState('navy-gold-light')
   const scheme = COLOR_SCHEMES.find((s) => s.id === colorScheme) ?? COLOR_SCHEMES[0]
 
   return (
