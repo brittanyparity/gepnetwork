@@ -23,7 +23,7 @@ import gepLogo from './imports/gepn_wplogo_light_v1-1.png'
 
 const HERO_VIDEO = '/gep-hero-video.mp4'
 
-const LIGHT_COLOR_SCHEMES = new Set(['navy-gold-light', 'light-slate', 'bone-light', 'bone-dark'])
+const LIGHT_COLOR_SCHEMES = new Set(['light-slate', 'bone-light', 'bone-dark'])
 
 type ColorScheme = {
   id: string
@@ -33,78 +33,28 @@ type ColorScheme = {
 
 const COLOR_SCHEMES: ColorScheme[] = [
   {
-    id: 'navy-gold-light',
-    name: 'Classic Light',
+    id: 'bone-dark',
+    name: 'Bone Dark',
     vars: {
-      '--gep-bg': '#F5F5F7',
-      '--gep-bg-alt': '#FFFFFF',
-      '--gep-card': '#FFFFFF',
-      '--gep-footer': 'linear-gradient(180deg, #000000 0%, #000032 100%)',
-      '--gep-accent': '#FFC52F',
-      '--gep-accent-text': '#000032',
-      '--gep-header-scrolled': 'rgba(0,0,50,0.97)',
+      '--gep-bg': '#F3EFE8',
+      '--gep-bg-alt': '#E4DDD2',
+      '--gep-card': '#E4DDD2',
+      '--gep-footer': 'linear-gradient(180deg, #17140F 0%, #2A2218 100%)',
+      '--gep-accent': '#B44A18',
+      '--gep-accent-text': '#F8F5F0',
+      '--gep-header-scrolled': 'rgba(23, 20, 15, 0.72)',
       '--gep-overlay-top': 'rgba(0, 0, 0, 0.10)',
       '--gep-overlay-mid': 'rgba(0, 0, 0, 0.10)',
       '--gep-overlay-bottom': 'rgba(0, 0, 0, 0.10)',
-      '--gep-card-overlay': 'rgba(0,0,50,0.78)',
-      '--gep-staffing-overlay': 'rgba(0,0,50,0.68)',
-      '--gep-text': '#1D1D1F',
-      '--gep-text-muted': '#6E6E73',
+      '--gep-card-overlay': 'rgba(23, 20, 15, 0.78)',
+      '--gep-staffing-overlay': 'rgba(23, 20, 15, 0.68)',
+      '--gep-text': '#17140F',
+      '--gep-text-muted': '#6B6358',
       '--gep-logo-filter': 'none',
       '--gep-client-logo-filter': 'brightness(0)',
-      '--gep-divider': 'rgba(0,0,0,0.08)',
-      '--gep-hero-word': '#FFC52F',
-      '--gep-storage-overlay': 'linear-gradient(to top, rgba(0,0,64,0.95) 0%, rgba(0,0,64,0.5) 55%, rgba(0,0,64,0.25) 100%)',
-    },
-  },
-  {
-    id: 'classic',
-    name: 'Classic Dark',
-    vars: {
-      '--gep-bg': '#000032',
-      '--gep-bg-alt': '#000040',
-      '--gep-card': '#00003e',
-      '--gep-footer': 'linear-gradient(180deg, #000000 0%, #000032 100%)',
-      '--gep-accent': '#FFC52F',
-      '--gep-accent-text': '#000032',
-      '--gep-header-scrolled': 'rgba(0,0,64,0.97)',
-      '--gep-overlay-top': 'rgba(0, 0, 0, 0.10)',
-      '--gep-overlay-mid': 'rgba(0, 0, 0, 0.10)',
-      '--gep-overlay-bottom': 'rgba(0, 0, 0, 0.10)',
-      '--gep-card-overlay': 'rgba(0,0,64,0.92)',
-      '--gep-staffing-overlay': 'rgba(0,0,50,0.75)',
-      '--gep-text': '#ffffff',
-      '--gep-text-muted': 'rgba(255,255,255,0.6)',
-      '--gep-logo-filter': 'none',
-      '--gep-client-logo-filter': 'brightness(0) invert(1)',
-      '--gep-divider': 'rgba(255,255,255,0.07)',
-      '--gep-hero-word': '#FFC52F',
-      '--gep-storage-overlay': 'linear-gradient(to top, rgba(0,0,64,0.95) 0%, rgba(0,0,64,0.5) 55%, rgba(0,0,64,0.25) 100%)',
-    },
-  },
-  {
-    id: 'light-slate',
-    name: 'Platinum Light',
-    vars: {
-      '--gep-bg': '#FFFFFF',
-      '--gep-bg-alt': '#F5F5F7',
-      '--gep-card': '#F5F5F7',
-      '--gep-footer': 'linear-gradient(180deg, #000000 0%, #000032 100%)',
-      '--gep-accent': '#FFC52F',
-      '--gep-accent-text': '#000032',
-      '--gep-header-scrolled': 'rgba(0,0,0,0.93)',
-      '--gep-overlay-top': 'rgba(0, 0, 0, 0.10)',
-      '--gep-overlay-mid': 'rgba(0, 0, 0, 0.10)',
-      '--gep-overlay-bottom': 'rgba(0, 0, 0, 0.10)',
-      '--gep-card-overlay': 'rgba(0,0,0,0.72)',
-      '--gep-staffing-overlay': 'rgba(0,0,0,0.62)',
-      '--gep-text': '#1D1D1F',
-      '--gep-text-muted': '#6E6E73',
-      '--gep-logo-filter': 'none',
-      '--gep-client-logo-filter': 'brightness(0)',
-      '--gep-divider': 'rgba(0,0,0,0.08)',
-      '--gep-hero-word': '#FFC52F',
-      '--gep-storage-overlay': 'linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.48) 55%, rgba(0,0,0,0.22) 100%)',
+      '--gep-divider': 'rgba(23, 20, 15, 0.16)',
+      '--gep-hero-word': '#B44A18',
+      '--gep-storage-overlay': 'linear-gradient(to top, rgba(45, 40, 34, 0.86) 0%, rgba(107, 99, 88, 0.46) 55%, rgba(45, 40, 34, 0.2) 100%)',
     },
   },
   {
@@ -133,31 +83,6 @@ const COLOR_SCHEMES: ColorScheme[] = [
     },
   },
   {
-    id: 'bone-dark',
-    name: 'Bone Dark',
-    vars: {
-      '--gep-bg': '#F3EFE8',
-      '--gep-bg-alt': '#E4DDD2',
-      '--gep-card': '#E4DDD2',
-      '--gep-footer': 'linear-gradient(180deg, #17140F 0%, #2A2218 100%)',
-      '--gep-accent': '#B44A18',
-      '--gep-accent-text': '#F8F5F0',
-      '--gep-header-scrolled': 'rgba(23, 20, 15, 0.72)',
-      '--gep-overlay-top': 'rgba(0, 0, 0, 0.10)',
-      '--gep-overlay-mid': 'rgba(0, 0, 0, 0.10)',
-      '--gep-overlay-bottom': 'rgba(0, 0, 0, 0.10)',
-      '--gep-card-overlay': 'rgba(23, 20, 15, 0.78)',
-      '--gep-staffing-overlay': 'rgba(23, 20, 15, 0.68)',
-      '--gep-text': '#17140F',
-      '--gep-text-muted': '#6B6358',
-      '--gep-logo-filter': 'none',
-      '--gep-client-logo-filter': 'brightness(0)',
-      '--gep-divider': 'rgba(23, 20, 15, 0.16)',
-      '--gep-hero-word': '#B44A18',
-      '--gep-storage-overlay': 'linear-gradient(to top, rgba(45, 40, 34, 0.86) 0%, rgba(107, 99, 88, 0.46) 55%, rgba(45, 40, 34, 0.2) 100%)',
-    },
-  },
-  {
     id: 'platinum',
     name: 'Platinum Dark',
     vars: {
@@ -180,6 +105,31 @@ const COLOR_SCHEMES: ColorScheme[] = [
       '--gep-divider': 'rgba(255,255,255,0.07)',
       '--gep-hero-word': '#FFC52F',
       '--gep-storage-overlay': 'linear-gradient(to top, rgba(15,15,18,0.92) 0%, rgba(15,15,18,0.52) 55%, rgba(15,15,18,0.26) 100%)',
+    },
+  },
+  {
+    id: 'light-slate',
+    name: 'Platinum Light',
+    vars: {
+      '--gep-bg': '#FFFFFF',
+      '--gep-bg-alt': '#F5F5F7',
+      '--gep-card': '#F5F5F7',
+      '--gep-footer': 'linear-gradient(180deg, #000000 0%, #000032 100%)',
+      '--gep-accent': '#FFC52F',
+      '--gep-accent-text': '#000032',
+      '--gep-header-scrolled': 'rgba(0,0,0,0.93)',
+      '--gep-overlay-top': 'rgba(0, 0, 0, 0.10)',
+      '--gep-overlay-mid': 'rgba(0, 0, 0, 0.10)',
+      '--gep-overlay-bottom': 'rgba(0, 0, 0, 0.10)',
+      '--gep-card-overlay': 'rgba(0,0,0,0.72)',
+      '--gep-staffing-overlay': 'rgba(0,0,0,0.62)',
+      '--gep-text': '#1D1D1F',
+      '--gep-text-muted': '#6E6E73',
+      '--gep-logo-filter': 'none',
+      '--gep-client-logo-filter': 'brightness(0)',
+      '--gep-divider': 'rgba(0,0,0,0.08)',
+      '--gep-hero-word': '#FFC52F',
+      '--gep-storage-overlay': 'linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.48) 55%, rgba(0,0,0,0.22) 100%)',
     },
   },
 ]
@@ -389,7 +339,7 @@ function GoldRule() {
 }
 
 function ColorSchemePicker({ value, onChange }: { value: string; onChange: (id: string) => void }) {
-  const isLightScheme = value === 'navy-gold-light' || value === 'light-slate'
+  const isLightScheme = LIGHT_COLOR_SCHEMES.has(value)
   const chevronColor = isLightScheme ? '1D1D1F' : 'ffffff'
 
   return (
@@ -1319,7 +1269,7 @@ function Footer() {
 // ─── App ─────────────────────────────────────────────────────────────────────
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false)
-  const [colorScheme, setColorScheme] = useState('navy-gold-light')
+  const [colorScheme, setColorScheme] = useState('bone-dark')
   const scheme = COLOR_SCHEMES.find((s) => s.id === colorScheme) ?? COLOR_SCHEMES[0]
 
   return (
