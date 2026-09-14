@@ -23,7 +23,7 @@ import gepLogo from './imports/gepn_wplogo_light_v1-1.png'
 
 const HERO_VIDEO = '/gep-hero-video.mp4'
 
-const LIGHT_COLOR_SCHEMES = new Set(['navy-gold-light', 'light-slate', 'bone'])
+const LIGHT_COLOR_SCHEMES = new Set(['navy-gold-light', 'light-slate', 'bone-dark', 'bone-classic'])
 
 type ColorScheme = {
   id: string
@@ -54,6 +54,7 @@ const COLOR_SCHEMES: ColorScheme[] = [
       '--gep-client-logo-filter': 'brightness(0)',
       '--gep-divider': 'rgba(0,0,0,0.08)',
       '--gep-hero-word': '#FFC52F',
+      '--gep-storage-overlay': 'linear-gradient(to top, rgba(0,0,64,0.95) 0%, rgba(0,0,64,0.5) 55%, rgba(0,0,64,0.25) 100%)',
     },
   },
   {
@@ -78,6 +79,7 @@ const COLOR_SCHEMES: ColorScheme[] = [
       '--gep-client-logo-filter': 'brightness(0) invert(1)',
       '--gep-divider': 'rgba(255,255,255,0.07)',
       '--gep-hero-word': '#FFC52F',
+      '--gep-storage-overlay': 'linear-gradient(to top, rgba(0,0,64,0.95) 0%, rgba(0,0,64,0.5) 55%, rgba(0,0,64,0.25) 100%)',
     },
   },
   {
@@ -102,11 +104,12 @@ const COLOR_SCHEMES: ColorScheme[] = [
       '--gep-client-logo-filter': 'brightness(0)',
       '--gep-divider': 'rgba(0,0,0,0.08)',
       '--gep-hero-word': '#FFC52F',
+      '--gep-storage-overlay': 'linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.48) 55%, rgba(0,0,0,0.22) 100%)',
     },
   },
   {
-    id: 'bone',
-    name: 'Bone',
+    id: 'bone-dark',
+    name: 'Bone Dark',
     vars: {
       '--gep-bg': '#F3EFE8',
       '--gep-bg-alt': '#E4DDD2',
@@ -122,10 +125,36 @@ const COLOR_SCHEMES: ColorScheme[] = [
       '--gep-staffing-overlay': 'rgba(23, 20, 15, 0.68)',
       '--gep-text': '#17140F',
       '--gep-text-muted': '#6B6358',
-      '--gep-logo-filter': 'brightness(0)',
+      '--gep-logo-filter': 'none',
       '--gep-client-logo-filter': 'brightness(0)',
       '--gep-divider': 'rgba(23, 20, 15, 0.16)',
       '--gep-hero-word': '#B44A18',
+      '--gep-storage-overlay': 'linear-gradient(to top, rgba(45, 40, 34, 0.86) 0%, rgba(107, 99, 88, 0.46) 55%, rgba(45, 40, 34, 0.2) 100%)',
+    },
+  },
+  {
+    id: 'bone-classic',
+    name: 'Bone Classic',
+    vars: {
+      '--gep-bg': '#F8F5F0',
+      '--gep-bg-alt': '#F3EFE8',
+      '--gep-card': '#ECE6DC',
+      '--gep-footer': 'linear-gradient(180deg, #5C5348 0%, #7A7064 100%)',
+      '--gep-accent': '#B44A18',
+      '--gep-accent-text': '#F8F5F0',
+      '--gep-header-scrolled': 'rgba(107, 99, 88, 0.92)',
+      '--gep-overlay-top': 'rgba(0, 0, 0, 0.10)',
+      '--gep-overlay-mid': 'rgba(0, 0, 0, 0.10)',
+      '--gep-overlay-bottom': 'rgba(0, 0, 0, 0.10)',
+      '--gep-card-overlay': 'rgba(107, 99, 88, 0.72)',
+      '--gep-staffing-overlay': 'rgba(107, 99, 88, 0.52)',
+      '--gep-text': '#17140F',
+      '--gep-text-muted': '#7A7064',
+      '--gep-logo-filter': 'none',
+      '--gep-client-logo-filter': 'brightness(0)',
+      '--gep-divider': 'rgba(23, 20, 15, 0.12)',
+      '--gep-hero-word': '#B44A18',
+      '--gep-storage-overlay': 'linear-gradient(to top, rgba(92, 83, 72, 0.78) 0%, rgba(140, 130, 118, 0.4) 55%, rgba(92, 83, 72, 0.16) 100%)',
     },
   },
   {
@@ -150,6 +179,7 @@ const COLOR_SCHEMES: ColorScheme[] = [
       '--gep-client-logo-filter': 'brightness(0) invert(1)',
       '--gep-divider': 'rgba(255,255,255,0.07)',
       '--gep-hero-word': '#FFC52F',
+      '--gep-storage-overlay': 'linear-gradient(to top, rgba(15,15,18,0.92) 0%, rgba(15,15,18,0.52) 55%, rgba(15,15,18,0.26) 100%)',
     },
   },
 ]
@@ -956,7 +986,7 @@ function StorageSection() {
               />
               <div
                 className="absolute inset-0"
-                style={{ background: 'linear-gradient(to top, rgba(0,0,64,0.95) 0%, rgba(0,0,64,0.5) 55%, rgba(0,0,64,0.25) 100%)' }}
+                style={{ background: 'var(--gep-storage-overlay)' }}
               />
               <div
                 className="absolute top-0 left-0 right-0 h-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
