@@ -19,8 +19,8 @@ import sonyMusicColor from './imports/sony-music-logo-color.png'
 import sonyMusicWhite from './imports/sony-music-logo-white.png'
 import republicRecordsColor from './imports/republic-records-logo-color.svg'
 import republicRecordsWhite from './imports/republic-records-logo-white.png'
+import GEPLogo from './components/GEPLogo'
 
-const GEP_LOGO = '/gep-logo.png'
 const HERO_VIDEO = '/gep-hero-video.mp4'
 
 const LIGHT_COLOR_SCHEMES = new Set(['navy-gold-light', 'light-slate'])
@@ -390,12 +390,7 @@ function Header({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: (v:
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10 h-20 flex items-center">
         {/* Logo */}
         <a href="#" className="flex-shrink-0">
-          <img
-            src={GEP_LOGO}
-            alt="GEP Network"
-            className="h-12 w-auto object-contain"
-            style={{ filter: 'var(--gep-logo-filter)' }}
-          />
+          <GEPLogo height={48} color="#ffffff" />
         </a>
 
         {/* Desktop Nav + Call — grouped and right-aligned */}
@@ -1018,9 +1013,9 @@ function StaffingTriangle() {
     <span
       className="inline-block flex-shrink-0 w-0 h-0"
       style={{
-        borderTop: '5px solid transparent',
-        borderBottom: '5px solid transparent',
-        borderLeft: '8px solid var(--gep-accent)',
+        borderTop: '6px solid transparent',
+        borderBottom: '6px solid transparent',
+        borderLeft: '10px solid var(--gep-accent)',
       }}
       aria-hidden="true"
     />
@@ -1038,33 +1033,33 @@ function ProductionStaffing() {
       />
       <div className="absolute inset-0" style={{ background: 'var(--gep-staffing-overlay)' }} />
 
-      <div className="relative max-w-[960px] mx-auto px-6 lg:px-10 text-center">
+      <div className="relative max-w-[1100px] mx-auto px-6 lg:px-10 text-center">
         <h2
-          className="text-white uppercase leading-tight mb-5"
+          className="text-white uppercase leading-tight mb-6"
           style={{
             fontFamily: 'Barlow Condensed, sans-serif',
             fontWeight: 800,
-            fontSize: 'clamp(2.25rem, 5vw, 3.25rem)',
+            fontSize: 'clamp(2.75rem, 6.5vw, 4.5rem)',
             letterSpacing: '0.04em',
           }}
         >
           Production Staffing
         </h2>
         <p
-          className="text-white text-base md:text-lg leading-relaxed max-w-2xl mx-auto mb-12 md:mb-14"
+          className="text-white text-lg md:text-xl leading-relaxed max-w-3xl mx-auto mb-12 md:mb-16"
           style={{ fontFamily: 'Inter, sans-serif', fontWeight: 400 }}
         >
           Let our skilled professionals handle the intricacies of your event.
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 md:gap-x-16 gap-y-3 max-w-[720px] mx-auto text-left mb-14 md:mb-16">
+        <div className="flex flex-col sm:flex-row justify-center items-center sm:items-start gap-10 sm:gap-16 md:gap-24 mb-14 md:mb-16">
           {STAFFING_COLUMNS.map((column, colIdx) => (
-            <ul key={colIdx} className="flex flex-col gap-3">
+            <ul key={colIdx} className="flex flex-col gap-4 w-full max-w-[340px] sm:w-auto sm:min-w-[280px] text-left mx-auto sm:mx-0">
               {column.map((role, rowIdx) => (
-                <li key={`${colIdx}-${rowIdx}`} className="flex items-center gap-3">
+                <li key={`${colIdx}-${rowIdx}`} className="flex items-center gap-3.5">
                   <StaffingTriangle />
                   <span
-                    className="text-white text-sm md:text-base"
+                    className="text-white text-lg md:text-xl"
                     style={{ fontFamily: 'Inter, sans-serif' }}
                   >
                     {role}
@@ -1077,7 +1072,7 @@ function ProductionStaffing() {
 
         <a
           href="#contact"
-          className="inline-block px-10 py-4 text-xs md:text-sm tracking-[0.2em] uppercase font-bold transition-opacity hover:opacity-90"
+          className="inline-block px-12 py-5 text-sm md:text-base tracking-[0.2em] uppercase font-bold transition-opacity hover:opacity-90"
           style={{
             fontFamily: 'Inter, sans-serif',
             background: 'var(--gep-accent)',
@@ -1173,12 +1168,7 @@ function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <img
-              src={GEP_LOGO}
-              alt="GEP Network"
-              className="h-12 w-auto object-contain mb-4"
-              style={{ filter: 'var(--gep-logo-filter)' }}
-            />
+            <GEPLogo height={48} color="#ffffff" className="mb-4" />
             <p className="text-white/35 text-sm leading-relaxed mb-6" style={{ fontFamily: 'Inter, sans-serif' }}>
               Full-service live event production. 40+ years of experience. Global reach.
             </p>
