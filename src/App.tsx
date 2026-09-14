@@ -43,9 +43,9 @@ const COLOR_SCHEMES: ColorScheme[] = [
       '--gep-accent': '#FFC52F',
       '--gep-accent-text': '#000032',
       '--gep-header-scrolled': 'rgba(0,0,50,0.97)',
-      '--gep-overlay-top': 'rgba(0,0,50,0.50)',
-      '--gep-overlay-mid': 'rgba(0,0,50,0.40)',
-      '--gep-overlay-bottom': 'rgba(0,0,50,0.85)',
+      '--gep-overlay-top': 'rgba(0, 0, 0, 0.10)',
+      '--gep-overlay-mid': 'rgba(0, 0, 0, 0.10)',
+      '--gep-overlay-bottom': 'rgba(0, 0, 0, 0.10)',
       '--gep-card-overlay': 'rgba(0,0,50,0.78)',
       '--gep-staffing-overlay': 'rgba(0,0,50,0.68)',
       '--gep-text': '#1D1D1F',
@@ -67,9 +67,9 @@ const COLOR_SCHEMES: ColorScheme[] = [
       '--gep-accent': '#FFC52F',
       '--gep-accent-text': '#000032',
       '--gep-header-scrolled': 'rgba(0,0,64,0.97)',
-      '--gep-overlay-top': 'rgba(0,0,64,0.55)',
-      '--gep-overlay-mid': 'rgba(0,0,64,0.45)',
-      '--gep-overlay-bottom': 'rgba(0,0,64,0.88)',
+      '--gep-overlay-top': 'rgba(0, 0, 0, 0.10)',
+      '--gep-overlay-mid': 'rgba(0, 0, 0, 0.10)',
+      '--gep-overlay-bottom': 'rgba(0, 0, 0, 0.10)',
       '--gep-card-overlay': 'rgba(0,0,64,0.92)',
       '--gep-staffing-overlay': 'rgba(0,0,50,0.75)',
       '--gep-text': '#ffffff',
@@ -91,9 +91,9 @@ const COLOR_SCHEMES: ColorScheme[] = [
       '--gep-accent': '#FFC52F',
       '--gep-accent-text': '#000032',
       '--gep-header-scrolled': 'rgba(0,0,0,0.93)',
-      '--gep-overlay-top': 'rgba(0,0,0,0.45)',
-      '--gep-overlay-mid': 'rgba(0,0,0,0.38)',
-      '--gep-overlay-bottom': 'rgba(0,0,0,0.78)',
+      '--gep-overlay-top': 'rgba(0, 0, 0, 0.10)',
+      '--gep-overlay-mid': 'rgba(0, 0, 0, 0.10)',
+      '--gep-overlay-bottom': 'rgba(0, 0, 0, 0.10)',
       '--gep-card-overlay': 'rgba(0,0,0,0.72)',
       '--gep-staffing-overlay': 'rgba(0,0,0,0.62)',
       '--gep-text': '#1D1D1F',
@@ -115,9 +115,9 @@ const COLOR_SCHEMES: ColorScheme[] = [
       '--gep-accent': '#FFC52F',
       '--gep-accent-text': '#000032',
       '--gep-header-scrolled': 'rgba(15,15,18,0.97)',
-      '--gep-overlay-top': 'rgba(15,15,18,0.55)',
-      '--gep-overlay-mid': 'rgba(15,15,18,0.45)',
-      '--gep-overlay-bottom': 'rgba(15,15,18,0.88)',
+      '--gep-overlay-top': 'rgba(0, 0, 0, 0.10)',
+      '--gep-overlay-mid': 'rgba(0, 0, 0, 0.10)',
+      '--gep-overlay-bottom': 'rgba(0, 0, 0, 0.10)',
       '--gep-card-overlay': 'rgba(15,15,18,0.92)',
       '--gep-staffing-overlay': 'rgba(15,15,18,0.75)',
       '--gep-text': '#ffffff',
@@ -141,6 +141,7 @@ const WAREHOUSE1 = 'https://images.unsplash.com/photo-1758789667762-56175fe4601c
 const WAREHOUSE2 = 'https://images.unsplash.com/photo-1772305336606-989a457ffbae?w=700&h=500&fit=crop&auto=format'
 const WAREHOUSE3 = 'https://images.unsplash.com/photo-1771531072574-af6ed6b954c0?w=700&h=500&fit=crop&auto=format'
 const STAGE_BG = 'https://images.unsplash.com/photo-1558620013-a08999547a36?w=1920&h=900&fit=crop&auto=format'
+const TEAM_COLLAB_IMG = 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1920&h=1080&fit=crop&auto=format'
 
 // ─── Data ───────────────────────────────────────────────────────────────────
 const NAV_LINKS = [
@@ -154,15 +155,16 @@ const NAV_LINKS = [
 
 
 const PRODUCTIONS = [
-  { name: 'Roots Picnic 2026', img: CONCERT1, type: 'Festival' },
-  { name: 'Rolling Loud 2026', img: CONCERT2, type: 'Festival' },
-  { name: 'J. Cole: The Fall Off Tour', img: CONCERT3, type: 'Tour' },
-  { name: 'Playboi Carti: Antagonist Tour', img: CONCERT4, type: 'Tour' },
-  { name: 'Don Toliver: Nitrous Tour', img: CONCERT5, type: 'Tour' },
-  { name: 'Mary J. Blige: The For My Fans Tour', img: CONCERT1, type: 'Tour' },
-  { name: 'Jill Scott: To Whom This May Concern Tour', img: CONCERT2, type: 'Tour' },
-  { name: 'Kendrick Lamar: GNX Tour', img: CONCERT3, type: 'Tour' },
-  { name: 'Nicki Minaj: Pink Friday 2 World Tour', img: CONCERT4, type: 'Tour' },
+  { name: 'NBA Youngboy', tour: 'MASA Tour', img: CONCERT4 },
+  { name: 'Roots Picnic', tour: '2026', img: CONCERT1 },
+  { name: 'Rolling Loud', tour: '2026', img: CONCERT2 },
+  { name: 'J. Cole', tour: 'The Fall Off Tour', img: CONCERT3 },
+  { name: 'Playboi Carti', tour: 'Antagonist Tour', img: CONCERT4 },
+  { name: 'Don Toliver', tour: 'Nitrous Tour', img: CONCERT5 },
+  { name: 'Mary J. Blige', tour: 'The For My Fans Tour', img: CONCERT1 },
+  { name: 'Jill Scott', tour: 'To Whom This May Concern Tour', img: CONCERT2 },
+  { name: 'Kendrick Lamar', tour: 'GNX Tour', img: CONCERT3 },
+  { name: 'Nicki Minaj', tour: 'Pink Friday 2 World Tour', img: CONCERT5 },
 ]
 
 const SERVICES = [
@@ -570,13 +572,15 @@ function RecentProjectsCarousel() {
                 style={{ background: 'var(--gep-accent)' }}
               />
               <div className="absolute bottom-0 left-0 right-0 p-5">
-                <p className="text-[10px] tracking-widest uppercase mb-1" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-accent)' }}>{p.type}</p>
                 <h3
-                  className="text-white uppercase leading-tight"
+                  className="text-white uppercase leading-tight mb-1"
                   style={{ fontFamily: 'Barlow Condensed, sans-serif', fontWeight: 700, fontSize: '1.5rem', letterSpacing: '0.02em' }}
                 >
                   {p.name}
                 </h3>
+                <p className="text-[11px] tracking-widest uppercase" style={{ fontFamily: 'Inter, sans-serif', color: 'rgba(255,255,255,0.75)' }}>
+                  {p.tour}
+                </p>
               </div>
             </a>
           ))}
@@ -589,11 +593,19 @@ function RecentProjectsCarousel() {
 function WhyGEP() {
   return (
     <section
-    id="about"  
-    className="relative py-28 overflow-hidden"
-      style={{ background: 'var(--gep-bg-alt)' }}
+      className="relative py-28 overflow-hidden"
     >
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-16 items-center">
+      <img
+        src={TEAM_COLLAB_IMG}
+        alt=""
+        aria-hidden="true"
+        className="absolute inset-0 w-full h-full object-cover"
+      />
+      <div
+        className="absolute inset-0"
+        style={{ background: 'color-mix(in srgb, var(--gep-bg-alt) 88%, transparent)' }}
+      />
+      <div className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-16 items-center">
         <div>
           <GoldRule />
           <h2
@@ -609,22 +621,22 @@ function WhyGEP() {
             From 30,000-seat arenas to international festivals, our coordinators, managers, and crew are embedded in your production from first call to final load-out. We know the business because we've lived it.
           </p>
           <a
-            href="#contact"
+            href="#about"
             className="inline-flex items-center gap-3 text-xs tracking-widest uppercase font-semibold hover:gap-5 transition-all duration-200"
             style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-accent)' }}
           >
-            Start a Conversation <span className="text-lg leading-none">→</span>
+            Learn More About Us <span className="text-lg leading-none">→</span>
           </a>
         </div>
 
-        <div className="grid grid-cols-2 gap-px" style={{ backgroundColor: "var(--gep-divider)" }}>
+        <div className="grid grid-cols-2 gap-px" style={{ backgroundColor: 'var(--gep-divider)' }}>
           {[
             { n: '40+', l: 'Years in Business' },
             { n: '500+', l: 'Productions Executed' },
             { n: '50+', l: 'Active Crew Members' },
             { n: '100%', l: 'Client Retention Rate' },
           ].map((s) => (
-            <div key={s.l} className="p-10 flex flex-col justify-end" style={{ background: 'var(--gep-bg-alt)' }}>
+            <div key={s.l} className="p-10 flex flex-col justify-end" style={{ background: 'color-mix(in srgb, var(--gep-bg-alt) 92%, transparent)' }}>
               <div
                 className="uppercase leading-none mb-2"
                 style={{ fontFamily: 'Barlow Condensed, sans-serif', fontWeight: 900, fontSize: '3.5rem', color: 'var(--gep-accent)' }}
@@ -634,6 +646,30 @@ function WhyGEP() {
               <div className="text-xs tracking-widest uppercase" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-text-muted)' }}>{s.l}</div>
             </div>
           ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function AboutSection() {
+  return (
+    <section id="about" className="py-24 scroll-mt-24" style={{ background: 'var(--gep-bg)' }}>
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
+        <GoldRule />
+        <h2
+          className="uppercase leading-tight mb-8 max-w-3xl"
+          style={{ fontFamily: 'Barlow Condensed, sans-serif', fontWeight: 800, fontSize: 'clamp(2rem, 3.5vw, 3rem)', letterSpacing: '0.02em', color: 'var(--gep-text)' }}
+        >
+          About GEP Network
+        </h2>
+        <div className="grid lg:grid-cols-2 gap-12 max-w-5xl">
+          <p className="text-base leading-relaxed" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-text-muted)' }}>
+            GEP Network is a full-service live event production company built on four decades of arena tours, festivals, and broadcast-ready experiences. Our teams integrate with yours — from production management and staffing to storage and logistics — so every show hits on time and on standard.
+          </p>
+          <p className="text-base leading-relaxed" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-text-muted)' }}>
+            Headquartered in Conyers, Georgia, we deploy coordinators, managers, and crew nationwide. When the industry needs a partner who understands the pace of the road, GEP is the call.
+          </p>
         </div>
       </div>
     </section>
@@ -977,53 +1013,51 @@ function ProductionStaffing() {
       className="relative py-28 overflow-hidden"
       style={{ background: 'var(--gep-bg)' }}
     >
-      {/* Background image */}
       <img
         src={STAGE_BG}
         alt=""
         aria-hidden="true"
         className="absolute inset-0 w-full h-full object-cover"
       />
-      {/* Overlay */}
       <div className="absolute inset-0" style={{ background: 'var(--gep-staffing-overlay)' }} />
 
-      <div className="relative max-w-[900px] mx-auto px-6 lg:px-10 text-center">
-        <div className="flex justify-center">
-          <GoldRule />
-        </div>
-        <h2
-          className="text-white uppercase leading-tight mb-6"
-          style={{ fontFamily: 'Barlow Condensed, sans-serif', fontWeight: 800, fontSize: 'clamp(2.5rem, 4vw, 3.5rem)', letterSpacing: '0.02em' }}
-        >
-          Production Staffing
-        </h2>
-        <p className="text-white/50 text-sm leading-relaxed mb-14 max-w-xl mx-auto" style={{ fontFamily: 'Inter, sans-serif' }}>
-          We provide experienced, vetted production personnel across every discipline — ready to deploy nationwide on short notice.
-        </p>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 max-w-md mx-auto">
-          {STAFFING_ROLES.map((role) => (
-            <div
-              key={role}
-              className="flex items-center justify-center sm:justify-start gap-3 px-2 py-2 hover:bg-white/03 transition-colors duration-200 group"
+      <div className="relative max-w-[1400px] mx-auto px-6 lg:px-10">
+        <GoldRule />
+        <div className="flex flex-col lg:flex-row lg:items-start gap-16">
+          <div className="lg:w-1/3">
+            <h2
+              className="text-white uppercase leading-tight mb-6"
+              style={{ fontFamily: 'Barlow Condensed, sans-serif', fontWeight: 800, fontSize: 'clamp(2.5rem, 4vw, 3.5rem)', letterSpacing: '0.02em' }}
             >
-              <span className="w-1 h-1 rounded-full flex-shrink-0 group-hover:w-2 transition-all duration-200" style={{ background: 'var(--gep-accent)' }} />
-              <span
-                className="text-white/70 group-hover:text-white text-sm transition-colors duration-200"
-                style={{ fontFamily: 'Inter, sans-serif' }}
-              >
-                {role}
-              </span>
-            </div>
-          ))}
-          <div className="flex items-center justify-center sm:justify-end px-2 py-2">
+              Production<br />Staffing
+            </h2>
+            <p className="text-white/50 text-base leading-relaxed mb-8" style={{ fontFamily: 'Inter, sans-serif' }}>
+              We provide experienced, vetted production personnel across every discipline — ready to deploy nationwide on short notice.
+            </p>
             <a
               href="#contact"
               className="inline-flex items-center gap-2 text-xs tracking-widest uppercase font-semibold hover:gap-4 transition-all duration-200"
               style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-accent)' }}
             >
-              Learn More <span className="text-lg leading-none">→</span>
+              Request Staffing <span className="text-lg leading-none">→</span>
             </a>
+          </div>
+
+          <div className="lg:w-2/3 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2">
+            {STAFFING_ROLES.map((role) => (
+              <div
+                key={role}
+                className="flex items-center gap-4 px-2 py-3 hover:bg-white/03 transition-colors duration-200 group"
+              >
+                <span className="w-1 h-1 rounded-full flex-shrink-0 group-hover:w-2 transition-all duration-200" style={{ background: 'var(--gep-accent)' }} />
+                <span
+                  className="text-white/70 group-hover:text-white text-base transition-colors duration-200"
+                  style={{ fontFamily: 'Inter, sans-serif' }}
+                >
+                  {role}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -1106,44 +1140,9 @@ function Testimonials() {
   )
 }
 
-function ClientCTA() {
-  return (
-    <section
-      className="relative py-24 overflow-hidden"
-      style={{ background: 'var(--gep-accent)' }}
-    >
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-10 flex flex-col lg:flex-row items-center justify-between gap-8">
-        <div>
-          <p className="text-xs tracking-[0.3em] uppercase mb-3" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-accent-text)', opacity: 0.55 }}>
-            Partner With GEP
-          </p>
-          <h2
-            className="uppercase leading-tight"
-            style={{ fontFamily: 'Barlow Condensed, sans-serif', fontWeight: 900, fontSize: 'clamp(2.5rem, 5vw, 4rem)', letterSpacing: '0.02em', color: 'var(--gep-accent-text)' }}
-          >
-            Ready to Produce<br />Your Next Event?
-          </h2>
-        </div>
-        <div className="flex flex-col sm:flex-row gap-4 items-center">
-          <p className="text-sm max-w-xs text-center sm:text-right" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-accent-text)', opacity: 0.65 }}>
-            From arena tours to festival seasons — let's build something unforgettable together.
-          </p>
-          <a
-            href="tel:8774376381"
-            className="flex-shrink-0 px-8 py-4 text-xs tracking-widest uppercase font-semibold transition-opacity hover:opacity-90"
-            style={{ fontFamily: 'Inter, sans-serif', background: 'var(--gep-accent-text)', color: 'var(--gep-accent)' }}
-          >
-            877-437-6381
-          </a>
-        </div>
-      </div>
-    </section>
-  )
-}
-
 function Footer() {
   return (
-    <footer id="contact" className="pt-20 pb-10" style={{ borderTop: '1px solid rgba(255,255,255,0.07)', background: 'var(--gep-footer)' }}>
+    <footer id="contact" className="pt-20 pb-10 scroll-mt-24" style={{ borderTop: '1px solid rgba(255,255,255,0.07)', background: 'var(--gep-footer)' }}>
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Brand */}
@@ -1158,11 +1157,12 @@ function Footer() {
               Full-service live event production. 40+ years of experience. Global reach.
             </p>
             {/* Social */}
-            <div className="flex gap-4">
+            <div className="flex flex-wrap gap-x-4 gap-y-2">
               {[
-                { name: 'Instagram', href: 'https://instagram.com/gepnetwork' },
-                { name: 'Facebook', href: 'https://facebook.com/gepnetwork' },
-                { name: 'LinkedIn', href: 'https://linkedin.com/company/gepnetwork' },
+                { name: 'YouTube', href: 'https://www.youtube.com/@gepnetwork' },
+                { name: 'Instagram', href: 'https://www.instagram.com/gep.network/' },
+                { name: 'LinkedIn', href: 'https://www.linkedin.com/company/gepnetwork/posts/?feedView=all' },
+                { name: 'Facebook', href: 'https://www.facebook.com/p/GEP-Network-61558628911648/' },
               ].map((s) => (
                 <a
                   key={s.name}
@@ -1252,11 +1252,11 @@ export default function App() {
       <ClientLogoWall colorScheme={colorScheme} />
       <RecentProjectsCarousel />
       <WhyGEP />
+      <AboutSection />
       <ServicesGrid />
       <StorageSection />
       <ProductionStaffing />
       <Testimonials />
-      <ClientCTA />
       <Footer />
       <ColorSchemePicker value={colorScheme} onChange={setColorScheme} />
     </div>
