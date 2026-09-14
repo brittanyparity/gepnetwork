@@ -23,7 +23,7 @@ import gepLogo from './imports/gepn_wplogo_light_v1-1.png'
 
 const HERO_VIDEO = '/gep-hero-video.mp4'
 
-const LIGHT_COLOR_SCHEMES = new Set(['light-slate', 'bone-light', 'bone-dark'])
+const LIGHT_COLOR_SCHEMES = new Set(['light-slate', 'bone-light', 'bone-dark', 'centric-light'])
 
 type ColorScheme = {
   id: string
@@ -80,6 +80,56 @@ const COLOR_SCHEMES: ColorScheme[] = [
       '--gep-divider': 'rgba(23, 20, 15, 0.12)',
       '--gep-hero-word': '#B44A18',
       '--gep-storage-overlay': 'linear-gradient(to top, rgba(92, 83, 72, 0.78) 0%, rgba(140, 130, 118, 0.4) 55%, rgba(92, 83, 72, 0.16) 100%)',
+    },
+  },
+  {
+    id: 'centric-dark',
+    name: 'Centric Dark',
+    vars: {
+      '--gep-bg': '#3D2820',
+      '--gep-bg-alt': '#50342A',
+      '--gep-card': '#5A3D32',
+      '--gep-footer': 'linear-gradient(180deg, #2A1A14 0%, #946253 100%)',
+      '--gep-accent': '#BA902F',
+      '--gep-accent-text': '#2A1A14',
+      '--gep-header-scrolled': 'rgba(61, 40, 32, 0.78)',
+      '--gep-overlay-top': 'rgba(0, 0, 0, 0.10)',
+      '--gep-overlay-mid': 'rgba(0, 0, 0, 0.10)',
+      '--gep-overlay-bottom': 'rgba(0, 0, 0, 0.10)',
+      '--gep-card-overlay': 'rgba(61, 40, 32, 0.88)',
+      '--gep-staffing-overlay': 'rgba(61, 40, 32, 0.72)',
+      '--gep-text': '#D6B588',
+      '--gep-text-muted': 'rgba(214, 181, 136, 0.72)',
+      '--gep-logo-filter': 'none',
+      '--gep-client-logo-filter': 'brightness(0) invert(1)',
+      '--gep-divider': 'rgba(214, 181, 136, 0.14)',
+      '--gep-hero-word': '#B87239',
+      '--gep-storage-overlay': 'linear-gradient(to top, rgba(61, 40, 32, 0.9) 0%, rgba(148, 98, 83, 0.5) 55%, rgba(184, 114, 57, 0.22) 100%)',
+    },
+  },
+  {
+    id: 'centric-light',
+    name: 'Centric Light',
+    vars: {
+      '--gep-bg': '#F4E8D6',
+      '--gep-bg-alt': '#EDDABF',
+      '--gep-card': '#E5CFA8',
+      '--gep-footer': 'linear-gradient(180deg, #946253 0%, #7A5245 100%)',
+      '--gep-accent': '#BA902F',
+      '--gep-accent-text': '#2F211A',
+      '--gep-header-scrolled': 'rgba(148, 98, 83, 0.68)',
+      '--gep-overlay-top': 'rgba(0, 0, 0, 0.10)',
+      '--gep-overlay-mid': 'rgba(0, 0, 0, 0.10)',
+      '--gep-overlay-bottom': 'rgba(0, 0, 0, 0.10)',
+      '--gep-card-overlay': 'rgba(148, 98, 83, 0.76)',
+      '--gep-staffing-overlay': 'rgba(148, 98, 83, 0.55)',
+      '--gep-text': '#4A3028',
+      '--gep-text-muted': '#946253',
+      '--gep-logo-filter': 'none',
+      '--gep-client-logo-filter': 'brightness(0)',
+      '--gep-divider': 'rgba(148, 98, 83, 0.18)',
+      '--gep-hero-word': '#B87239',
+      '--gep-storage-overlay': 'linear-gradient(to top, rgba(148, 98, 83, 0.82) 0%, rgba(184, 144, 47, 0.38) 55%, rgba(214, 181, 136, 0.18) 100%)',
     },
   },
   {
