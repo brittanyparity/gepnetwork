@@ -19,7 +19,7 @@ import sonyMusicColor from './imports/sony-music-logo-color.png'
 import sonyMusicWhite from './imports/sony-music-logo-white.png'
 import republicRecordsColor from './imports/republic-records-logo-color.svg'
 import republicRecordsWhite from './imports/republic-records-logo-white.png'
-import GEPLogo from './components/GEPLogo'
+import gepLogo from './imports/gepn_wplogo_light_v1-1.png'
 
 const HERO_VIDEO = '/gep-hero-video.mp4'
 
@@ -390,7 +390,12 @@ function Header({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: (v:
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10 h-20 flex items-center">
         {/* Logo */}
         <a href="#" className="flex-shrink-0">
-          <GEPLogo height={48} color="#ffffff" />
+          <img
+            src={gepLogo}
+            alt="GEP Network"
+            className="h-12 w-auto object-contain"
+            style={{ filter: 'var(--gep-logo-filter)' }}
+          />
         </a>
 
         {/* Desktop Nav + Call — grouped and right-aligned */}
@@ -1168,7 +1173,12 @@ function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <GEPLogo height={48} color="#ffffff" className="mb-4" />
+            <img
+              src={gepLogo}
+              alt="GEP Network"
+              className="h-12 w-auto object-contain mb-4"
+              style={{ filter: 'var(--gep-logo-filter)' }}
+            />
             <p className="text-white/35 text-sm leading-relaxed mb-6" style={{ fontFamily: 'Inter, sans-serif' }}>
               Full-service live event production. 40+ years of experience. Global reach.
             </p>
