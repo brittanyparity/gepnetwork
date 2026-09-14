@@ -285,18 +285,24 @@ const CLIENTS = [
   { name: 'Republic Records', colorLogo: republicRecordsColor, whiteLogo: republicRecordsWhite },
 ]
 
-const STAFFING_ROLES = [
-  'Production Managers',
-  'Production Coordinators',
-  'FOH & Monitor Engineers',
-  'Tour & Venue Security',
-  'Video Techs',
-  'Stage Managers',
-  'Carpenters & Stage Hands',
-  'Sound & Audio Techs',
-  'Backline Techs',
-  'Catering Specialists',
-  'Bus & Truck Drivers',
+/** Matches live gepnetwork.com Production Staffing columns (incl. duplicate Video Techs). */
+const STAFFING_COLUMNS: [string[], string[]] = [
+  [
+    'Production Managers',
+    'Production Coordinators',
+    'FOH & Monitor Engineers',
+    'Tour & Venue Security',
+    'Video Techs',
+    'Video Techs',
+  ],
+  [
+    'Stage Managers',
+    'Carpenters & Stage Hands',
+    'Sound & Audio Techs',
+    'Backline Techs',
+    'Catering Specialists',
+    'Bus & Truck Drivers',
+  ],
 ]
 
 const TESTIMONIALS = [
@@ -1007,12 +1013,23 @@ function ClientLogoWall({ colorScheme }: { colorScheme: string }) {
   )
 }
 
+function StaffingTriangle() {
+  return (
+    <span
+      className="inline-block flex-shrink-0 w-0 h-0"
+      style={{
+        borderTop: '5px solid transparent',
+        borderBottom: '5px solid transparent',
+        borderLeft: '8px solid var(--gep-accent)',
+      }}
+      aria-hidden="true"
+    />
+  )
+}
+
 function ProductionStaffing() {
   return (
-    <section
-      className="relative py-28 overflow-hidden"
-      style={{ background: 'var(--gep-bg)' }}
-    >
+    <section className="relative py-20 md:py-28 overflow-hidden" style={{ background: 'var(--gep-bg)' }}>
       <img
         src={STAGE_BG}
         alt=""
@@ -1021,45 +1038,54 @@ function ProductionStaffing() {
       />
       <div className="absolute inset-0" style={{ background: 'var(--gep-staffing-overlay)' }} />
 
-      <div className="relative max-w-[1400px] mx-auto px-6 lg:px-10">
-        <GoldRule />
-        <div className="flex flex-col lg:flex-row lg:items-start gap-16">
-          <div className="lg:w-1/3">
-            <h2
-              className="text-white uppercase leading-tight mb-6"
-              style={{ fontFamily: 'Barlow Condensed, sans-serif', fontWeight: 800, fontSize: 'clamp(2.5rem, 4vw, 3.5rem)', letterSpacing: '0.02em' }}
-            >
-              Production<br />Staffing
-            </h2>
-            <p className="text-white/50 text-base leading-relaxed mb-8" style={{ fontFamily: 'Inter, sans-serif' }}>
-              We provide experienced, vetted production personnel across every discipline — ready to deploy nationwide on short notice.
-            </p>
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-2 text-xs tracking-widest uppercase font-semibold hover:gap-4 transition-all duration-200"
-              style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-accent)' }}
-            >
-              Request Staffing <span className="text-lg leading-none">→</span>
-            </a>
-          </div>
+      <div className="relative max-w-[960px] mx-auto px-6 lg:px-10 text-center">
+        <h2
+          className="text-white uppercase leading-tight mb-5"
+          style={{
+            fontFamily: 'Barlow Condensed, sans-serif',
+            fontWeight: 800,
+            fontSize: 'clamp(2.25rem, 5vw, 3.25rem)',
+            letterSpacing: '0.04em',
+          }}
+        >
+          Production Staffing
+        </h2>
+        <p
+          className="text-white text-base md:text-lg leading-relaxed max-w-2xl mx-auto mb-12 md:mb-14"
+          style={{ fontFamily: 'Inter, sans-serif', fontWeight: 400 }}
+        >
+          Let our skilled professionals handle the intricacies of your event.
+        </p>
 
-          <div className="lg:w-2/3 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2">
-            {STAFFING_ROLES.map((role) => (
-              <div
-                key={role}
-                className="flex items-center gap-4 px-2 py-3 hover:bg-white/03 transition-colors duration-200 group"
-              >
-                <span className="w-1 h-1 rounded-full flex-shrink-0 group-hover:w-2 transition-all duration-200" style={{ background: 'var(--gep-accent)' }} />
-                <span
-                  className="text-white/70 group-hover:text-white text-base transition-colors duration-200"
-                  style={{ fontFamily: 'Inter, sans-serif' }}
-                >
-                  {role}
-                </span>
-              </div>
-            ))}
-          </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 md:gap-x-16 gap-y-3 max-w-[720px] mx-auto text-left mb-14 md:mb-16">
+          {STAFFING_COLUMNS.map((column, colIdx) => (
+            <ul key={colIdx} className="flex flex-col gap-3">
+              {column.map((role, rowIdx) => (
+                <li key={`${colIdx}-${rowIdx}`} className="flex items-center gap-3">
+                  <StaffingTriangle />
+                  <span
+                    className="text-white text-sm md:text-base"
+                    style={{ fontFamily: 'Inter, sans-serif' }}
+                  >
+                    {role}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          ))}
         </div>
+
+        <a
+          href="#contact"
+          className="inline-block px-10 py-4 text-xs md:text-sm tracking-[0.2em] uppercase font-bold transition-opacity hover:opacity-90"
+          style={{
+            fontFamily: 'Inter, sans-serif',
+            background: 'var(--gep-accent)',
+            color: 'var(--gep-accent-text)',
+          }}
+        >
+          Find Out More
+        </a>
       </div>
     </section>
   )
