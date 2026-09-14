@@ -23,7 +23,7 @@ import gepLogo from './imports/gepn_wplogo_light_v1-1.png'
 
 const HERO_VIDEO = '/gep-hero-video.mp4'
 
-const LIGHT_COLOR_SCHEMES = new Set(['navy-gold-light', 'light-slate', 'bone-dark', 'bone-classic'])
+const LIGHT_COLOR_SCHEMES = new Set(['navy-gold-light', 'light-slate', 'bone-light', 'bone-dark'])
 
 type ColorScheme = {
   id: string
@@ -108,33 +108,8 @@ const COLOR_SCHEMES: ColorScheme[] = [
     },
   },
   {
-    id: 'bone-dark',
-    name: 'Bone Dark',
-    vars: {
-      '--gep-bg': '#F3EFE8',
-      '--gep-bg-alt': '#E4DDD2',
-      '--gep-card': '#E4DDD2',
-      '--gep-footer': 'linear-gradient(180deg, #17140F 0%, #2A2218 100%)',
-      '--gep-accent': '#B44A18',
-      '--gep-accent-text': '#F8F5F0',
-      '--gep-header-scrolled': 'rgba(23, 20, 15, 0.94)',
-      '--gep-overlay-top': 'rgba(0, 0, 0, 0.10)',
-      '--gep-overlay-mid': 'rgba(0, 0, 0, 0.10)',
-      '--gep-overlay-bottom': 'rgba(0, 0, 0, 0.10)',
-      '--gep-card-overlay': 'rgba(23, 20, 15, 0.78)',
-      '--gep-staffing-overlay': 'rgba(23, 20, 15, 0.68)',
-      '--gep-text': '#17140F',
-      '--gep-text-muted': '#6B6358',
-      '--gep-logo-filter': 'none',
-      '--gep-client-logo-filter': 'brightness(0)',
-      '--gep-divider': 'rgba(23, 20, 15, 0.16)',
-      '--gep-hero-word': '#B44A18',
-      '--gep-storage-overlay': 'linear-gradient(to top, rgba(45, 40, 34, 0.86) 0%, rgba(107, 99, 88, 0.46) 55%, rgba(45, 40, 34, 0.2) 100%)',
-    },
-  },
-  {
-    id: 'bone-classic',
-    name: 'Bone Classic',
+    id: 'bone-light',
+    name: 'Bone Light',
     vars: {
       '--gep-bg': '#F8F5F0',
       '--gep-bg-alt': '#F3EFE8',
@@ -142,7 +117,7 @@ const COLOR_SCHEMES: ColorScheme[] = [
       '--gep-footer': 'linear-gradient(180deg, #5C5348 0%, #7A7064 100%)',
       '--gep-accent': '#B44A18',
       '--gep-accent-text': '#F8F5F0',
-      '--gep-header-scrolled': 'rgba(107, 99, 88, 0.92)',
+      '--gep-header-scrolled': 'rgba(107, 99, 88, 0.68)',
       '--gep-overlay-top': 'rgba(0, 0, 0, 0.10)',
       '--gep-overlay-mid': 'rgba(0, 0, 0, 0.10)',
       '--gep-overlay-bottom': 'rgba(0, 0, 0, 0.10)',
@@ -155,6 +130,31 @@ const COLOR_SCHEMES: ColorScheme[] = [
       '--gep-divider': 'rgba(23, 20, 15, 0.12)',
       '--gep-hero-word': '#B44A18',
       '--gep-storage-overlay': 'linear-gradient(to top, rgba(92, 83, 72, 0.78) 0%, rgba(140, 130, 118, 0.4) 55%, rgba(92, 83, 72, 0.16) 100%)',
+    },
+  },
+  {
+    id: 'bone-dark',
+    name: 'Bone Dark',
+    vars: {
+      '--gep-bg': '#F3EFE8',
+      '--gep-bg-alt': '#E4DDD2',
+      '--gep-card': '#E4DDD2',
+      '--gep-footer': 'linear-gradient(180deg, #17140F 0%, #2A2218 100%)',
+      '--gep-accent': '#B44A18',
+      '--gep-accent-text': '#F8F5F0',
+      '--gep-header-scrolled': 'rgba(23, 20, 15, 0.72)',
+      '--gep-overlay-top': 'rgba(0, 0, 0, 0.10)',
+      '--gep-overlay-mid': 'rgba(0, 0, 0, 0.10)',
+      '--gep-overlay-bottom': 'rgba(0, 0, 0, 0.10)',
+      '--gep-card-overlay': 'rgba(23, 20, 15, 0.78)',
+      '--gep-staffing-overlay': 'rgba(23, 20, 15, 0.68)',
+      '--gep-text': '#17140F',
+      '--gep-text-muted': '#6B6358',
+      '--gep-logo-filter': 'none',
+      '--gep-client-logo-filter': 'brightness(0)',
+      '--gep-divider': 'rgba(23, 20, 15, 0.16)',
+      '--gep-hero-word': '#B44A18',
+      '--gep-storage-overlay': 'linear-gradient(to top, rgba(45, 40, 34, 0.86) 0%, rgba(107, 99, 88, 0.46) 55%, rgba(45, 40, 34, 0.2) 100%)',
     },
   },
   {
