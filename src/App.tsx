@@ -23,7 +23,7 @@ import gepLogo from './imports/gepn_wplogo_light_v1-1.png'
 
 const HERO_VIDEO = '/gep-hero-video.mp4'
 
-const LIGHT_COLOR_SCHEMES = new Set(['navy-gold-light', 'light-slate'])
+const LIGHT_COLOR_SCHEMES = new Set(['navy-gold-light', 'light-slate', 'bone'])
 
 type ColorScheme = {
   id: string
@@ -102,6 +102,30 @@ const COLOR_SCHEMES: ColorScheme[] = [
       '--gep-client-logo-filter': 'brightness(0)',
       '--gep-divider': 'rgba(0,0,0,0.08)',
       '--gep-hero-word': '#FFC52F',
+    },
+  },
+  {
+    id: 'bone',
+    name: 'Bone',
+    vars: {
+      '--gep-bg': '#F3EFE8',
+      '--gep-bg-alt': '#E4DDD2',
+      '--gep-card': '#E4DDD2',
+      '--gep-footer': 'linear-gradient(180deg, #17140F 0%, #2A2218 100%)',
+      '--gep-accent': '#B44A18',
+      '--gep-accent-text': '#F8F5F0',
+      '--gep-header-scrolled': 'rgba(23, 20, 15, 0.94)',
+      '--gep-overlay-top': 'rgba(0, 0, 0, 0.10)',
+      '--gep-overlay-mid': 'rgba(0, 0, 0, 0.10)',
+      '--gep-overlay-bottom': 'rgba(0, 0, 0, 0.10)',
+      '--gep-card-overlay': 'rgba(23, 20, 15, 0.78)',
+      '--gep-staffing-overlay': 'rgba(23, 20, 15, 0.68)',
+      '--gep-text': '#17140F',
+      '--gep-text-muted': '#6B6358',
+      '--gep-logo-filter': 'brightness(0)',
+      '--gep-client-logo-filter': 'brightness(0)',
+      '--gep-divider': 'rgba(23, 20, 15, 0.16)',
+      '--gep-hero-word': '#B44A18',
     },
   },
   {
