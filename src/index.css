@@ -50,7 +50,7 @@ html {
 }
 
 .gep-logo-century--hero {
-  font-size: clamp(2.25rem, 7vw, 4.25rem);
+  font-size: clamp(4.5rem, 16vw, 10rem);
   padding-left: 0.14em;
 }
 

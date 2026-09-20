@@ -674,12 +674,13 @@ function Hero({
           Full-Service Live Event Production
         </p>
         {centeredLogoHero ? (
-          <div className="flex justify-center mb-8">
+          <div className="flex justify-center mb-10 w-full max-w-[min(100%,64rem)] mx-auto px-2">
             <GEPLogoLockup
               variant="hero"
-              globeSize={56}
+              globeSize={140}
               colorSchemeKey={colorScheme}
               lockupId={logoLockup}
+              className="max-w-full"
             />
           </div>
         ) : (

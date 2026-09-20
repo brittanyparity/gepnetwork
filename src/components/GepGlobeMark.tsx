@@ -37,7 +37,7 @@ function BrunoFullLockup({ globeSize, hero }: { globeSize: number; hero: boolean
     letterSpacing: '0.08em',
   } as const
 
-  const fontSize = hero ? 'clamp(1rem, 2.8vw, 1.45rem)' : 'clamp(0.7rem, 2vw, 0.95rem)'
+  const fontSize = hero ? 'clamp(2rem, 6vw, 3.75rem)' : 'clamp(0.7rem, 2vw, 0.95rem)'
 
   return (
     <>
@@ -86,7 +86,7 @@ export default function GEPLogoLockup({
   const linkRef = useRef<HTMLAnchorElement>(null)
   const lockup = LOGO_LOCKUPS.find((l) => l.id === lockupId) ?? LOGO_LOCKUPS[0]
   const hero = variant === 'hero'
-  const effectiveGlobeSize = hero ? (lockup.id === 'bruno-full' ? 80 : globeSize) : globeSize
+  const effectiveGlobeSize = hero ? (lockup.id === 'bruno-full' ? 140 : globeSize) : globeSize
 
   useEffect(() => {
     syncGlobeAttributes(linkRef.current)
@@ -97,7 +97,7 @@ export default function GEPLogoLockup({
       ref={linkRef}
       href="#"
       className={`inline-flex items-center flex-shrink-0 ${
-        lockup.id === 'bruno-full' ? (hero ? 'gap-3 sm:gap-4' : 'gap-2 sm:gap-2.5') : ''
+        lockup.id === 'bruno-full' ? (hero ? 'gap-4 sm:gap-8' : 'gap-2 sm:gap-2.5') : ''
       } ${hero ? 'justify-center' : ''} ${className}`}
       aria-label="GEP Network home"
     >
