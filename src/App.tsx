@@ -1360,7 +1360,7 @@ function Footer() {
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [colorScheme, setColorScheme] = useState('bone-dark')
-  const [logoLockup, setLogoLockup] = useState<LogoLockupId>('century-bruno')
+  const [logoLockup, setLogoLockup] = useState<LogoLockupId>('bruno-full')
   const scheme = COLOR_SCHEMES.find((s) => s.id === colorScheme) ?? COLOR_SCHEMES[0]
 
   return (

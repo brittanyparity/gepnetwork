@@ -24,7 +24,53 @@ html {
 
 :root {
   --gep-globe-land: #f2eee8;
-  --gep-globe-ocean: #0e1116;
+  --gep-globe-ocean: #141b23;
+}
+
+/* Century G + globe lockup (matches Claude brand embed proportions) */
+.gep-logo-century {
+  font-size: clamp(1.35rem, 3.2vw, 2.15rem);
+  padding-left: 0.14em;
+}
+
+.gep-logo-century__g {
+  position: relative;
+  top: -0.036em;
+  display: inline-block;
+  isolation: isolate;
+  font-family: 'Century Gothic', 'CenturyGothic', 'AppleGothic', 'Didact Gothic', sans-serif;
+  font-size: 0.8em;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-shadow:
+    0 0 0.055em rgba(0, 0, 0, 0.9),
+    0 0.014em 0.035em rgba(0, 0, 0, 0.75);
+}
+
+.gep-logo-century__globe {
+  position: absolute;
+  left: 0.06em;
+  top: 0.156em;
+  width: 0.76em;
+  height: 0.76em;
+  border-radius: 50%;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.gep-logo-century__globe gep-globe {
+  position: absolute;
+  top: -11%;
+  left: -11%;
+  width: 122%;
+  height: 122%;
+}
+
+.gep-logo-century__word {
+  font-family: 'Bruno Ace', sans-serif;
+  font-size: 0.6em;
+  letter-spacing: 0.02em;
+  font-weight: 400;
 }
 
 body {
