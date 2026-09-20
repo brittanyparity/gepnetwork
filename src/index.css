@@ -49,6 +49,11 @@ html {
   padding-left: 0.14em;
 }
 
+.gep-logo-century--hero {
+  font-size: clamp(2.25rem, 7vw, 4.25rem);
+  padding-left: 0.14em;
+}
+
 .gep-logo-century__g {
   position: relative;
   top: -0.036em;

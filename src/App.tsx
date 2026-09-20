@@ -19,9 +19,9 @@ import sonyMusicColor from './imports/sony-music-logo-color.png'
 import sonyMusicWhite from './imports/sony-music-logo-white.png'
 import republicRecordsColor from './imports/republic-records-logo-color.svg'
 import republicRecordsWhite from './imports/republic-records-logo-white.png'
-import gepLogo from './imports/gepn_wplogo_light_v1-1.png'
 import GEPLogoLockup from './components/GepGlobeMark'
 import { LOGO_LOCKUPS, type LogoLockupId } from './logo-lockups'
+import { SITE_LAYOUTS, type SiteLayoutId } from './site-layouts'
 
 const HERO_VIDEO = '/gep-hero-video.mp4'
 
@@ -406,11 +406,15 @@ function ThemePicker({
   onColorSchemeChange,
   logoLockup,
   onLogoLockupChange,
+  siteLayout,
+  onSiteLayoutChange,
 }: {
   colorScheme: string
   onColorSchemeChange: (id: string) => void
   logoLockup: LogoLockupId
   onLogoLockupChange: (id: LogoLockupId) => void
+  siteLayout: SiteLayoutId
+  onSiteLayoutChange: (id: SiteLayoutId) => void
 }) {
   const isLightScheme = LIGHT_COLOR_SCHEMES.has(colorScheme)
   const chevronColor = isLightScheme ? '1D1D1F' : 'ffffff'
@@ -458,6 +462,24 @@ function ThemePicker({
           ))}
         </select>
       </div>
+      <div className="flex flex-col items-end gap-2 w-full">
+        <label htmlFor="site-layout" className="text-[10px] tracking-[0.2em] uppercase" style={{ color: 'var(--gep-text-muted)' }}>
+          Site Layout
+        </label>
+        <select
+          id="site-layout"
+          value={siteLayout}
+          onChange={(e) => onSiteLayoutChange(e.target.value as SiteLayoutId)}
+          className={selectClass}
+          style={themeSelectStyle(chevronColor)}
+        >
+          {SITE_LAYOUTS.map((layout) => (
+            <option key={layout.id} value={layout.id} style={{ background: 'var(--gep-bg)', color: 'var(--gep-text)' }}>
+              {layout.name}
+            </option>
+          ))}
+        </select>
+      </div>
     </div>
   )
 }
@@ -467,12 +489,15 @@ function Header({
   setMenuOpen,
   colorScheme,
   logoLockup,
+  siteLayout,
 }: {
   menuOpen: boolean
   setMenuOpen: (v: boolean) => void
   colorScheme: string
   logoLockup: LogoLockupId
+  siteLayout: SiteLayoutId
 }) {
+  const centeredLogoHero = siteLayout === 'centered-logo-hero'
   const [scrolled, setScrolled] = useState(false)
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 40)
@@ -489,12 +514,13 @@ function Header({
         borderBottom: scrolled ? '1px solid rgba(128,128,128,0.15)' : '1px solid transparent',
       }}
     >
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-10 h-20 flex items-center">
-        <GEPLogoLockup globeSize={48} colorSchemeKey={colorScheme} lockupId={logoLockup} />
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-10 h-20 flex items-center w-full">
+        {!centeredLogoHero && (
+          <GEPLogoLockup globeSize={48} colorSchemeKey={colorScheme} lockupId={logoLockup} />
+        )}
 
-        {/* Desktop Nav + Call — grouped and right-aligned */}
-        <div className="hidden lg:flex items-center gap-8 ml-auto">
-          <nav className="flex items-center gap-8">
+        {centeredLogoHero && (
+          <nav className="hidden lg:flex items-center gap-6 xl:gap-8 flex-wrap">
             {NAV_LINKS.map((link) => (
               <a
                 key={link.label}
@@ -508,9 +534,42 @@ function Header({
               </a>
             ))}
           </nav>
+        )}
+
+        {!centeredLogoHero && (
+          <div className="hidden lg:flex items-center gap-8 ml-auto">
+            <nav className="flex items-center gap-8">
+              {NAV_LINKS.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  className="text-xs tracking-widest uppercase transition-colors duration-200 hover:opacity-100"
+                  style={{ fontFamily: 'Inter, sans-serif', color: 'rgba(255,255,255,0.65)' }}
+                  onMouseEnter={(e) => { e.currentTarget.style.color = '#ffffff' }}
+                  onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.65)' }}
+                >
+                  {link.label}
+                </a>
+              ))}
+            </nav>
+            <a
+              href="tel:8774376381"
+              className="px-5 py-2.5 text-xs tracking-widest uppercase font-semibold transition-all duration-200 hover:opacity-90"
+              style={{
+                fontFamily: 'Inter, sans-serif',
+                background: 'var(--gep-accent)',
+                color: 'var(--gep-accent-text)',
+              }}
+            >
+              877-437-6381
+            </a>
+          </div>
+        )}
+
+        {centeredLogoHero && (
           <a
             href="tel:8774376381"
-            className="px-5 py-2.5 text-xs tracking-widest uppercase font-semibold transition-all duration-200 hover:opacity-90"
+            className="hidden lg:inline-flex ml-auto px-5 py-2.5 text-xs tracking-widest uppercase font-semibold transition-all duration-200 hover:opacity-90"
             style={{
               fontFamily: 'Inter, sans-serif',
               background: 'var(--gep-accent)',
@@ -519,11 +578,10 @@ function Header({
           >
             877-437-6381
           </a>
-        </div>
+        )}
 
-        {/* Mobile hamburger */}
         <button
-          className="lg:hidden flex flex-col gap-1.5 p-2 ml-auto"
+          className={`lg:hidden flex flex-col gap-1.5 p-2 ${centeredLogoHero ? '' : 'ml-auto'} ${centeredLogoHero ? 'order-first' : ''}`}
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
         >
@@ -531,6 +589,20 @@ function Header({
           <span className={`block w-6 h-px transition-all duration-200 ${menuOpen ? 'opacity-0' : ''}`} style={{ background: '#ffffff' }} />
           <span className={`block w-6 h-px transition-all duration-200 ${menuOpen ? '-rotate-45 -translate-y-2' : ''}`} style={{ background: '#ffffff' }} />
         </button>
+
+        {centeredLogoHero && (
+          <a
+            href="tel:8774376381"
+            className="lg:hidden ml-auto px-4 py-2 text-[10px] tracking-widest uppercase font-semibold transition-all duration-200 hover:opacity-90"
+            style={{
+              fontFamily: 'Inter, sans-serif',
+              background: 'var(--gep-accent)',
+              color: 'var(--gep-accent-text)',
+            }}
+          >
+            877-437-6381
+          </a>
+        )}
       </div>
 
       {/* Mobile Menu */}
@@ -563,7 +635,17 @@ function Header({
   )
 }
 
-function Hero() {
+function Hero({
+  siteLayout,
+  colorScheme,
+  logoLockup,
+}: {
+  siteLayout: SiteLayoutId
+  colorScheme: string
+  logoLockup: LogoLockupId
+}) {
+  const centeredLogoHero = siteLayout === 'centered-logo-hero'
+
   return (
     <section className="relative w-full min-h-screen flex items-center justify-center overflow-hidden" style={{ background: 'var(--gep-bg)' }}>
       {/* Background video */}
@@ -591,18 +673,29 @@ function Hero() {
         <p className="text-xs tracking-[0.35em] uppercase mb-6" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-hero-word, var(--gep-accent))' }}>
           Full-Service Live Event Production
         </p>
-        <h1
-          className="text-white uppercase leading-none mb-6"
-          style={{
-            fontFamily: 'Barlow Condensed, sans-serif',
-            fontSize: 'clamp(3.5rem, 9vw, 8rem)',
-            fontWeight: 900,
-            letterSpacing: '0.02em',
-          }}
-        >
-          Production<br />
-          <span style={{ color: 'var(--gep-hero-word, var(--gep-accent))' }}>Without</span> Limits
-        </h1>
+        {centeredLogoHero ? (
+          <div className="flex justify-center mb-8">
+            <GEPLogoLockup
+              variant="hero"
+              globeSize={56}
+              colorSchemeKey={colorScheme}
+              lockupId={logoLockup}
+            />
+          </div>
+        ) : (
+          <h1
+            className="text-white uppercase leading-none mb-6"
+            style={{
+              fontFamily: 'Barlow Condensed, sans-serif',
+              fontSize: 'clamp(3.5rem, 9vw, 8rem)',
+              fontWeight: 900,
+              letterSpacing: '0.02em',
+            }}
+          >
+            Production<br />
+            <span style={{ color: 'var(--gep-hero-word, var(--gep-accent))' }}>Without</span> Limits
+          </h1>
+        )}
         <p className="text-white/60 text-base lg:text-lg max-w-xl mx-auto mb-10 leading-relaxed" style={{ fontFamily: 'Inter, sans-serif' }}>
           GEP Network executes concerts, tours, festivals, and corporate events at the highest level — backed by 40+ years of industry expertise.
         </p>
@@ -1260,18 +1353,18 @@ function Testimonials() {
   )
 }
 
-function Footer() {
+function Footer({ colorScheme, logoLockup }: { colorScheme: string; logoLockup: LogoLockupId }) {
   return (
     <footer id="contact" className="pt-20 pb-10 scroll-mt-24" style={{ borderTop: '1px solid rgba(255,255,255,0.07)', background: 'var(--gep-footer)' }}>
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <img
-              src={gepLogo}
-              alt="GEP Network"
-              className="h-12 w-auto object-contain mb-4"
-              style={{ filter: 'var(--gep-logo-filter)' }}
+            <GEPLogoLockup
+              globeSize={48}
+              colorSchemeKey={colorScheme}
+              lockupId={logoLockup}
+              className="mb-4"
             />
             <p className="text-white/35 text-sm leading-relaxed mb-6" style={{ fontFamily: 'Inter, sans-serif' }}>
               Full-service live event production. 40+ years of experience. Global reach.
@@ -1360,7 +1453,8 @@ function Footer() {
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [colorScheme, setColorScheme] = useState('bone-dark')
-  const [logoLockup, setLogoLockup] = useState<LogoLockupId>('bruno-full')
+  const [logoLockup, setLogoLockup] = useState<LogoLockupId>('century-globe')
+  const [siteLayout, setSiteLayout] = useState<SiteLayoutId>('headline-hero')
   const scheme = COLOR_SCHEMES.find((s) => s.id === colorScheme) ?? COLOR_SCHEMES[0]
 
   return (
@@ -1368,8 +1462,14 @@ export default function App() {
       className="min-h-screen overflow-x-hidden"
       style={{ ...scheme.vars, background: 'var(--gep-bg)', color: 'var(--gep-text)' } as CSSProperties}
     >
-      <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} colorScheme={colorScheme} logoLockup={logoLockup} />
-      <Hero />
+      <Header
+        menuOpen={menuOpen}
+        setMenuOpen={setMenuOpen}
+        colorScheme={colorScheme}
+        logoLockup={logoLockup}
+        siteLayout={siteLayout}
+      />
+      <Hero siteLayout={siteLayout} colorScheme={colorScheme} logoLockup={logoLockup} />
       <ClientLogoWall colorScheme={colorScheme} />
       <RecentProjectsCarousel />
       <WhyGEP />
@@ -1378,12 +1478,14 @@ export default function App() {
       <StorageSection />
       <ProductionStaffing />
       <Testimonials />
-      <Footer />
+      <Footer colorScheme={colorScheme} logoLockup={logoLockup} />
       <ThemePicker
         colorScheme={colorScheme}
         onColorSchemeChange={setColorScheme}
         logoLockup={logoLockup}
         onLogoLockupChange={setLogoLockup}
+        siteLayout={siteLayout}
+        onSiteLayoutChange={setSiteLayout}
       />
     </div>
   )
