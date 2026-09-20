@@ -2,9 +2,6 @@ import { useEffect, useRef } from 'react'
 import { LOGO_LOCKUPS, type LogoLockupId } from '../logo-lockups'
 
 const FONT_BRUNO_ACE = "'Bruno Ace', sans-serif"
-const FONT_CENTURY_GOTHIC =
-  "'Century Gothic', 'CenturyGothic', 'AppleGothic', 'Didact Gothic', sans-serif"
-
 type GEPLogoLockupProps = {
   className?: string
   globeSize?: number
