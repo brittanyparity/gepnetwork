@@ -20,7 +20,8 @@ import sonyMusicWhite from './imports/sony-music-logo-white.png'
 import republicRecordsColor from './imports/republic-records-logo-color.svg'
 import republicRecordsWhite from './imports/republic-records-logo-white.png'
 import gepLogo from './imports/gepn_wplogo_light_v1-1.png'
-import GepGlobeMark from './components/GepGlobeMark'
+import GEPLogoLockup from './components/GepGlobeMark'
+import { LOGO_LOCKUPS, type LogoLockupId } from './logo-lockups'
 
 const HERO_VIDEO = '/gep-hero-video.mp4'
 
@@ -389,38 +390,74 @@ function GoldRule() {
   return <div className="w-12 h-px mb-6" style={{ background: 'var(--gep-accent)' }} />
 }
 
-function ColorSchemePicker({ value, onChange }: { value: string; onChange: (id: string) => void }) {
-  const isLightScheme = LIGHT_COLOR_SCHEMES.has(value)
+function themeSelectStyle(chevronHex: string): CSSProperties {
+  return {
+    background: 'var(--gep-card)',
+    color: 'var(--gep-text)',
+    borderColor: 'rgba(128,128,128,0.25)',
+    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23${chevronHex}' fill-opacity='0.5' d='M3 5l3 3 3-3'/%3E%3C/svg%3E")`,
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'right 12px center',
+  }
+}
+
+function ThemePicker({
+  colorScheme,
+  onColorSchemeChange,
+  logoLockup,
+  onLogoLockupChange,
+}: {
+  colorScheme: string
+  onColorSchemeChange: (id: string) => void
+  logoLockup: LogoLockupId
+  onLogoLockupChange: (id: LogoLockupId) => void
+}) {
+  const isLightScheme = LIGHT_COLOR_SCHEMES.has(colorScheme)
   const chevronColor = isLightScheme ? '1D1D1F' : 'ffffff'
+  const selectClass =
+    'w-full min-w-[220px] max-w-[min(100vw-3rem,280px)] px-4 py-2.5 text-xs tracking-wide border cursor-pointer appearance-none pr-8'
 
   return (
     <div
-      className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-2"
+      className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-4"
       style={{ fontFamily: 'Inter, sans-serif' }}
     >
-      <label htmlFor="color-scheme" className="text-[10px] tracking-[0.2em] uppercase" style={{ color: 'var(--gep-text-muted)' }}>
-        Color Scheme
-      </label>
-      <select
-        id="color-scheme"
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className="px-4 py-2.5 text-xs tracking-wide border cursor-pointer appearance-none pr-8"
-        style={{
-          background: 'var(--gep-card)',
-          color: 'var(--gep-text)',
-          borderColor: 'rgba(128,128,128,0.25)',
-          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23${chevronColor}' fill-opacity='0.5' d='M3 5l3 3 3-3'/%3E%3C/svg%3E")`,
-          backgroundRepeat: 'no-repeat',
-          backgroundPosition: 'right 12px center',
-        }}
-      >
-        {COLOR_SCHEMES.map((scheme) => (
-          <option key={scheme.id} value={scheme.id} style={{ background: 'var(--gep-bg)', color: 'var(--gep-text)' }}>
-            {scheme.name}
-          </option>
-        ))}
-      </select>
+      <div className="flex flex-col items-end gap-2 w-full">
+        <label htmlFor="color-scheme" className="text-[10px] tracking-[0.2em] uppercase" style={{ color: 'var(--gep-text-muted)' }}>
+          Color Scheme
+        </label>
+        <select
+          id="color-scheme"
+          value={colorScheme}
+          onChange={(e) => onColorSchemeChange(e.target.value)}
+          className={selectClass}
+          style={themeSelectStyle(chevronColor)}
+        >
+          {COLOR_SCHEMES.map((scheme) => (
+            <option key={scheme.id} value={scheme.id} style={{ background: 'var(--gep-bg)', color: 'var(--gep-text)' }}>
+              {scheme.name}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div className="flex flex-col items-end gap-2 w-full">
+        <label htmlFor="logo-lockup" className="text-[10px] tracking-[0.2em] uppercase" style={{ color: 'var(--gep-text-muted)' }}>
+          Logo Lockup
+        </label>
+        <select
+          id="logo-lockup"
+          value={logoLockup}
+          onChange={(e) => onLogoLockupChange(e.target.value as LogoLockupId)}
+          className={selectClass}
+          style={themeSelectStyle(chevronColor)}
+        >
+          {LOGO_LOCKUPS.map((lockup) => (
+            <option key={lockup.id} value={lockup.id} style={{ background: 'var(--gep-bg)', color: 'var(--gep-text)' }}>
+              {lockup.name}
+            </option>
+          ))}
+        </select>
+      </div>
     </div>
   )
 }
@@ -429,10 +466,12 @@ function Header({
   menuOpen,
   setMenuOpen,
   colorScheme,
+  logoLockup,
 }: {
   menuOpen: boolean
   setMenuOpen: (v: boolean) => void
   colorScheme: string
+  logoLockup: LogoLockupId
 }) {
   const [scrolled, setScrolled] = useState(false)
   useEffect(() => {
@@ -451,7 +490,7 @@ function Header({
       }}
     >
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10 h-20 flex items-center">
-        <GepGlobeMark size={52} colorSchemeKey={colorScheme} />
+        <GEPLogoLockup globeSize={48} colorSchemeKey={colorScheme} lockupId={logoLockup} />
 
         {/* Desktop Nav + Call — grouped and right-aligned */}
         <div className="hidden lg:flex items-center gap-8 ml-auto">
@@ -1321,6 +1360,7 @@ function Footer() {
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [colorScheme, setColorScheme] = useState('bone-dark')
+  const [logoLockup, setLogoLockup] = useState<LogoLockupId>('century-bruno')
   const scheme = COLOR_SCHEMES.find((s) => s.id === colorScheme) ?? COLOR_SCHEMES[0]
 
   return (
@@ -1328,7 +1368,7 @@ export default function App() {
       className="min-h-screen overflow-x-hidden"
       style={{ ...scheme.vars, background: 'var(--gep-bg)', color: 'var(--gep-text)' } as CSSProperties}
     >
-      <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} colorScheme={colorScheme} />
+      <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} colorScheme={colorScheme} logoLockup={logoLockup} />
       <Hero />
       <ClientLogoWall colorScheme={colorScheme} />
       <RecentProjectsCarousel />
@@ -1339,7 +1379,12 @@ export default function App() {
       <ProductionStaffing />
       <Testimonials />
       <Footer />
-      <ColorSchemePicker value={colorScheme} onChange={setColorScheme} />
+      <ThemePicker
+        colorScheme={colorScheme}
+        onColorSchemeChange={setColorScheme}
+        logoLockup={logoLockup}
+        onLogoLockupChange={setLogoLockup}
+      />
     </div>
   )
 }
