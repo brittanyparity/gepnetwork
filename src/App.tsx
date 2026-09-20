@@ -20,6 +20,7 @@ import sonyMusicWhite from './imports/sony-music-logo-white.png'
 import republicRecordsColor from './imports/republic-records-logo-color.svg'
 import republicRecordsWhite from './imports/republic-records-logo-white.png'
 import gepLogo from './imports/gepn_wplogo_light_v1-1.png'
+import GepGlobeMark from './components/GepGlobeMark'
 
 const HERO_VIDEO = '/gep-hero-video.mp4'
 
@@ -424,7 +425,15 @@ function ColorSchemePicker({ value, onChange }: { value: string; onChange: (id: 
   )
 }
 
-function Header({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: (v: boolean) => void }) {
+function Header({
+  menuOpen,
+  setMenuOpen,
+  colorScheme,
+}: {
+  menuOpen: boolean
+  setMenuOpen: (v: boolean) => void
+  colorScheme: string
+}) {
   const [scrolled, setScrolled] = useState(false)
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 40)
@@ -442,15 +451,7 @@ function Header({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: (v:
       }}
     >
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10 h-20 flex items-center">
-        {/* Logo */}
-        <a href="#" className="flex-shrink-0">
-          <img
-            src={gepLogo}
-            alt="GEP Network"
-            className="h-12 w-auto object-contain"
-            style={{ filter: 'var(--gep-logo-filter)' }}
-          />
-        </a>
+        <GepGlobeMark size={52} colorSchemeKey={colorScheme} />
 
         {/* Desktop Nav + Call — grouped and right-aligned */}
         <div className="hidden lg:flex items-center gap-8 ml-auto">
@@ -1327,7 +1328,7 @@ export default function App() {
       className="min-h-screen overflow-x-hidden"
       style={{ ...scheme.vars, background: 'var(--gep-bg)', color: 'var(--gep-text)' } as CSSProperties}
     >
-      <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+      <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} colorScheme={colorScheme} />
       <Hero />
       <ClientLogoWall colorScheme={colorScheme} />
       <RecentProjectsCarousel />
