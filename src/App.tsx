@@ -20,7 +20,6 @@ import sonyMusicWhite from './imports/sony-music-logo-white.png'
 import republicRecordsColor from './imports/republic-records-logo-color.svg'
 import republicRecordsWhite from './imports/republic-records-logo-white.png'
 import GEPLogoLockup, { GEPAbbrevGlobeMark } from './components/GepGlobeMark'
-import whyGepTeamImg from './imports/gep-why-gep-team.png'
 import { LOGO_LOCKUPS, type LogoLockupId } from './logo-lockups'
 import { SITE_LAYOUTS, type SiteLayoutId } from './site-layouts'
 
@@ -58,6 +57,7 @@ const COLOR_SCHEMES: ColorScheme[] = [
       '--gep-divider': 'rgba(23, 20, 15, 0.12)',
       '--gep-hero-word': '#B44A18',
       '--gep-hero-kicker': '#F8F5F0',
+      '--gep-why-gep-overlay': 'linear-gradient(105deg, rgba(23, 20, 15, 0.78) 0%, rgba(23, 20, 15, 0.42) 50%, rgba(23, 20, 15, 0.32) 100%)',
       '--gep-storage-overlay': 'linear-gradient(to top, rgba(92, 83, 72, 0.78) 0%, rgba(140, 130, 118, 0.4) 55%, rgba(92, 83, 72, 0.16) 100%)',
     },
   },
@@ -84,6 +84,7 @@ const COLOR_SCHEMES: ColorScheme[] = [
       '--gep-divider': 'rgba(0,0,0,0.08)',
       '--gep-hero-word': '#FFC52F',
       '--gep-hero-kicker': '#F5F5F0',
+      '--gep-why-gep-overlay': 'linear-gradient(105deg, rgba(0, 0, 0, 0.82) 0%, rgba(0, 0, 0, 0.48) 50%, rgba(0, 0, 0, 0.36) 100%)',
       '--gep-storage-overlay': 'linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.48) 55%, rgba(0,0,0,0.22) 100%)',
     },
   },
@@ -110,6 +111,7 @@ const COLOR_SCHEMES: ColorScheme[] = [
       '--gep-divider': 'rgba(23, 20, 15, 0.16)',
       '--gep-hero-word': '#B44A18',
       '--gep-hero-kicker': '#F8F5F0',
+      '--gep-why-gep-overlay': 'linear-gradient(105deg, rgba(23, 20, 15, 0.8) 0%, rgba(23, 20, 15, 0.44) 50%, rgba(23, 20, 15, 0.34) 100%)',
       '--gep-storage-overlay': 'linear-gradient(to top, rgba(45, 40, 34, 0.86) 0%, rgba(107, 99, 88, 0.46) 55%, rgba(45, 40, 34, 0.2) 100%)',
     },
   },
@@ -136,6 +138,7 @@ const COLOR_SCHEMES: ColorScheme[] = [
       '--gep-divider': 'rgba(255,255,255,0.07)',
       '--gep-hero-word': '#FFC52F',
       '--gep-hero-kicker': '#F5F3F0',
+      '--gep-why-gep-overlay': 'linear-gradient(105deg, rgba(15, 15, 18, 0.85) 0%, rgba(15, 15, 18, 0.5) 50%, rgba(15, 15, 18, 0.38) 100%)',
       '--gep-storage-overlay': 'linear-gradient(to top, rgba(15,15,18,0.92) 0%, rgba(15,15,18,0.52) 55%, rgba(15,15,18,0.26) 100%)',
     },
   },
@@ -152,10 +155,10 @@ const WAREHOUSE1 = 'https://images.unsplash.com/photo-1758789667762-56175fe4601c
 const WAREHOUSE2 = 'https://images.unsplash.com/photo-1772305336606-989a457ffbae?w=700&h=500&fit=crop&auto=format'
 const WAREHOUSE3 = 'https://images.unsplash.com/photo-1771531072574-af6ed6b954c0?w=700&h=500&fit=crop&auto=format'
 const STAGE_BG = 'https://images.unsplash.com/photo-1558620013-a08999547a36?w=1920&h=900&fit=crop&auto=format'
-const TEAM_COLLAB_IMG = whyGepTeamImg
+const TEAM_COLLAB_IMG = '/gep-why-gep-team.jpg'
 
-const FONT_BODY = "'IBM Plex Mono', monospace"
-const FONT_DISPLAY = "'IBM Plex Mono', monospace"
+const FONT_BODY = "'Inter', sans-serif"
+const FONT_DISPLAY = "'Barlow Condensed', sans-serif"
 
 const CALL_BUTTON_CLASS =
   'px-5 py-2.5 text-xs tracking-widest uppercase font-semibold border transition-all duration-200 hover:opacity-90'
@@ -488,6 +491,12 @@ function Header({
 
         {centeredLogoHero && (
           <nav className="hidden lg:flex items-center gap-6 xl:gap-8 flex-wrap">
+            {scrolled && (
+              <GEPAbbrevGlobeMark
+                colorSchemeKey={colorScheme}
+                className="mr-1 transition-opacity duration-300"
+              />
+            )}
             {NAV_LINKS.map((link) => (
               <a
                 key={link.label}
@@ -526,14 +535,9 @@ function Header({
         )}
 
         {centeredLogoHero && (
-          <div className="hidden lg:flex items-center gap-5 ml-auto">
-            {scrolled && (
-              <GEPAbbrevGlobeMark colorSchemeKey={colorScheme} className="transition-opacity duration-300" />
-            )}
-            <a href="tel:8774376381" className={CALL_BUTTON_CLASS} style={callButtonStyle}>
-              877-437-6381
-            </a>
-          </div>
+          <a href="tel:8774376381" className={`hidden lg:inline-flex ml-auto ${CALL_BUTTON_CLASS}`} style={callButtonStyle}>
+            877-437-6381
+          </a>
         )}
 
         <button
@@ -547,12 +551,9 @@ function Header({
         </button>
 
         {centeredLogoHero && (
-          <div className="lg:hidden flex items-center gap-3 ml-auto">
-            {scrolled && <GEPAbbrevGlobeMark colorSchemeKey={colorScheme} className="text-base" />}
-            <a href="tel:8774376381" className={`${CALL_BUTTON_CLASS} px-4 py-2 text-[10px]`} style={callButtonStyle}>
-              877-437-6381
-            </a>
-          </div>
+          <a href="tel:8774376381" className={`lg:hidden ml-auto ${CALL_BUTTON_CLASS} px-4 py-2 text-[10px]`} style={callButtonStyle}>
+            877-437-6381
+          </a>
         )}
       </div>
 
@@ -653,7 +654,7 @@ function Hero({
             style={{
               fontFamily: FONT_DISPLAY,
               fontSize: 'clamp(3.5rem, 9vw, 8rem)',
-              fontWeight: 700,
+              fontWeight: 900,
               letterSpacing: '0.02em',
             }}
           >
@@ -750,32 +751,30 @@ function RecentProjectsCarousel() {
 
 function WhyGEP() {
   return (
-    <section
-      className="relative py-28 overflow-hidden"
-    >
+    <section className="relative py-28 overflow-hidden min-h-[32rem]">
       <img
         src={TEAM_COLLAB_IMG}
         alt=""
         aria-hidden="true"
-        className="absolute inset-0 w-full h-full object-cover"
+        className="absolute inset-0 z-0 w-full h-full object-cover object-center"
       />
       <div
-        className="absolute inset-0"
-        style={{ background: 'color-mix(in srgb, var(--gep-bg-alt) 88%, transparent)' }}
+        className="absolute inset-0 z-[1] pointer-events-none"
+        style={{ background: 'var(--gep-why-gep-overlay)' }}
       />
       <div className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-16 items-center">
         <div>
           <GoldRule />
           <h2
-            className="uppercase leading-tight mb-8"
-            style={{ fontFamily: FONT_DISPLAY, fontWeight: 800, fontSize: 'clamp(2.5rem, 4vw, 3.5rem)', letterSpacing: '0.02em', color: 'var(--gep-text)' }}
+            className="text-white uppercase leading-tight mb-8"
+            style={{ fontFamily: FONT_DISPLAY, fontWeight: 800, fontSize: 'clamp(2.5rem, 4vw, 3.5rem)', letterSpacing: '0.02em' }}
           >
             Why GEP<br />Is the Right Choice
           </h2>
-          <p className="text-base leading-relaxed mb-6" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>
+          <p className="text-base leading-relaxed mb-6 text-white/75" style={{ fontFamily: FONT_BODY }}>
             For over four decades, GEP Network has been the production partner that the live entertainment industry turns to when execution matters most. We don't just staff shows — we build the infrastructure that makes them legendary.
           </p>
-          <p className="text-base leading-relaxed mb-10" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>
+          <p className="text-base leading-relaxed mb-10 text-white/75" style={{ fontFamily: FONT_BODY }}>
             From 30,000-seat arenas to international festivals, our coordinators, managers, and crew are embedded in your production from first call to final load-out. We know the business because we've lived it.
           </p>
           <a
@@ -787,21 +786,25 @@ function WhyGEP() {
           </a>
         </div>
 
-        <div className="grid grid-cols-2 gap-px" style={{ backgroundColor: 'var(--gep-divider)' }}>
+        <div className="grid grid-cols-2 gap-px bg-white/15">
           {[
             { n: '40+', l: 'Years in Business' },
             { n: '500+', l: 'Productions Executed' },
             { n: '50+', l: 'Active Crew Members' },
             { n: '100%', l: 'Client Retention Rate' },
           ].map((s) => (
-            <div key={s.l} className="p-10 flex flex-col justify-end" style={{ background: 'color-mix(in srgb, var(--gep-bg-alt) 92%, transparent)' }}>
+            <div
+              key={s.l}
+              className="p-10 flex flex-col justify-end backdrop-blur-[2px]"
+              style={{ background: 'rgba(0, 0, 0, 0.45)' }}
+            >
               <div
                 className="uppercase leading-none mb-2"
                 style={{ fontFamily: FONT_DISPLAY, fontWeight: 700, fontSize: '3.5rem', color: 'var(--gep-accent)' }}
               >
                 {s.n}
               </div>
-              <div className="text-xs tracking-widest uppercase" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>{s.l}</div>
+              <div className="text-xs tracking-widest uppercase text-white/65" style={{ fontFamily: FONT_BODY }}>{s.l}</div>
             </div>
           ))}
         </div>

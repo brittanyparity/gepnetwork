@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Bruno+Ace&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Bruno+Ace&family=Inter:wght@300;400;500;600&display=swap');
 @import 'tailwindcss';
 
 @font-face {
@@ -26,8 +26,8 @@
   --color-gep-gold-light: #FFD46A;
   --color-gep-muted: #7b7baa;
   --color-gep-subtle: #0a0a50;
-  --font-display: 'IBM Plex Mono', monospace;
-  --font-body: 'IBM Plex Mono', monospace;
+  --font-display: 'Barlow Condensed', sans-serif;
+  --font-body: 'Inter', sans-serif;
 }
 
 * {
@@ -118,7 +118,7 @@ html {
 body {
   background-color: #0b0b0d;
   color: #ffffff;
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'Inter', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
