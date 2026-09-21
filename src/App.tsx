@@ -49,7 +49,7 @@ const COLOR_SCHEMES: ColorScheme[] = [
       '--gep-overlay-mid': 'rgba(0, 0, 0, 0.10)',
       '--gep-overlay-bottom': 'rgba(0, 0, 0, 0.10)',
       '--gep-card-overlay': 'rgba(107, 99, 88, 0.72)',
-      '--gep-staffing-overlay': 'rgba(107, 99, 88, 0.52)',
+      '--gep-staffing-overlay': 'linear-gradient(to bottom, rgba(23, 20, 15, 0.38) 0%, rgba(23, 20, 15, 0.22) 100%)',
       '--gep-text': '#17140F',
       '--gep-text-muted': '#7A7064',
       '--gep-logo-filter': 'none',
@@ -76,7 +76,7 @@ const COLOR_SCHEMES: ColorScheme[] = [
       '--gep-overlay-mid': 'rgba(0, 0, 0, 0.10)',
       '--gep-overlay-bottom': 'rgba(0, 0, 0, 0.10)',
       '--gep-card-overlay': 'rgba(0,0,0,0.72)',
-      '--gep-staffing-overlay': 'rgba(0,0,0,0.62)',
+      '--gep-staffing-overlay': 'linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.24) 100%)',
       '--gep-text': '#1D1D1F',
       '--gep-text-muted': '#6E6E73',
       '--gep-logo-filter': 'none',
@@ -103,7 +103,7 @@ const COLOR_SCHEMES: ColorScheme[] = [
       '--gep-overlay-mid': 'rgba(0, 0, 0, 0.10)',
       '--gep-overlay-bottom': 'rgba(0, 0, 0, 0.10)',
       '--gep-card-overlay': 'rgba(23, 20, 15, 0.78)',
-      '--gep-staffing-overlay': 'rgba(23, 20, 15, 0.68)',
+      '--gep-staffing-overlay': 'linear-gradient(to bottom, rgba(23, 20, 15, 0.42) 0%, rgba(23, 20, 15, 0.26) 100%)',
       '--gep-text': '#17140F',
       '--gep-text-muted': '#6B6358',
       '--gep-logo-filter': 'none',
@@ -130,7 +130,7 @@ const COLOR_SCHEMES: ColorScheme[] = [
       '--gep-overlay-mid': 'rgba(0, 0, 0, 0.10)',
       '--gep-overlay-bottom': 'rgba(0, 0, 0, 0.10)',
       '--gep-card-overlay': 'rgba(15,15,18,0.92)',
-      '--gep-staffing-overlay': 'rgba(15,15,18,0.75)',
+      '--gep-staffing-overlay': 'linear-gradient(to bottom, rgba(15, 15, 18, 0.45) 0%, rgba(15, 15, 18, 0.28) 100%)',
       '--gep-text': '#ffffff',
       '--gep-text-muted': 'rgba(255,255,255,0.6)',
       '--gep-logo-filter': 'none',
@@ -1184,16 +1184,19 @@ function StaffingTriangle() {
 
 function ProductionStaffing() {
   return (
-    <section className="relative py-20 md:py-28 overflow-hidden" style={{ background: 'var(--gep-bg)' }}>
+    <section className="relative py-20 md:py-28 overflow-hidden min-h-[28rem]">
       <img
         src={STAGE_BG}
         alt=""
         aria-hidden="true"
-        className="absolute inset-0 w-full h-full object-cover"
+        className="absolute inset-0 z-0 w-full h-full object-cover object-center"
       />
-      <div className="absolute inset-0" style={{ background: 'var(--gep-staffing-overlay)' }} />
+      <div
+        className="absolute inset-0 z-[1] pointer-events-none"
+        style={{ background: 'var(--gep-staffing-overlay)' }}
+      />
 
-      <div className="relative max-w-[1100px] mx-auto px-6 lg:px-10 text-center">
+      <div className="relative z-10 max-w-[1100px] mx-auto px-6 lg:px-10 text-center">
         <h2
           className="text-white uppercase leading-tight mb-6"
           style={{
