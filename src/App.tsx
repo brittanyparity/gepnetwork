@@ -154,7 +154,7 @@ const CONCERT5 = 'https://images.unsplash.com/photo-1619229666372-3c26c399a4cb?w
 const WAREHOUSE1 = 'https://images.unsplash.com/photo-1758789667762-56175fe4601c?w=700&h=500&fit=crop&auto=format'
 const WAREHOUSE2 = 'https://images.unsplash.com/photo-1772305336606-989a457ffbae?w=700&h=500&fit=crop&auto=format'
 const WAREHOUSE3 = 'https://images.unsplash.com/photo-1771531072574-af6ed6b954c0?w=700&h=500&fit=crop&auto=format'
-const STAGE_BG = 'https://images.unsplash.com/photo-1558620013-a08999547a36?w=1920&h=900&fit=crop&auto=format'
+const STAGE_BG = '/gep-production-staffing.jpg'
 const TEAM_COLLAB_IMG = '/gep-why-gep-team.jpg'
 
 const FONT_BODY = "'Inter', sans-serif"
