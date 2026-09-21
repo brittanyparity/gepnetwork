@@ -19,6 +19,16 @@ import sonyMusicColor from './imports/sony-music-logo-color.png'
 import sonyMusicWhite from './imports/sony-music-logo-white.png'
 import republicRecordsColor from './imports/republic-records-logo-color.svg'
 import republicRecordsWhite from './imports/republic-records-logo-white.png'
+import jColeFallOffTour from './imports/jcole-fall-off-tour.jpg'
+import jillScottTwtmcTour from './imports/jillscott-twtmc-tour.webp'
+import playboiCartiAfterHoursTour from './imports/playboi-carti-after-hours-tour.jpg'
+import donToliverNitrousTour from './imports/don-toliver-nitrous-tour.png'
+import playboiCartiAntagoniousTour from './imports/playboi-carti-antagonious-tour.jpg'
+import awarefest2026 from './imports/awarefest-2026.png'
+import rootsPicnic2026 from './imports/roots-picnic-2026.jpg'
+import broccoliCity2026 from './imports/broccoli-city2026.png'
+import rollingLoud2026 from './imports/rolling-loud-2026.png'
+import nbaYoungboyMasaTour from './imports/NBA-Youngboy-Massa-Tour.png'
 import GEPLogoLockup, { GEPAbbrevGlobeMark } from './components/GepGlobeMark'
 import { LOGO_LOCKUPS, type LogoLockupId } from './logo-lockups'
 import { SITE_LAYOUTS, type SiteLayoutId } from './site-layouts'
@@ -146,11 +156,6 @@ const COLOR_SCHEMES: ColorScheme[] = [
 
 // ─── Images ────────────────────────────────────────────────────────────────
 const HERO_IMG = 'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=1920&h=1080&fit=crop&auto=format'
-const CONCERT1 = 'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=800&h=500&fit=crop&auto=format'
-const CONCERT2 = 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=800&h=500&fit=crop&auto=format'
-const CONCERT3 = 'https://images.unsplash.com/photo-1506157786151-b8491531f063?w=800&h=500&fit=crop&auto=format'
-const CONCERT4 = 'https://images.unsplash.com/photo-1563841930606-67e2bce48b78?w=800&h=500&fit=crop&auto=format'
-const CONCERT5 = 'https://images.unsplash.com/photo-1619229666372-3c26c399a4cb?w=800&h=500&fit=crop&auto=format'
 const WAREHOUSE1 = 'https://images.unsplash.com/photo-1758789667762-56175fe4601c?w=700&h=500&fit=crop&auto=format'
 const WAREHOUSE2 = 'https://images.unsplash.com/photo-1772305336606-989a457ffbae?w=700&h=500&fit=crop&auto=format'
 const WAREHOUSE3 = 'https://images.unsplash.com/photo-1771531072574-af6ed6b954c0?w=700&h=500&fit=crop&auto=format'
@@ -181,16 +186,16 @@ const NAV_LINKS = [
 
 
 const PRODUCTIONS = [
-  { name: 'NBA Youngboy', tour: 'MASA Tour', img: CONCERT4 },
-  { name: 'Roots Picnic', tour: '2026', img: CONCERT1 },
-  { name: 'Rolling Loud', tour: '2026', img: CONCERT2 },
-  { name: 'J. Cole', tour: 'The Fall Off Tour', img: CONCERT3 },
-  { name: 'Playboi Carti', tour: 'Antagonist Tour', img: CONCERT4 },
-  { name: 'Don Toliver', tour: 'Nitrous Tour', img: CONCERT5 },
-  { name: 'Mary J. Blige', tour: 'The For My Fans Tour', img: CONCERT1 },
-  { name: 'Jill Scott', tour: 'To Whom This May Concern Tour', img: CONCERT2 },
-  { name: 'Kendrick Lamar', tour: 'GNX Tour', img: CONCERT3 },
-  { name: 'Nicki Minaj', tour: 'Pink Friday 2 World Tour', img: CONCERT5 },
+  { name: 'J. Cole', tour: 'The Fall Off World Tour', img: jColeFallOffTour },
+  { name: 'Jill Scott', tour: 'To Whom This May Concern World Tour', img: jillScottTwtmcTour },
+  { name: 'Playboi Carti', tour: 'After Hours til Dawn World Tour', img: playboiCartiAfterHoursTour },
+  { name: 'Don Toliver', tour: 'Nitrous - Octane World Tour', img: donToliverNitrousTour },
+  { name: 'Playboi Carti', tour: 'Antagonious World Tour', img: playboiCartiAntagoniousTour },
+  { name: 'Awarefest', tour: '2026', img: awarefest2026 },
+  { name: 'Roots Picnic', tour: '2026', img: rootsPicnic2026 },
+  { name: 'Broccoli City Music Festival', tour: '2026', img: broccoliCity2026 },
+  { name: 'Rolling Loud', tour: '2026', img: rollingLoud2026 },
+  { name: 'NBA Youngboy', tour: 'MASA World Tour 2026', img: nbaYoungboyMasaTour },
 ]
 
 const SERVICES = [
