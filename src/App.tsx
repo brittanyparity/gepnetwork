@@ -1204,14 +1204,14 @@ function ProductionStaffing() {
             fontWeight: 800,
             fontSize: 'clamp(2.75rem, 6.5vw, 4.5rem)',
             letterSpacing: '0.04em',
-            color: '#17140F',
+            color: '#ffffff',
           }}
         >
           Production Staffing
         </h2>
         <p
-          className="text-lg md:text-xl leading-relaxed max-w-3xl mx-auto mb-12 md:mb-16"
-          style={{ fontFamily: FONT_BODY, fontWeight: 500, color: '#2A2520' }}
+          className="text-white text-lg md:text-xl leading-relaxed max-w-3xl mx-auto mb-12 md:mb-16"
+          style={{ fontFamily: FONT_BODY, fontWeight: 500 }}
         >
           Let our skilled professionals handle the intricacies of your event.
         </p>
@@ -1223,8 +1223,8 @@ function ProductionStaffing() {
                 <li key={`${colIdx}-${rowIdx}`} className="flex items-center gap-3.5">
                   <StaffingTriangle />
                   <span
-                    className="text-lg md:text-xl font-medium"
-                    style={{ fontFamily: FONT_BODY, color: '#17140F' }}
+                    className="text-white text-lg md:text-xl font-medium"
+                    style={{ fontFamily: FONT_BODY }}
                   >
                     {role}
                   </span>
