@@ -49,7 +49,7 @@ const COLOR_SCHEMES: ColorScheme[] = [
       '--gep-overlay-mid': 'rgba(0, 0, 0, 0.10)',
       '--gep-overlay-bottom': 'rgba(0, 0, 0, 0.10)',
       '--gep-card-overlay': 'rgba(107, 99, 88, 0.72)',
-      '--gep-staffing-overlay': 'linear-gradient(to bottom, rgba(23, 20, 15, 0.38) 0%, rgba(23, 20, 15, 0.22) 100%)',
+      '--gep-staffing-overlay': 'rgba(236, 232, 225, 0.62)',
       '--gep-text': '#17140F',
       '--gep-text-muted': '#7A7064',
       '--gep-logo-filter': 'none',
@@ -76,7 +76,7 @@ const COLOR_SCHEMES: ColorScheme[] = [
       '--gep-overlay-mid': 'rgba(0, 0, 0, 0.10)',
       '--gep-overlay-bottom': 'rgba(0, 0, 0, 0.10)',
       '--gep-card-overlay': 'rgba(0,0,0,0.72)',
-      '--gep-staffing-overlay': 'linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.24) 100%)',
+      '--gep-staffing-overlay': 'rgba(242, 242, 245, 0.64)',
       '--gep-text': '#1D1D1F',
       '--gep-text-muted': '#6E6E73',
       '--gep-logo-filter': 'none',
@@ -103,7 +103,7 @@ const COLOR_SCHEMES: ColorScheme[] = [
       '--gep-overlay-mid': 'rgba(0, 0, 0, 0.10)',
       '--gep-overlay-bottom': 'rgba(0, 0, 0, 0.10)',
       '--gep-card-overlay': 'rgba(23, 20, 15, 0.78)',
-      '--gep-staffing-overlay': 'linear-gradient(to bottom, rgba(23, 20, 15, 0.42) 0%, rgba(23, 20, 15, 0.26) 100%)',
+      '--gep-staffing-overlay': 'rgba(232, 228, 220, 0.62)',
       '--gep-text': '#17140F',
       '--gep-text-muted': '#6B6358',
       '--gep-logo-filter': 'none',
@@ -130,7 +130,7 @@ const COLOR_SCHEMES: ColorScheme[] = [
       '--gep-overlay-mid': 'rgba(0, 0, 0, 0.10)',
       '--gep-overlay-bottom': 'rgba(0, 0, 0, 0.10)',
       '--gep-card-overlay': 'rgba(15,15,18,0.92)',
-      '--gep-staffing-overlay': 'linear-gradient(to bottom, rgba(15, 15, 18, 0.45) 0%, rgba(15, 15, 18, 0.28) 100%)',
+      '--gep-staffing-overlay': 'rgba(228, 228, 233, 0.6)',
       '--gep-text': '#ffffff',
       '--gep-text-muted': 'rgba(255,255,255,0.6)',
       '--gep-logo-filter': 'none',
@@ -1198,19 +1198,20 @@ function ProductionStaffing() {
 
       <div className="relative z-10 max-w-[1100px] mx-auto px-6 lg:px-10 text-center">
         <h2
-          className="text-white uppercase leading-tight mb-6"
+          className="uppercase leading-tight mb-6"
           style={{
             fontFamily: FONT_DISPLAY,
             fontWeight: 800,
             fontSize: 'clamp(2.75rem, 6.5vw, 4.5rem)',
             letterSpacing: '0.04em',
+            color: '#17140F',
           }}
         >
           Production Staffing
         </h2>
         <p
-          className="text-white text-lg md:text-xl leading-relaxed max-w-3xl mx-auto mb-12 md:mb-16"
-          style={{ fontFamily: FONT_BODY, fontWeight: 400 }}
+          className="text-lg md:text-xl leading-relaxed max-w-3xl mx-auto mb-12 md:mb-16"
+          style={{ fontFamily: FONT_BODY, fontWeight: 500, color: '#2A2520' }}
         >
           Let our skilled professionals handle the intricacies of your event.
         </p>
@@ -1222,8 +1223,8 @@ function ProductionStaffing() {
                 <li key={`${colIdx}-${rowIdx}`} className="flex items-center gap-3.5">
                   <StaffingTriangle />
                   <span
-                    className="text-white text-lg md:text-xl"
-                    style={{ fontFamily: FONT_BODY }}
+                    className="text-lg md:text-xl font-medium"
+                    style={{ fontFamily: FONT_BODY, color: '#17140F' }}
                   >
                     {role}
                   </span>
