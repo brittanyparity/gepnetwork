@@ -49,7 +49,7 @@ const COLOR_SCHEMES: ColorScheme[] = [
       '--gep-overlay-mid': 'rgba(0, 0, 0, 0.10)',
       '--gep-overlay-bottom': 'rgba(0, 0, 0, 0.10)',
       '--gep-card-overlay': 'rgba(107, 99, 88, 0.72)',
-      '--gep-staffing-overlay': 'rgba(236, 232, 225, 0.25)',
+      '--gep-staffing-overlay': 'linear-gradient(to bottom, rgba(0, 0, 50, 0.8) 0%, rgba(0, 0, 62, 0.72) 100%)',
       '--gep-text': '#17140F',
       '--gep-text-muted': '#7A7064',
       '--gep-logo-filter': 'none',
@@ -76,7 +76,7 @@ const COLOR_SCHEMES: ColorScheme[] = [
       '--gep-overlay-mid': 'rgba(0, 0, 0, 0.10)',
       '--gep-overlay-bottom': 'rgba(0, 0, 0, 0.10)',
       '--gep-card-overlay': 'rgba(0,0,0,0.72)',
-      '--gep-staffing-overlay': 'rgba(242, 242, 245, 0.25)',
+      '--gep-staffing-overlay': 'linear-gradient(to bottom, rgba(0, 0, 50, 0.8) 0%, rgba(0, 0, 62, 0.72) 100%)',
       '--gep-text': '#1D1D1F',
       '--gep-text-muted': '#6E6E73',
       '--gep-logo-filter': 'none',
@@ -103,7 +103,7 @@ const COLOR_SCHEMES: ColorScheme[] = [
       '--gep-overlay-mid': 'rgba(0, 0, 0, 0.10)',
       '--gep-overlay-bottom': 'rgba(0, 0, 0, 0.10)',
       '--gep-card-overlay': 'rgba(23, 20, 15, 0.78)',
-      '--gep-staffing-overlay': 'rgba(232, 228, 220, 0.25)',
+      '--gep-staffing-overlay': 'linear-gradient(to bottom, rgba(0, 0, 50, 0.8) 0%, rgba(0, 0, 62, 0.72) 100%)',
       '--gep-text': '#17140F',
       '--gep-text-muted': '#6B6358',
       '--gep-logo-filter': 'none',
@@ -130,7 +130,7 @@ const COLOR_SCHEMES: ColorScheme[] = [
       '--gep-overlay-mid': 'rgba(0, 0, 0, 0.10)',
       '--gep-overlay-bottom': 'rgba(0, 0, 0, 0.10)',
       '--gep-card-overlay': 'rgba(15,15,18,0.92)',
-      '--gep-staffing-overlay': 'rgba(228, 228, 233, 0.25)',
+      '--gep-staffing-overlay': 'linear-gradient(to bottom, rgba(0, 0, 50, 0.8) 0%, rgba(0, 0, 62, 0.72) 100%)',
       '--gep-text': '#ffffff',
       '--gep-text-muted': 'rgba(255,255,255,0.6)',
       '--gep-logo-filter': 'none',
@@ -149,7 +149,7 @@ const HERO_IMG = 'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w
 const WAREHOUSE1 = 'https://images.unsplash.com/photo-1758789667762-56175fe4601c?w=700&h=500&fit=crop&auto=format'
 const WAREHOUSE2 = 'https://images.unsplash.com/photo-1772305336606-989a457ffbae?w=700&h=500&fit=crop&auto=format'
 const WAREHOUSE3 = 'https://images.unsplash.com/photo-1771531072574-af6ed6b954c0?w=700&h=500&fit=crop&auto=format'
-const STAGE_BG = '/gep-production-staffing.jpg'
+const STAGE_BG = `${import.meta.env.BASE_URL}gep-production-staffing.jpg`
 const TEAM_COLLAB_IMG = '/gep-why-gep-team.jpg'
 
 /** Tour art lives in `public/recent-projects/` (served as static URLs for preview). */
