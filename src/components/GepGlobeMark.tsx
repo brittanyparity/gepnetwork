@@ -76,6 +76,38 @@ function CenturyGlobeLockup({ hero }: { hero: boolean }) {
   )
 }
 
+export function GEPAbbrevGlobeMark({
+  className = '',
+  colorSchemeKey,
+}: {
+  className?: string
+  colorSchemeKey?: string
+}) {
+  const linkRef = useRef<HTMLAnchorElement>(null)
+
+  useEffect(() => {
+    syncGlobeAttributes(linkRef.current)
+  }, [colorSchemeKey])
+
+  return (
+    <a
+      ref={linkRef}
+      href="#"
+      className={`inline-flex items-center flex-shrink-0 text-white ${className}`}
+      aria-label="GEP Network home"
+    >
+      <span className="gep-logo-century gep-logo-abbrev inline-flex items-center leading-none whitespace-nowrap">
+        <span className="gep-logo-century__g">
+          G
+          <span className="gep-logo-century__globe" aria-hidden="true">
+            <gep-globe />
+          </span>
+        </span>
+      </span>
+    </a>
+  )
+}
+
 export default function GEPLogoLockup({
   className = '',
   globeSize = 48,

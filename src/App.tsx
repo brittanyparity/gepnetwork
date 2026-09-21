@@ -19,13 +19,14 @@ import sonyMusicColor from './imports/sony-music-logo-color.png'
 import sonyMusicWhite from './imports/sony-music-logo-white.png'
 import republicRecordsColor from './imports/republic-records-logo-color.svg'
 import republicRecordsWhite from './imports/republic-records-logo-white.png'
-import GEPLogoLockup from './components/GepGlobeMark'
+import GEPLogoLockup, { GEPAbbrevGlobeMark } from './components/GepGlobeMark'
+import whyGepTeamImg from './imports/gep-why-gep-team.png'
 import { LOGO_LOCKUPS, type LogoLockupId } from './logo-lockups'
 import { SITE_LAYOUTS, type SiteLayoutId } from './site-layouts'
 
 const HERO_VIDEO = '/gep-hero-video.mp4'
 
-const LIGHT_COLOR_SCHEMES = new Set(['light-slate', 'bone-light', 'bone-dark', 'centric-light'])
+const LIGHT_COLOR_SCHEMES = new Set(['light-slate', 'bone-light', 'bone-dark'])
 
 type ColorScheme = {
   id: string
@@ -34,31 +35,6 @@ type ColorScheme = {
 }
 
 const COLOR_SCHEMES: ColorScheme[] = [
-  {
-    id: 'bone-dark',
-    name: 'Bone Dark',
-    vars: {
-      '--gep-bg': '#F3EFE8',
-      '--gep-bg-alt': '#E4DDD2',
-      '--gep-card': '#E4DDD2',
-      '--gep-footer': 'linear-gradient(180deg, #17140F 0%, #2A2218 100%)',
-      '--gep-accent': '#B44A18',
-      '--gep-accent-text': '#F8F5F0',
-      '--gep-header-scrolled': 'rgba(23, 20, 15, 0.72)',
-      '--gep-overlay-top': 'rgba(0, 0, 0, 0.10)',
-      '--gep-overlay-mid': 'rgba(0, 0, 0, 0.10)',
-      '--gep-overlay-bottom': 'rgba(0, 0, 0, 0.10)',
-      '--gep-card-overlay': 'rgba(23, 20, 15, 0.78)',
-      '--gep-staffing-overlay': 'rgba(23, 20, 15, 0.68)',
-      '--gep-text': '#17140F',
-      '--gep-text-muted': '#6B6358',
-      '--gep-logo-filter': 'none',
-      '--gep-client-logo-filter': 'brightness(0)',
-      '--gep-divider': 'rgba(23, 20, 15, 0.16)',
-      '--gep-hero-word': '#B44A18',
-      '--gep-storage-overlay': 'linear-gradient(to top, rgba(45, 40, 34, 0.86) 0%, rgba(107, 99, 88, 0.46) 55%, rgba(45, 40, 34, 0.2) 100%)',
-    },
-  },
   {
     id: 'bone-light',
     name: 'Bone Light',
@@ -81,82 +57,8 @@ const COLOR_SCHEMES: ColorScheme[] = [
       '--gep-client-logo-filter': 'brightness(0)',
       '--gep-divider': 'rgba(23, 20, 15, 0.12)',
       '--gep-hero-word': '#B44A18',
+      '--gep-hero-kicker': '#F8F5F0',
       '--gep-storage-overlay': 'linear-gradient(to top, rgba(92, 83, 72, 0.78) 0%, rgba(140, 130, 118, 0.4) 55%, rgba(92, 83, 72, 0.16) 100%)',
-    },
-  },
-  {
-    id: 'centric-dark',
-    name: 'Centric Dark',
-    vars: {
-      '--gep-bg': '#3D2820',
-      '--gep-bg-alt': '#50342A',
-      '--gep-card': '#5A3D32',
-      '--gep-footer': 'linear-gradient(180deg, #2A1A14 0%, #946253 100%)',
-      '--gep-accent': '#BA902F',
-      '--gep-accent-text': '#2A1A14',
-      '--gep-header-scrolled': 'rgba(61, 40, 32, 0.78)',
-      '--gep-overlay-top': 'rgba(0, 0, 0, 0.10)',
-      '--gep-overlay-mid': 'rgba(0, 0, 0, 0.10)',
-      '--gep-overlay-bottom': 'rgba(0, 0, 0, 0.10)',
-      '--gep-card-overlay': 'rgba(61, 40, 32, 0.88)',
-      '--gep-staffing-overlay': 'rgba(61, 40, 32, 0.72)',
-      '--gep-text': '#D6B588',
-      '--gep-text-muted': 'rgba(214, 181, 136, 0.72)',
-      '--gep-logo-filter': 'none',
-      '--gep-client-logo-filter': 'brightness(0) invert(1)',
-      '--gep-divider': 'rgba(214, 181, 136, 0.14)',
-      '--gep-hero-word': '#B87239',
-      '--gep-storage-overlay': 'linear-gradient(to top, rgba(61, 40, 32, 0.9) 0%, rgba(148, 98, 83, 0.5) 55%, rgba(184, 114, 57, 0.22) 100%)',
-    },
-  },
-  {
-    id: 'centric-light',
-    name: 'Centric Light',
-    vars: {
-      '--gep-bg': '#F4E8D6',
-      '--gep-bg-alt': '#EDDABF',
-      '--gep-card': '#E5CFA8',
-      '--gep-footer': 'linear-gradient(180deg, #946253 0%, #7A5245 100%)',
-      '--gep-accent': '#BA902F',
-      '--gep-accent-text': '#2F211A',
-      '--gep-header-scrolled': 'rgba(148, 98, 83, 0.68)',
-      '--gep-overlay-top': 'rgba(0, 0, 0, 0.10)',
-      '--gep-overlay-mid': 'rgba(0, 0, 0, 0.10)',
-      '--gep-overlay-bottom': 'rgba(0, 0, 0, 0.10)',
-      '--gep-card-overlay': 'rgba(148, 98, 83, 0.76)',
-      '--gep-staffing-overlay': 'rgba(148, 98, 83, 0.55)',
-      '--gep-text': '#4A3028',
-      '--gep-text-muted': '#946253',
-      '--gep-logo-filter': 'none',
-      '--gep-client-logo-filter': 'brightness(0)',
-      '--gep-divider': 'rgba(148, 98, 83, 0.18)',
-      '--gep-hero-word': '#B87239',
-      '--gep-storage-overlay': 'linear-gradient(to top, rgba(148, 98, 83, 0.82) 0%, rgba(184, 144, 47, 0.38) 55%, rgba(214, 181, 136, 0.18) 100%)',
-    },
-  },
-  {
-    id: 'platinum',
-    name: 'Platinum Dark',
-    vars: {
-      '--gep-bg': '#0f0f12',
-      '--gep-bg-alt': '#1a1a1f',
-      '--gep-card': '#222228',
-      '--gep-footer': 'linear-gradient(180deg, #000000 0%, #000032 100%)',
-      '--gep-accent': '#FFC52F',
-      '--gep-accent-text': '#000032',
-      '--gep-header-scrolled': 'rgba(15,15,18,0.97)',
-      '--gep-overlay-top': 'rgba(0, 0, 0, 0.10)',
-      '--gep-overlay-mid': 'rgba(0, 0, 0, 0.10)',
-      '--gep-overlay-bottom': 'rgba(0, 0, 0, 0.10)',
-      '--gep-card-overlay': 'rgba(15,15,18,0.92)',
-      '--gep-staffing-overlay': 'rgba(15,15,18,0.75)',
-      '--gep-text': '#ffffff',
-      '--gep-text-muted': 'rgba(255,255,255,0.6)',
-      '--gep-logo-filter': 'none',
-      '--gep-client-logo-filter': 'brightness(0) invert(1)',
-      '--gep-divider': 'rgba(255,255,255,0.07)',
-      '--gep-hero-word': '#FFC52F',
-      '--gep-storage-overlay': 'linear-gradient(to top, rgba(15,15,18,0.92) 0%, rgba(15,15,18,0.52) 55%, rgba(15,15,18,0.26) 100%)',
     },
   },
   {
@@ -181,7 +83,60 @@ const COLOR_SCHEMES: ColorScheme[] = [
       '--gep-client-logo-filter': 'brightness(0)',
       '--gep-divider': 'rgba(0,0,0,0.08)',
       '--gep-hero-word': '#FFC52F',
+      '--gep-hero-kicker': '#F5F5F0',
       '--gep-storage-overlay': 'linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.48) 55%, rgba(0,0,0,0.22) 100%)',
+    },
+  },
+  {
+    id: 'bone-dark',
+    name: 'Bone Dark',
+    vars: {
+      '--gep-bg': '#F3EFE8',
+      '--gep-bg-alt': '#E4DDD2',
+      '--gep-card': '#E4DDD2',
+      '--gep-footer': 'linear-gradient(180deg, #17140F 0%, #2A2218 100%)',
+      '--gep-accent': '#B44A18',
+      '--gep-accent-text': '#F8F5F0',
+      '--gep-header-scrolled': 'rgba(23, 20, 15, 0.72)',
+      '--gep-overlay-top': 'rgba(0, 0, 0, 0.10)',
+      '--gep-overlay-mid': 'rgba(0, 0, 0, 0.10)',
+      '--gep-overlay-bottom': 'rgba(0, 0, 0, 0.10)',
+      '--gep-card-overlay': 'rgba(23, 20, 15, 0.78)',
+      '--gep-staffing-overlay': 'rgba(23, 20, 15, 0.68)',
+      '--gep-text': '#17140F',
+      '--gep-text-muted': '#6B6358',
+      '--gep-logo-filter': 'none',
+      '--gep-client-logo-filter': 'brightness(0)',
+      '--gep-divider': 'rgba(23, 20, 15, 0.16)',
+      '--gep-hero-word': '#B44A18',
+      '--gep-hero-kicker': '#F8F5F0',
+      '--gep-storage-overlay': 'linear-gradient(to top, rgba(45, 40, 34, 0.86) 0%, rgba(107, 99, 88, 0.46) 55%, rgba(45, 40, 34, 0.2) 100%)',
+    },
+  },
+  {
+    id: 'platinum',
+    name: 'Platinum Dark',
+    vars: {
+      '--gep-bg': '#0f0f12',
+      '--gep-bg-alt': '#1a1a1f',
+      '--gep-card': '#222228',
+      '--gep-footer': 'linear-gradient(180deg, #000000 0%, #000032 100%)',
+      '--gep-accent': '#FFC52F',
+      '--gep-accent-text': '#000032',
+      '--gep-header-scrolled': 'rgba(15,15,18,0.97)',
+      '--gep-overlay-top': 'rgba(0, 0, 0, 0.10)',
+      '--gep-overlay-mid': 'rgba(0, 0, 0, 0.10)',
+      '--gep-overlay-bottom': 'rgba(0, 0, 0, 0.10)',
+      '--gep-card-overlay': 'rgba(15,15,18,0.92)',
+      '--gep-staffing-overlay': 'rgba(15,15,18,0.75)',
+      '--gep-text': '#ffffff',
+      '--gep-text-muted': 'rgba(255,255,255,0.6)',
+      '--gep-logo-filter': 'none',
+      '--gep-client-logo-filter': 'brightness(0) invert(1)',
+      '--gep-divider': 'rgba(255,255,255,0.07)',
+      '--gep-hero-word': '#FFC52F',
+      '--gep-hero-kicker': '#F5F3F0',
+      '--gep-storage-overlay': 'linear-gradient(to top, rgba(15,15,18,0.92) 0%, rgba(15,15,18,0.52) 55%, rgba(15,15,18,0.26) 100%)',
     },
   },
 ]
@@ -197,7 +152,19 @@ const WAREHOUSE1 = 'https://images.unsplash.com/photo-1758789667762-56175fe4601c
 const WAREHOUSE2 = 'https://images.unsplash.com/photo-1772305336606-989a457ffbae?w=700&h=500&fit=crop&auto=format'
 const WAREHOUSE3 = 'https://images.unsplash.com/photo-1771531072574-af6ed6b954c0?w=700&h=500&fit=crop&auto=format'
 const STAGE_BG = 'https://images.unsplash.com/photo-1558620013-a08999547a36?w=1920&h=900&fit=crop&auto=format'
-const TEAM_COLLAB_IMG = 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1920&h=1080&fit=crop&auto=format'
+const TEAM_COLLAB_IMG = whyGepTeamImg
+
+const FONT_BODY = "'IBM Plex Mono', monospace"
+const FONT_DISPLAY = "'IBM Plex Mono', monospace"
+
+const CALL_BUTTON_CLASS =
+  'px-5 py-2.5 text-xs tracking-widest uppercase font-semibold border transition-all duration-200 hover:opacity-90'
+const callButtonStyle: CSSProperties = {
+  fontFamily: FONT_BODY,
+  borderColor: 'var(--gep-accent)',
+  color: '#ffffff',
+  background: 'transparent',
+}
 
 // ─── Data ───────────────────────────────────────────────────────────────────
 const NAV_LINKS = [
@@ -424,7 +391,7 @@ function ThemePicker({
   return (
     <div
       className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-4"
-      style={{ fontFamily: 'Inter, sans-serif' }}
+      style={{ fontFamily: FONT_BODY }}
     >
       <div className="flex flex-col items-end gap-2 w-full">
         <label htmlFor="color-scheme" className="text-[10px] tracking-[0.2em] uppercase" style={{ color: 'var(--gep-text-muted)' }}>
@@ -526,7 +493,7 @@ function Header({
                 key={link.label}
                 href={link.href}
                 className="text-xs tracking-widest uppercase transition-colors duration-200 hover:opacity-100"
-                style={{ fontFamily: 'Inter, sans-serif', color: 'rgba(255,255,255,0.65)' }}
+                style={{ fontFamily: FONT_BODY, color: 'rgba(255,255,255,0.65)' }}
                 onMouseEnter={(e) => { e.currentTarget.style.color = '#ffffff' }}
                 onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.65)' }}
               >
@@ -544,7 +511,7 @@ function Header({
                   key={link.label}
                   href={link.href}
                   className="text-xs tracking-widest uppercase transition-colors duration-200 hover:opacity-100"
-                  style={{ fontFamily: 'Inter, sans-serif', color: 'rgba(255,255,255,0.65)' }}
+                  style={{ fontFamily: FONT_BODY, color: 'rgba(255,255,255,0.65)' }}
                   onMouseEnter={(e) => { e.currentTarget.style.color = '#ffffff' }}
                   onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.65)' }}
                 >
@@ -552,32 +519,21 @@ function Header({
                 </a>
               ))}
             </nav>
-            <a
-              href="tel:8774376381"
-              className="px-5 py-2.5 text-xs tracking-widest uppercase font-semibold transition-all duration-200 hover:opacity-90"
-              style={{
-                fontFamily: 'Inter, sans-serif',
-                background: 'var(--gep-accent)',
-                color: 'var(--gep-accent-text)',
-              }}
-            >
+            <a href="tel:8774376381" className={CALL_BUTTON_CLASS} style={callButtonStyle}>
               877-437-6381
             </a>
           </div>
         )}
 
         {centeredLogoHero && (
-          <a
-            href="tel:8774376381"
-            className="hidden lg:inline-flex ml-auto px-5 py-2.5 text-xs tracking-widest uppercase font-semibold transition-all duration-200 hover:opacity-90"
-            style={{
-              fontFamily: 'Inter, sans-serif',
-              background: 'var(--gep-accent)',
-              color: 'var(--gep-accent-text)',
-            }}
-          >
-            877-437-6381
-          </a>
+          <div className="hidden lg:flex items-center gap-5 ml-auto">
+            {scrolled && (
+              <GEPAbbrevGlobeMark colorSchemeKey={colorScheme} className="transition-opacity duration-300" />
+            )}
+            <a href="tel:8774376381" className={CALL_BUTTON_CLASS} style={callButtonStyle}>
+              877-437-6381
+            </a>
+          </div>
         )}
 
         <button
@@ -591,17 +547,12 @@ function Header({
         </button>
 
         {centeredLogoHero && (
-          <a
-            href="tel:8774376381"
-            className="lg:hidden ml-auto px-4 py-2 text-[10px] tracking-widest uppercase font-semibold transition-all duration-200 hover:opacity-90"
-            style={{
-              fontFamily: 'Inter, sans-serif',
-              background: 'var(--gep-accent)',
-              color: 'var(--gep-accent-text)',
-            }}
-          >
-            877-437-6381
-          </a>
+          <div className="lg:hidden flex items-center gap-3 ml-auto">
+            {scrolled && <GEPAbbrevGlobeMark colorSchemeKey={colorScheme} className="text-base" />}
+            <a href="tel:8774376381" className={`${CALL_BUTTON_CLASS} px-4 py-2 text-[10px]`} style={callButtonStyle}>
+              877-437-6381
+            </a>
+          </div>
         )}
       </div>
 
@@ -615,15 +566,15 @@ function Header({
                 href={link.href}
                 className="text-sm tracking-widest uppercase transition-colors"
                 onClick={() => setMenuOpen(false)}
-                style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-text-muted)' }}
+                style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}
               >
                 {link.label}
               </a>
             ))}
             <a
               href="tel:8774376381"
-              className="mt-2 px-5 py-3 text-xs tracking-widest uppercase font-semibold text-center"
-              style={{ background: 'var(--gep-accent)', color: 'var(--gep-accent-text)', fontFamily: 'Inter, sans-serif' }}
+              className={`mt-2 ${CALL_BUTTON_CLASS} block text-center py-3`}
+              style={callButtonStyle}
               onClick={() => setMenuOpen(false)}
             >
               877-437-6381
@@ -670,26 +621,39 @@ function Hero({
       />
 
       <div className="relative z-10 text-center max-w-5xl mx-auto px-6 pt-20">
-        <p className="text-xs tracking-[0.35em] uppercase mb-6" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-hero-word, var(--gep-accent))' }}>
-          Full-Service Live Event Production
-        </p>
+        {!centeredLogoHero && (
+          <p
+            className="text-xs tracking-[0.35em] uppercase mb-6"
+            style={{ fontFamily: FONT_BODY, color: 'var(--gep-hero-kicker, #F8F5F0)' }}
+          >
+            Full-Service Live Event Production
+          </p>
+        )}
         {centeredLogoHero ? (
-          <div className="flex justify-center mb-10 w-full max-w-[min(100%,64rem)] mx-auto px-2">
-            <GEPLogoLockup
-              variant="hero"
-              globeSize={140}
-              colorSchemeKey={colorScheme}
-              lockupId={logoLockup}
-              className="max-w-full"
-            />
-          </div>
+          <>
+            <div className="flex justify-center mb-6 w-full max-w-[min(100%,64rem)] mx-auto px-2">
+              <GEPLogoLockup
+                variant="hero"
+                globeSize={140}
+                colorSchemeKey={colorScheme}
+                lockupId={logoLockup}
+                className="max-w-full"
+              />
+            </div>
+            <p
+              className="text-xs tracking-[0.35em] uppercase mb-10"
+              style={{ fontFamily: FONT_BODY, color: 'var(--gep-hero-kicker, #F8F5F0)' }}
+            >
+              Full-Service Live Event Production
+            </p>
+          </>
         ) : (
           <h1
             className="text-white uppercase leading-none mb-6"
             style={{
-              fontFamily: 'Barlow Condensed, sans-serif',
+              fontFamily: FONT_DISPLAY,
               fontSize: 'clamp(3.5rem, 9vw, 8rem)',
-              fontWeight: 900,
+              fontWeight: 700,
               letterSpacing: '0.02em',
             }}
           >
@@ -697,14 +661,14 @@ function Hero({
             <span style={{ color: 'var(--gep-hero-word, var(--gep-accent))' }}>Without</span> Limits
           </h1>
         )}
-        <p className="text-white/60 text-base lg:text-lg max-w-xl mx-auto mb-10 leading-relaxed" style={{ fontFamily: 'Inter, sans-serif' }}>
+        <p className="text-white/60 text-base lg:text-lg max-w-xl mx-auto mb-10 leading-relaxed" style={{ fontFamily: FONT_BODY }}>
           GEP Network executes concerts, tours, festivals, and corporate events at the highest level — backed by 40+ years of industry expertise.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a
             href="#services"
             className="px-8 py-4 text-xs tracking-widest uppercase font-semibold border transition-all duration-200 hover:border-white/50 hover:text-white"
-            style={{ border: '1px solid rgba(255,255,255,0.25)', color: 'rgba(255,255,255,0.7)', fontFamily: 'Inter, sans-serif' }}
+            style={{ border: '1px solid rgba(255,255,255,0.25)', color: 'rgba(255,255,255,0.7)', fontFamily: FONT_BODY }}
           >
             Our Services
           </a>
@@ -714,7 +678,7 @@ function Hero({
       {/* Scroll indicator */}
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40">
         <div className="w-px h-12 bg-white" style={{ animation: 'pulse 2s ease-in-out infinite' }} />
-        <span className="text-white text-[10px] tracking-[0.25em] uppercase" style={{ fontFamily: 'Inter, sans-serif' }}>Scroll</span>
+        <span className="text-white text-[10px] tracking-[0.25em] uppercase" style={{ fontFamily: FONT_BODY }}>Scroll</span>
       </div>
     </section>
   )
@@ -730,7 +694,7 @@ function RecentProjectsCarousel() {
         <GoldRule />
         <h2
           className="uppercase leading-none"
-          style={{ fontFamily: 'Barlow Condensed, sans-serif', fontWeight: 800, fontSize: 'clamp(2.5rem, 5vw, 4rem)', letterSpacing: '0.02em', color: 'var(--gep-text)' }}
+          style={{ fontFamily: FONT_DISPLAY, fontWeight: 800, fontSize: 'clamp(2.5rem, 5vw, 4rem)', letterSpacing: '0.02em', color: 'var(--gep-text)' }}
         >
           Recent Projects
         </h2>
@@ -768,11 +732,11 @@ function RecentProjectsCarousel() {
               <div className="absolute bottom-0 left-0 right-0 p-5">
                 <h3
                   className="text-white uppercase leading-tight mb-1"
-                  style={{ fontFamily: 'Barlow Condensed, sans-serif', fontWeight: 700, fontSize: '1.5rem', letterSpacing: '0.02em' }}
+                  style={{ fontFamily: FONT_DISPLAY, fontWeight: 700, fontSize: '1.5rem', letterSpacing: '0.02em' }}
                 >
                   {p.name}
                 </h3>
-                <p className="text-[11px] tracking-widest uppercase" style={{ fontFamily: 'Inter, sans-serif', color: 'rgba(255,255,255,0.75)' }}>
+                <p className="text-[11px] tracking-widest uppercase" style={{ fontFamily: FONT_BODY, color: 'rgba(255,255,255,0.75)' }}>
                   {p.tour}
                 </p>
               </div>
@@ -804,20 +768,20 @@ function WhyGEP() {
           <GoldRule />
           <h2
             className="uppercase leading-tight mb-8"
-            style={{ fontFamily: 'Barlow Condensed, sans-serif', fontWeight: 800, fontSize: 'clamp(2.5rem, 4vw, 3.5rem)', letterSpacing: '0.02em', color: 'var(--gep-text)' }}
+            style={{ fontFamily: FONT_DISPLAY, fontWeight: 800, fontSize: 'clamp(2.5rem, 4vw, 3.5rem)', letterSpacing: '0.02em', color: 'var(--gep-text)' }}
           >
             Why GEP<br />Is the Right Choice
           </h2>
-          <p className="text-base leading-relaxed mb-6" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-text-muted)' }}>
+          <p className="text-base leading-relaxed mb-6" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>
             For over four decades, GEP Network has been the production partner that the live entertainment industry turns to when execution matters most. We don't just staff shows — we build the infrastructure that makes them legendary.
           </p>
-          <p className="text-base leading-relaxed mb-10" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-text-muted)' }}>
+          <p className="text-base leading-relaxed mb-10" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>
             From 30,000-seat arenas to international festivals, our coordinators, managers, and crew are embedded in your production from first call to final load-out. We know the business because we've lived it.
           </p>
           <a
             href="#about"
             className="inline-flex items-center gap-3 text-xs tracking-widest uppercase font-semibold hover:gap-5 transition-all duration-200"
-            style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-accent)' }}
+            style={{ fontFamily: FONT_BODY, color: 'var(--gep-accent)' }}
           >
             Learn More About Us <span className="text-lg leading-none">→</span>
           </a>
@@ -833,11 +797,11 @@ function WhyGEP() {
             <div key={s.l} className="p-10 flex flex-col justify-end" style={{ background: 'color-mix(in srgb, var(--gep-bg-alt) 92%, transparent)' }}>
               <div
                 className="uppercase leading-none mb-2"
-                style={{ fontFamily: 'Barlow Condensed, sans-serif', fontWeight: 900, fontSize: '3.5rem', color: 'var(--gep-accent)' }}
+                style={{ fontFamily: FONT_DISPLAY, fontWeight: 700, fontSize: '3.5rem', color: 'var(--gep-accent)' }}
               >
                 {s.n}
               </div>
-              <div className="text-xs tracking-widest uppercase" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-text-muted)' }}>{s.l}</div>
+              <div className="text-xs tracking-widest uppercase" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>{s.l}</div>
             </div>
           ))}
         </div>
@@ -853,15 +817,15 @@ function AboutSection() {
         <GoldRule />
         <h2
           className="uppercase leading-tight mb-8 max-w-3xl"
-          style={{ fontFamily: 'Barlow Condensed, sans-serif', fontWeight: 800, fontSize: 'clamp(2rem, 3.5vw, 3rem)', letterSpacing: '0.02em', color: 'var(--gep-text)' }}
+          style={{ fontFamily: FONT_DISPLAY, fontWeight: 800, fontSize: 'clamp(2rem, 3.5vw, 3rem)', letterSpacing: '0.02em', color: 'var(--gep-text)' }}
         >
           About GEP Network
         </h2>
         <div className="grid lg:grid-cols-2 gap-12 max-w-5xl">
-          <p className="text-base leading-relaxed" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-text-muted)' }}>
+          <p className="text-base leading-relaxed" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>
             GEP Network is a full-service live event production company built on four decades of arena tours, festivals, and broadcast-ready experiences. Our teams integrate with yours — from production management and staffing to storage and logistics — so every show hits on time and on standard.
           </p>
-          <p className="text-base leading-relaxed" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-text-muted)' }}>
+          <p className="text-base leading-relaxed" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>
             Headquartered in Conyers, Georgia, we deploy coordinators, managers, and crew nationwide. When the industry needs a partner who understands the pace of the road, GEP is the call.
           </p>
         </div>
@@ -878,11 +842,11 @@ function ServicesGrid() {
         <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-14 gap-4">
           <h2
             className="uppercase leading-tight"
-            style={{ fontFamily: 'Barlow Condensed, sans-serif', fontWeight: 800, fontSize: 'clamp(2.5rem, 5vw, 4rem)', letterSpacing: '0.02em', color: 'var(--gep-text)' }}
+            style={{ fontFamily: FONT_DISPLAY, fontWeight: 800, fontSize: 'clamp(2.5rem, 5vw, 4rem)', letterSpacing: '0.02em', color: 'var(--gep-text)' }}
           >
             What We Do
           </h2>
-          <p className="text-sm max-w-xs" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-text-muted)' }}>
+          <p className="text-sm max-w-xs" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>
             Hover a card to learn more. Full-spectrum production services, one point of contact.
           </p>
         </div>
@@ -910,7 +874,7 @@ function ServicesGrid() {
                   >
                     <h3
                       className="uppercase text-center leading-tight"
-                      style={{ fontFamily: 'Barlow Condensed, sans-serif', fontWeight: 700, fontSize: '1.1rem', letterSpacing: '0.06em', color: 'var(--gep-text)' }}
+                      style={{ fontFamily: FONT_DISPLAY, fontWeight: 700, fontSize: '1.1rem', letterSpacing: '0.06em', color: 'var(--gep-text)' }}
                     >
                       {svc.title}
                     </h3>
@@ -930,13 +894,13 @@ function ServicesGrid() {
                   </div>
                   <h3
                     className="uppercase mb-4 leading-tight"
-                    style={{ fontFamily: 'Barlow Condensed, sans-serif', fontWeight: 800, fontSize: '1.15rem', letterSpacing: '0.06em', color: 'var(--gep-accent-text)' }}
+                    style={{ fontFamily: FONT_DISPLAY, fontWeight: 800, fontSize: '1.15rem', letterSpacing: '0.06em', color: 'var(--gep-accent-text)' }}
                   >
                     {svc.title}
                   </h3>
                   <p
                     className="text-sm leading-relaxed"
-                    style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-accent-text)', opacity: 0.85 }}
+                    style={{ fontFamily: FONT_BODY, color: 'var(--gep-accent-text)', opacity: 0.85 }}
                   >
                     {svc.desc}
                   </p>
@@ -999,17 +963,17 @@ function StorageInquiryModal({ onClose }: { onClose: () => void }) {
             </div>
             <h3
               className="uppercase mb-3"
-              style={{ fontFamily: 'Barlow Condensed, sans-serif', fontWeight: 800, fontSize: '1.75rem', color: 'var(--gep-text)' }}
+              style={{ fontFamily: FONT_DISPLAY, fontWeight: 800, fontSize: '1.75rem', color: 'var(--gep-text)' }}
             >
               Inquiry Received
             </h3>
-            <p className="text-sm leading-relaxed mb-8" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-text-muted)' }}>
+            <p className="text-sm leading-relaxed mb-8" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>
               Thank you for your interest in GEP tour storage. Our team will review your request and respond within one business day.
             </p>
             <button
               onClick={onClose}
               className="px-8 py-3 text-xs tracking-widest uppercase font-semibold"
-              style={{ background: 'var(--gep-accent)', color: 'var(--gep-accent-text)', fontFamily: 'Inter, sans-serif' }}
+              style={{ background: 'var(--gep-accent)', color: 'var(--gep-accent-text)', fontFamily: FONT_BODY }}
             >
               Close
             </button>
@@ -1019,11 +983,11 @@ function StorageInquiryModal({ onClose }: { onClose: () => void }) {
             <GoldRule />
             <h3
               className="uppercase mb-2"
-              style={{ fontFamily: 'Barlow Condensed, sans-serif', fontWeight: 800, fontSize: '1.75rem', color: 'var(--gep-text)' }}
+              style={{ fontFamily: FONT_DISPLAY, fontWeight: 800, fontSize: '1.75rem', color: 'var(--gep-text)' }}
             >
               Storage Inquiry
             </h3>
-            <p className="text-sm mb-8" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-text-muted)' }}>
+            <p className="text-sm mb-8" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>
               Tell us about your storage needs and we will follow up with availability and pricing.
             </p>
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -1035,7 +999,7 @@ function StorageInquiryModal({ onClose }: { onClose: () => void }) {
                   value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
                   className={inputClass}
-                  style={{ fontFamily: 'Inter, sans-serif', background: 'var(--gep-bg)', color: 'var(--gep-text)', border: '1px solid var(--gep-divider)' }}
+                  style={{ fontFamily: FONT_BODY, background: 'var(--gep-bg)', color: 'var(--gep-text)', border: '1px solid var(--gep-divider)' }}
                 />
                 <input
                   required
@@ -1044,7 +1008,7 @@ function StorageInquiryModal({ onClose }: { onClose: () => void }) {
                   value={form.email}
                   onChange={(e) => setForm({ ...form, email: e.target.value })}
                   className={inputClass}
-                  style={{ fontFamily: 'Inter, sans-serif', background: 'var(--gep-bg)', color: 'var(--gep-text)', border: '1px solid var(--gep-divider)' }}
+                  style={{ fontFamily: FONT_BODY, background: 'var(--gep-bg)', color: 'var(--gep-text)', border: '1px solid var(--gep-divider)' }}
                 />
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -1054,7 +1018,7 @@ function StorageInquiryModal({ onClose }: { onClose: () => void }) {
                   value={form.company}
                   onChange={(e) => setForm({ ...form, company: e.target.value })}
                   className={inputClass}
-                  style={{ fontFamily: 'Inter, sans-serif', background: 'var(--gep-bg)', color: 'var(--gep-text)', border: '1px solid var(--gep-divider)' }}
+                  style={{ fontFamily: FONT_BODY, background: 'var(--gep-bg)', color: 'var(--gep-text)', border: '1px solid var(--gep-divider)' }}
                 />
                 <input
                   type="tel"
@@ -1062,7 +1026,7 @@ function StorageInquiryModal({ onClose }: { onClose: () => void }) {
                   value={form.phone}
                   onChange={(e) => setForm({ ...form, phone: e.target.value })}
                   className={inputClass}
-                  style={{ fontFamily: 'Inter, sans-serif', background: 'var(--gep-bg)', color: 'var(--gep-text)', border: '1px solid var(--gep-divider)' }}
+                  style={{ fontFamily: FONT_BODY, background: 'var(--gep-bg)', color: 'var(--gep-text)', border: '1px solid var(--gep-divider)' }}
                 />
               </div>
               <textarea
@@ -1072,12 +1036,12 @@ function StorageInquiryModal({ onClose }: { onClose: () => void }) {
                 value={form.message}
                 onChange={(e) => setForm({ ...form, message: e.target.value })}
                 className={`${inputClass} resize-none`}
-                style={{ fontFamily: 'Inter, sans-serif', background: 'var(--gep-bg)', color: 'var(--gep-text)', border: '1px solid var(--gep-divider)' }}
+                style={{ fontFamily: FONT_BODY, background: 'var(--gep-bg)', color: 'var(--gep-text)', border: '1px solid var(--gep-divider)' }}
               />
               <button
                 type="submit"
                 className="mt-2 px-8 py-4 text-xs tracking-widest uppercase font-semibold transition-opacity hover:opacity-90"
-                style={{ background: 'var(--gep-accent)', color: 'var(--gep-accent-text)', fontFamily: 'Inter, sans-serif' }}
+                style={{ background: 'var(--gep-accent)', color: 'var(--gep-accent-text)', fontFamily: FONT_BODY }}
               >
                 Submit Inquiry
               </button>
@@ -1101,11 +1065,11 @@ function StorageSection() {
         <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-14 gap-4">
           <h2
             className="uppercase leading-tight"
-            style={{ fontFamily: 'Barlow Condensed, sans-serif', fontWeight: 800, fontSize: 'clamp(2.5rem, 5vw, 4rem)', letterSpacing: '0.02em', color: 'var(--gep-text)' }}
+            style={{ fontFamily: FONT_DISPLAY, fontWeight: 800, fontSize: 'clamp(2.5rem, 5vw, 4rem)', letterSpacing: '0.02em', color: 'var(--gep-text)' }}
           >
             Tour Storage
           </h2>
-          <p className="text-sm max-w-xs" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-text-muted)' }}>
+          <p className="text-sm max-w-xs" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>
             Secure, accessible storage built for the music industry — not general warehousing.
           </p>
         </div>
@@ -1129,11 +1093,11 @@ function StorageSection() {
               <div className="absolute bottom-0 left-0 right-0 p-7">
                 <h3
                   className="text-white uppercase mb-2 leading-tight"
-                  style={{ fontFamily: 'Barlow Condensed, sans-serif', fontWeight: 700, fontSize: '1.5rem', letterSpacing: '0.03em' }}
+                  style={{ fontFamily: FONT_DISPLAY, fontWeight: 700, fontSize: '1.5rem', letterSpacing: '0.03em' }}
                 >
                   {f.title}
                 </h3>
-                <p className="text-white/55 text-sm leading-relaxed" style={{ fontFamily: 'Inter, sans-serif' }}>{f.desc}</p>
+                <p className="text-white/55 text-sm leading-relaxed" style={{ fontFamily: FONT_BODY }}>{f.desc}</p>
               </div>
             </div>
           ))}
@@ -1145,7 +1109,7 @@ function StorageSection() {
             onClick={() => setShowForm(true)}
             className="inline-block px-8 py-4 text-xs tracking-widest uppercase font-semibold border transition-all duration-200 hover:opacity-90 cursor-pointer"
             style={{
-              fontFamily: 'Inter, sans-serif',
+              fontFamily: FONT_BODY,
               borderColor: 'var(--gep-accent)',
               color: 'var(--gep-accent)',
             }}
@@ -1175,7 +1139,7 @@ function ClientLogoWall({ colorScheme }: { colorScheme: string }) {
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
         <p
           className="text-xs tracking-[0.3em] uppercase text-center mb-12"
-          style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-text-muted)' }}
+          style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}
         >
           Trusted by the Industry's Best
         </p>
@@ -1230,7 +1194,7 @@ function ProductionStaffing() {
         <h2
           className="text-white uppercase leading-tight mb-6"
           style={{
-            fontFamily: 'Barlow Condensed, sans-serif',
+            fontFamily: FONT_DISPLAY,
             fontWeight: 800,
             fontSize: 'clamp(2.75rem, 6.5vw, 4.5rem)',
             letterSpacing: '0.04em',
@@ -1240,7 +1204,7 @@ function ProductionStaffing() {
         </h2>
         <p
           className="text-white text-lg md:text-xl leading-relaxed max-w-3xl mx-auto mb-12 md:mb-16"
-          style={{ fontFamily: 'Inter, sans-serif', fontWeight: 400 }}
+          style={{ fontFamily: FONT_BODY, fontWeight: 400 }}
         >
           Let our skilled professionals handle the intricacies of your event.
         </p>
@@ -1253,7 +1217,7 @@ function ProductionStaffing() {
                   <StaffingTriangle />
                   <span
                     className="text-white text-lg md:text-xl"
-                    style={{ fontFamily: 'Inter, sans-serif' }}
+                    style={{ fontFamily: FONT_BODY }}
                   >
                     {role}
                   </span>
@@ -1267,7 +1231,7 @@ function ProductionStaffing() {
           href="#contact"
           className="inline-block px-12 py-5 text-sm md:text-base tracking-[0.2em] uppercase font-bold transition-opacity hover:opacity-90"
           style={{
-            fontFamily: 'Inter, sans-serif',
+            fontFamily: FONT_BODY,
             background: 'var(--gep-accent)',
             color: 'var(--gep-accent-text)',
           }}
@@ -1297,7 +1261,7 @@ function Testimonials() {
         <GoldRule />
         <h2
           className="uppercase leading-tight mb-16"
-          style={{ fontFamily: 'Barlow Condensed, sans-serif', fontWeight: 800, fontSize: 'clamp(2.5rem, 5vw, 4rem)', letterSpacing: '0.02em', color: 'var(--gep-text)' }}
+          style={{ fontFamily: FONT_DISPLAY, fontWeight: 800, fontSize: 'clamp(2.5rem, 5vw, 4rem)', letterSpacing: '0.02em', color: 'var(--gep-text)' }}
         >
           What They're Saying
         </h2>
@@ -1311,22 +1275,22 @@ function Testimonials() {
           <div className="p-10 lg:p-14 relative overflow-hidden" style={{ border: '1px solid var(--gep-divider)', background: 'var(--gep-card)' }}>
             <div
               className="absolute top-10 left-10 leading-none select-none"
-              style={{ fontFamily: 'Barlow Condensed, sans-serif', fontSize: '6rem', opacity: 0.15, lineHeight: 0.7, color: 'var(--gep-accent)' }}
+              style={{ fontFamily: FONT_DISPLAY, fontSize: '6rem', opacity: 0.15, lineHeight: 0.7, color: 'var(--gep-accent)' }}
             >
               "
             </div>
             <blockquote key={active} className="relative z-10 animate-fade-up">
               <p
                 className="text-lg lg:text-2xl leading-relaxed mb-8 max-w-3xl"
-                style={{ fontFamily: 'Inter, sans-serif', fontWeight: 300, color: 'var(--gep-text)' }}
+                style={{ fontFamily: FONT_BODY, fontWeight: 300, color: 'var(--gep-text)' }}
               >
                 "{TESTIMONIALS[active].quote}"
               </p>
               <div className="flex items-center gap-4">
                 <div className="w-8 h-px" style={{ background: 'var(--gep-accent)' }} />
                 <div>
-                  <p className="text-sm font-semibold" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-text)' }}>{TESTIMONIALS[active].author}</p>
-                  <p className="text-xs" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--gep-text-muted)' }}>{TESTIMONIALS[active].title}</p>
+                  <p className="text-sm font-semibold" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text)' }}>{TESTIMONIALS[active].author}</p>
+                  <p className="text-xs" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>{TESTIMONIALS[active].title}</p>
                 </div>
               </div>
             </blockquote>
@@ -1367,7 +1331,7 @@ function Footer({ colorScheme, logoLockup }: { colorScheme: string; logoLockup: 
               lockupId={logoLockup}
               className="mb-4"
             />
-            <p className="text-white/35 text-sm leading-relaxed mb-6" style={{ fontFamily: 'Inter, sans-serif' }}>
+            <p className="text-white/35 text-sm leading-relaxed mb-6" style={{ fontFamily: FONT_BODY }}>
               Full-service live event production. 40+ years of experience. Global reach.
             </p>
             {/* Social */}
@@ -1384,7 +1348,7 @@ function Footer({ colorScheme, logoLockup }: { colorScheme: string; logoLockup: 
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-white/30 hover:text-[color:var(--gep-accent)] text-xs tracking-widest uppercase transition-colors duration-200"
-                  style={{ fontFamily: 'Inter, sans-serif' }}
+                  style={{ fontFamily: FONT_BODY }}
                 >
                   {s.name}
                 </a>
@@ -1394,10 +1358,10 @@ function Footer({ colorScheme, logoLockup }: { colorScheme: string; logoLockup: 
 
           {/* Navigation */}
           <div>
-            <p className="text-white/20 text-[10px] tracking-[0.3em] uppercase mb-5" style={{ fontFamily: 'Inter, sans-serif' }}>Navigate</p>
+            <p className="text-white/20 text-[10px] tracking-[0.3em] uppercase mb-5" style={{ fontFamily: FONT_BODY }}>Navigate</p>
             <nav className="flex flex-col gap-3">
               {NAV_LINKS.map((link) => (
-                <a key={link.label} href={link.href} className="text-white/50 hover:text-white text-sm transition-colors duration-200" style={{ fontFamily: 'Inter, sans-serif' }}>
+                <a key={link.label} href={link.href} className="text-white/50 hover:text-white text-sm transition-colors duration-200" style={{ fontFamily: FONT_BODY }}>
                   {link.label}
                 </a>
               ))}
@@ -1406,17 +1370,17 @@ function Footer({ colorScheme, logoLockup }: { colorScheme: string; logoLockup: 
 
           {/* Contact */}
           <div>
-            <p className="text-white/20 text-[10px] tracking-[0.3em] uppercase mb-5" style={{ fontFamily: 'Inter, sans-serif' }}>Contact</p>
+            <p className="text-white/20 text-[10px] tracking-[0.3em] uppercase mb-5" style={{ fontFamily: FONT_BODY }}>Contact</p>
             <div className="flex flex-col gap-4">
               <div>
-                <p className="text-white/25 text-[10px] uppercase tracking-wider mb-1" style={{ fontFamily: 'Inter, sans-serif' }}>General</p>
-                <a href="mailto:admin@gepnetwork.com" className="text-white/60 hover:text-white text-sm transition-colors" style={{ fontFamily: 'Inter, sans-serif' }}>
+                <p className="text-white/25 text-[10px] uppercase tracking-wider mb-1" style={{ fontFamily: FONT_BODY }}>General</p>
+                <a href="mailto:admin@gepnetwork.com" className="text-white/60 hover:text-white text-sm transition-colors" style={{ fontFamily: FONT_BODY }}>
                   admin@gepnetwork.com
                 </a>
               </div>
               <div>
-                <p className="text-white/25 text-[10px] uppercase tracking-wider mb-1" style={{ fontFamily: 'Inter, sans-serif' }}>Bookings</p>
-                <a href="mailto:bookings@gepnetwork.com" className="text-white/60 hover:text-white text-sm transition-colors" style={{ fontFamily: 'Inter, sans-serif' }}>
+                <p className="text-white/25 text-[10px] uppercase tracking-wider mb-1" style={{ fontFamily: FONT_BODY }}>Bookings</p>
+                <a href="mailto:bookings@gepnetwork.com" className="text-white/60 hover:text-white text-sm transition-colors" style={{ fontFamily: FONT_BODY }}>
                   bookings@gepnetwork.com
                 </a>
               </div>
@@ -1425,23 +1389,23 @@ function Footer({ colorScheme, logoLockup }: { colorScheme: string; logoLockup: 
 
           {/* Address + Phone */}
           <div>
-            <p className="text-white/20 text-[10px] tracking-[0.3em] uppercase mb-5" style={{ fontFamily: 'Inter, sans-serif' }}>Location</p>
-            <address className="not-italic text-white/50 text-sm leading-loose mb-6" style={{ fontFamily: 'Inter, sans-serif' }}>
+            <p className="text-white/20 text-[10px] tracking-[0.3em] uppercase mb-5" style={{ fontFamily: FONT_BODY }}>Location</p>
+            <address className="not-italic text-white/50 text-sm leading-loose mb-6" style={{ fontFamily: FONT_BODY }}>
               1390 Business Ctr Dr. SW<br />
               Ste 200 - 300<br />
               Conyers, GA 30094
             </address>
-            <a href="tel:8774376381" className="text-white/60 hover:text-white text-sm transition-colors" style={{ fontFamily: 'Inter, sans-serif' }}>
+            <a href="tel:8774376381" className="text-white/60 hover:text-white text-sm transition-colors" style={{ fontFamily: FONT_BODY }}>
               877-437-6381
             </a>
           </div>
         </div>
 
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4" style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}>
-          <p className="text-white/20 text-xs" style={{ fontFamily: 'Inter, sans-serif' }}>
+          <p className="text-white/20 text-xs" style={{ fontFamily: FONT_BODY }}>
             © {new Date().getFullYear()} GEP Network, Inc. All rights reserved.
           </p>
-          <p className="text-white/15 text-xs" style={{ fontFamily: 'Inter, sans-serif' }}>
+          <p className="text-xs" style={{ fontFamily: FONT_BODY, color: 'var(--gep-hero-kicker, #F8F5F0)' }}>
             Full-Service Live Event Production
           </p>
         </div>
@@ -1453,9 +1417,9 @@ function Footer({ colorScheme, logoLockup }: { colorScheme: string; logoLockup: 
 // ─── App ─────────────────────────────────────────────────────────────────────
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false)
-  const [colorScheme, setColorScheme] = useState('bone-dark')
+  const [colorScheme, setColorScheme] = useState('bone-light')
   const [logoLockup, setLogoLockup] = useState<LogoLockupId>('century-globe')
-  const [siteLayout, setSiteLayout] = useState<SiteLayoutId>('headline-hero')
+  const [siteLayout, setSiteLayout] = useState<SiteLayoutId>('centered-logo-hero')
   const scheme = COLOR_SCHEMES.find((s) => s.id === colorScheme) ?? COLOR_SCHEMES[0]
 
   return (

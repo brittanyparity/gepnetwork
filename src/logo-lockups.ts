@@ -1,6 +1,6 @@
-export type LogoLockupId = 'bruno-full' | 'century-globe'
+export type LogoLockupId = 'century-globe' | 'bruno-full'
 
 export const LOGO_LOCKUPS: { id: LogoLockupId; name: string }[] = [
-  { id: 'century-globe', name: 'Century G + Globe' },
-  { id: 'bruno-full', name: 'Bruno Ace (Full Wordmark)' },
+  { id: 'century-globe', name: 'G Globe Logo' },
+  { id: 'bruno-full', name: 'Centered Globe Logo' },
 ]
