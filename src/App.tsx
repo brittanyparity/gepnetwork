@@ -19,7 +19,7 @@ import sonyMusicColor from './imports/sony-music-logo-color.png'
 import sonyMusicWhite from './imports/sony-music-logo-white.png'
 import republicRecordsColor from './imports/republic-records-logo-color.svg'
 import republicRecordsWhite from './imports/republic-records-logo-white.png'
-import GEPLogoLockup from './components/GepGlobeMark'
+import GEPLogoLockup, { GEPAbbrevGlobeMark } from './components/GepGlobeMark'
 
 const LOGO_LOCKUP = 'century-globe' as const
 
@@ -54,9 +54,8 @@ function accentTextOn(accent: string): string {
   return accent.toUpperCase() === PALETTE.brass.toUpperCase() ? '#17140F' : '#FFFFFF'
 }
 
-function footerGradient(accent: string): string {
-  return `linear-gradient(180deg, #000000 0%, ${accent} 100%)`
-}
+/** Opaque taupe aligned with the scrolled header bar */
+const HEADER_FOOTER_SURFACE = '#D5CDC4'
 
 function lightBoneScheme(
   id: string,
@@ -72,7 +71,7 @@ function lightBoneScheme(
       '--gep-bg': '#F8F5F0',
       '--gep-bg-alt': '#F3EFE8',
       '--gep-card': '#ECE6DC',
-      '--gep-footer': extras['--gep-footer'] ?? footerGradient(accent),
+      '--gep-footer': extras['--gep-footer'] ?? HEADER_FOOTER_SURFACE,
       '--gep-accent': accent,
       '--gep-accent-text': accentTextOn(accent),
       '--gep-header-bar': 'rgba(107, 99, 88, 0.68)',
@@ -104,7 +103,7 @@ const COLOR_SCHEMES: ColorScheme[] = [
     '--gep-bg': '#F3EFE8',
     '--gep-bg-alt': '#E4DDD2',
     '--gep-card': '#E4DDD2',
-    '--gep-footer': footerGradient('#B44A18'),
+    '--gep-footer': HEADER_FOOTER_SURFACE,
     '--gep-header-bar': 'rgba(107, 99, 88, 0.68)',
     '--gep-header-scrolled': 'rgba(107, 99, 88, 0.68)',
     '--gep-card-overlay': 'rgba(23, 20, 15, 0.78)',
@@ -119,7 +118,7 @@ const COLOR_SCHEMES: ColorScheme[] = [
       '--gep-bg': '#FFFFFF',
       '--gep-bg-alt': '#F5F5F7',
       '--gep-card': '#F5F5F7',
-      '--gep-footer': footerGradient(PALETTE.dusk),
+      '--gep-footer': HEADER_FOOTER_SURFACE,
       '--gep-accent': PALETTE.dusk,
       '--gep-accent-text': '#FFFFFF',
       '--gep-header-bar': 'rgba(107, 99, 88, 0.68)',
@@ -144,7 +143,7 @@ const COLOR_SCHEMES: ColorScheme[] = [
     },
   },
   lightBoneScheme('earth-palette', 'Earth Palette', PALETTE.ember, PALETTE.brass, {
-    '--gep-footer': footerGradient(PALETTE.ember),
+    '--gep-footer': HEADER_FOOTER_SURFACE,
     '--gep-hero-word': PALETTE.brass,
     '--gep-accent-secondary': PALETTE.clay,
     '--gep-accent-tertiary': PALETTE.sage,
@@ -417,30 +416,58 @@ function Header({
         borderBottom: scrolled ? '1px solid rgba(128,128,128,0.15)' : '1px solid transparent',
       }}
     >
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-10 h-20 flex items-center w-full gap-4">
-        <GEPLogoLockup
-          globeSize={48}
-          colorSchemeKey={colorScheme}
-          lockupId={LOGO_LOCKUP}
-          className="flex-shrink-0"
-        />
+      <div className="relative max-w-[1400px] mx-auto px-6 lg:px-10 h-20 flex items-center w-full">
+        {!scrolled ? (
+          <GEPLogoLockup
+            globeSize={48}
+            colorSchemeKey={colorScheme}
+            lockupId={LOGO_LOCKUP}
+            className="relative z-10 flex-shrink-0"
+          />
+        ) : (
+          <>
+            <div className="hidden lg:flex relative z-10 items-center gap-6 xl:gap-8 flex-shrink-0">
+              <GEPAbbrevGlobeMark colorSchemeKey={colorScheme} className="flex-shrink-0" />
+              <nav className="flex items-center gap-6 xl:gap-8">
+                {NAV_LINKS.map((link) => (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    className="text-xs tracking-widest uppercase transition-colors duration-200 hover:opacity-100"
+                    style={{ fontFamily: FONT_BODY, color: 'rgba(255,255,255,0.65)' }}
+                    onMouseEnter={(e) => { e.currentTarget.style.color = '#ffffff' }}
+                    onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.65)' }}
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </nav>
+            </div>
+            <GEPAbbrevGlobeMark colorSchemeKey={colorScheme} className="lg:hidden relative z-10 flex-shrink-0" />
+          </>
+        )}
 
-        <nav className="hidden lg:flex items-center gap-6 xl:gap-8 ml-4 xl:ml-8">
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className="text-xs tracking-widest uppercase transition-colors duration-200 hover:opacity-100"
-              style={{ fontFamily: FONT_BODY, color: 'rgba(255,255,255,0.65)' }}
-              onMouseEnter={(e) => { e.currentTarget.style.color = '#ffffff' }}
-              onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.65)' }}
-            >
-              {link.label}
-            </a>
-          ))}
-        </nav>
+        {!scrolled && (
+          <nav
+            className="hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center gap-6 xl:gap-8 whitespace-nowrap"
+            aria-label="Primary"
+          >
+            {NAV_LINKS.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                className="text-xs tracking-widest uppercase transition-colors duration-200 hover:opacity-100"
+                style={{ fontFamily: FONT_BODY, color: 'rgba(255,255,255,0.65)' }}
+                onMouseEnter={(e) => { e.currentTarget.style.color = '#ffffff' }}
+                onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.65)' }}
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
+        )}
 
-        <div className="flex items-center gap-3 ml-auto">
+        <div className="relative z-10 flex items-center gap-3 ml-auto">
           <a
             href="tel:8774376381"
             className={`${CALL_BUTTON_CLASS} hidden sm:inline-flex px-4 py-2 text-[10px] lg:px-5 lg:py-2.5 lg:text-xs`}
@@ -694,17 +721,12 @@ function ServicesGrid() {
     <section id="services" className="pt-24 pb-0" style={{ background: 'var(--gep-bg)' }}>
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
         <GoldRule />
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-14 gap-4">
-          <h2
-            className="uppercase leading-tight"
-            style={{ fontFamily: FONT_DISPLAY, fontWeight: 800, fontSize: 'clamp(2.5rem, 5vw, 4rem)', letterSpacing: '0.02em', color: 'var(--gep-text)' }}
-          >
-            What We Do
-          </h2>
-          <p className="text-sm max-w-xs" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>
-            Hover a card to learn more. Full-spectrum production services, one point of contact.
-          </p>
-        </div>
+        <h2
+          className="uppercase leading-tight mb-14"
+          style={{ fontFamily: FONT_DISPLAY, fontWeight: 800, fontSize: 'clamp(2.5rem, 5vw, 4rem)', letterSpacing: '0.02em', color: 'var(--gep-text)' }}
+        >
+          What We Do
+        </h2>
       </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-0">
@@ -916,17 +938,15 @@ function StorageSection() {
       <section id="storage" className="pt-0 pb-24" style={{ background: 'var(--gep-bg-alt)' }}>
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
         <GoldRule />
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-14 gap-4">
-          <h2
-            className="uppercase leading-tight"
-            style={{ fontFamily: FONT_DISPLAY, fontWeight: 800, fontSize: 'clamp(2.5rem, 5vw, 4rem)', letterSpacing: '0.02em', color: 'var(--gep-text)' }}
-          >
-            Tour Storage
-          </h2>
-          <p className="text-sm max-w-xs" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>
-            Secure, accessible storage built for the music industry — not general warehousing.
-          </p>
-        </div>
+        <h2
+          className="uppercase leading-tight mb-4"
+          style={{ fontFamily: FONT_DISPLAY, fontWeight: 800, fontSize: 'clamp(2.5rem, 5vw, 4rem)', letterSpacing: '0.02em', color: 'var(--gep-text)' }}
+        >
+          Tour Storage
+        </h2>
+        <p className="text-sm max-w-2xl mb-14" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>
+          Secure, accessible storage built for the music industry — not general warehousing.
+        </p>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
           {STORAGE_FEATURES.map((f) => (
@@ -1087,7 +1107,7 @@ function ProductionStaffing() {
 
         <a
           href="#contact"
-          className="inline-block px-12 py-5 text-sm md:text-base tracking-[0.2em] uppercase font-bold transition-opacity hover:opacity-90"
+          className="inline-block px-8 py-4 text-xs tracking-widest uppercase font-semibold transition-opacity hover:opacity-90"
           style={{
             fontFamily: FONT_BODY,
             background: 'var(--gep-accent)',
@@ -1178,7 +1198,11 @@ function Testimonials() {
 
 function Footer({ colorScheme }: { colorScheme: string }) {
   return (
-    <footer id="contact" className="pt-20 pb-10 scroll-mt-24" style={{ borderTop: '1px solid rgba(255,255,255,0.07)', background: 'var(--gep-footer)' }}>
+    <footer
+      id="contact"
+      className="gep-footer-light pt-20 pb-10 scroll-mt-24"
+      style={{ borderTop: '1px solid var(--gep-divider)', background: 'var(--gep-footer)' }}
+    >
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           <div>
@@ -1188,7 +1212,7 @@ function Footer({ colorScheme }: { colorScheme: string }) {
               lockupId={LOGO_LOCKUP}
               className="mb-4"
             />
-            <p className="text-white/35 text-sm leading-relaxed mb-6" style={{ fontFamily: FONT_BODY }}>
+            <p className="text-sm leading-relaxed mb-6" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>
               Full-service live event production. 40+ years of experience. Global reach.
             </p>
             <div className="flex flex-wrap gap-x-4 gap-y-2">
@@ -1203,8 +1227,8 @@ function Footer({ colorScheme }: { colorScheme: string }) {
                   href={s.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-white/30 hover:text-[color:var(--gep-accent)] text-xs tracking-widest uppercase transition-colors duration-200"
-                  style={{ fontFamily: FONT_BODY }}
+                  className="text-xs tracking-widest uppercase transition-colors duration-200 hover:text-[color:var(--gep-accent)]"
+                  style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}
                 >
                   {s.name}
                 </a>
@@ -1213,18 +1237,18 @@ function Footer({ colorScheme }: { colorScheme: string }) {
           </div>
 
           <div>
-            <p className="text-white/20 text-[10px] tracking-[0.3em] uppercase mb-5" style={{ fontFamily: FONT_BODY }}>Latest Posts</p>
+            <p className="text-[10px] tracking-[0.3em] uppercase mb-5" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>Latest Posts</p>
             <ul className="flex flex-col gap-5">
               {FOOTER_POSTS.map((post) => (
                 <li key={post.title}>
                   <a
                     href={post.href}
-                    className="block text-white/60 hover:text-white text-sm leading-snug transition-colors duration-200"
-                    style={{ fontFamily: FONT_BODY }}
+                    className="block text-sm leading-snug transition-colors duration-200 hover:text-[color:var(--gep-accent)]"
+                    style={{ fontFamily: FONT_BODY, color: 'var(--gep-text)' }}
                   >
                     {post.title}
                   </a>
-                  <p className="text-white/30 text-xs mt-1" style={{ fontFamily: FONT_BODY }}>
+                  <p className="text-xs mt-1" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>
                     {post.date}
                   </p>
                 </li>
@@ -1233,8 +1257,8 @@ function Footer({ colorScheme }: { colorScheme: string }) {
           </div>
 
           <div>
-            <p className="text-white/20 text-[10px] tracking-[0.3em] uppercase mb-5" style={{ fontFamily: FONT_BODY }}>Location</p>
-            <address className="not-italic text-white/50 text-sm leading-loose" style={{ fontFamily: FONT_BODY }}>
+            <p className="text-[10px] tracking-[0.3em] uppercase mb-5" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>Location</p>
+            <address className="not-italic text-sm leading-loose" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text)' }}>
               1390 Business Ctr Dr. SW<br />
               Ste 200 - 300<br />
               Conyers, GA 30094
@@ -1242,32 +1266,32 @@ function Footer({ colorScheme }: { colorScheme: string }) {
           </div>
 
           <div>
-            <p className="text-white/20 text-[10px] tracking-[0.3em] uppercase mb-5" style={{ fontFamily: FONT_BODY }}>Contact</p>
+            <p className="text-[10px] tracking-[0.3em] uppercase mb-5" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>Contact</p>
             <div className="flex flex-col gap-4">
               <div>
-                <p className="text-white/25 text-[10px] uppercase tracking-wider mb-1" style={{ fontFamily: FONT_BODY }}>General</p>
-                <a href="mailto:admin@gepnetwork.com" className="text-white/60 hover:text-white text-sm transition-colors" style={{ fontFamily: FONT_BODY }}>
+                <p className="text-[10px] uppercase tracking-wider mb-1" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>General</p>
+                <a href="mailto:admin@gepnetwork.com" className="text-sm transition-colors hover:text-[color:var(--gep-accent)]" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text)' }}>
                   admin@gepnetwork.com
                 </a>
               </div>
               <div>
-                <p className="text-white/25 text-[10px] uppercase tracking-wider mb-1" style={{ fontFamily: FONT_BODY }}>Bookings</p>
-                <a href="mailto:bookings@gepnetwork.com" className="text-white/60 hover:text-white text-sm transition-colors" style={{ fontFamily: FONT_BODY }}>
+                <p className="text-[10px] uppercase tracking-wider mb-1" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>Bookings</p>
+                <a href="mailto:bookings@gepnetwork.com" className="text-sm transition-colors hover:text-[color:var(--gep-accent)]" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text)' }}>
                   bookings@gepnetwork.com
                 </a>
               </div>
-              <a href="tel:8774376381" className="text-white/60 hover:text-white text-sm transition-colors" style={{ fontFamily: FONT_BODY }}>
+              <a href="tel:8774376381" className="text-sm transition-colors hover:text-[color:var(--gep-accent)]" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text)' }}>
                 877-437-6381
               </a>
             </div>
           </div>
         </div>
 
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4" style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}>
-          <p className="text-white/20 text-xs" style={{ fontFamily: FONT_BODY }}>
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4" style={{ borderTop: '1px solid var(--gep-divider)' }}>
+          <p className="text-xs" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>
             © {new Date().getFullYear()} GEP Network, Inc. All rights reserved.
           </p>
-          <p className="text-xs" style={{ fontFamily: FONT_BODY, color: 'var(--gep-hero-kicker, #F8F5F0)' }}>
+          <p className="text-xs" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>
             Full-Service Live Event Production
           </p>
         </div>
