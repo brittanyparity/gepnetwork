@@ -447,27 +447,23 @@ function Header({
           </>
         )}
 
-        {!scrolled && (
-          <nav
-            className="hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center gap-6 xl:gap-8 whitespace-nowrap"
-            aria-label="Primary"
-          >
-            {NAV_LINKS.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="text-xs tracking-widest uppercase transition-colors duration-200 hover:opacity-100"
-                style={{ fontFamily: FONT_BODY, color: 'rgba(255,255,255,0.65)' }}
-                onMouseEnter={(e) => { e.currentTarget.style.color = '#ffffff' }}
-                onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.65)' }}
-              >
-                {link.label}
-              </a>
-            ))}
-          </nav>
-        )}
-
-        <div className="relative z-10 flex items-center gap-3 ml-auto">
+        <div className="relative z-10 flex items-center gap-5 xl:gap-8 ml-auto">
+          {!scrolled && (
+            <nav className="hidden lg:flex items-center gap-6 xl:gap-8 whitespace-nowrap" aria-label="Primary">
+              {NAV_LINKS.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  className="text-xs tracking-widest uppercase transition-colors duration-200 hover:opacity-100"
+                  style={{ fontFamily: FONT_BODY, color: 'rgba(255,255,255,0.65)' }}
+                  onMouseEnter={(e) => { e.currentTarget.style.color = '#ffffff' }}
+                  onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.65)' }}
+                >
+                  {link.label}
+                </a>
+              ))}
+            </nav>
+          )}
           <a
             href="tel:8774376381"
             className={`${CALL_BUTTON_CLASS} hidden sm:inline-flex px-4 py-2 text-[10px] lg:px-5 lg:py-2.5 lg:text-xs`}
@@ -748,7 +744,10 @@ function ServicesGrid() {
                   />
                   <div
                     className="absolute inset-0"
-                    style={{ background: 'var(--gep-card-overlay)' }}
+                    style={{
+                      background:
+                        'linear-gradient(to bottom, var(--gep-overlay-top) 0%, var(--gep-overlay-mid) 50%, var(--gep-overlay-bottom) 100%)',
+                    }}
                   />
                   <h3
                     className="absolute inset-0 flex items-center justify-center px-4 uppercase text-center leading-tight text-white"
@@ -935,7 +934,7 @@ function StorageSection() {
   return (
     <>
       {showForm && <StorageInquiryModal onClose={() => setShowForm(false)} />}
-      <section id="storage" className="pt-0 pb-24" style={{ background: 'var(--gep-bg-alt)' }}>
+      <section id="storage" className="pt-24 pb-24" style={{ background: 'var(--gep-bg-alt)' }}>
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
         <GoldRule />
         <h2
