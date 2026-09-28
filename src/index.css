@@ -116,7 +116,7 @@ html {
   height: 0.74em;
 }
 
-/* Header chrome (optional per color scheme — e.g. White) */
+/* Header chrome (optional per color scheme via CSS variables) */
 .gep-header-root .gep-header-logo {
   color: var(--gep-header-logo, #ffffff);
 }
