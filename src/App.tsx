@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, type CSSProperties, type FormEvent } from 'react'
+import { useState, useEffect, useRef, type CSSProperties, type FormEvent, type MouseEvent, type ReactNode } from 'react'
 import liveNationColor from './imports/live-nation-logo-color.png'
 import liveNationWhite from './imports/live-nation-logo-white.png'
 import aegPresentsColor from './imports/aeg-presents-logo-color.png'
@@ -25,16 +25,7 @@ const LOGO_LOCKUP = 'century-globe' as const
 
 const HERO_VIDEO = '/gep-hero-video.mp4'
 
-const LIGHT_COLOR_SCHEMES = new Set([
-  'light-slate',
-  'bone-dark',
-  'earth-palette',
-  'palette-ember',
-  'palette-brass',
-  'palette-clay',
-  'palette-dusk',
-  'palette-sage',
-])
+const LIGHT_COLOR_SCHEMES = new Set(['palette-silver', 'palette-clay', 'palette-dusk', 'palette-sage'])
 
 const PALETTE = {
   ember: '#E2622C',
@@ -42,6 +33,8 @@ const PALETTE = {
   clay: '#A8503C',
   dusk: '#43627F',
   sage: '#6E8467',
+  silver: '#6B7280',
+  silverLight: '#9CA3AF',
 } as const
 
 type ColorScheme = {
@@ -109,56 +102,22 @@ function lightBoneScheme(
 }
 
 const COLOR_SCHEMES: ColorScheme[] = [
-  lightBoneScheme('bone-dark', 'Bone Dark', '#B44A18', '#B44A18', {
-    '--gep-bg': '#F3EFE8',
-    '--gep-bg-alt': '#E4DDD2',
-    '--gep-card': '#E4DDD2',
-    '--gep-header-bar': 'rgba(107, 99, 88, 0.68)',
-    '--gep-header-scrolled': 'rgba(107, 99, 88, 0.68)',
-    '--gep-card-overlay': 'rgba(23, 20, 15, 0.78)',
-    '--gep-divider': 'rgba(23, 20, 15, 0.16)',
+  lightBoneScheme('palette-silver', 'Silver', PALETTE.silver, PALETTE.silverLight, {
+    '--gep-bg': '#FFFFFF',
+    '--gep-bg-alt': '#F5F5F7',
+    '--gep-card': '#EFEFF2',
+    '--gep-text': '#1D1D1F',
+    '--gep-text-muted': '#6E6E73',
+    '--gep-divider': 'rgba(0, 0, 0, 0.08)',
+    '--gep-header-bar': 'rgba(58, 58, 62, 0.68)',
+    '--gep-header-scrolled': 'rgba(58, 58, 62, 0.68)',
+    '--gep-hero-kicker': '#F5F5F7',
+    '--gep-card-overlay': 'rgba(45, 45, 50, 0.72)',
+    '--gep-why-gep-overlay':
+      'linear-gradient(105deg, rgba(0, 0, 0, 0.82) 0%, rgba(0, 0, 0, 0.48) 50%, rgba(0, 0, 0, 0.36) 100%)',
     '--gep-storage-overlay':
-      'linear-gradient(to top, rgba(45, 40, 34, 0.86) 0%, rgba(107, 99, 88, 0.46) 55%, rgba(45, 40, 34, 0.2) 100%)',
+      'linear-gradient(to top, rgba(45, 45, 50, 0.86) 0%, rgba(107, 114, 128, 0.44) 55%, rgba(45, 45, 50, 0.18) 100%)',
   }),
-  {
-    id: 'light-slate',
-    name: 'Platinum Light',
-    vars: {
-      '--gep-bg': '#FFFFFF',
-      '--gep-bg-alt': '#F5F5F7',
-      '--gep-card': '#F5F5F7',
-      ...FOOTER_VARS,
-      '--gep-accent': PALETTE.dusk,
-      '--gep-accent-text': '#FFFFFF',
-      '--gep-header-bar': 'rgba(107, 99, 88, 0.68)',
-      '--gep-header-scrolled': 'rgba(107, 99, 88, 0.68)',
-      '--gep-overlay-top': 'rgba(0, 0, 0, 0.10)',
-      '--gep-overlay-mid': 'rgba(0, 0, 0, 0.10)',
-      '--gep-overlay-bottom': 'rgba(0, 0, 0, 0.10)',
-      '--gep-card-overlay': 'rgba(67, 98, 127, 0.72)',
-      '--gep-staffing-overlay': STAFFING_OVERLAY_DARK,
-      '--gep-staffing-text': '#F3EFE8',
-      '--gep-staffing-text-muted': 'rgba(243, 239, 232, 0.82)',
-      '--gep-text': '#1D1D1F',
-      '--gep-text-muted': '#6E6E73',
-      '--gep-logo-filter': 'none',
-      '--gep-client-logo-filter': 'brightness(0)',
-      '--gep-divider': 'rgba(0,0,0,0.08)',
-      '--gep-hero-word': PALETTE.ember,
-      '--gep-hero-kicker': '#F5F5F0',
-      '--gep-why-gep-overlay':
-        'linear-gradient(105deg, rgba(0, 0, 0, 0.82) 0%, rgba(0, 0, 0, 0.48) 50%, rgba(0, 0, 0, 0.36) 100%)',
-      '--gep-storage-overlay':
-        'linear-gradient(to top, rgba(67, 98, 127, 0.88) 0%, rgba(67, 98, 127, 0.48) 55%, rgba(67, 98, 127, 0.22) 100%)',
-    },
-  },
-  lightBoneScheme('earth-palette', 'Earth Palette', PALETTE.ember, PALETTE.brass, {
-    '--gep-hero-word': PALETTE.brass,
-    '--gep-accent-secondary': PALETTE.clay,
-    '--gep-accent-tertiary': PALETTE.sage,
-  }),
-  lightBoneScheme('palette-ember', 'Ember', PALETTE.ember, PALETTE.ember),
-  lightBoneScheme('palette-brass', 'Brass', PALETTE.brass, PALETTE.brass),
   lightBoneScheme('palette-clay', 'Clay', PALETTE.clay, PALETTE.clay),
   lightBoneScheme('palette-dusk', 'Dusk', PALETTE.dusk, PALETTE.dusk),
   lightBoneScheme('palette-sage', 'Sage', PALETTE.sage, PALETTE.sage),
@@ -230,12 +189,60 @@ const DISPLAY_TITLE_WEIGHT = 300
 /** Bold Barlow Condensed for prominent figures (Why GEP stats) */
 const DISPLAY_STAT_WEIGHT = 700
 
-const CALL_BUTTON_CLASS =
-  'px-5 py-2.5 text-xs tracking-widest uppercase font-semibold border border-transparent transition-all duration-200 hover:opacity-90'
-const callButtonStyle: CSSProperties = {
+const OUTLINE_ACCENT_BUTTON_CLASS =
+  'inline-flex items-center justify-center px-8 py-4 text-xs tracking-widest uppercase font-semibold border transition-all duration-200 hover:opacity-90 cursor-pointer'
+
+const outlineAccentButtonStyle: CSSProperties = {
   fontFamily: FONT_BODY,
-  color: '#ffffff',
-  background: 'color-mix(in srgb, var(--gep-accent) 62%, transparent)',
+  borderColor: 'var(--gep-accent)',
+  color: 'var(--gep-accent)',
+  background: 'transparent',
+}
+
+function onOutlineAccentEnter(e: MouseEvent<HTMLElement>) {
+  e.currentTarget.style.background = 'var(--gep-accent)'
+  e.currentTarget.style.color = 'var(--gep-accent-text)'
+}
+
+function onOutlineAccentLeave(e: MouseEvent<HTMLElement>) {
+  e.currentTarget.style.background = 'transparent'
+  e.currentTarget.style.color = 'var(--gep-accent)'
+}
+
+function AccentOutlineButton({
+  href,
+  onClick,
+  type = 'button',
+  className = '',
+  children,
+}: {
+  href?: string
+  onClick?: () => void
+  type?: 'button' | 'submit'
+  className?: string
+  children: ReactNode
+}) {
+  const classNames = `${OUTLINE_ACCENT_BUTTON_CLASS} ${className}`.trim()
+  const shared = {
+    className: classNames,
+    style: outlineAccentButtonStyle,
+    onMouseEnter: onOutlineAccentEnter,
+    onMouseLeave: onOutlineAccentLeave,
+  }
+
+  if (href) {
+    return (
+      <a href={href} {...shared} onClick={onClick}>
+        {children}
+      </a>
+    )
+  }
+
+  return (
+    <button type={type} {...shared} onClick={onClick}>
+      {children}
+    </button>
+  )
 }
 
 // ─── Data ───────────────────────────────────────────────────────────────────
@@ -506,13 +513,9 @@ function Header({
               </a>
             ))}
           </nav>
-          <a
-            href="tel:8774376381"
-            className={`${CALL_BUTTON_CLASS} hidden sm:inline-flex px-4 py-2 text-[10px] lg:px-5 lg:py-2.5 lg:text-xs`}
-            style={callButtonStyle}
-          >
+          <AccentOutlineButton href="tel:8774376381" className="hidden sm:inline-flex shrink-0">
             877-437-6381
-          </a>
+          </AccentOutlineButton>
           <button
             className="lg:hidden flex flex-col gap-1.5 p-2"
             onClick={() => setMenuOpen(!menuOpen)}
@@ -540,14 +543,13 @@ function Header({
                 {link.label}
               </a>
             ))}
-            <a
+            <AccentOutlineButton
               href="tel:8774376381"
-              className={`mt-2 ${CALL_BUTTON_CLASS} block text-center py-3`}
-              style={callButtonStyle}
+              className="mt-2 w-full"
               onClick={() => setMenuOpen(false)}
             >
               877-437-6381
-            </a>
+            </AccentOutlineButton>
           </nav>
         </div>
       )}
@@ -1061,26 +1063,9 @@ function StorageSection() {
         </div>
 
         <div className="mt-8 text-center">
-          <button
-            type="button"
-            onClick={() => setShowForm(true)}
-            className="inline-block px-8 py-4 text-xs tracking-widest uppercase font-semibold border transition-all duration-200 hover:opacity-90 cursor-pointer"
-            style={{
-              fontFamily: FONT_BODY,
-              borderColor: 'var(--gep-accent)',
-              color: 'var(--gep-accent)',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'var(--gep-accent)'
-              e.currentTarget.style.color = 'var(--gep-accent-text)'
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = 'transparent'
-              e.currentTarget.style.color = 'var(--gep-accent)'
-            }}
-          >
+          <AccentOutlineButton type="button" onClick={() => setShowForm(true)}>
             Inquire About Storage
-          </button>
+          </AccentOutlineButton>
         </div>
       </div>
     </section>
@@ -1231,19 +1216,9 @@ function ProductionStaffing() {
           ))}
         </div>
 
-        <a
-          href="#contact"
-          className="self-center inline-flex items-center justify-center px-5 py-2.5 text-xs tracking-widest uppercase font-semibold transition-opacity hover:opacity-90"
-          style={{
-            fontFamily: FONT_BODY,
-            background: 'var(--gep-accent)',
-            color: 'var(--gep-accent-text)',
-            width: 'fit-content',
-            maxWidth: 'min(33%, 12rem)',
-          }}
-        >
+        <AccentOutlineButton href="#contact" className="self-center">
           Find Out More
-        </a>
+        </AccentOutlineButton>
       </div>
     </section>
   )
@@ -1423,7 +1398,7 @@ function Footer({ colorScheme }: { colorScheme: string }) {
 // ─── App ─────────────────────────────────────────────────────────────────────
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false)
-  const [colorScheme, setColorScheme] = useState('bone-dark')
+  const [colorScheme, setColorScheme] = useState('palette-clay')
   const scheme = COLOR_SCHEMES.find((s) => s.id === colorScheme) ?? COLOR_SCHEMES[0]
 
   return (
