@@ -321,28 +321,51 @@ function onFilledInverseLeave(e: MouseEvent<HTMLElement>) {
   e.currentTarget.style.borderColor = 'var(--gep-accent)'
 }
 
-const CALL_BUTTON_CLASS = `${ACCENT_BUTTON_BASE} px-5 py-2.5`
+const CALL_BUTTON_CLASS =
+  'items-center justify-center px-5 py-2.5 text-xs tracking-widest uppercase font-semibold border transition-all duration-200 cursor-pointer'
+const CALL_ICON_BUTTON_CLASS =
+  'items-center justify-center w-10 h-10 border transition-all duration-200 cursor-pointer shrink-0'
+
+function PhoneIcon({ className = '' }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+    </svg>
+  )
+}
 
 /** Header call CTA: solid accent default, inverted fill/text on hover */
 function CallButton({
   className = '',
   onClick,
+  iconOnly = false,
   children,
 }: {
   className?: string
   onClick?: () => void
-  children: ReactNode
+  iconOnly?: boolean
+  children?: ReactNode
 }) {
   return (
     <a
       href="tel:8774376381"
-      className={`${CALL_BUTTON_CLASS} ${className}`.trim()}
+      className={`${iconOnly ? CALL_ICON_BUTTON_CLASS : CALL_BUTTON_CLASS} ${className}`.trim()}
       style={filledInverseButtonStyle}
       onMouseEnter={onFilledInverseEnter}
       onMouseLeave={onFilledInverseLeave}
       onClick={onClick}
+      aria-label="Call 877-437-6381"
     >
-      {children}
+      {iconOnly ? <PhoneIcon className="w-4 h-4" /> : children}
     </a>
   )
 }
@@ -629,6 +652,7 @@ function Header({
               </a>
             ))}
           </nav>
+          <CallButton className="inline-flex sm:hidden" iconOnly />
           <CallButton className="hidden sm:inline-flex shrink-0">
             877-437-6381
           </CallButton>
@@ -659,9 +683,7 @@ function Header({
                 {link.label}
               </a>
             ))}
-            <CallButton className="mt-2 w-full" onClick={() => setMenuOpen(false)}>
-              877-437-6381
-            </CallButton>
+            <CallButton className="mt-2 self-start inline-flex" iconOnly onClick={() => setMenuOpen(false)} />
           </nav>
         </div>
       )}
@@ -671,14 +693,22 @@ function Header({
 
 function Hero() {
   return (
-    <section className="relative w-full min-h-screen flex items-center justify-center overflow-hidden" style={{ background: 'var(--gep-bg)' }}>
-      {/* Background video */}
+    <section
+      className="relative w-full overflow-hidden flex items-center justify-center"
+      style={{
+        background: 'var(--gep-bg)',
+        width: '100%',
+        height: '100dvh',
+        minHeight: '100dvh',
+      }}
+    >
+      {/* Background video — max-w-none overrides Tailwind preflight max-width on video */}
       <video
         autoPlay
         muted
         loop
         playsInline
-        className="absolute inset-0 w-full h-full object-cover"
+        className="absolute inset-0 h-full w-full max-w-none object-cover"
         style={{ objectPosition: 'center center' }}
       >
         <source src={HERO_VIDEO} type="video/mp4" />
@@ -691,7 +721,7 @@ function Hero() {
         }}
       />
 
-      <div className="relative z-10 text-center max-w-5xl mx-auto px-6 pt-20">
+      <div className="relative z-10 text-center w-full px-6 pt-20">
         <h1
           className="text-white uppercase leading-snug max-w-4xl mx-auto"
           style={{
@@ -703,12 +733,6 @@ function Hero() {
         >
           Crafting the Extraordinary in Global Entertainment
         </h1>
-      </div>
-
-      {/* Scroll indicator */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40">
-        <div className="w-px h-12 bg-white" style={{ animation: 'pulse 2s ease-in-out infinite' }} />
-        <span className="text-white text-[10px] tracking-[0.25em] uppercase" style={{ fontFamily: FONT_BODY }}>Scroll</span>
       </div>
     </section>
   )
