@@ -54,8 +54,16 @@ function accentTextOn(accent: string): string {
   return accent.toUpperCase() === PALETTE.brass.toUpperCase() ? '#17140F' : '#FFFFFF'
 }
 
-/** Opaque taupe aligned with the scrolled header bar */
-const HEADER_FOOTER_SURFACE = '#D5CDC4'
+const FOOTER_DARK = '#17140F'
+
+const FOOTER_VARS: Record<string, string> = {
+  '--gep-footer': FOOTER_DARK,
+  '--gep-footer-text': '#F3EFE8',
+  '--gep-footer-text-muted': 'rgba(243, 239, 232, 0.72)',
+  '--gep-footer-divider': 'rgba(255, 255, 255, 0.12)',
+}
+
+const STAFFING_OVERLAY_DARK = `linear-gradient(to bottom, rgba(23, 20, 15, 0.42) 0%, rgba(23, 20, 15, 0.78) 62%, ${FOOTER_DARK} 100%)`
 
 function lightBoneScheme(
   id: string,
@@ -71,7 +79,8 @@ function lightBoneScheme(
       '--gep-bg': '#F8F5F0',
       '--gep-bg-alt': '#F3EFE8',
       '--gep-card': '#ECE6DC',
-      '--gep-footer': extras['--gep-footer'] ?? HEADER_FOOTER_SURFACE,
+      ...FOOTER_VARS,
+      ...(extras['--gep-footer'] ? { '--gep-footer': extras['--gep-footer'] } : {}),
       '--gep-accent': accent,
       '--gep-accent-text': accentTextOn(accent),
       '--gep-header-bar': 'rgba(107, 99, 88, 0.68)',
@@ -80,8 +89,9 @@ function lightBoneScheme(
       '--gep-overlay-mid': 'rgba(0, 0, 0, 0.10)',
       '--gep-overlay-bottom': 'rgba(0, 0, 0, 0.10)',
       '--gep-card-overlay': 'rgba(67, 98, 127, 0.72)',
-      '--gep-staffing-overlay':
-        'linear-gradient(to bottom, color-mix(in srgb, var(--gep-bg) 76%, var(--gep-accent) 10%) 0%, color-mix(in srgb, var(--gep-bg-alt) 64%, var(--gep-accent) 8%) 100%)',
+      '--gep-staffing-overlay': STAFFING_OVERLAY_DARK,
+      '--gep-staffing-text': '#F3EFE8',
+      '--gep-staffing-text-muted': 'rgba(243, 239, 232, 0.82)',
       '--gep-text': '#17140F',
       '--gep-text-muted': '#6B6358',
       '--gep-logo-filter': 'none',
@@ -103,7 +113,6 @@ const COLOR_SCHEMES: ColorScheme[] = [
     '--gep-bg': '#F3EFE8',
     '--gep-bg-alt': '#E4DDD2',
     '--gep-card': '#E4DDD2',
-    '--gep-footer': HEADER_FOOTER_SURFACE,
     '--gep-header-bar': 'rgba(107, 99, 88, 0.68)',
     '--gep-header-scrolled': 'rgba(107, 99, 88, 0.68)',
     '--gep-card-overlay': 'rgba(23, 20, 15, 0.78)',
@@ -118,7 +127,7 @@ const COLOR_SCHEMES: ColorScheme[] = [
       '--gep-bg': '#FFFFFF',
       '--gep-bg-alt': '#F5F5F7',
       '--gep-card': '#F5F5F7',
-      '--gep-footer': HEADER_FOOTER_SURFACE,
+      ...FOOTER_VARS,
       '--gep-accent': PALETTE.dusk,
       '--gep-accent-text': '#FFFFFF',
       '--gep-header-bar': 'rgba(107, 99, 88, 0.68)',
@@ -127,8 +136,9 @@ const COLOR_SCHEMES: ColorScheme[] = [
       '--gep-overlay-mid': 'rgba(0, 0, 0, 0.10)',
       '--gep-overlay-bottom': 'rgba(0, 0, 0, 0.10)',
       '--gep-card-overlay': 'rgba(67, 98, 127, 0.72)',
-      '--gep-staffing-overlay':
-        'linear-gradient(to bottom, color-mix(in srgb, var(--gep-bg) 76%, var(--gep-accent) 10%) 0%, color-mix(in srgb, var(--gep-bg-alt) 64%, var(--gep-accent) 8%) 100%)',
+      '--gep-staffing-overlay': STAFFING_OVERLAY_DARK,
+      '--gep-staffing-text': '#F3EFE8',
+      '--gep-staffing-text-muted': 'rgba(243, 239, 232, 0.82)',
       '--gep-text': '#1D1D1F',
       '--gep-text-muted': '#6E6E73',
       '--gep-logo-filter': 'none',
@@ -143,7 +153,6 @@ const COLOR_SCHEMES: ColorScheme[] = [
     },
   },
   lightBoneScheme('earth-palette', 'Earth Palette', PALETTE.ember, PALETTE.brass, {
-    '--gep-footer': HEADER_FOOTER_SURFACE,
     '--gep-hero-word': PALETTE.brass,
     '--gep-accent-secondary': PALETTE.clay,
     '--gep-accent-tertiary': PALETTE.sage,
@@ -335,13 +344,6 @@ const TESTIMONIALS = [
   },
 ]
 
-const TESTIMONIAL_LAYOUTS = [
-  { id: 'standalone', name: 'Featured Section (full width)' },
-  { id: 'compact-under-logos', name: 'Compact (under client logos)' },
-] as const
-
-type TestimonialLayoutId = (typeof TESTIMONIAL_LAYOUTS)[number]['id']
-
 function useTestimonialCarousel() {
   const [active, setActive] = useState(0)
   const [paused, setPaused] = useState(false)
@@ -377,13 +379,9 @@ function themeSelectStyle(chevronHex: string): CSSProperties {
 function ThemePicker({
   colorScheme,
   onColorSchemeChange,
-  testimonialLayout,
-  onTestimonialLayoutChange,
 }: {
   colorScheme: string
   onColorSchemeChange: (id: string) => void
-  testimonialLayout: TestimonialLayoutId
-  onTestimonialLayoutChange: (id: TestimonialLayoutId) => void
 }) {
   const isLightScheme = LIGHT_COLOR_SCHEMES.has(colorScheme)
   const chevronColor = isLightScheme ? '1D1D1F' : 'ffffff'
@@ -395,24 +393,6 @@ function ThemePicker({
       className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-4"
       style={{ fontFamily: FONT_BODY }}
     >
-      <div className="flex flex-col items-end gap-2 w-full">
-        <label htmlFor="testimonial-layout" className="text-[10px] tracking-[0.2em] uppercase" style={{ color: 'var(--gep-text-muted)' }}>
-          What They&apos;re Saying
-        </label>
-        <select
-          id="testimonial-layout"
-          value={testimonialLayout}
-          onChange={(e) => onTestimonialLayoutChange(e.target.value as TestimonialLayoutId)}
-          className={selectClass}
-          style={themeSelectStyle(chevronColor)}
-        >
-          {TESTIMONIAL_LAYOUTS.map((layout) => (
-            <option key={layout.id} value={layout.id} style={{ background: 'var(--gep-bg)', color: 'var(--gep-text)' }}>
-              {layout.name}
-            </option>
-          ))}
-        </select>
-      </div>
       <div className="flex flex-col items-end gap-2 w-full">
         <label htmlFor="color-scheme" className="text-[10px] tracking-[0.2em] uppercase" style={{ color: 'var(--gep-text-muted)' }}>
           Color Scheme
@@ -1059,17 +1039,11 @@ function StorageSection() {
   )
 }
 
-function ClientLogoWall({
-  colorScheme,
-  testimonialLayout,
-}: {
-  colorScheme: string
-  testimonialLayout: TestimonialLayoutId
-}) {
+function ClientLogoWall({ colorScheme }: { colorScheme: string }) {
   const useColorLogos = LIGHT_COLOR_SCHEMES.has(colorScheme)
 
   return (
-    <section className="py-20" style={{ borderTop: '1px solid var(--gep-divider)', borderBottom: '1px solid var(--gep-divider)', background: 'var(--gep-bg)' }}>
+    <section className="pt-20 pb-10" style={{ borderTop: '1px solid var(--gep-divider)', borderBottom: '1px solid var(--gep-divider)', background: 'var(--gep-bg)' }}>
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
         <p
           className="text-base lg:text-lg leading-relaxed text-center max-w-3xl mx-auto mb-10"
@@ -1100,11 +1074,9 @@ function ClientLogoWall({
             </div>
           ))}
         </div>
-        {testimonialLayout === 'compact-under-logos' ? (
-          <div className="mt-14 pt-10" style={{ borderTop: '1px solid var(--gep-divider)' }}>
-            <TestimonialsCompact />
-          </div>
-        ) : null}
+        <div className="mt-12 pt-8 pb-0" style={{ borderTop: '1px solid var(--gep-divider)' }}>
+          <TestimonialsCompact />
+        </div>
       </div>
     </section>
   )
@@ -1180,14 +1152,14 @@ function ProductionStaffing() {
             fontWeight: 800,
             fontSize: 'clamp(2.75rem, 6.5vw, 4.5rem)',
             letterSpacing: '0.04em',
-            color: 'var(--gep-text)',
+            color: 'var(--gep-staffing-text, #F3EFE8)',
           }}
         >
           Production Staffing
         </h2>
         <p
           className="text-lg md:text-xl leading-relaxed max-w-3xl mx-auto mb-12 md:mb-16"
-          style={{ fontFamily: FONT_BODY, fontWeight: 500, color: 'var(--gep-text-muted)' }}
+          style={{ fontFamily: FONT_BODY, fontWeight: 500, color: 'var(--gep-staffing-text-muted, rgba(243, 239, 232, 0.82))' }}
         >
           Let our skilled professionals handle the intricacies of your event.
         </p>
@@ -1200,7 +1172,7 @@ function ProductionStaffing() {
                   <StaffingTriangle />
                   <span
                     className="text-lg md:text-xl font-medium"
-                    style={{ fontFamily: FONT_BODY, color: 'var(--gep-text)' }}
+                    style={{ fontFamily: FONT_BODY, color: 'var(--gep-staffing-text, #F3EFE8)' }}
                   >
                     {role}
                   </span>
@@ -1229,12 +1201,14 @@ function ProductionStaffing() {
 function TestimonialNavDots({
   active,
   setActive,
+  align = 'center',
 }: {
   active: number
   setActive: (i: number) => void
+  align?: 'left' | 'center'
 }) {
   return (
-    <div className="flex gap-2 justify-center">
+    <div className={`flex gap-2 ${align === 'left' ? 'justify-start' : 'justify-center'}`}>
       {TESTIMONIALS.map((_, i) => (
         <button
           key={i}
@@ -1242,8 +1216,8 @@ function TestimonialNavDots({
           onClick={() => setActive(i)}
           className="transition-all duration-200"
           style={{
-            width: i === active ? 20 : 6,
-            height: 2,
+            width: i === active ? 24 : 8,
+            height: 3,
             background: i === active ? 'var(--gep-accent)' : 'var(--gep-divider)',
           }}
           aria-label={`Testimonial ${i + 1}`}
@@ -1259,101 +1233,36 @@ function TestimonialsCompact() {
 
   return (
     <div
-      className="max-w-2xl mx-auto text-center"
+      className="w-full max-w-xl mx-auto text-left"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
       <p
-        className="text-[10px] tracking-[0.25em] uppercase mb-4"
+        className="text-sm tracking-[0.22em] uppercase mb-5"
         style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}
       >
         What They&apos;re Saying
       </p>
       <blockquote key={active} className="animate-fade-up">
         <p
-          className="text-sm leading-relaxed mb-3"
+          className="text-lg md:text-xl leading-relaxed mb-4"
           style={{ fontFamily: FONT_BODY, fontWeight: 400, color: 'var(--gep-text)' }}
         >
           &ldquo;{item.quote}&rdquo;
         </p>
         <footer>
-          <p className="text-xs font-medium" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text)' }}>
+          <p className="text-base font-semibold" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text)' }}>
             {item.author}
           </p>
-          <p className="text-[11px] mt-0.5" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>
+          <p className="text-sm mt-1" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>
             {item.title}
           </p>
         </footer>
       </blockquote>
       <div className="mt-4">
-        <TestimonialNavDots active={active} setActive={setActive} />
+        <TestimonialNavDots active={active} setActive={setActive} align="left" />
       </div>
     </div>
-  )
-}
-
-function TestimonialsStandalone() {
-  const { active, setActive, setPaused } = useTestimonialCarousel()
-
-  return (
-    <section className="py-24" style={{ background: 'var(--gep-bg-alt)' }}>
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-        <GoldRule />
-        <h2
-          className="uppercase leading-tight mb-16"
-          style={{ fontFamily: FONT_DISPLAY, fontWeight: 800, fontSize: 'clamp(2.5rem, 5vw, 4rem)', letterSpacing: '0.02em', color: 'var(--gep-text)' }}
-        >
-          What They're Saying
-        </h2>
-
-        <div
-          className="relative"
-          onMouseEnter={() => setPaused(true)}
-          onMouseLeave={() => setPaused(false)}
-        >
-          <div className="p-10 lg:p-14 relative overflow-hidden" style={{ border: '1px solid var(--gep-divider)', background: 'var(--gep-card)' }}>
-            <div
-              className="absolute top-10 left-10 leading-none select-none"
-              style={{ fontFamily: FONT_DISPLAY, fontSize: '6rem', opacity: 0.15, lineHeight: 0.7, color: 'var(--gep-accent)' }}
-            >
-              "
-            </div>
-            <blockquote key={active} className="relative z-10 animate-fade-up">
-              <p
-                className="text-lg lg:text-2xl leading-relaxed mb-8 max-w-3xl"
-                style={{ fontFamily: FONT_BODY, fontWeight: 300, color: 'var(--gep-text)' }}
-              >
-                "{TESTIMONIALS[active].quote}"
-              </p>
-              <div className="flex items-center gap-4">
-                <div className="w-8 h-px" style={{ background: 'var(--gep-accent)' }} />
-                <div>
-                  <p className="text-sm font-semibold" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text)' }}>{TESTIMONIALS[active].author}</p>
-                  <p className="text-xs" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>{TESTIMONIALS[active].title}</p>
-                </div>
-              </div>
-            </blockquote>
-          </div>
-
-          <div className="flex gap-3 mt-6 justify-end">
-            {TESTIMONIALS.map((_, i) => (
-              <button
-                key={i}
-                type="button"
-                onClick={() => setActive(i)}
-                className="transition-all duration-200"
-                style={{
-                  width: i === active ? 24 : 8,
-                  height: 3,
-                  background: i === active ? 'var(--gep-accent)' : 'var(--gep-divider)',
-                }}
-                aria-label={`Testimonial ${i + 1}`}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
   )
 }
 
@@ -1361,8 +1270,11 @@ function Footer({ colorScheme }: { colorScheme: string }) {
   return (
     <footer
       id="contact"
-      className="gep-footer-light pt-20 pb-10 scroll-mt-24"
-      style={{ borderTop: '1px solid var(--gep-divider)', background: 'var(--gep-footer)' }}
+      className="pt-20 pb-10 scroll-mt-24"
+      style={{
+        background: 'var(--gep-footer)',
+        color: 'var(--gep-footer-text)',
+      }}
     >
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
@@ -1373,7 +1285,7 @@ function Footer({ colorScheme }: { colorScheme: string }) {
               lockupId={LOGO_LOCKUP}
               className="mb-4"
             />
-            <p className="text-sm leading-relaxed mb-6" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>
+            <p className="text-sm leading-relaxed mb-6" style={{ fontFamily: FONT_BODY, color: 'var(--gep-footer-text-muted)' }}>
               Full-service live event production. 40+ years of experience. Global reach.
             </p>
             <div className="flex flex-wrap gap-x-4 gap-y-2">
@@ -1389,7 +1301,7 @@ function Footer({ colorScheme }: { colorScheme: string }) {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-xs tracking-widest uppercase transition-colors duration-200 hover:text-[color:var(--gep-accent)]"
-                  style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}
+                  style={{ fontFamily: FONT_BODY, color: 'var(--gep-footer-text-muted)' }}
                 >
                   {s.name}
                 </a>
@@ -1398,18 +1310,18 @@ function Footer({ colorScheme }: { colorScheme: string }) {
           </div>
 
           <div>
-            <p className="text-[10px] tracking-[0.3em] uppercase mb-5" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>Latest Posts</p>
+            <p className="text-[10px] tracking-[0.3em] uppercase mb-5" style={{ fontFamily: FONT_BODY, color: 'var(--gep-footer-text-muted)' }}>Latest Posts</p>
             <ul className="flex flex-col gap-5">
               {FOOTER_POSTS.map((post) => (
                 <li key={post.title}>
                   <a
                     href={post.href}
                     className="block text-sm leading-snug transition-colors duration-200 hover:text-[color:var(--gep-accent)]"
-                    style={{ fontFamily: FONT_BODY, color: 'var(--gep-text)' }}
+                    style={{ fontFamily: FONT_BODY, color: 'var(--gep-footer-text)' }}
                   >
                     {post.title}
                   </a>
-                  <p className="text-xs mt-1" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>
+                  <p className="text-xs mt-1" style={{ fontFamily: FONT_BODY, color: 'var(--gep-footer-text-muted)' }}>
                     {post.date}
                   </p>
                 </li>
@@ -1418,8 +1330,8 @@ function Footer({ colorScheme }: { colorScheme: string }) {
           </div>
 
           <div>
-            <p className="text-[10px] tracking-[0.3em] uppercase mb-5" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>Location</p>
-            <address className="not-italic text-sm leading-loose" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text)' }}>
+            <p className="text-[10px] tracking-[0.3em] uppercase mb-5" style={{ fontFamily: FONT_BODY, color: 'var(--gep-footer-text-muted)' }}>Location</p>
+            <address className="not-italic text-sm leading-loose" style={{ fontFamily: FONT_BODY, color: 'var(--gep-footer-text)' }}>
               1390 Business Ctr Dr. SW<br />
               Ste 200 - 300<br />
               Conyers, GA 30094
@@ -1427,32 +1339,32 @@ function Footer({ colorScheme }: { colorScheme: string }) {
           </div>
 
           <div>
-            <p className="text-[10px] tracking-[0.3em] uppercase mb-5" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>Contact</p>
+            <p className="text-[10px] tracking-[0.3em] uppercase mb-5" style={{ fontFamily: FONT_BODY, color: 'var(--gep-footer-text-muted)' }}>Contact</p>
             <div className="flex flex-col gap-4">
               <div>
-                <p className="text-[10px] uppercase tracking-wider mb-1" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>General</p>
-                <a href="mailto:admin@gepnetwork.com" className="text-sm transition-colors hover:text-[color:var(--gep-accent)]" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text)' }}>
+                <p className="text-[10px] uppercase tracking-wider mb-1" style={{ fontFamily: FONT_BODY, color: 'var(--gep-footer-text-muted)' }}>General</p>
+                <a href="mailto:admin@gepnetwork.com" className="text-sm transition-colors hover:text-[color:var(--gep-accent)]" style={{ fontFamily: FONT_BODY, color: 'var(--gep-footer-text)' }}>
                   admin@gepnetwork.com
                 </a>
               </div>
               <div>
-                <p className="text-[10px] uppercase tracking-wider mb-1" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>Bookings</p>
-                <a href="mailto:bookings@gepnetwork.com" className="text-sm transition-colors hover:text-[color:var(--gep-accent)]" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text)' }}>
+                <p className="text-[10px] uppercase tracking-wider mb-1" style={{ fontFamily: FONT_BODY, color: 'var(--gep-footer-text-muted)' }}>Bookings</p>
+                <a href="mailto:bookings@gepnetwork.com" className="text-sm transition-colors hover:text-[color:var(--gep-accent)]" style={{ fontFamily: FONT_BODY, color: 'var(--gep-footer-text)' }}>
                   bookings@gepnetwork.com
                 </a>
               </div>
-              <a href="tel:8774376381" className="text-sm transition-colors hover:text-[color:var(--gep-accent)]" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text)' }}>
+              <a href="tel:8774376381" className="text-sm transition-colors hover:text-[color:var(--gep-accent)]" style={{ fontFamily: FONT_BODY, color: 'var(--gep-footer-text)' }}>
                 877-437-6381
               </a>
             </div>
           </div>
         </div>
 
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4" style={{ borderTop: '1px solid var(--gep-divider)' }}>
-          <p className="text-xs" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4" style={{ borderTop: '1px solid var(--gep-footer-divider)' }}>
+          <p className="text-xs" style={{ fontFamily: FONT_BODY, color: 'var(--gep-footer-text-muted)' }}>
             © {new Date().getFullYear()} GEP Network, Inc. All rights reserved.
           </p>
-          <p className="text-xs" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>
+          <p className="text-xs" style={{ fontFamily: FONT_BODY, color: 'var(--gep-footer-text-muted)' }}>
             Full-Service Live Event Production
           </p>
         </div>
@@ -1465,7 +1377,6 @@ function Footer({ colorScheme }: { colorScheme: string }) {
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [colorScheme, setColorScheme] = useState('bone-dark')
-  const [testimonialLayout, setTestimonialLayout] = useState<TestimonialLayoutId>('compact-under-logos')
   const scheme = COLOR_SCHEMES.find((s) => s.id === colorScheme) ?? COLOR_SCHEMES[0]
 
   return (
@@ -1475,21 +1386,15 @@ export default function App() {
     >
       <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} colorScheme={colorScheme} />
       <Hero />
-      <ClientLogoWall colorScheme={colorScheme} testimonialLayout={testimonialLayout} />
+      <ClientLogoWall colorScheme={colorScheme} />
       <RecentProjectsCarousel />
       <WhyGEP />
       <AboutSection />
       <ServicesGrid />
       <StorageSection />
       <ProductionStaffing />
-      {testimonialLayout === 'standalone' ? <TestimonialsStandalone /> : null}
       <Footer colorScheme={colorScheme} />
-      <ThemePicker
-        colorScheme={colorScheme}
-        onColorSchemeChange={setColorScheme}
-        testimonialLayout={testimonialLayout}
-        onTestimonialLayoutChange={setTestimonialLayout}
-      />
+      <ThemePicker colorScheme={colorScheme} onColorSchemeChange={setColorScheme} />
     </div>
   )
 }
