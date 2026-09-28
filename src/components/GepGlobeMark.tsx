@@ -61,8 +61,8 @@ function BrunoFullLockup({ globeSize, hero }: { globeSize: number; hero: boolean
 function CenturyGlobeLockup({ hero }: { hero: boolean }) {
   return (
     <span
-      className={`gep-logo-century inline-flex items-center leading-none text-white whitespace-nowrap ${
-        hero ? 'gep-logo-century--hero' : ''
+      className={`gep-logo-century inline-flex items-center leading-none whitespace-nowrap ${
+        hero ? 'gep-logo-century--hero text-white' : 'text-inherit'
       }`}
     >
       <span className="gep-logo-century__g">

@@ -26,6 +26,7 @@ const LOGO_LOCKUP = 'century-globe' as const
 const HERO_VIDEO = '/gep-hero-video.mp4'
 
 const LIGHT_COLOR_SCHEMES = new Set([
+  'palette-white',
   'palette-silver',
   'palette-clay',
   'palette-dusk',
@@ -48,6 +49,8 @@ const PALETTE = {
   /** Earth-toned brown */
   soul: '#6F5344',
   soulLight: '#8B6A55',
+  white: '#1D1D1F',
+  whiteSoft: '#3A3A3C',
 } as const
 
 type ColorScheme = {
@@ -73,6 +76,7 @@ const STAFFING_OVERLAY_DARK = `linear-gradient(to bottom, rgba(23, 20, 15, 0.42)
 
 /** Scrolled header glass — grey-washed theme hue at ~68% opacity (see Silver) */
 const HEADER_BAR = {
+  white: 'rgba(255, 255, 255, 0.82)',
   silver: 'rgba(58, 58, 62, 0.68)',
   dusk: 'rgba(84, 98, 112, 0.68)',
   sage: 'rgba(96, 108, 96, 0.68)',
@@ -133,6 +137,26 @@ const COLOR_SCHEMES: ColorScheme[] = [
     '--gep-card-overlay': 'rgba(68, 48, 36, 0.76)',
     '--gep-storage-overlay':
       'linear-gradient(to top, rgba(68, 48, 36, 0.86) 0%, rgba(111, 83, 68, 0.46) 55%, rgba(68, 48, 36, 0.2) 100%)',
+  }),
+  lightBoneScheme('palette-white', 'White', PALETTE.white, PALETTE.whiteSoft, {
+    '--gep-bg': '#FFFFFF',
+    '--gep-bg-alt': '#FFFFFF',
+    '--gep-card': '#FFFFFF',
+    '--gep-text': '#1D1D1F',
+    '--gep-text-muted': '#86868B',
+    '--gep-divider': 'rgba(0, 0, 0, 0.08)',
+    '--gep-header-bar': HEADER_BAR.white,
+    '--gep-header-scrolled': HEADER_BAR.white,
+    '--gep-header-nav-scrolled': 'rgba(29, 29, 31, 0.72)',
+    '--gep-header-nav-scrolled-hover': '#1D1D1F',
+    '--gep-header-logo-scrolled': '#1D1D1F',
+    '--gep-header-icon-scrolled': '#1D1D1F',
+    '--gep-hero-kicker': '#FFFFFF',
+    '--gep-card-overlay': 'rgba(29, 29, 31, 0.72)',
+    '--gep-why-gep-overlay':
+      'linear-gradient(105deg, rgba(0, 0, 0, 0.82) 0%, rgba(0, 0, 0, 0.48) 50%, rgba(0, 0, 0, 0.36) 100%)',
+    '--gep-storage-overlay':
+      'linear-gradient(to top, rgba(29, 29, 31, 0.88) 0%, rgba(29, 29, 31, 0.48) 55%, rgba(29, 29, 31, 0.2) 100%)',
   }),
   lightBoneScheme('palette-silver', 'Silver', PALETTE.silver, PALETTE.silverLight, {
     '--gep-bg': '#FFFFFF',
@@ -578,20 +602,23 @@ function Header({
 
   return (
     <header
-      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+      className={`gep-header-root fixed top-0 left-0 right-0 z-50 transition-all duration-300${scrolled ? ' is-scrolled' : ''}`}
       style={{
         background: scrolled ? 'var(--gep-header-bar, rgba(107, 99, 88, 0.68))' : 'transparent',
         backdropFilter: scrolled ? 'blur(12px)' : 'none',
-        borderBottom: scrolled ? '1px solid rgba(128,128,128,0.15)' : '1px solid transparent',
+        borderBottom: scrolled
+          ? '1px solid var(--gep-header-border-scrolled, rgba(128, 128, 128, 0.15))'
+          : '1px solid transparent',
       }}
     >
       <div className="relative max-w-[1400px] mx-auto px-6 lg:px-10 h-20 flex items-center w-full">
-        <GEPLogoLockup
-          globeSize={48}
-          colorSchemeKey={colorScheme}
-          lockupId={LOGO_LOCKUP}
-          className="relative z-10 flex-shrink-0"
-        />
+        <div className="gep-header-logo relative z-10 flex-shrink-0">
+          <GEPLogoLockup
+            globeSize={48}
+            colorSchemeKey={colorScheme}
+            lockupId={LOGO_LOCKUP}
+          />
+        </div>
 
         <div className="relative z-10 flex items-center gap-5 xl:gap-8 ml-auto">
           <nav className="hidden lg:flex items-center gap-6 xl:gap-8 whitespace-nowrap" aria-label="Primary">
@@ -599,10 +626,8 @@ function Header({
               <a
                 key={link.label}
                 href={link.href}
-                className="text-xs tracking-widest uppercase transition-colors duration-200 hover:opacity-100"
-                style={{ fontFamily: FONT_BODY, color: 'rgba(255,255,255,0.65)' }}
-                onMouseEnter={(e) => { e.currentTarget.style.color = '#ffffff' }}
-                onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.65)' }}
+                className="gep-header-link text-xs tracking-widest uppercase"
+                style={{ fontFamily: FONT_BODY }}
               >
                 {link.label}
               </a>
@@ -616,9 +641,9 @@ function Header({
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle menu"
           >
-            <span className={`block w-6 h-px transition-all duration-200 ${menuOpen ? 'rotate-45 translate-y-2' : ''}`} style={{ background: '#ffffff' }} />
-            <span className={`block w-6 h-px transition-all duration-200 ${menuOpen ? 'opacity-0' : ''}`} style={{ background: '#ffffff' }} />
-            <span className={`block w-6 h-px transition-all duration-200 ${menuOpen ? '-rotate-45 -translate-y-2' : ''}`} style={{ background: '#ffffff' }} />
+            <span className={`gep-header-menu-bar block w-6 h-px transition-all duration-200 ${menuOpen ? 'rotate-45 translate-y-2' : ''}`} />
+            <span className={`gep-header-menu-bar block w-6 h-px transition-all duration-200 ${menuOpen ? 'opacity-0' : ''}`} />
+            <span className={`gep-header-menu-bar block w-6 h-px transition-all duration-200 ${menuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
           </button>
         </div>
       </div>

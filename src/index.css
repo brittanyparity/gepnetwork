@@ -116,6 +116,40 @@ html {
   height: 0.74em;
 }
 
+/* Header chrome (optional per color scheme — e.g. White) */
+.gep-header-root .gep-header-logo {
+  color: var(--gep-header-logo, #ffffff);
+}
+
+.gep-header-root.is-scrolled .gep-header-logo {
+  color: var(--gep-header-logo-scrolled, var(--gep-header-logo, #ffffff));
+}
+
+.gep-header-link {
+  color: var(--gep-header-nav, rgba(255, 255, 255, 0.65));
+  transition: color 0.2s ease;
+}
+
+.gep-header-root.is-scrolled .gep-header-link {
+  color: var(--gep-header-nav-scrolled, var(--gep-header-nav, rgba(255, 255, 255, 0.65)));
+}
+
+.gep-header-link:hover {
+  color: var(--gep-header-nav-hover, #ffffff);
+}
+
+.gep-header-root.is-scrolled .gep-header-link:hover {
+  color: var(--gep-header-nav-scrolled-hover, var(--gep-header-nav-hover, #ffffff));
+}
+
+.gep-header-menu-bar {
+  background: var(--gep-header-icon, #ffffff);
+}
+
+.gep-header-root.is-scrolled .gep-header-menu-bar {
+  background: var(--gep-header-icon-scrolled, var(--gep-header-icon, #ffffff));
+}
+
 /* Footer on light taupe bar — dark lockup */
 .gep-footer-light .gep-logo-century,
 .gep-footer-light .gep-logo-century .gep-logo-century__word {
