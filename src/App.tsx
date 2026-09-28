@@ -173,6 +173,45 @@ const FOOTER_POSTS = [
   { title: 'The Art of Event Management', date: 'March 5, 2024', href: '#' },
 ]
 
+const FOOTER_SOCIAL = [
+  { id: 'youtube', label: 'YouTube', href: 'https://www.youtube.com/@gepnetwork' },
+  { id: 'instagram', label: 'Instagram', href: 'https://www.instagram.com/gep.network/' },
+  { id: 'linkedin', label: 'LinkedIn', href: 'https://www.linkedin.com/company/gepnetwork/posts/?feedView=all' },
+  { id: 'facebook', label: 'Facebook', href: 'https://www.facebook.com/p/GEP-Network-61558628911648/' },
+] as const
+
+type FooterSocialId = (typeof FOOTER_SOCIAL)[number]['id']
+
+function FooterSocialIcon({ id, className = '' }: { id: FooterSocialId; className?: string }) {
+  const shared = { className, fill: 'currentColor', 'aria-hidden': true as const }
+  switch (id) {
+    case 'youtube':
+      return (
+        <svg viewBox="0 0 24 24" {...shared}>
+          <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+        </svg>
+      )
+    case 'instagram':
+      return (
+        <svg viewBox="0 0 24 24" {...shared}>
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a3.999 3.999 0 1 1 0-7.998 3.999 3.999 0 0 1 0 7.998zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z" />
+        </svg>
+      )
+    case 'linkedin':
+      return (
+        <svg viewBox="0 0 24 24" {...shared}>
+          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124zM7.114 20.452H3.555V9h3.559v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+        </svg>
+      )
+    case 'facebook':
+      return (
+        <svg viewBox="0 0 24 24" {...shared}>
+          <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+        </svg>
+      )
+  }
+}
+
 // ─── Images ────────────────────────────────────────────────────────────────
 const HERO_IMG = 'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=1920&h=1080&fit=crop&auto=format'
 const WAREHOUSE1 = 'https://images.unsplash.com/photo-1758789667762-56175fe4601c?w=700&h=500&fit=crop&auto=format'
@@ -186,6 +225,8 @@ const recentProjectImg = (file: string) => `${import.meta.env.BASE_URL}recent-pr
 
 const FONT_BODY = "'Inter', sans-serif"
 const FONT_DISPLAY = "'Barlow Condensed', sans-serif"
+/** Thin Barlow Condensed for section and card titles (matches hero tagline) */
+const DISPLAY_TITLE_WEIGHT = 300
 
 const CALL_BUTTON_CLASS =
   'px-5 py-2.5 text-xs tracking-widest uppercase font-semibold border border-transparent transition-all duration-200 hover:opacity-90'
@@ -542,7 +583,7 @@ function Hero() {
           style={{
             fontFamily: FONT_DISPLAY,
             fontSize: 'clamp(1.75rem, 4.5vw, 3.25rem)',
-            fontWeight: 300,
+            fontWeight: DISPLAY_TITLE_WEIGHT,
             letterSpacing: '0.14em',
           }}
         >
@@ -569,7 +610,7 @@ function RecentProjectsCarousel() {
         <GoldRule />
         <h2
           className="uppercase leading-none"
-          style={{ fontFamily: FONT_DISPLAY, fontWeight: 800, fontSize: 'clamp(2.5rem, 5vw, 4rem)', letterSpacing: '0.02em', color: 'var(--gep-text)' }}
+          style={{ fontFamily: FONT_DISPLAY, fontWeight: DISPLAY_TITLE_WEIGHT, fontSize: 'clamp(2.5rem, 5vw, 4rem)', letterSpacing: '0.02em', color: 'var(--gep-text)' }}
         >
           Recent Projects
         </h2>
@@ -607,7 +648,7 @@ function RecentProjectsCarousel() {
               <div className="absolute bottom-0 left-0 right-0 p-5">
                 <h3
                   className="text-white uppercase leading-tight mb-1"
-                  style={{ fontFamily: FONT_DISPLAY, fontWeight: 700, fontSize: '1.5rem', letterSpacing: '0.02em' }}
+                  style={{ fontFamily: FONT_DISPLAY, fontWeight: DISPLAY_TITLE_WEIGHT, fontSize: '1.5rem', letterSpacing: '0.02em' }}
                 >
                   {p.name}
                 </h3>
@@ -676,7 +717,7 @@ function WhyGEP() {
           <GoldRule />
           <h2
             className="text-white uppercase leading-tight mb-8"
-            style={{ fontFamily: FONT_DISPLAY, fontWeight: 800, fontSize: 'clamp(2.5rem, 4vw, 3.5rem)', letterSpacing: '0.02em' }}
+            style={{ fontFamily: FONT_DISPLAY, fontWeight: DISPLAY_TITLE_WEIGHT, fontSize: 'clamp(2.5rem, 4vw, 3.5rem)', letterSpacing: '0.02em' }}
           >
             Why GEP<br />Is the Right Choice
           </h2>
@@ -709,7 +750,7 @@ function WhyGEP() {
             >
               <div
                 className="uppercase leading-none mb-2"
-                style={{ fontFamily: FONT_DISPLAY, fontWeight: 700, fontSize: '3.5rem', color: 'var(--gep-accent)' }}
+                style={{ fontFamily: FONT_DISPLAY, fontWeight: DISPLAY_TITLE_WEIGHT, fontSize: '3.5rem', color: 'var(--gep-accent)' }}
               >
                 {s.n}
               </div>
@@ -730,7 +771,7 @@ function AboutSection() {
         <GoldRule />
         <h2
           className="uppercase leading-tight mb-8 max-w-3xl"
-          style={{ fontFamily: FONT_DISPLAY, fontWeight: 800, fontSize: 'clamp(2rem, 3.5vw, 3rem)', letterSpacing: '0.02em', color: 'var(--gep-text)' }}
+          style={{ fontFamily: FONT_DISPLAY, fontWeight: DISPLAY_TITLE_WEIGHT, fontSize: 'clamp(2rem, 3.5vw, 3rem)', letterSpacing: '0.02em', color: 'var(--gep-text)' }}
         >
           About GEP Network
         </h2>
@@ -754,7 +795,7 @@ function ServicesGrid() {
         <GoldRule />
         <h2
           className="uppercase leading-tight mb-14"
-          style={{ fontFamily: FONT_DISPLAY, fontWeight: 800, fontSize: 'clamp(2.5rem, 5vw, 4rem)', letterSpacing: '0.02em', color: 'var(--gep-text)' }}
+          style={{ fontFamily: FONT_DISPLAY, fontWeight: DISPLAY_TITLE_WEIGHT, fontSize: 'clamp(2.5rem, 5vw, 4rem)', letterSpacing: '0.02em', color: 'var(--gep-text)' }}
         >
           What We Do
         </h2>
@@ -786,7 +827,7 @@ function ServicesGrid() {
                   />
                   <h3
                     className="absolute inset-0 flex items-center justify-center px-4 uppercase text-center leading-tight text-white"
-                    style={{ fontFamily: FONT_DISPLAY, fontWeight: 700, fontSize: '1.05rem', letterSpacing: '0.08em' }}
+                    style={{ fontFamily: FONT_DISPLAY, fontWeight: DISPLAY_TITLE_WEIGHT, fontSize: '1.05rem', letterSpacing: '0.08em' }}
                   >
                     {svc.title}
                   </h3>
@@ -805,7 +846,7 @@ function ServicesGrid() {
                   </div>
                   <h3
                     className="uppercase mb-4 leading-tight"
-                    style={{ fontFamily: FONT_DISPLAY, fontWeight: 800, fontSize: '1.15rem', letterSpacing: '0.06em', color: 'var(--gep-accent-text)' }}
+                    style={{ fontFamily: FONT_DISPLAY, fontWeight: DISPLAY_TITLE_WEIGHT, fontSize: '1.15rem', letterSpacing: '0.06em', color: 'var(--gep-accent-text)' }}
                   >
                     {svc.title}
                   </h3>
@@ -873,7 +914,7 @@ function StorageInquiryModal({ onClose }: { onClose: () => void }) {
             </div>
             <h3
               className="uppercase mb-3"
-              style={{ fontFamily: FONT_DISPLAY, fontWeight: 800, fontSize: '1.75rem', color: 'var(--gep-text)' }}
+              style={{ fontFamily: FONT_DISPLAY, fontWeight: DISPLAY_TITLE_WEIGHT, fontSize: '1.75rem', color: 'var(--gep-text)' }}
             >
               Inquiry Received
             </h3>
@@ -893,7 +934,7 @@ function StorageInquiryModal({ onClose }: { onClose: () => void }) {
             <GoldRule />
             <h3
               className="uppercase mb-2"
-              style={{ fontFamily: FONT_DISPLAY, fontWeight: 800, fontSize: '1.75rem', color: 'var(--gep-text)' }}
+              style={{ fontFamily: FONT_DISPLAY, fontWeight: DISPLAY_TITLE_WEIGHT, fontSize: '1.75rem', color: 'var(--gep-text)' }}
             >
               Storage Inquiry
             </h3>
@@ -974,7 +1015,7 @@ function StorageSection() {
         <GoldRule />
         <h2
           className="uppercase leading-tight mb-4"
-          style={{ fontFamily: FONT_DISPLAY, fontWeight: 800, fontSize: 'clamp(2.5rem, 5vw, 4rem)', letterSpacing: '0.02em', color: 'var(--gep-text)' }}
+          style={{ fontFamily: FONT_DISPLAY, fontWeight: DISPLAY_TITLE_WEIGHT, fontSize: 'clamp(2.5rem, 5vw, 4rem)', letterSpacing: '0.02em', color: 'var(--gep-text)' }}
         >
           Tour Storage
         </h2>
@@ -1001,7 +1042,7 @@ function StorageSection() {
               <div className="absolute bottom-0 left-0 right-0 p-7">
                 <h3
                   className="text-white uppercase mb-2 leading-tight"
-                  style={{ fontFamily: FONT_DISPLAY, fontWeight: 700, fontSize: '1.5rem', letterSpacing: '0.03em' }}
+                  style={{ fontFamily: FONT_DISPLAY, fontWeight: DISPLAY_TITLE_WEIGHT, fontSize: '1.5rem', letterSpacing: '0.03em' }}
                 >
                   {f.title}
                 </h3>
@@ -1053,7 +1094,7 @@ function ClientLogoWall({ colorScheme }: { colorScheme: string }) {
         </p>
         <p
           className="text-xs tracking-[0.3em] uppercase text-center mb-12"
-          style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}
+          style={{ fontFamily: FONT_DISPLAY, fontWeight: DISPLAY_TITLE_WEIGHT, color: 'var(--gep-text-muted)' }}
         >
           Trusted by the Industry's Best
         </p>
@@ -1149,7 +1190,7 @@ function ProductionStaffing() {
           className="uppercase leading-tight mb-6"
           style={{
             fontFamily: FONT_DISPLAY,
-            fontWeight: 800,
+            fontWeight: DISPLAY_TITLE_WEIGHT,
             fontSize: 'clamp(2.75rem, 6.5vw, 4.5rem)',
             letterSpacing: '0.04em',
             color: 'var(--gep-staffing-text, #F3EFE8)',
@@ -1184,7 +1225,7 @@ function ProductionStaffing() {
 
         <a
           href="#contact"
-          className="inline-block px-8 py-4 text-xs tracking-widest uppercase font-semibold transition-opacity hover:opacity-90"
+          className="inline-block px-3 py-2 text-[10px] tracking-widest uppercase font-semibold transition-opacity hover:opacity-90"
           style={{
             fontFamily: FONT_BODY,
             background: 'var(--gep-accent)',
@@ -1233,13 +1274,13 @@ function TestimonialsCompact() {
 
   return (
     <div
-      className="w-full max-w-xl mx-auto text-left"
+      className="w-full max-w-3xl mx-auto text-left"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
       <p
         className="text-sm tracking-[0.22em] uppercase mb-5"
-        style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}
+        style={{ fontFamily: FONT_DISPLAY, fontWeight: DISPLAY_TITLE_WEIGHT, color: 'var(--gep-text-muted)' }}
       >
         What They&apos;re Saying
       </p>
@@ -1288,22 +1329,18 @@ function Footer({ colorScheme }: { colorScheme: string }) {
             <p className="text-sm leading-relaxed mb-6" style={{ fontFamily: FONT_BODY, color: 'var(--gep-footer-text-muted)' }}>
               Full-service live event production. 40+ years of experience. Global reach.
             </p>
-            <div className="flex flex-wrap gap-x-4 gap-y-2">
-              {[
-                { name: 'YouTube', href: 'https://www.youtube.com/@gepnetwork' },
-                { name: 'Instagram', href: 'https://www.instagram.com/gep.network/' },
-                { name: 'LinkedIn', href: 'https://www.linkedin.com/company/gepnetwork/posts/?feedView=all' },
-                { name: 'Facebook', href: 'https://www.facebook.com/p/GEP-Network-61558628911648/' },
-              ].map((s) => (
+            <div className="flex flex-wrap items-center gap-3">
+              {FOOTER_SOCIAL.map((s) => (
                 <a
-                  key={s.name}
+                  key={s.id}
                   href={s.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xs tracking-widest uppercase transition-colors duration-200 hover:text-[color:var(--gep-accent)]"
-                  style={{ fontFamily: FONT_BODY, color: 'var(--gep-footer-text-muted)' }}
+                  className="inline-flex items-center justify-center w-10 h-10 transition-colors duration-200 hover:text-[color:var(--gep-accent)]"
+                  style={{ color: 'var(--gep-footer-text-muted)' }}
+                  aria-label={s.label}
                 >
-                  {s.name}
+                  <FooterSocialIcon id={s.id} className="w-5 h-5" />
                 </a>
               ))}
             </div>
