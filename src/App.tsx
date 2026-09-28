@@ -1,4 +1,4 @@
-import { useState, useEffect, type CSSProperties, type FormEvent } from 'react'
+import { useState, useEffect, useRef, type CSSProperties, type FormEvent } from 'react'
 import liveNationColor from './imports/live-nation-logo-color.png'
 import liveNationWhite from './imports/live-nation-logo-white.png'
 import aegPresentsColor from './imports/aeg-presents-logo-color.png'
@@ -1059,14 +1059,54 @@ function StaffingTriangle() {
 }
 
 function ProductionStaffing() {
+  const sectionRef = useRef<HTMLElement>(null)
+  const [bgShift, setBgShift] = useState(0)
+
+  useEffect(() => {
+    const onScroll = () => {
+      const section = sectionRef.current
+      if (!section) return
+      const rect = section.getBoundingClientRect()
+      const viewH = window.innerHeight
+      if (rect.bottom <= 0 || rect.top >= viewH) return
+      const progress = (viewH - rect.top) / (viewH + section.offsetHeight)
+      setBgShift((progress - 0.5) * 90)
+    }
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+    }
+  }, [])
+
   return (
-    <section className="relative isolate">
-      <div className="sticky top-0 h-screen w-full -mb-[100vh] pointer-events-none" aria-hidden="true">
-        <img src={STAGE_BG} alt="" className="absolute inset-0 w-full h-full object-cover object-center" />
+    <section ref={sectionRef} className="relative overflow-hidden">
+      <div className="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
+        <div
+          className="absolute inset-0 hidden sm:block"
+          style={{
+            backgroundImage: `url(${STAGE_BG})`,
+            backgroundSize: 'cover',
+            backgroundPosition: `center calc(50% + ${bgShift * 0.35}px)`,
+            backgroundAttachment: 'fixed',
+          }}
+        />
+        <img
+          src={STAGE_BG}
+          alt=""
+          className="absolute left-0 w-full object-cover object-center sm:hidden"
+          style={{
+            top: '-8%',
+            height: '116%',
+            transform: `translate3d(0, ${bgShift}px, 0)`,
+          }}
+        />
         <div className="absolute inset-0" style={{ background: 'var(--gep-staffing-overlay)' }} />
       </div>
 
-      <div className="relative z-10 py-20 md:py-28 min-h-screen flex flex-col justify-center max-w-[1100px] mx-auto px-6 lg:px-10 text-center">
+      <div className="relative z-10 py-20 md:py-28 min-h-[110vh] flex flex-col justify-center max-w-[1100px] mx-auto px-6 lg:px-10 text-center">
         <h2
           className="uppercase leading-tight mb-6"
           style={{
@@ -1307,7 +1347,7 @@ export default function App() {
 
   return (
     <div
-      className="min-h-screen overflow-x-hidden"
+      className="min-h-screen w-full max-w-[100vw]"
       style={{ ...scheme.vars, background: 'var(--gep-bg)', color: 'var(--gep-text)' } as CSSProperties}
     >
       <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} colorScheme={colorScheme} />
