@@ -220,7 +220,6 @@ function FooterSocialIcon({ id, className = '' }: { id: FooterSocialId; classNam
 }
 
 // ─── Images ────────────────────────────────────────────────────────────────
-const HERO_IMG = 'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=1920&h=1080&fit=crop&auto=format'
 const TOUR_STORAGE_MULTI_DOCK_IMG = '/gep-tour-storage-multi-dock.png'
 const TOUR_STORAGE_COURTEOUS_SERVICE_IMG = '/gep-tour-storage-courteous-service.png'
 /** Tour bus — Travel Logistics service tile */
@@ -679,12 +678,10 @@ function Hero() {
         muted
         loop
         playsInline
-        poster={HERO_IMG}
         className="absolute inset-0 w-full h-full object-cover"
         style={{ objectPosition: 'center center' }}
       >
         <source src={HERO_VIDEO} type="video/mp4" />
-        <img src={HERO_IMG} alt="Live concert stage production" className="absolute inset-0 w-full h-full object-cover" />
       </video>
       {/* Dark overlay */}
       <div
