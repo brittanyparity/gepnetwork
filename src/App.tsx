@@ -840,16 +840,21 @@ function WhyGEP() {
           ].map((s) => (
             <div
               key={s.l}
-              className="p-10 flex flex-col justify-end backdrop-blur-[2px]"
+              className="group p-10 flex flex-col justify-end backdrop-blur-[2px] transition-colors duration-300 hover:bg-[color:var(--gep-accent)]"
               style={{ background: 'rgba(0, 0, 0, 0.45)' }}
             >
               <div
-                className="uppercase leading-none mb-2"
-                style={{ fontFamily: FONT_DISPLAY, fontWeight: DISPLAY_STAT_WEIGHT, fontSize: '3.5rem', color: 'var(--gep-accent)' }}
+                className="uppercase leading-none mb-2 transition-colors duration-300 text-[color:var(--gep-accent)] group-hover:text-[color:var(--gep-accent-text)]"
+                style={{ fontFamily: FONT_DISPLAY, fontWeight: DISPLAY_STAT_WEIGHT, fontSize: '3.5rem' }}
               >
                 {s.n}
               </div>
-              <div className="text-xs tracking-widest uppercase text-white/65" style={{ fontFamily: FONT_BODY }}>{s.l}</div>
+              <div
+                className="text-xs tracking-widest uppercase text-white/65 transition-colors duration-300 group-hover:text-[color:var(--gep-accent-text)] group-hover:opacity-90"
+                style={{ fontFamily: FONT_BODY }}
+              >
+                {s.l}
+              </div>
             </div>
           ))}
         </div>
