@@ -42,6 +42,15 @@ html {
 :root {
   --gep-globe-land: #f2eee8;
   --gep-globe-ocean: #141b23;
+  /* 1% of visual viewport; set from JS on load/resize (mobile browser chrome) */
+  --gep-vh: 1svh;
+}
+
+.gep-hero-viewport {
+  width: 100%;
+  height: calc(var(--gep-vh) * 100);
+  min-height: calc(var(--gep-vh) * 100);
+  max-height: calc(var(--gep-vh) * 100);
 }
 
 /* Century G + globe lockup (matches Claude brand embed proportions) */

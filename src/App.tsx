@@ -1,4 +1,13 @@
-import { useState, useEffect, useRef, type CSSProperties, type FormEvent, type MouseEvent, type ReactNode } from 'react'
+import {
+  useState,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  type CSSProperties,
+  type FormEvent,
+  type MouseEvent,
+  type ReactNode,
+} from 'react'
 import liveNationColor from './imports/live-nation-logo-color.png'
 import liveNationWhite from './imports/live-nation-logo-white.png'
 import aegPresentsColor from './imports/aeg-presents-logo-color.png'
@@ -691,31 +700,77 @@ function Header({
   )
 }
 
+function syncViewportHeightUnit() {
+  const h = window.visualViewport?.height ?? window.innerHeight
+  document.documentElement.style.setProperty('--gep-vh', `${h * 0.01}px`)
+}
+
+function useViewportHeightUnit() {
+  useLayoutEffect(() => {
+    syncViewportHeightUnit()
+    const onViewportChange = () => syncViewportHeightUnit()
+    window.addEventListener('resize', onViewportChange)
+    window.addEventListener('orientationchange', onViewportChange)
+    window.visualViewport?.addEventListener('resize', onViewportChange)
+    window.visualViewport?.addEventListener('scroll', onViewportChange)
+    return () => {
+      window.removeEventListener('resize', onViewportChange)
+      window.removeEventListener('orientationchange', onViewportChange)
+      window.visualViewport?.removeEventListener('resize', onViewportChange)
+      window.visualViewport?.removeEventListener('scroll', onViewportChange)
+    }
+  }, [])
+}
+
 function Hero() {
+  const sectionRef = useRef<HTMLElement>(null)
+  const [bgShift, setBgShift] = useState(0)
+
+  useEffect(() => {
+    const onScroll = () => {
+      const section = sectionRef.current
+      if (!section) return
+      const rect = section.getBoundingClientRect()
+      const viewH = window.visualViewport?.height ?? window.innerHeight
+      if (rect.bottom <= 0 || rect.top >= viewH) return
+      const progress = (viewH - rect.top) / (viewH + section.offsetHeight)
+      setBgShift((progress - 0.5) * 90)
+    }
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+    }
+  }, [])
+
   return (
     <section
-      className="relative w-full overflow-hidden flex items-center justify-center"
-      style={{
-        background: 'var(--gep-bg)',
-        width: '100%',
-        height: '100dvh',
-        minHeight: '100dvh',
-      }}
+      ref={sectionRef}
+      className="gep-hero-viewport relative w-full overflow-hidden flex items-center justify-center"
+      style={{ background: 'var(--gep-bg)' }}
     >
-      {/* Background video — max-w-none overrides Tailwind preflight max-width on video */}
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="absolute inset-0 h-full w-full max-w-none object-cover"
-        style={{ objectPosition: 'center center' }}
-      >
-        <source src={HERO_VIDEO} type="video/mp4" />
-      </video>
+      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute left-0 w-full max-w-none object-cover"
+          style={{
+            top: '-8%',
+            height: '116%',
+            transform: `translate3d(0, ${bgShift}px, 0)`,
+            objectPosition: `center calc(50% + ${bgShift * 0.2}px)`,
+          }}
+        >
+          <source src={HERO_VIDEO} type="video/mp4" />
+        </video>
+      </div>
       {/* Dark overlay */}
       <div
-        className="absolute inset-0"
+        className="absolute inset-0 z-[1]"
         style={{
           background: 'linear-gradient(to bottom, var(--gep-overlay-top) 0%, var(--gep-overlay-mid) 50%, var(--gep-overlay-bottom) 100%)',
         }}
@@ -1553,6 +1608,7 @@ export default function App() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [colorScheme, setColorScheme] = useState('palette-soul')
   const scheme = COLOR_SCHEMES.find((s) => s.id === colorScheme) ?? COLOR_SCHEMES[0]
+  useViewportHeightUnit()
 
   return (
     <div
