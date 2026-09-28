@@ -1335,10 +1335,10 @@ function ProductionStaffing() {
         <h2
           className="uppercase leading-tight mb-6"
           style={{
-            fontFamily: FONT_BODY,
-            fontWeight: 600,
+            fontFamily: FONT_DISPLAY,
+            fontWeight: DISPLAY_TITLE_WEIGHT,
             fontSize: 'clamp(2.75rem, 6.5vw, 4.5rem)',
-            letterSpacing: '0.02em',
+            letterSpacing: '0.04em',
             color: 'var(--gep-staffing-text, #F3EFE8)',
           }}
         >
@@ -1346,7 +1346,7 @@ function ProductionStaffing() {
         </h2>
         <p
           className="text-lg md:text-xl leading-relaxed max-w-3xl mx-auto mb-12 md:mb-16"
-          style={{ fontFamily: FONT_BODY, fontWeight: 500, color: 'var(--gep-staffing-text-muted, rgba(243, 239, 232, 0.82))' }}
+          style={{ fontFamily: FONT_BODY, fontWeight: 400, color: 'var(--gep-staffing-text-muted, rgba(243, 239, 232, 0.82))' }}
         >
           Let our skilled professionals handle the intricacies of your event.
         </p>
@@ -1358,8 +1358,8 @@ function ProductionStaffing() {
                 <li key={`${colIdx}-${rowIdx}`} className="flex items-center gap-3.5">
                   <StaffingTriangle />
                   <span
-                    className="text-lg md:text-xl font-medium"
-                    style={{ fontFamily: FONT_BODY, color: 'var(--gep-staffing-text, #F3EFE8)' }}
+                    className="text-lg md:text-xl"
+                    style={{ fontFamily: FONT_BODY, fontWeight: 400, color: 'var(--gep-staffing-text, #F3EFE8)' }}
                   >
                     {role}
                   </span>
