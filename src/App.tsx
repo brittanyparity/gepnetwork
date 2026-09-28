@@ -694,16 +694,21 @@ function Header({
 function Hero() {
   return (
     <section
-      className="relative w-full h-dvh min-h-dvh flex items-center justify-center overflow-hidden"
-      style={{ background: 'var(--gep-bg)' }}
+      className="relative w-full overflow-hidden flex items-center justify-center"
+      style={{
+        background: 'var(--gep-bg)',
+        width: '100%',
+        height: '100dvh',
+        minHeight: '100dvh',
+      }}
     >
-      {/* Background video */}
+      {/* Background video — max-w-none overrides Tailwind preflight max-width on video */}
       <video
         autoPlay
         muted
         loop
         playsInline
-        className="absolute inset-0 w-full h-full object-cover"
+        className="absolute inset-0 h-full w-full max-w-none object-cover"
         style={{ objectPosition: 'center center' }}
       >
         <source src={HERO_VIDEO} type="video/mp4" />
