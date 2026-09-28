@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, type CSSProperties, type FormEvent } from 'react'
+import { useState, useEffect, type CSSProperties, type FormEvent } from 'react'
 import liveNationColor from './imports/live-nation-logo-color.png'
 import liveNationWhite from './imports/live-nation-logo-white.png'
 import aegPresentsColor from './imports/aeg-presents-logo-color.png'
@@ -71,7 +71,8 @@ function lightBoneScheme(
       '--gep-footer': extras['--gep-footer'] ?? 'linear-gradient(180deg, #43627F 0%, #6E8467 100%)',
       '--gep-accent': accent,
       '--gep-accent-text': accentTextOn(accent),
-      '--gep-header-scrolled': 'rgba(67, 98, 127, 0.72)',
+      '--gep-header-bar': 'rgba(107, 99, 88, 0.68)',
+      '--gep-header-scrolled': 'rgba(107, 99, 88, 0.68)',
       '--gep-overlay-top': 'rgba(0, 0, 0, 0.10)',
       '--gep-overlay-mid': 'rgba(0, 0, 0, 0.10)',
       '--gep-overlay-bottom': 'rgba(0, 0, 0, 0.10)',
@@ -99,7 +100,8 @@ const COLOR_SCHEMES: ColorScheme[] = [
     '--gep-bg-alt': '#E4DDD2',
     '--gep-card': '#E4DDD2',
     '--gep-footer': 'linear-gradient(180deg, #17140F 0%, #2A2218 100%)',
-    '--gep-header-scrolled': 'rgba(23, 20, 15, 0.72)',
+    '--gep-header-bar': 'rgba(107, 99, 88, 0.68)',
+    '--gep-header-scrolled': 'rgba(107, 99, 88, 0.68)',
     '--gep-card-overlay': 'rgba(23, 20, 15, 0.78)',
     '--gep-divider': 'rgba(23, 20, 15, 0.16)',
     '--gep-storage-overlay':
@@ -115,7 +117,8 @@ const COLOR_SCHEMES: ColorScheme[] = [
       '--gep-footer': 'linear-gradient(180deg, #43627F 0%, #2A2218 100%)',
       '--gep-accent': PALETTE.dusk,
       '--gep-accent-text': '#FFFFFF',
-      '--gep-header-scrolled': 'rgba(67, 98, 127, 0.88)',
+      '--gep-header-bar': 'rgba(107, 99, 88, 0.68)',
+      '--gep-header-scrolled': 'rgba(107, 99, 88, 0.68)',
       '--gep-overlay-top': 'rgba(0, 0, 0, 0.10)',
       '--gep-overlay-mid': 'rgba(0, 0, 0, 0.10)',
       '--gep-overlay-bottom': 'rgba(0, 0, 0, 0.10)',
@@ -211,7 +214,7 @@ const SERVICES = [
     img: 'https://images.unsplash.com/photo-1563841930606-67e2bce48b78?w=600&h=500&fit=crop&auto=format',
   },
   {
-    title: 'Production Coordinator',
+    title: 'Production Coordination',
     icon: '◉',
     desc: 'On-the-ground coordination between departments, vendors, and talent. Our coordinators are the connective tissue of any successful production.',
     img: 'https://images.unsplash.com/photo-1565035010268-a3816f98589a?w=600&h=500&fit=crop&auto=format',
@@ -251,42 +254,6 @@ const SERVICES = [
     icon: '◐',
     desc: 'Creative production design support — stage layouts, sight-line planning, and visual concept development in collaboration with your team.',
     img: 'https://images.unsplash.com/photo-1599739291060-4578e77dac5d?w=600&h=500&fit=crop&auto=format',
-  },
-  {
-    title: 'Merch',
-    icon: '◫',
-    desc: 'Tour and event merchandise programs — sourcing, inventory management, on-site sales operations, and fulfillment logistics.',
-    img: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=500&fit=crop&auto=format',
-  },
-  {
-    title: 'Artist Booking',
-    icon: '◑',
-    desc: 'Talent booking and routing support — connecting artists with the right venues, dates, and production teams for successful engagements.',
-    img: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&h=500&fit=crop&auto=format',
-  },
-  {
-    title: 'Pre-Production Development',
-    icon: '◧',
-    desc: 'Concept-to-call-sheet planning — budgets, schedules, vendor coordination, and technical design before the first load-in.',
-    img: 'https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=600&h=500&fit=crop&auto=format',
-  },
-  {
-    title: 'Post-Production Development',
-    icon: '◨',
-    desc: 'Wrap-out support including content capture coordination, asset archiving, settlement documentation, and debrief reporting.',
-    img: 'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=600&h=500&fit=crop&auto=format',
-  },
-  {
-    title: 'Tour & Event Consultation',
-    icon: '◩',
-    desc: 'Strategic advisory for tours, festivals, and one-off events — feasibility studies, risk assessment, and operational roadmaps.',
-    img: 'https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?w=600&h=500&fit=crop&auto=format',
-  },
-  {
-    title: 'Budget Development',
-    icon: '◪',
-    desc: 'Detailed production budgets built from real-world touring data — line-item accuracy, contingency planning, and vendor cost modeling.',
-    img: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&h=500&fit=crop&auto=format',
   },
 ]
 
@@ -478,6 +445,7 @@ function Header({
   siteLayout: SiteLayoutId
 }) {
   const navLeftHero = siteLayout === 'centered-logo-hero' || siteLayout === 'crafting-tagline-hero'
+  const craftingTaglineHero = siteLayout === 'crafting-tagline-hero'
   const [scrolled, setScrolled] = useState(false)
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 40)
@@ -489,9 +457,9 @@ function Header({
     <header
       className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
       style={{
-        background: scrolled ? 'var(--gep-header-scrolled)' : 'transparent',
-        backdropFilter: scrolled ? 'blur(12px)' : 'none',
-        borderBottom: scrolled ? '1px solid rgba(128,128,128,0.15)' : '1px solid transparent',
+        background: 'var(--gep-header-bar, rgba(107, 99, 88, 0.68))',
+        backdropFilter: 'blur(12px)',
+        borderBottom: '1px solid rgba(128,128,128,0.15)',
       }}
     >
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10 h-20 flex items-center w-full">
@@ -545,9 +513,19 @@ function Header({
         )}
 
         {navLeftHero && (
-          <a href="tel:8774376381" className={`hidden lg:inline-flex ml-auto ${CALL_BUTTON_CLASS}`} style={callButtonStyle}>
-            877-437-6381
-          </a>
+          <div className="hidden lg:flex items-center gap-5 ml-auto">
+            {craftingTaglineHero && !scrolled && (
+              <GEPLogoLockup
+                globeSize={44}
+                colorSchemeKey={colorScheme}
+                lockupId={logoLockup}
+                className="flex-shrink-0"
+              />
+            )}
+            <a href="tel:8774376381" className={CALL_BUTTON_CLASS} style={callButtonStyle}>
+              877-437-6381
+            </a>
+          </div>
         )}
 
         <button
@@ -653,31 +631,23 @@ function Hero({
           </>
         )}
         {craftingTaglineHero && (
-          <>
-            <p
-              className="text-xs tracking-[0.35em] uppercase mb-8"
-              style={{ fontFamily: FONT_BODY, color: 'var(--gep-hero-kicker, #F8F5F0)' }}
-            >
-              Full-Service Live Event Production
-            </p>
-            <h1
-              className="text-white uppercase leading-snug max-w-4xl mx-auto mb-10"
-              style={{
-                fontFamily: FONT_DISPLAY,
-                fontSize: 'clamp(1.75rem, 4.5vw, 3.25rem)',
-                fontWeight: 300,
-                letterSpacing: '0.14em',
-              }}
-            >
-              Crafting the Extraordinary in Global Entertainment
-            </h1>
-          </>
+          <h1
+            className="text-white uppercase leading-snug max-w-4xl mx-auto mb-10"
+            style={{
+              fontFamily: FONT_DISPLAY,
+              fontSize: 'clamp(1.75rem, 4.5vw, 3.25rem)',
+              fontWeight: 300,
+              letterSpacing: '0.14em',
+            }}
+          >
+            Crafting the Extraordinary in Global Entertainment
+          </h1>
         )}
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a
             href="#services"
-            className="px-8 py-4 text-xs tracking-widest uppercase font-semibold border transition-all duration-200 hover:border-white/50 hover:text-white"
-            style={{ border: '1px solid rgba(255,255,255,0.25)', color: 'rgba(255,255,255,0.7)', fontFamily: FONT_BODY }}
+            className="px-8 py-4 text-xs tracking-widest uppercase font-semibold border border-white/25 text-white/70 transition-all duration-200 hover:text-white hover:border-white/50 hover:bg-white/25"
+            style={{ fontFamily: FONT_BODY }}
           >
             Our Services
           </a>
@@ -861,35 +831,35 @@ function ServicesGrid() {
             Hover a card to learn more. Full-spectrum production services, one point of contact.
           </p>
         </div>
+      </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-0">
           {SERVICES.map((svc) => (
             <div
               key={svc.title}
               className="flip-card cursor-pointer"
-              style={{ height: 320, perspective: '1000px' }}
+              style={{ height: 280, perspective: '1000px' }}
             >
               <div className="flip-card-inner">
 
                 {/* Front */}
-                <div className="flip-card-front overflow-hidden" style={{ background: 'var(--gep-card)' }}>
+                <div className="flip-card-front relative overflow-hidden">
                   <img
                     src={svc.img}
-                    alt={svc.title}
-                    className="w-full h-full object-cover"
-                    style={{ height: '75%' }}
+                    alt=""
+                    aria-hidden="true"
+                    className="absolute inset-0 w-full h-full object-cover"
                   />
                   <div
-                    className="flex items-center justify-center px-4"
-                    style={{ height: '25%', background: 'var(--gep-card)' }}
+                    className="absolute inset-0"
+                    style={{ background: 'var(--gep-card-overlay)' }}
+                  />
+                  <h3
+                    className="absolute inset-0 flex items-center justify-center px-4 uppercase text-center leading-tight text-white"
+                    style={{ fontFamily: FONT_DISPLAY, fontWeight: 700, fontSize: '1.05rem', letterSpacing: '0.08em' }}
                   >
-                    <h3
-                      className="uppercase text-center leading-tight"
-                      style={{ fontFamily: FONT_DISPLAY, fontWeight: 700, fontSize: '1.1rem', letterSpacing: '0.06em', color: 'var(--gep-text)' }}
-                    >
-                      {svc.title}
-                    </h3>
-                  </div>
+                    {svc.title}
+                  </h3>
                 </div>
 
                 {/* Back */}
@@ -920,7 +890,6 @@ function ServicesGrid() {
               </div>
             </div>
           ))}
-        </div>
       </div>
     </section>
   )
@@ -1197,47 +1166,14 @@ function StaffingTriangle() {
 }
 
 function ProductionStaffing() {
-  const sectionRef = useRef<HTMLElement>(null)
-  const [parallaxY, setParallaxY] = useState(0)
-
-  useEffect(() => {
-    const onScroll = () => {
-      const el = sectionRef.current
-      if (!el) return
-      const rect = el.getBoundingClientRect()
-      const viewH = window.innerHeight
-      if (rect.bottom < 0 || rect.top > viewH) return
-      const progress = (viewH - rect.top) / (viewH + rect.height)
-      setParallaxY((progress - 0.5) * 100)
-    }
-    onScroll()
-    window.addEventListener('scroll', onScroll, { passive: true })
-    window.addEventListener('resize', onScroll)
-    return () => {
-      window.removeEventListener('scroll', onScroll)
-      window.removeEventListener('resize', onScroll)
-    }
-  }, [])
-
   return (
-    <section ref={sectionRef} className="relative py-20 md:py-28 overflow-hidden min-h-[28rem]">
-      <img
-        src={STAGE_BG}
-        alt=""
-        aria-hidden="true"
-        className="absolute left-0 z-0 w-full object-cover object-center will-change-transform"
-        style={{
-          top: '-12%',
-          height: '124%',
-          transform: `translate3d(0, ${parallaxY}px, 0)`,
-        }}
-      />
-      <div
-        className="absolute inset-0 z-[1] pointer-events-none"
-        style={{ background: 'var(--gep-staffing-overlay)' }}
-      />
+    <section className="relative isolate">
+      <div className="sticky top-0 h-screen w-full -mb-[100vh] pointer-events-none" aria-hidden="true">
+        <img src={STAGE_BG} alt="" className="absolute inset-0 w-full h-full object-cover object-center" />
+        <div className="absolute inset-0" style={{ background: 'var(--gep-staffing-overlay)' }} />
+      </div>
 
-      <div className="relative z-10 max-w-[1100px] mx-auto px-6 lg:px-10 text-center">
+      <div className="relative z-10 py-20 md:py-28 min-h-screen flex flex-col justify-center max-w-[1100px] mx-auto px-6 lg:px-10 text-center">
         <h2
           className="uppercase leading-tight mb-6"
           style={{
