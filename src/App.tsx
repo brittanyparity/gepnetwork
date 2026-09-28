@@ -222,8 +222,10 @@ function FooterSocialIcon({ id, className = '' }: { id: FooterSocialId; classNam
 // ─── Images ────────────────────────────────────────────────────────────────
 const HERO_IMG = 'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=1920&h=1080&fit=crop&auto=format'
 const TOUR_STORAGE_MULTI_DOCK_IMG = '/gep-tour-storage-multi-dock.png'
-const TOUR_STORAGE_MUSIC_INDUSTRY_IMG = '/gep-tour-storage-music-industry.png'
 const TOUR_STORAGE_COURTEOUS_SERVICE_IMG = '/gep-tour-storage-courteous-service.png'
+/** Tour bus — Travel Logistics service tile */
+const SERVICE_TRAVEL_LOGISTICS_BUS_IMG =
+  'https://images.unsplash.com/photo-1570125909232-eb263c188f7e?w=600&h=500&fit=crop&auto=format'
 const STAGE_BG = `${import.meta.env.BASE_URL}gep-production-staffing.jpg`
 const TEAM_COLLAB_IMG = '/gep-why-gep-team.jpg'
 const SERVICE_STAGE_MANAGEMENT_IMG = '/gep-service-stage-management.png'
@@ -405,7 +407,7 @@ const SERVICES = [
     title: 'Travel Logistics',
     icon: '◆',
     desc: 'Ground transportation, hotel blocks, and movement logistics for crew and talent — nationwide and internationally.',
-    img: SERVICE_TRAVEL_LOGISTICS_IMG,
+    img: SERVICE_TRAVEL_LOGISTICS_BUS_IMG,
   },
   {
     title: 'Tour Storage',
@@ -439,9 +441,9 @@ const STORAGE_FEATURES: {
   {
     title: 'Music Industry Expertise',
     desc: "Our team understands touring equipment. We've stored it, moved it, and protected it for 40+ years.",
-    img: TOUR_STORAGE_MUSIC_INDUSTRY_IMG,
-    imgScale: 1.85,
-    imgPosition: '42% 58%',
+    img: SERVICE_TRAVEL_LOGISTICS_IMG,
+    imgScale: 1.55,
+    imgPosition: '50% 42%',
   },
   {
     title: 'Courteous Service',
