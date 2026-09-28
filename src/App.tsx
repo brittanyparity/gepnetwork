@@ -19,9 +19,9 @@ import sonyMusicColor from './imports/sony-music-logo-color.png'
 import sonyMusicWhite from './imports/sony-music-logo-white.png'
 import republicRecordsColor from './imports/republic-records-logo-color.svg'
 import republicRecordsWhite from './imports/republic-records-logo-white.png'
-import GEPLogoLockup, { GEPAbbrevGlobeMark } from './components/GepGlobeMark'
-import { LOGO_LOCKUPS, type LogoLockupId } from './logo-lockups'
-import { SITE_LAYOUTS, type SiteLayoutId } from './site-layouts'
+import GEPLogoLockup from './components/GepGlobeMark'
+
+const LOGO_LOCKUP = 'century-globe' as const
 
 const HERO_VIDEO = '/gep-hero-video.mp4'
 
@@ -54,6 +54,10 @@ function accentTextOn(accent: string): string {
   return accent.toUpperCase() === PALETTE.brass.toUpperCase() ? '#17140F' : '#FFFFFF'
 }
 
+function footerGradient(accent: string): string {
+  return `linear-gradient(180deg, #000000 0%, ${accent} 100%)`
+}
+
 function lightBoneScheme(
   id: string,
   name: string,
@@ -68,7 +72,7 @@ function lightBoneScheme(
       '--gep-bg': '#F8F5F0',
       '--gep-bg-alt': '#F3EFE8',
       '--gep-card': '#ECE6DC',
-      '--gep-footer': extras['--gep-footer'] ?? 'linear-gradient(180deg, #43627F 0%, #6E8467 100%)',
+      '--gep-footer': extras['--gep-footer'] ?? footerGradient(accent),
       '--gep-accent': accent,
       '--gep-accent-text': accentTextOn(accent),
       '--gep-header-bar': 'rgba(107, 99, 88, 0.68)',
@@ -77,7 +81,8 @@ function lightBoneScheme(
       '--gep-overlay-mid': 'rgba(0, 0, 0, 0.10)',
       '--gep-overlay-bottom': 'rgba(0, 0, 0, 0.10)',
       '--gep-card-overlay': 'rgba(67, 98, 127, 0.72)',
-      '--gep-staffing-overlay': 'linear-gradient(to bottom, rgba(0, 0, 50, 0.8) 0%, rgba(0, 0, 62, 0.72) 100%)',
+      '--gep-staffing-overlay':
+        'linear-gradient(to bottom, color-mix(in srgb, var(--gep-bg) 76%, var(--gep-accent) 10%) 0%, color-mix(in srgb, var(--gep-bg-alt) 64%, var(--gep-accent) 8%) 100%)',
       '--gep-text': '#17140F',
       '--gep-text-muted': '#6B6358',
       '--gep-logo-filter': 'none',
@@ -99,7 +104,7 @@ const COLOR_SCHEMES: ColorScheme[] = [
     '--gep-bg': '#F3EFE8',
     '--gep-bg-alt': '#E4DDD2',
     '--gep-card': '#E4DDD2',
-    '--gep-footer': 'linear-gradient(180deg, #17140F 0%, #2A2218 100%)',
+    '--gep-footer': footerGradient('#B44A18'),
     '--gep-header-bar': 'rgba(107, 99, 88, 0.68)',
     '--gep-header-scrolled': 'rgba(107, 99, 88, 0.68)',
     '--gep-card-overlay': 'rgba(23, 20, 15, 0.78)',
@@ -114,7 +119,7 @@ const COLOR_SCHEMES: ColorScheme[] = [
       '--gep-bg': '#FFFFFF',
       '--gep-bg-alt': '#F5F5F7',
       '--gep-card': '#F5F5F7',
-      '--gep-footer': 'linear-gradient(180deg, #43627F 0%, #2A2218 100%)',
+      '--gep-footer': footerGradient(PALETTE.dusk),
       '--gep-accent': PALETTE.dusk,
       '--gep-accent-text': '#FFFFFF',
       '--gep-header-bar': 'rgba(107, 99, 88, 0.68)',
@@ -123,7 +128,8 @@ const COLOR_SCHEMES: ColorScheme[] = [
       '--gep-overlay-mid': 'rgba(0, 0, 0, 0.10)',
       '--gep-overlay-bottom': 'rgba(0, 0, 0, 0.10)',
       '--gep-card-overlay': 'rgba(67, 98, 127, 0.72)',
-      '--gep-staffing-overlay': 'linear-gradient(to bottom, rgba(0, 0, 50, 0.8) 0%, rgba(0, 0, 62, 0.72) 100%)',
+      '--gep-staffing-overlay':
+        'linear-gradient(to bottom, color-mix(in srgb, var(--gep-bg) 76%, var(--gep-accent) 10%) 0%, color-mix(in srgb, var(--gep-bg-alt) 64%, var(--gep-accent) 8%) 100%)',
       '--gep-text': '#1D1D1F',
       '--gep-text-muted': '#6E6E73',
       '--gep-logo-filter': 'none',
@@ -138,7 +144,7 @@ const COLOR_SCHEMES: ColorScheme[] = [
     },
   },
   lightBoneScheme('earth-palette', 'Earth Palette', PALETTE.ember, PALETTE.brass, {
-    '--gep-footer': `linear-gradient(135deg, ${PALETTE.dusk} 0%, ${PALETTE.sage} 50%, ${PALETTE.clay} 100%)`,
+    '--gep-footer': footerGradient(PALETTE.ember),
     '--gep-hero-word': PALETTE.brass,
     '--gep-accent-secondary': PALETTE.clay,
     '--gep-accent-tertiary': PALETTE.sage,
@@ -174,12 +180,11 @@ const FONT_BODY = "'Inter', sans-serif"
 const FONT_DISPLAY = "'Barlow Condensed', sans-serif"
 
 const CALL_BUTTON_CLASS =
-  'px-5 py-2.5 text-xs tracking-widest uppercase font-semibold border transition-all duration-200 hover:opacity-90'
+  'px-5 py-2.5 text-xs tracking-widest uppercase font-semibold border border-transparent transition-all duration-200 hover:opacity-90'
 const callButtonStyle: CSSProperties = {
   fontFamily: FONT_BODY,
-  borderColor: 'var(--gep-accent)',
   color: '#ffffff',
-  background: 'transparent',
+  background: 'color-mix(in srgb, var(--gep-accent) 62%, transparent)',
 }
 
 // ─── Data ───────────────────────────────────────────────────────────────────
@@ -351,17 +356,9 @@ function themeSelectStyle(chevronHex: string): CSSProperties {
 function ThemePicker({
   colorScheme,
   onColorSchemeChange,
-  logoLockup,
-  onLogoLockupChange,
-  siteLayout,
-  onSiteLayoutChange,
 }: {
   colorScheme: string
   onColorSchemeChange: (id: string) => void
-  logoLockup: LogoLockupId
-  onLogoLockupChange: (id: LogoLockupId) => void
-  siteLayout: SiteLayoutId
-  onSiteLayoutChange: (id: SiteLayoutId) => void
 }) {
   const isLightScheme = LIGHT_COLOR_SCHEMES.has(colorScheme)
   const chevronColor = isLightScheme ? '1D1D1F' : 'ffffff'
@@ -391,42 +388,6 @@ function ThemePicker({
           ))}
         </select>
       </div>
-      <div className="flex flex-col items-end gap-2 w-full">
-        <label htmlFor="logo-lockup" className="text-[10px] tracking-[0.2em] uppercase" style={{ color: 'var(--gep-text-muted)' }}>
-          Logo Lockup
-        </label>
-        <select
-          id="logo-lockup"
-          value={logoLockup}
-          onChange={(e) => onLogoLockupChange(e.target.value as LogoLockupId)}
-          className={selectClass}
-          style={themeSelectStyle(chevronColor)}
-        >
-          {LOGO_LOCKUPS.map((lockup) => (
-            <option key={lockup.id} value={lockup.id} style={{ background: 'var(--gep-bg)', color: 'var(--gep-text)' }}>
-              {lockup.name}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div className="flex flex-col items-end gap-2 w-full">
-        <label htmlFor="site-layout" className="text-[10px] tracking-[0.2em] uppercase" style={{ color: 'var(--gep-text-muted)' }}>
-          Site Layout
-        </label>
-        <select
-          id="site-layout"
-          value={siteLayout}
-          onChange={(e) => onSiteLayoutChange(e.target.value as SiteLayoutId)}
-          className={selectClass}
-          style={themeSelectStyle(chevronColor)}
-        >
-          {SITE_LAYOUTS.map((layout) => (
-            <option key={layout.id} value={layout.id} style={{ background: 'var(--gep-bg)', color: 'var(--gep-text)' }}>
-              {layout.name}
-            </option>
-          ))}
-        </select>
-      </div>
     </div>
   )
 }
@@ -435,17 +396,11 @@ function Header({
   menuOpen,
   setMenuOpen,
   colorScheme,
-  logoLockup,
-  siteLayout,
 }: {
   menuOpen: boolean
   setMenuOpen: (v: boolean) => void
   colorScheme: string
-  logoLockup: LogoLockupId
-  siteLayout: SiteLayoutId
 }) {
-  const navLeftHero = siteLayout === 'centered-logo-hero' || siteLayout === 'crafting-tagline-hero'
-  const craftingTaglineHero = siteLayout === 'crafting-tagline-hero'
   const [scrolled, setScrolled] = useState(false)
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 40)
@@ -457,92 +412,52 @@ function Header({
     <header
       className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
       style={{
-        background: 'var(--gep-header-bar, rgba(107, 99, 88, 0.68))',
-        backdropFilter: 'blur(12px)',
-        borderBottom: '1px solid rgba(128,128,128,0.15)',
+        background: scrolled ? 'var(--gep-header-bar, rgba(107, 99, 88, 0.68))' : 'transparent',
+        backdropFilter: scrolled ? 'blur(12px)' : 'none',
+        borderBottom: scrolled ? '1px solid rgba(128,128,128,0.15)' : '1px solid transparent',
       }}
     >
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-10 h-20 flex items-center w-full">
-        {!navLeftHero && (
-          <GEPLogoLockup globeSize={48} colorSchemeKey={colorScheme} lockupId={logoLockup} />
-        )}
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-10 h-20 flex items-center w-full gap-4">
+        <GEPLogoLockup
+          globeSize={48}
+          colorSchemeKey={colorScheme}
+          lockupId={LOGO_LOCKUP}
+          className="flex-shrink-0"
+        />
 
-        {navLeftHero && (
-          <nav className="hidden lg:flex items-center gap-6 xl:gap-8 flex-wrap">
-            {scrolled && (
-              <GEPAbbrevGlobeMark
-                colorSchemeKey={colorScheme}
-                className="mr-1 transition-opacity duration-300"
-              />
-            )}
-            {NAV_LINKS.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="text-xs tracking-widest uppercase transition-colors duration-200 hover:opacity-100"
-                style={{ fontFamily: FONT_BODY, color: 'rgba(255,255,255,0.65)' }}
-                onMouseEnter={(e) => { e.currentTarget.style.color = '#ffffff' }}
-                onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.65)' }}
-              >
-                {link.label}
-              </a>
-            ))}
-          </nav>
-        )}
-
-        {!navLeftHero && (
-          <div className="hidden lg:flex items-center gap-8 ml-auto">
-            <nav className="flex items-center gap-8">
-              {NAV_LINKS.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  className="text-xs tracking-widest uppercase transition-colors duration-200 hover:opacity-100"
-                  style={{ fontFamily: FONT_BODY, color: 'rgba(255,255,255,0.65)' }}
-                  onMouseEnter={(e) => { e.currentTarget.style.color = '#ffffff' }}
-                  onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.65)' }}
-                >
-                  {link.label}
-                </a>
-              ))}
-            </nav>
-            <a href="tel:8774376381" className={CALL_BUTTON_CLASS} style={callButtonStyle}>
-              877-437-6381
+        <nav className="hidden lg:flex items-center gap-6 xl:gap-8 ml-4 xl:ml-8">
+          {NAV_LINKS.map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              className="text-xs tracking-widest uppercase transition-colors duration-200 hover:opacity-100"
+              style={{ fontFamily: FONT_BODY, color: 'rgba(255,255,255,0.65)' }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = '#ffffff' }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.65)' }}
+            >
+              {link.label}
             </a>
-          </div>
-        )}
+          ))}
+        </nav>
 
-        {navLeftHero && (
-          <div className="hidden lg:flex items-center gap-5 ml-auto">
-            {craftingTaglineHero && !scrolled && (
-              <GEPLogoLockup
-                globeSize={44}
-                colorSchemeKey={colorScheme}
-                lockupId={logoLockup}
-                className="flex-shrink-0"
-              />
-            )}
-            <a href="tel:8774376381" className={CALL_BUTTON_CLASS} style={callButtonStyle}>
-              877-437-6381
-            </a>
-          </div>
-        )}
-
-        <button
-          className={`lg:hidden flex flex-col gap-1.5 p-2 ${navLeftHero ? '' : 'ml-auto'} ${navLeftHero ? 'order-first' : ''}`}
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle menu"
-        >
-          <span className={`block w-6 h-px transition-all duration-200 ${menuOpen ? 'rotate-45 translate-y-2' : ''}`} style={{ background: '#ffffff' }} />
-          <span className={`block w-6 h-px transition-all duration-200 ${menuOpen ? 'opacity-0' : ''}`} style={{ background: '#ffffff' }} />
-          <span className={`block w-6 h-px transition-all duration-200 ${menuOpen ? '-rotate-45 -translate-y-2' : ''}`} style={{ background: '#ffffff' }} />
-        </button>
-
-        {navLeftHero && (
-          <a href="tel:8774376381" className={`lg:hidden ml-auto ${CALL_BUTTON_CLASS} px-4 py-2 text-[10px]`} style={callButtonStyle}>
+        <div className="flex items-center gap-3 ml-auto">
+          <a
+            href="tel:8774376381"
+            className={`${CALL_BUTTON_CLASS} hidden sm:inline-flex px-4 py-2 text-[10px] lg:px-5 lg:py-2.5 lg:text-xs`}
+            style={callButtonStyle}
+          >
             877-437-6381
           </a>
-        )}
+          <button
+            className="lg:hidden flex flex-col gap-1.5 p-2"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle menu"
+          >
+            <span className={`block w-6 h-px transition-all duration-200 ${menuOpen ? 'rotate-45 translate-y-2' : ''}`} style={{ background: '#ffffff' }} />
+            <span className={`block w-6 h-px transition-all duration-200 ${menuOpen ? 'opacity-0' : ''}`} style={{ background: '#ffffff' }} />
+            <span className={`block w-6 h-px transition-all duration-200 ${menuOpen ? '-rotate-45 -translate-y-2' : ''}`} style={{ background: '#ffffff' }} />
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu */}
@@ -575,18 +490,7 @@ function Header({
   )
 }
 
-function Hero({
-  siteLayout,
-  colorScheme,
-  logoLockup,
-}: {
-  siteLayout: SiteLayoutId
-  colorScheme: string
-  logoLockup: LogoLockupId
-}) {
-  const centeredLogoHero = siteLayout === 'centered-logo-hero'
-  const craftingTaglineHero = siteLayout === 'crafting-tagline-hero'
-
+function Hero() {
   return (
     <section className="relative w-full min-h-screen flex items-center justify-center overflow-hidden" style={{ background: 'var(--gep-bg)' }}>
       {/* Background video */}
@@ -611,47 +515,17 @@ function Hero({
       />
 
       <div className="relative z-10 text-center max-w-5xl mx-auto px-6 pt-20">
-        {centeredLogoHero && (
-          <>
-            <div className="flex justify-center mb-6 w-full max-w-[min(100%,64rem)] mx-auto px-2">
-              <GEPLogoLockup
-                variant="hero"
-                globeSize={140}
-                colorSchemeKey={colorScheme}
-                lockupId={logoLockup}
-                className="max-w-full"
-              />
-            </div>
-            <p
-              className="text-xs tracking-[0.35em] uppercase mb-10"
-              style={{ fontFamily: FONT_BODY, color: 'var(--gep-hero-kicker, #F8F5F0)' }}
-            >
-              Full-Service Live Event Production
-            </p>
-          </>
-        )}
-        {craftingTaglineHero && (
-          <h1
-            className="text-white uppercase leading-snug max-w-4xl mx-auto mb-10"
-            style={{
-              fontFamily: FONT_DISPLAY,
-              fontSize: 'clamp(1.75rem, 4.5vw, 3.25rem)',
-              fontWeight: 300,
-              letterSpacing: '0.14em',
-            }}
-          >
-            Crafting the Extraordinary in Global Entertainment
-          </h1>
-        )}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <a
-            href="#services"
-            className="px-8 py-4 text-xs tracking-widest uppercase font-semibold border border-white/25 text-white/70 transition-all duration-200 hover:text-white hover:border-white/50 hover:bg-white/25"
-            style={{ fontFamily: FONT_BODY }}
-          >
-            Our Services
-          </a>
-        </div>
+        <h1
+          className="text-white uppercase leading-snug max-w-4xl mx-auto"
+          style={{
+            fontFamily: FONT_DISPLAY,
+            fontSize: 'clamp(1.75rem, 4.5vw, 3.25rem)',
+            fontWeight: 300,
+            letterSpacing: '0.14em',
+          }}
+        >
+          Crafting the Extraordinary in Global Entertainment
+        </h1>
       </div>
 
       {/* Scroll indicator */}
@@ -817,7 +691,7 @@ function AboutSection() {
 
 function ServicesGrid() {
   return (
-    <section id="services" className="py-24" style={{ background: 'var(--gep-bg)' }}>
+    <section id="services" className="pt-24 pb-0" style={{ background: 'var(--gep-bg)' }}>
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
         <GoldRule />
         <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-14 gap-4">
@@ -1039,7 +913,7 @@ function StorageSection() {
   return (
     <>
       {showForm && <StorageInquiryModal onClose={() => setShowForm(false)} />}
-      <section id="storage" className="py-24" style={{ background: 'var(--gep-bg-alt)' }}>
+      <section id="storage" className="pt-0 pb-24" style={{ background: 'var(--gep-bg-alt)' }}>
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
         <GoldRule />
         <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-14 gap-4">
@@ -1181,14 +1055,14 @@ function ProductionStaffing() {
             fontWeight: 800,
             fontSize: 'clamp(2.75rem, 6.5vw, 4.5rem)',
             letterSpacing: '0.04em',
-            color: '#ffffff',
+            color: 'var(--gep-text)',
           }}
         >
           Production Staffing
         </h2>
         <p
-          className="text-white text-lg md:text-xl leading-relaxed max-w-3xl mx-auto mb-12 md:mb-16"
-          style={{ fontFamily: FONT_BODY, fontWeight: 500 }}
+          className="text-lg md:text-xl leading-relaxed max-w-3xl mx-auto mb-12 md:mb-16"
+          style={{ fontFamily: FONT_BODY, fontWeight: 500, color: 'var(--gep-text-muted)' }}
         >
           Let our skilled professionals handle the intricacies of your event.
         </p>
@@ -1200,8 +1074,8 @@ function ProductionStaffing() {
                 <li key={`${colIdx}-${rowIdx}`} className="flex items-center gap-3.5">
                   <StaffingTriangle />
                   <span
-                    className="text-white text-lg md:text-xl font-medium"
-                    style={{ fontFamily: FONT_BODY }}
+                    className="text-lg md:text-xl font-medium"
+                    style={{ fontFamily: FONT_BODY, color: 'var(--gep-text)' }}
                   >
                     {role}
                   </span>
@@ -1302,7 +1176,7 @@ function Testimonials() {
   )
 }
 
-function Footer({ colorScheme, logoLockup }: { colorScheme: string; logoLockup: LogoLockupId }) {
+function Footer({ colorScheme }: { colorScheme: string }) {
   return (
     <footer id="contact" className="pt-20 pb-10 scroll-mt-24" style={{ borderTop: '1px solid rgba(255,255,255,0.07)', background: 'var(--gep-footer)' }}>
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
@@ -1311,7 +1185,7 @@ function Footer({ colorScheme, logoLockup }: { colorScheme: string; logoLockup: 
             <GEPLogoLockup
               globeSize={48}
               colorSchemeKey={colorScheme}
-              lockupId={logoLockup}
+              lockupId={LOGO_LOCKUP}
               className="mb-4"
             />
             <p className="text-white/35 text-sm leading-relaxed mb-6" style={{ fontFamily: FONT_BODY }}>
@@ -1339,17 +1213,6 @@ function Footer({ colorScheme, logoLockup }: { colorScheme: string; logoLockup: 
           </div>
 
           <div>
-            <p className="text-white/20 text-[10px] tracking-[0.3em] uppercase mb-5" style={{ fontFamily: FONT_BODY }}>Navigate</p>
-            <nav className="flex flex-col gap-3">
-              {NAV_LINKS.map((link) => (
-                <a key={link.label} href={link.href} className="text-white/50 hover:text-white text-sm transition-colors duration-200" style={{ fontFamily: FONT_BODY }}>
-                  {link.label}
-                </a>
-              ))}
-            </nav>
-          </div>
-
-          <div>
             <p className="text-white/20 text-[10px] tracking-[0.3em] uppercase mb-5" style={{ fontFamily: FONT_BODY }}>Latest Posts</p>
             <ul className="flex flex-col gap-5">
               {FOOTER_POSTS.map((post) => (
@@ -1371,11 +1234,14 @@ function Footer({ colorScheme, logoLockup }: { colorScheme: string; logoLockup: 
 
           <div>
             <p className="text-white/20 text-[10px] tracking-[0.3em] uppercase mb-5" style={{ fontFamily: FONT_BODY }}>Location</p>
-            <address className="not-italic text-white/50 text-sm leading-loose mb-8" style={{ fontFamily: FONT_BODY }}>
+            <address className="not-italic text-white/50 text-sm leading-loose" style={{ fontFamily: FONT_BODY }}>
               1390 Business Ctr Dr. SW<br />
               Ste 200 - 300<br />
               Conyers, GA 30094
             </address>
+          </div>
+
+          <div>
             <p className="text-white/20 text-[10px] tracking-[0.3em] uppercase mb-5" style={{ fontFamily: FONT_BODY }}>Contact</p>
             <div className="flex flex-col gap-4">
               <div>
@@ -1414,8 +1280,6 @@ function Footer({ colorScheme, logoLockup }: { colorScheme: string; logoLockup: 
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [colorScheme, setColorScheme] = useState('bone-dark')
-  const [logoLockup, setLogoLockup] = useState<LogoLockupId>('century-globe')
-  const [siteLayout, setSiteLayout] = useState<SiteLayoutId>('centered-logo-hero')
   const scheme = COLOR_SCHEMES.find((s) => s.id === colorScheme) ?? COLOR_SCHEMES[0]
 
   return (
@@ -1423,14 +1287,8 @@ export default function App() {
       className="min-h-screen overflow-x-hidden"
       style={{ ...scheme.vars, background: 'var(--gep-bg)', color: 'var(--gep-text)' } as CSSProperties}
     >
-      <Header
-        menuOpen={menuOpen}
-        setMenuOpen={setMenuOpen}
-        colorScheme={colorScheme}
-        logoLockup={logoLockup}
-        siteLayout={siteLayout}
-      />
-      <Hero siteLayout={siteLayout} colorScheme={colorScheme} logoLockup={logoLockup} />
+      <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} colorScheme={colorScheme} />
+      <Hero />
       <ClientLogoWall colorScheme={colorScheme} />
       <RecentProjectsCarousel />
       <WhyGEP />
@@ -1439,15 +1297,8 @@ export default function App() {
       <StorageSection />
       <ProductionStaffing />
       <Testimonials />
-      <Footer colorScheme={colorScheme} logoLockup={logoLockup} />
-      <ThemePicker
-        colorScheme={colorScheme}
-        onColorSchemeChange={setColorScheme}
-        logoLockup={logoLockup}
-        onLogoLockupChange={setLogoLockup}
-        siteLayout={siteLayout}
-        onSiteLayoutChange={setSiteLayout}
-      />
+      <Footer colorScheme={colorScheme} />
+      <ThemePicker colorScheme={colorScheme} onColorSchemeChange={setColorScheme} />
     </div>
   )
 }
