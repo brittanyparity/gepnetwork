@@ -321,9 +321,10 @@ function onFilledInverseLeave(e: MouseEvent<HTMLElement>) {
   e.currentTarget.style.borderColor = 'var(--gep-accent)'
 }
 
-const CALL_BUTTON_CLASS = `${ACCENT_BUTTON_BASE} px-5 py-2.5`
+const CALL_BUTTON_CLASS =
+  'items-center justify-center px-5 py-2.5 text-xs tracking-widest uppercase font-semibold border transition-all duration-200 cursor-pointer'
 const CALL_ICON_BUTTON_CLASS =
-  'inline-flex items-center justify-center w-10 h-10 border transition-all duration-200 cursor-pointer shrink-0'
+  'items-center justify-center w-10 h-10 border transition-all duration-200 cursor-pointer shrink-0'
 
 function PhoneIcon({ className = '' }: { className?: string }) {
   return (
@@ -651,7 +652,7 @@ function Header({
               </a>
             ))}
           </nav>
-          <CallButton className="sm:hidden" iconOnly />
+          <CallButton className="inline-flex sm:hidden" iconOnly />
           <CallButton className="hidden sm:inline-flex shrink-0">
             877-437-6381
           </CallButton>
@@ -682,7 +683,7 @@ function Header({
                 {link.label}
               </a>
             ))}
-            <CallButton className="mt-2 self-start" iconOnly onClick={() => setMenuOpen(false)} />
+            <CallButton className="mt-2 self-start inline-flex" iconOnly onClick={() => setMenuOpen(false)} />
           </nav>
         </div>
       )}
