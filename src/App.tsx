@@ -973,12 +973,12 @@ function ServicesGrid() {
                     }}
                   />
                   <h3
-                    className="absolute inset-0 flex items-center justify-center px-2 sm:px-4 uppercase text-center leading-tight text-white"
+                    className="absolute inset-0 flex items-center justify-center px-3 sm:px-4 uppercase text-center leading-snug text-white"
                     style={{
                       fontFamily: FONT_DISPLAY,
                       fontWeight: DISPLAY_TITLE_WEIGHT,
-                      fontSize: 'clamp(0.7rem, 3.1vw, 1.05rem)',
-                      letterSpacing: '0.06em',
+                      fontSize: 'clamp(0.62rem, 2.5vw, 1.05rem)',
+                      letterSpacing: '0.04em',
                       textShadow: '0 2px 20px rgba(0, 0, 0, 0.45)',
                     }}
                   >
