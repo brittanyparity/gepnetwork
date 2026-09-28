@@ -705,86 +705,119 @@ function readViewportHeight() {
 }
 
 function collectScrollTargets(from: HTMLElement): Array<Window | Document | HTMLElement> {
-  const targets: Array<Window | Document | HTMLElement> = [window, document]
+  const targets: Array<Window | Document | HTMLElement> = [
+    window,
+    document,
+    document.documentElement,
+    document.body,
+  ]
   let node: HTMLElement | null = from.parentElement
   while (node) {
-    const { overflowY } = getComputedStyle(node)
-    if (/(auto|scroll|overlay)/.test(overflowY) && node.scrollHeight > node.clientHeight + 1) {
+    const { overflowY, overflow } = getComputedStyle(node)
+    const scrollableY = /(auto|scroll|overlay)/.test(overflowY) || /(auto|scroll|overlay)/.test(overflow)
+    if (scrollableY && node.scrollHeight > node.clientHeight + 1) {
       targets.push(node)
     }
     node = node.parentElement
   }
-  return targets
+  return [...new Set(targets)]
+}
+
+function heroScrollThrough(section: HTMLElement) {
+  const rect = section.getBoundingClientRect()
+  return Math.min(Math.max(-rect.top, 0), section.offsetHeight)
 }
 
 function Hero() {
   const sectionRef = useRef<HTMLElement>(null)
-  const [bgShift, setBgShift] = useState(0)
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const [viewportPx, setViewportPx] = useState<number | null>(null)
 
   useLayoutEffect(() => {
     const section = sectionRef.current
-    if (!section) return
+    const video = videoRef.current
+    if (!section || !video) return
 
-    const applyViewportHeight = () => {
+    let scrollTargets: Array<Window | Document | HTMLElement> = []
+    let frame = 0
+
+    const bindScrollTargets = () => {
+      scrollTargets.forEach((target) => {
+        target.removeEventListener('scroll', scheduleFrame)
+      })
+      scrollTargets = collectScrollTargets(section)
+      scrollTargets.forEach((target) => {
+        target.addEventListener('scroll', scheduleFrame, { passive: true })
+      })
+    }
+
+    const applyFrame = () => {
+      frame = 0
       const h = readViewportHeight()
       document.documentElement.style.setProperty('--gep-vh', `${h * 0.01}px`)
-      section.style.height = `${h}px`
-      section.style.minHeight = `${h}px`
+      setViewportPx((prev) => (prev === h ? prev : h))
+
+      const scrollThrough = heroScrollThrough(section)
+      const shift = scrollThrough * 0.55
+      video.style.transform = `translate3d(0, ${shift}px, 0)`
     }
 
-    const updateParallax = () => {
-      const el = sectionRef.current
-      if (!el) return
-      const rect = el.getBoundingClientRect()
-      const scrollThrough = Math.min(Math.max(-rect.top, 0), el.offsetHeight)
-      setBgShift(scrollThrough * 0.45)
+    const scheduleFrame = () => {
+      if (frame) return
+      frame = requestAnimationFrame(applyFrame)
     }
 
-    const onViewportOrScroll = () => {
-      applyViewportHeight()
-      updateParallax()
+    bindScrollTargets()
+    applyFrame()
+
+    const onViewportChange = () => {
+      bindScrollTargets()
+      scheduleFrame()
     }
 
-    applyViewportHeight()
-    updateParallax()
-
-    const scrollTargets = collectScrollTargets(section)
-    scrollTargets.forEach((target) => {
-      target.addEventListener('scroll', onViewportOrScroll, { passive: true })
-    })
-    window.addEventListener('resize', onViewportOrScroll)
-    window.addEventListener('orientationchange', onViewportOrScroll)
-    window.visualViewport?.addEventListener('resize', onViewportOrScroll)
-    window.visualViewport?.addEventListener('scroll', onViewportOrScroll)
+    window.addEventListener('resize', onViewportChange)
+    window.addEventListener('orientationchange', onViewportChange)
+    window.addEventListener('wheel', scheduleFrame, { passive: true })
+    window.addEventListener('touchmove', scheduleFrame, { passive: true })
+    window.visualViewport?.addEventListener('resize', onViewportChange)
+    window.visualViewport?.addEventListener('scroll', scheduleFrame)
 
     return () => {
+      if (frame) cancelAnimationFrame(frame)
       scrollTargets.forEach((target) => {
-        target.removeEventListener('scroll', onViewportOrScroll)
+        target.removeEventListener('scroll', scheduleFrame)
       })
-      window.removeEventListener('resize', onViewportOrScroll)
-      window.removeEventListener('orientationchange', onViewportOrScroll)
-      window.visualViewport?.removeEventListener('resize', onViewportOrScroll)
-      window.visualViewport?.removeEventListener('scroll', onViewportOrScroll)
+      window.removeEventListener('resize', onViewportChange)
+      window.removeEventListener('orientationchange', onViewportChange)
+      window.removeEventListener('wheel', scheduleFrame)
+      window.removeEventListener('touchmove', scheduleFrame)
+      window.visualViewport?.removeEventListener('resize', onViewportChange)
+      window.visualViewport?.removeEventListener('scroll', scheduleFrame)
     }
   }, [])
 
   return (
     <section
       ref={sectionRef}
-      className="gep-hero-viewport relative w-full overflow-hidden flex items-center justify-center"
-      style={{ background: 'var(--gep-bg)' }}
+      className="gep-hero-viewport relative w-full overflow-hidden flex items-center justify-center min-h-[100svh] min-h-[100dvh] h-[100svh] h-[100dvh]"
+      style={{
+        background: 'var(--gep-bg)',
+        ...(viewportPx != null
+          ? { height: viewportPx, minHeight: viewportPx }
+          : undefined),
+      }}
     >
       <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
         <video
+          ref={videoRef}
           autoPlay
           muted
           loop
           playsInline
           className="absolute left-0 w-full max-w-none object-cover"
           style={{
-            top: '-12%',
-            height: '124%',
-            transform: `translate3d(0, ${bgShift}px, 0)`,
+            top: '-14%',
+            height: '128%',
             willChange: 'transform',
             objectPosition: 'center center',
           }}
