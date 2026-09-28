@@ -37,20 +37,30 @@
 html {
   scroll-behavior: smooth;
   overflow-x: clip;
+  height: -webkit-fill-available;
 }
 
 :root {
   --gep-globe-land: #f2eee8;
   --gep-globe-ocean: #141b23;
-  /* 1% of visual viewport; set from JS on load/resize (mobile browser chrome) */
-  --gep-vh: 1svh;
+  /* 1% of visual viewport height; updated from JS (see Hero) */
+  --gep-vh: 1vh;
+}
+
+#root {
+  min-height: 100vh;
+  min-height: 100svh;
+  min-height: 100dvh;
+  min-height: -webkit-fill-available;
 }
 
 .gep-hero-viewport {
   width: 100%;
-  height: calc(var(--gep-vh) * 100);
+  min-height: 100vh;
+  min-height: 100svh;
+  min-height: 100dvh;
   min-height: calc(var(--gep-vh) * 100);
-  max-height: calc(var(--gep-vh) * 100);
+  height: calc(var(--gep-vh) * 100);
 }
 
 /* Century G + globe lockup (matches Claude brand embed proportions) */
@@ -175,6 +185,10 @@ body {
   font-family: 'Inter', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  min-height: 100svh;
+  min-height: 100dvh;
+  min-height: -webkit-fill-available;
 }
 
 /* Hide scrollbar by default, show on scroll */

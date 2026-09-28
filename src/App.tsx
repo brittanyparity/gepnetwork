@@ -700,48 +700,71 @@ function Header({
   )
 }
 
-function syncViewportHeightUnit() {
-  const h = window.visualViewport?.height ?? window.innerHeight
-  document.documentElement.style.setProperty('--gep-vh', `${h * 0.01}px`)
+function readViewportHeight() {
+  return window.visualViewport?.height ?? window.innerHeight
 }
 
-function useViewportHeightUnit() {
-  useLayoutEffect(() => {
-    syncViewportHeightUnit()
-    const onViewportChange = () => syncViewportHeightUnit()
-    window.addEventListener('resize', onViewportChange)
-    window.addEventListener('orientationchange', onViewportChange)
-    window.visualViewport?.addEventListener('resize', onViewportChange)
-    window.visualViewport?.addEventListener('scroll', onViewportChange)
-    return () => {
-      window.removeEventListener('resize', onViewportChange)
-      window.removeEventListener('orientationchange', onViewportChange)
-      window.visualViewport?.removeEventListener('resize', onViewportChange)
-      window.visualViewport?.removeEventListener('scroll', onViewportChange)
+function collectScrollTargets(from: HTMLElement): Array<Window | Document | HTMLElement> {
+  const targets: Array<Window | Document | HTMLElement> = [window, document]
+  let node: HTMLElement | null = from.parentElement
+  while (node) {
+    const { overflowY } = getComputedStyle(node)
+    if (/(auto|scroll|overlay)/.test(overflowY) && node.scrollHeight > node.clientHeight + 1) {
+      targets.push(node)
     }
-  }, [])
+    node = node.parentElement
+  }
+  return targets
 }
 
 function Hero() {
   const sectionRef = useRef<HTMLElement>(null)
   const [bgShift, setBgShift] = useState(0)
 
-  useEffect(() => {
-    const onScroll = () => {
-      const section = sectionRef.current
-      if (!section) return
-      const rect = section.getBoundingClientRect()
-      const viewH = window.visualViewport?.height ?? window.innerHeight
-      if (rect.bottom <= 0 || rect.top >= viewH) return
-      const progress = (viewH - rect.top) / (viewH + section.offsetHeight)
-      setBgShift((progress - 0.5) * 90)
+  useLayoutEffect(() => {
+    const section = sectionRef.current
+    if (!section) return
+
+    const applyViewportHeight = () => {
+      const h = readViewportHeight()
+      document.documentElement.style.setProperty('--gep-vh', `${h * 0.01}px`)
+      section.style.height = `${h}px`
+      section.style.minHeight = `${h}px`
     }
-    onScroll()
-    window.addEventListener('scroll', onScroll, { passive: true })
-    window.addEventListener('resize', onScroll)
+
+    const updateParallax = () => {
+      const el = sectionRef.current
+      if (!el) return
+      const rect = el.getBoundingClientRect()
+      const scrollThrough = Math.min(Math.max(-rect.top, 0), el.offsetHeight)
+      setBgShift(scrollThrough * 0.45)
+    }
+
+    const onViewportOrScroll = () => {
+      applyViewportHeight()
+      updateParallax()
+    }
+
+    applyViewportHeight()
+    updateParallax()
+
+    const scrollTargets = collectScrollTargets(section)
+    scrollTargets.forEach((target) => {
+      target.addEventListener('scroll', onViewportOrScroll, { passive: true })
+    })
+    window.addEventListener('resize', onViewportOrScroll)
+    window.addEventListener('orientationchange', onViewportOrScroll)
+    window.visualViewport?.addEventListener('resize', onViewportOrScroll)
+    window.visualViewport?.addEventListener('scroll', onViewportOrScroll)
+
     return () => {
-      window.removeEventListener('scroll', onScroll)
-      window.removeEventListener('resize', onScroll)
+      scrollTargets.forEach((target) => {
+        target.removeEventListener('scroll', onViewportOrScroll)
+      })
+      window.removeEventListener('resize', onViewportOrScroll)
+      window.removeEventListener('orientationchange', onViewportOrScroll)
+      window.visualViewport?.removeEventListener('resize', onViewportOrScroll)
+      window.visualViewport?.removeEventListener('scroll', onViewportOrScroll)
     }
   }, [])
 
@@ -759,10 +782,11 @@ function Hero() {
           playsInline
           className="absolute left-0 w-full max-w-none object-cover"
           style={{
-            top: '-8%',
-            height: '116%',
+            top: '-12%',
+            height: '124%',
             transform: `translate3d(0, ${bgShift}px, 0)`,
-            objectPosition: `center calc(50% + ${bgShift * 0.2}px)`,
+            willChange: 'transform',
+            objectPosition: 'center center',
           }}
         >
           <source src={HERO_VIDEO} type="video/mp4" />
@@ -1608,7 +1632,6 @@ export default function App() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [colorScheme, setColorScheme] = useState('palette-soul')
   const scheme = COLOR_SCHEMES.find((s) => s.id === colorScheme) ?? COLOR_SCHEMES[0]
-  useViewportHeightUnit()
 
   return (
     <div
