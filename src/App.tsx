@@ -824,8 +824,8 @@ function WhyGEP() {
           </p>
           <a
             href="#about"
-            className="inline-flex items-center gap-3 text-xs tracking-widest uppercase font-semibold hover:gap-5 transition-all duration-200"
-            style={{ fontFamily: FONT_BODY, color: 'var(--gep-accent)' }}
+            className="inline-flex items-center gap-3 text-xs tracking-widest uppercase font-semibold text-white hover:text-white/85 hover:gap-5 transition-all duration-200"
+            style={{ fontFamily: FONT_BODY }}
           >
             Learn More About Us <span className="text-lg leading-none">→</span>
           </a>
