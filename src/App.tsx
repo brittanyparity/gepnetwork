@@ -977,8 +977,8 @@ function ServicesGrid() {
                     style={{
                       fontFamily: FONT_DISPLAY,
                       fontWeight: DISPLAY_TITLE_WEIGHT,
-                      fontSize: 'clamp(0.62rem, 2.5vw, 1.05rem)',
-                      letterSpacing: '0.04em',
+                      fontSize: 'clamp(0.75rem, 2.9vw, 1.05rem)',
+                      letterSpacing: '0.05em',
                       textShadow: '0 2px 20px rgba(0, 0, 0, 0.45)',
                     }}
                   >
