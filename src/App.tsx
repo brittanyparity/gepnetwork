@@ -693,7 +693,10 @@ function Header({
 
 function Hero() {
   return (
-    <section className="relative w-full min-h-screen flex items-center justify-center overflow-hidden" style={{ background: 'var(--gep-bg)' }}>
+    <section
+      className="relative w-full h-dvh min-h-dvh flex items-center justify-center overflow-hidden"
+      style={{ background: 'var(--gep-bg)' }}
+    >
       {/* Background video */}
       <video
         autoPlay
@@ -713,7 +716,7 @@ function Hero() {
         }}
       />
 
-      <div className="relative z-10 text-center max-w-5xl mx-auto px-6 pt-20">
+      <div className="relative z-10 text-center w-full px-6 pt-20">
         <h1
           className="text-white uppercase leading-snug max-w-4xl mx-auto"
           style={{
@@ -725,12 +728,6 @@ function Hero() {
         >
           Crafting the Extraordinary in Global Entertainment
         </h1>
-      </div>
-
-      {/* Scroll indicator */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40">
-        <div className="w-px h-12 bg-white" style={{ animation: 'pulse 2s ease-in-out infinite' }} />
-        <span className="text-white text-[10px] tracking-[0.25em] uppercase" style={{ fontFamily: FONT_BODY }}>Scroll</span>
       </div>
     </section>
   )
