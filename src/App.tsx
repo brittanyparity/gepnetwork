@@ -973,12 +973,12 @@ function ServicesGrid() {
                     }}
                   />
                   <h3
-                    className="absolute inset-0 flex items-center justify-center px-4 uppercase text-center leading-tight text-white"
+                    className="absolute inset-0 flex items-center justify-center px-3 sm:px-4 uppercase text-center leading-snug text-white"
                     style={{
                       fontFamily: FONT_DISPLAY,
                       fontWeight: DISPLAY_TITLE_WEIGHT,
-                      fontSize: '1.05rem',
-                      letterSpacing: '0.08em',
+                      fontSize: 'clamp(0.75rem, 2.9vw, 1.05rem)',
+                      letterSpacing: '0.05em',
                       textShadow: '0 2px 20px rgba(0, 0, 0, 0.45)',
                     }}
                   >
@@ -988,23 +988,29 @@ function ServicesGrid() {
 
                 {/* Back */}
                 <div
-                  className="flip-card-back flex flex-col items-center justify-center p-8 text-center"
+                  className="flip-card-back flex flex-col items-center justify-center p-4 sm:p-8 text-center"
                   style={{ background: 'var(--gep-accent)' }}
                 >
                   <div
-                    className="text-3xl mb-5"
+                    className="text-2xl sm:text-3xl mb-3 sm:mb-5"
                     style={{ color: 'var(--gep-accent-text)' }}
                   >
                     {svc.icon}
                   </div>
                   <h3
-                    className="uppercase mb-4 leading-tight"
-                    style={{ fontFamily: FONT_DISPLAY, fontWeight: DISPLAY_TITLE_WEIGHT, fontSize: '1.15rem', letterSpacing: '0.06em', color: 'var(--gep-accent-text)' }}
+                    className="uppercase mb-2 sm:mb-4 leading-tight"
+                    style={{
+                      fontFamily: FONT_DISPLAY,
+                      fontWeight: DISPLAY_TITLE_WEIGHT,
+                      fontSize: 'clamp(0.8rem, 2.8vw, 1.15rem)',
+                      letterSpacing: '0.05em',
+                      color: 'var(--gep-accent-text)',
+                    }}
                   >
                     {svc.title}
                   </h3>
                   <p
-                    className="text-sm leading-relaxed"
+                    className="text-xs sm:text-sm leading-relaxed"
                     style={{ fontFamily: FONT_BODY, color: 'var(--gep-accent-text)', opacity: 0.85 }}
                   >
                     {svc.desc}
@@ -1340,7 +1346,7 @@ function ProductionStaffing() {
         </h2>
         <p
           className="text-lg md:text-xl leading-relaxed max-w-3xl mx-auto mb-12 md:mb-16"
-          style={{ fontFamily: FONT_BODY, fontWeight: 500, color: 'var(--gep-staffing-text-muted, rgba(243, 239, 232, 0.82))' }}
+          style={{ fontFamily: FONT_BODY, fontWeight: 400, color: 'var(--gep-staffing-text-muted, rgba(243, 239, 232, 0.82))' }}
         >
           Let our skilled professionals handle the intricacies of your event.
         </p>
@@ -1352,8 +1358,8 @@ function ProductionStaffing() {
                 <li key={`${colIdx}-${rowIdx}`} className="flex items-center gap-3.5">
                   <StaffingTriangle />
                   <span
-                    className="text-lg md:text-xl font-medium"
-                    style={{ fontFamily: FONT_BODY, color: 'var(--gep-staffing-text, #F3EFE8)' }}
+                    className="text-lg md:text-xl"
+                    style={{ fontFamily: FONT_BODY, fontWeight: 400, color: 'var(--gep-staffing-text, #F3EFE8)' }}
                   >
                     {role}
                   </span>
