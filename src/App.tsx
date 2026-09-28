@@ -124,6 +124,16 @@ function lightBoneScheme(
 }
 
 const COLOR_SCHEMES: ColorScheme[] = [
+  lightBoneScheme('palette-soul', 'Soul', PALETTE.soul, PALETTE.soulLight, {
+    '--gep-bg': '#F6F1EB',
+    '--gep-bg-alt': '#EDE4D8',
+    '--gep-card': '#E5DACE',
+    '--gep-header-bar': HEADER_BAR.soul,
+    '--gep-header-scrolled': HEADER_BAR.soul,
+    '--gep-card-overlay': 'rgba(68, 48, 36, 0.76)',
+    '--gep-storage-overlay':
+      'linear-gradient(to top, rgba(68, 48, 36, 0.86) 0%, rgba(111, 83, 68, 0.46) 55%, rgba(68, 48, 36, 0.2) 100%)',
+  }),
   lightBoneScheme('palette-silver', 'Silver', PALETTE.silver, PALETTE.silverLight, {
     '--gep-bg': '#FFFFFF',
     '--gep-bg-alt': '#F5F5F7',
@@ -158,16 +168,6 @@ const COLOR_SCHEMES: ColorScheme[] = [
     '--gep-card-overlay': 'rgba(62, 45, 58, 0.72)',
     '--gep-storage-overlay':
       'linear-gradient(to top, rgba(62, 45, 58, 0.82) 0%, rgba(110, 79, 107, 0.42) 55%, rgba(62, 45, 58, 0.16) 100%)',
-  }),
-  lightBoneScheme('palette-soul', 'Soul', PALETTE.soul, PALETTE.soulLight, {
-    '--gep-bg': '#F6F1EB',
-    '--gep-bg-alt': '#EDE4D8',
-    '--gep-card': '#E5DACE',
-    '--gep-header-bar': HEADER_BAR.soul,
-    '--gep-header-scrolled': HEADER_BAR.soul,
-    '--gep-card-overlay': 'rgba(68, 48, 36, 0.76)',
-    '--gep-storage-overlay':
-      'linear-gradient(to top, rgba(68, 48, 36, 0.86) 0%, rgba(111, 83, 68, 0.46) 55%, rgba(68, 48, 36, 0.2) 100%)',
   }),
 ]
 
@@ -840,18 +840,23 @@ function WhyGEP() {
           ].map((s) => (
             <div
               key={s.l}
-              className="group p-10 flex flex-col justify-end backdrop-blur-[2px] transition-colors duration-300 hover:bg-[color:var(--gep-accent)]"
-              style={{ background: 'rgba(0, 0, 0, 0.45)' }}
+              className="p-10 flex flex-col justify-end backdrop-blur-[2px]"
+              style={{ background: 'rgba(255, 255, 255, 0.45)' }}
             >
               <div
-                className="uppercase leading-none mb-2 transition-colors duration-300 text-[color:var(--gep-accent)] group-hover:text-[color:var(--gep-accent-text)]"
-                style={{ fontFamily: FONT_DISPLAY, fontWeight: DISPLAY_STAT_WEIGHT, fontSize: '3.5rem' }}
+                className="uppercase leading-none mb-2"
+                style={{
+                  fontFamily: FONT_DISPLAY,
+                  fontWeight: DISPLAY_STAT_WEIGHT,
+                  fontSize: '3.5rem',
+                  color: 'var(--gep-accent)',
+                }}
               >
                 {s.n}
               </div>
               <div
-                className="text-xs tracking-widest uppercase text-white/65 transition-colors duration-300 group-hover:text-[color:var(--gep-accent-text)] group-hover:opacity-90"
-                style={{ fontFamily: FONT_BODY }}
+                className="text-xs tracking-widest uppercase"
+                style={{ fontFamily: FONT_BODY, color: 'rgba(23, 20, 15, 0.72)' }}
               >
                 {s.l}
               </div>
@@ -1494,7 +1499,7 @@ function Footer({ colorScheme }: { colorScheme: string }) {
 // ─── App ─────────────────────────────────────────────────────────────────────
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false)
-  const [colorScheme, setColorScheme] = useState('palette-clay')
+  const [colorScheme, setColorScheme] = useState('palette-soul')
   const scheme = COLOR_SCHEMES.find((s) => s.id === colorScheme) ?? COLOR_SCHEMES[0]
 
   return (
