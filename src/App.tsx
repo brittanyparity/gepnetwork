@@ -23,7 +23,7 @@ import GEPLogoLockup from './components/GepGlobeMark'
 
 const LOGO_LOCKUP = 'century-globe' as const
 
-const HERO_VIDEO = '/gep-hero-video.mov'
+const HERO_VIDEO = '/gep-hero-video.mp4'
 
 const LIGHT_COLOR_SCHEMES = new Set([
   'palette-silver',
@@ -711,7 +711,7 @@ function Hero() {
         className="absolute inset-0 h-full w-full max-w-none object-cover"
         style={{ objectPosition: 'center center' }}
       >
-        <source src={HERO_VIDEO} type="video/quicktime" />
+        <source src={HERO_VIDEO} type="video/mp4" />
       </video>
       {/* Dark overlay */}
       <div
