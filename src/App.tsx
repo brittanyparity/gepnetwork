@@ -25,7 +25,14 @@ const LOGO_LOCKUP = 'century-globe' as const
 
 const HERO_VIDEO = '/gep-hero-video.mp4'
 
-const LIGHT_COLOR_SCHEMES = new Set(['palette-silver', 'palette-clay', 'palette-dusk', 'palette-sage'])
+const LIGHT_COLOR_SCHEMES = new Set([
+  'palette-silver',
+  'palette-clay',
+  'palette-dusk',
+  'palette-sage',
+  'palette-amber',
+  'palette-soul',
+])
 
 const PALETTE = {
   ember: '#E2622C',
@@ -35,6 +42,12 @@ const PALETTE = {
   sage: '#6E8467',
   silver: '#6B7280',
   silverLight: '#9CA3AF',
+  /** Earth-toned purple (scheme name: Amber) */
+  amber: '#6E4F6B',
+  amberLight: '#8A6B7D',
+  /** Earth-toned brown */
+  soul: '#6F5344',
+  soulLight: '#8B6A55',
 } as const
 
 type ColorScheme = {
@@ -57,6 +70,15 @@ const FOOTER_VARS: Record<string, string> = {
 }
 
 const STAFFING_OVERLAY_DARK = `linear-gradient(to bottom, rgba(23, 20, 15, 0.42) 0%, rgba(23, 20, 15, 0.78) 62%, ${FOOTER_DARK} 100%)`
+
+/** Scrolled header glass — grey-washed theme hue at ~68% opacity (see Silver) */
+const HEADER_BAR = {
+  silver: 'rgba(58, 58, 62, 0.68)',
+  dusk: 'rgba(84, 98, 112, 0.68)',
+  sage: 'rgba(96, 108, 96, 0.68)',
+  amber: 'rgba(98, 88, 96, 0.68)',
+  soul: 'rgba(98, 90, 82, 0.68)',
+} as const
 
 function lightBoneScheme(
   id: string,
@@ -109,8 +131,8 @@ const COLOR_SCHEMES: ColorScheme[] = [
     '--gep-text': '#1D1D1F',
     '--gep-text-muted': '#6E6E73',
     '--gep-divider': 'rgba(0, 0, 0, 0.08)',
-    '--gep-header-bar': 'rgba(58, 58, 62, 0.68)',
-    '--gep-header-scrolled': 'rgba(58, 58, 62, 0.68)',
+    '--gep-header-bar': HEADER_BAR.silver,
+    '--gep-header-scrolled': HEADER_BAR.silver,
     '--gep-hero-kicker': '#F5F5F7',
     '--gep-card-overlay': 'rgba(45, 45, 50, 0.72)',
     '--gep-why-gep-overlay':
@@ -119,8 +141,34 @@ const COLOR_SCHEMES: ColorScheme[] = [
       'linear-gradient(to top, rgba(45, 45, 50, 0.86) 0%, rgba(107, 114, 128, 0.44) 55%, rgba(45, 45, 50, 0.18) 100%)',
   }),
   lightBoneScheme('palette-clay', 'Clay', PALETTE.clay, PALETTE.clay),
-  lightBoneScheme('palette-dusk', 'Dusk', PALETTE.dusk, PALETTE.dusk),
-  lightBoneScheme('palette-sage', 'Sage', PALETTE.sage, PALETTE.sage),
+  lightBoneScheme('palette-dusk', 'Dusk', PALETTE.dusk, PALETTE.dusk, {
+    '--gep-header-bar': HEADER_BAR.dusk,
+    '--gep-header-scrolled': HEADER_BAR.dusk,
+  }),
+  lightBoneScheme('palette-sage', 'Sage', PALETTE.sage, PALETTE.sage, {
+    '--gep-header-bar': HEADER_BAR.sage,
+    '--gep-header-scrolled': HEADER_BAR.sage,
+  }),
+  lightBoneScheme('palette-amber', 'Amber', PALETTE.amber, PALETTE.amberLight, {
+    '--gep-bg': '#F7F3F5',
+    '--gep-bg-alt': '#EFE8EE',
+    '--gep-card': '#E8DFE6',
+    '--gep-header-bar': HEADER_BAR.amber,
+    '--gep-header-scrolled': HEADER_BAR.amber,
+    '--gep-card-overlay': 'rgba(62, 45, 58, 0.72)',
+    '--gep-storage-overlay':
+      'linear-gradient(to top, rgba(62, 45, 58, 0.82) 0%, rgba(110, 79, 107, 0.42) 55%, rgba(62, 45, 58, 0.16) 100%)',
+  }),
+  lightBoneScheme('palette-soul', 'Soul', PALETTE.soul, PALETTE.soulLight, {
+    '--gep-bg': '#F6F1EB',
+    '--gep-bg-alt': '#EDE4D8',
+    '--gep-card': '#E5DACE',
+    '--gep-header-bar': HEADER_BAR.soul,
+    '--gep-header-scrolled': HEADER_BAR.soul,
+    '--gep-card-overlay': 'rgba(68, 48, 36, 0.76)',
+    '--gep-storage-overlay':
+      'linear-gradient(to top, rgba(68, 48, 36, 0.86) 0%, rgba(111, 83, 68, 0.46) 55%, rgba(68, 48, 36, 0.2) 100%)',
+  }),
 ]
 
 const HERO_INTRO =
@@ -189,8 +237,10 @@ const DISPLAY_TITLE_WEIGHT = 300
 /** Bold Barlow Condensed for prominent figures (Why GEP stats) */
 const DISPLAY_STAT_WEIGHT = 700
 
-const OUTLINE_ACCENT_BUTTON_CLASS =
-  'inline-flex items-center justify-center px-8 py-4 text-xs tracking-widest uppercase font-semibold border transition-all duration-200 hover:opacity-90 cursor-pointer'
+const ACCENT_BUTTON_BASE =
+  'inline-flex items-center justify-center px-8 py-4 text-xs tracking-widest uppercase font-semibold border transition-all duration-200 cursor-pointer'
+
+const OUTLINE_ACCENT_BUTTON_CLASS = `${ACCENT_BUTTON_BASE} hover:opacity-90`
 
 const outlineAccentButtonStyle: CSSProperties = {
   fontFamily: FONT_BODY,
@@ -242,6 +292,51 @@ function AccentOutlineButton({
     <button type={type} {...shared} onClick={onClick}>
       {children}
     </button>
+  )
+}
+
+const filledInverseButtonStyle: CSSProperties = {
+  fontFamily: FONT_BODY,
+  borderColor: 'var(--gep-accent)',
+  color: 'var(--gep-accent-text)',
+  background: 'var(--gep-accent)',
+}
+
+function onFilledInverseEnter(e: MouseEvent<HTMLElement>) {
+  e.currentTarget.style.background = 'var(--gep-accent-text)'
+  e.currentTarget.style.color = 'var(--gep-accent)'
+  e.currentTarget.style.borderColor = 'var(--gep-accent)'
+}
+
+function onFilledInverseLeave(e: MouseEvent<HTMLElement>) {
+  e.currentTarget.style.background = 'var(--gep-accent)'
+  e.currentTarget.style.color = 'var(--gep-accent-text)'
+  e.currentTarget.style.borderColor = 'var(--gep-accent)'
+}
+
+const CALL_BUTTON_CLASS = `${ACCENT_BUTTON_BASE} px-5 py-2.5`
+
+/** Header call CTA: solid accent default, inverted fill/text on hover */
+function CallButton({
+  className = '',
+  onClick,
+  children,
+}: {
+  className?: string
+  onClick?: () => void
+  children: ReactNode
+}) {
+  return (
+    <a
+      href="tel:8774376381"
+      className={`${CALL_BUTTON_CLASS} ${className}`.trim()}
+      style={filledInverseButtonStyle}
+      onMouseEnter={onFilledInverseEnter}
+      onMouseLeave={onFilledInverseLeave}
+      onClick={onClick}
+    >
+      {children}
+    </a>
   )
 }
 
@@ -513,9 +608,9 @@ function Header({
               </a>
             ))}
           </nav>
-          <AccentOutlineButton href="tel:8774376381" className="hidden sm:inline-flex shrink-0">
+          <CallButton className="hidden sm:inline-flex shrink-0">
             877-437-6381
-          </AccentOutlineButton>
+          </CallButton>
           <button
             className="lg:hidden flex flex-col gap-1.5 p-2"
             onClick={() => setMenuOpen(!menuOpen)}
@@ -543,13 +638,9 @@ function Header({
                 {link.label}
               </a>
             ))}
-            <AccentOutlineButton
-              href="tel:8774376381"
-              className="mt-2 w-full"
-              onClick={() => setMenuOpen(false)}
-            >
+            <CallButton className="mt-2 w-full" onClick={() => setMenuOpen(false)}>
               877-437-6381
-            </AccentOutlineButton>
+            </CallButton>
           </nav>
         </div>
       )}
