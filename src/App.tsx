@@ -227,6 +227,8 @@ const FONT_BODY = "'Inter', sans-serif"
 const FONT_DISPLAY = "'Barlow Condensed', sans-serif"
 /** Thin Barlow Condensed for section and card titles (matches hero tagline) */
 const DISPLAY_TITLE_WEIGHT = 300
+/** Bold Barlow Condensed for prominent figures (Why GEP stats) */
+const DISPLAY_STAT_WEIGHT = 700
 
 const CALL_BUTTON_CLASS =
   'px-5 py-2.5 text-xs tracking-widest uppercase font-semibold border border-transparent transition-all duration-200 hover:opacity-90'
@@ -750,7 +752,7 @@ function WhyGEP() {
             >
               <div
                 className="uppercase leading-none mb-2"
-                style={{ fontFamily: FONT_DISPLAY, fontWeight: DISPLAY_TITLE_WEIGHT, fontSize: '3.5rem', color: 'var(--gep-accent)' }}
+                style={{ fontFamily: FONT_DISPLAY, fontWeight: DISPLAY_STAT_WEIGHT, fontSize: '3.5rem', color: 'var(--gep-accent)' }}
               >
                 {s.n}
               </div>
@@ -822,12 +824,18 @@ function ServicesGrid() {
                     className="absolute inset-0"
                     style={{
                       background:
-                        'linear-gradient(to bottom, var(--gep-overlay-top) 0%, var(--gep-overlay-mid) 50%, var(--gep-overlay-bottom) 100%)',
+                        'linear-gradient(to bottom, rgba(0, 0, 0, 0.42) 0%, rgba(0, 0, 0, 0.52) 50%, rgba(0, 0, 0, 0.62) 100%)',
                     }}
                   />
                   <h3
                     className="absolute inset-0 flex items-center justify-center px-4 uppercase text-center leading-tight text-white"
-                    style={{ fontFamily: FONT_DISPLAY, fontWeight: DISPLAY_TITLE_WEIGHT, fontSize: '1.05rem', letterSpacing: '0.08em' }}
+                    style={{
+                      fontFamily: FONT_DISPLAY,
+                      fontWeight: DISPLAY_TITLE_WEIGHT,
+                      fontSize: '1.05rem',
+                      letterSpacing: '0.08em',
+                      textShadow: '0 2px 20px rgba(0, 0, 0, 0.45)',
+                    }}
                   >
                     {svc.title}
                   </h3>
@@ -1225,11 +1233,13 @@ function ProductionStaffing() {
 
         <a
           href="#contact"
-          className="inline-block px-3 py-2 text-[10px] tracking-widest uppercase font-semibold transition-opacity hover:opacity-90"
+          className="self-center inline-flex items-center justify-center px-5 py-2.5 text-xs tracking-widest uppercase font-semibold transition-opacity hover:opacity-90"
           style={{
             fontFamily: FONT_BODY,
             background: 'var(--gep-accent)',
             color: 'var(--gep-accent-text)',
+            width: 'fit-content',
+            maxWidth: 'min(33%, 12rem)',
           }}
         >
           Find Out More
