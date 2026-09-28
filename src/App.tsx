@@ -1335,10 +1335,10 @@ function ProductionStaffing() {
         <h2
           className="uppercase leading-tight mb-6"
           style={{
-            fontFamily: FONT_DISPLAY,
-            fontWeight: DISPLAY_TITLE_WEIGHT,
+            fontFamily: FONT_BODY,
+            fontWeight: 600,
             fontSize: 'clamp(2.75rem, 6.5vw, 4.5rem)',
-            letterSpacing: '0.04em',
+            letterSpacing: '0.02em',
             color: 'var(--gep-staffing-text, #F3EFE8)',
           }}
         >
