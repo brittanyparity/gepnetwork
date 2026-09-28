@@ -19,7 +19,7 @@ import sonyMusicColor from './imports/sony-music-logo-color.png'
 import sonyMusicWhite from './imports/sony-music-logo-white.png'
 import republicRecordsColor from './imports/republic-records-logo-color.svg'
 import republicRecordsWhite from './imports/republic-records-logo-white.png'
-import GEPLogoLockup, { GEPAbbrevGlobeMark } from './components/GepGlobeMark'
+import GEPLogoLockup from './components/GepGlobeMark'
 
 const LOGO_LOCKUP = 'century-globe' as const
 
@@ -335,6 +335,28 @@ const TESTIMONIALS = [
   },
 ]
 
+const TESTIMONIAL_LAYOUTS = [
+  { id: 'standalone', name: 'Featured Section (full width)' },
+  { id: 'compact-under-logos', name: 'Compact (under client logos)' },
+] as const
+
+type TestimonialLayoutId = (typeof TESTIMONIAL_LAYOUTS)[number]['id']
+
+function useTestimonialCarousel() {
+  const [active, setActive] = useState(0)
+  const [paused, setPaused] = useState(false)
+
+  useEffect(() => {
+    if (paused) return
+    const timer = setInterval(() => {
+      setActive((prev) => (prev + 1) % TESTIMONIALS.length)
+    }, 2000)
+    return () => clearInterval(timer)
+  }, [paused])
+
+  return { active, setActive, paused, setPaused }
+}
+
 // ─── Sub-components ─────────────────────────────────────────────────────────
 
 function GoldRule() {
@@ -355,9 +377,13 @@ function themeSelectStyle(chevronHex: string): CSSProperties {
 function ThemePicker({
   colorScheme,
   onColorSchemeChange,
+  testimonialLayout,
+  onTestimonialLayoutChange,
 }: {
   colorScheme: string
   onColorSchemeChange: (id: string) => void
+  testimonialLayout: TestimonialLayoutId
+  onTestimonialLayoutChange: (id: TestimonialLayoutId) => void
 }) {
   const isLightScheme = LIGHT_COLOR_SCHEMES.has(colorScheme)
   const chevronColor = isLightScheme ? '1D1D1F' : 'ffffff'
@@ -369,6 +395,24 @@ function ThemePicker({
       className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-4"
       style={{ fontFamily: FONT_BODY }}
     >
+      <div className="flex flex-col items-end gap-2 w-full">
+        <label htmlFor="testimonial-layout" className="text-[10px] tracking-[0.2em] uppercase" style={{ color: 'var(--gep-text-muted)' }}>
+          What They&apos;re Saying
+        </label>
+        <select
+          id="testimonial-layout"
+          value={testimonialLayout}
+          onChange={(e) => onTestimonialLayoutChange(e.target.value as TestimonialLayoutId)}
+          className={selectClass}
+          style={themeSelectStyle(chevronColor)}
+        >
+          {TESTIMONIAL_LAYOUTS.map((layout) => (
+            <option key={layout.id} value={layout.id} style={{ background: 'var(--gep-bg)', color: 'var(--gep-text)' }}>
+              {layout.name}
+            </option>
+          ))}
+        </select>
+      </div>
       <div className="flex flex-col items-end gap-2 w-full">
         <label htmlFor="color-scheme" className="text-[10px] tracking-[0.2em] uppercase" style={{ color: 'var(--gep-text-muted)' }}>
           Color Scheme
@@ -417,53 +461,28 @@ function Header({
       }}
     >
       <div className="relative max-w-[1400px] mx-auto px-6 lg:px-10 h-20 flex items-center w-full">
-        {!scrolled ? (
-          <GEPLogoLockup
-            globeSize={48}
-            colorSchemeKey={colorScheme}
-            lockupId={LOGO_LOCKUP}
-            className="relative z-10 flex-shrink-0"
-          />
-        ) : (
-          <>
-            <div className="hidden lg:flex relative z-10 items-center gap-6 xl:gap-8 flex-shrink-0">
-              <GEPAbbrevGlobeMark colorSchemeKey={colorScheme} className="flex-shrink-0" />
-              <nav className="flex items-center gap-6 xl:gap-8">
-                {NAV_LINKS.map((link) => (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    className="text-xs tracking-widest uppercase transition-colors duration-200 hover:opacity-100"
-                    style={{ fontFamily: FONT_BODY, color: 'rgba(255,255,255,0.65)' }}
-                    onMouseEnter={(e) => { e.currentTarget.style.color = '#ffffff' }}
-                    onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.65)' }}
-                  >
-                    {link.label}
-                  </a>
-                ))}
-              </nav>
-            </div>
-            <GEPAbbrevGlobeMark colorSchemeKey={colorScheme} className="lg:hidden relative z-10 flex-shrink-0" />
-          </>
-        )}
+        <GEPLogoLockup
+          globeSize={48}
+          colorSchemeKey={colorScheme}
+          lockupId={LOGO_LOCKUP}
+          className="relative z-10 flex-shrink-0"
+        />
 
         <div className="relative z-10 flex items-center gap-5 xl:gap-8 ml-auto">
-          {!scrolled && (
-            <nav className="hidden lg:flex items-center gap-6 xl:gap-8 whitespace-nowrap" aria-label="Primary">
-              {NAV_LINKS.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  className="text-xs tracking-widest uppercase transition-colors duration-200 hover:opacity-100"
-                  style={{ fontFamily: FONT_BODY, color: 'rgba(255,255,255,0.65)' }}
-                  onMouseEnter={(e) => { e.currentTarget.style.color = '#ffffff' }}
-                  onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.65)' }}
-                >
-                  {link.label}
-                </a>
-              ))}
-            </nav>
-          )}
+          <nav className="hidden lg:flex items-center gap-6 xl:gap-8 whitespace-nowrap" aria-label="Primary">
+            {NAV_LINKS.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                className="text-xs tracking-widest uppercase transition-colors duration-200 hover:opacity-100"
+                style={{ fontFamily: FONT_BODY, color: 'rgba(255,255,255,0.65)' }}
+                onMouseEnter={(e) => { e.currentTarget.style.color = '#ffffff' }}
+                onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.65)' }}
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
           <a
             href="tel:8774376381"
             className={`${CALL_BUTTON_CLASS} hidden sm:inline-flex px-4 py-2 text-[10px] lg:px-5 lg:py-2.5 lg:text-xs`}
@@ -625,19 +644,54 @@ function RecentProjectsCarousel() {
 }
 
 function WhyGEP() {
+  const sectionRef = useRef<HTMLElement>(null)
+  const [bgShift, setBgShift] = useState(0)
+
+  useEffect(() => {
+    const onScroll = () => {
+      const section = sectionRef.current
+      if (!section) return
+      const rect = section.getBoundingClientRect()
+      const viewH = window.innerHeight
+      if (rect.bottom <= 0 || rect.top >= viewH) return
+      const progress = (viewH - rect.top) / (viewH + section.offsetHeight)
+      setBgShift((progress - 0.5) * 90)
+    }
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+    }
+  }, [])
+
   return (
-    <section className="relative py-28 overflow-hidden min-h-[32rem]">
-      <img
-        src={TEAM_COLLAB_IMG}
-        alt=""
-        aria-hidden="true"
-        className="absolute inset-0 z-0 w-full h-full object-cover object-center"
-      />
-      <div
-        className="absolute inset-0 z-[1] pointer-events-none"
-        style={{ background: 'var(--gep-why-gep-overlay)' }}
-      />
-      <div className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-16 items-center">
+    <section ref={sectionRef} className="relative overflow-hidden">
+      <div className="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
+        <div
+          className="absolute inset-0 hidden sm:block"
+          style={{
+            backgroundImage: `url(${TEAM_COLLAB_IMG})`,
+            backgroundSize: 'cover',
+            backgroundPosition: `center calc(50% + ${bgShift * 0.35}px)`,
+            backgroundAttachment: 'fixed',
+          }}
+        />
+        <img
+          src={TEAM_COLLAB_IMG}
+          alt=""
+          className="absolute left-0 w-full object-cover object-center sm:hidden"
+          style={{
+            top: '-8%',
+            height: '116%',
+            transform: `translate3d(0, ${bgShift}px, 0)`,
+          }}
+        />
+        <div className="absolute inset-0" style={{ background: 'var(--gep-why-gep-overlay)' }} />
+      </div>
+      <div className="relative z-10 py-28 min-h-[90vh] flex items-center max-w-[1400px] mx-auto px-6 lg:px-10">
+        <div className="grid lg:grid-cols-2 gap-16 items-center w-full">
         <div>
           <GoldRule />
           <h2
@@ -682,6 +736,7 @@ function WhyGEP() {
               <div className="text-xs tracking-widest uppercase text-white/65" style={{ fontFamily: FONT_BODY }}>{s.l}</div>
             </div>
           ))}
+        </div>
         </div>
       </div>
     </section>
@@ -1004,7 +1059,13 @@ function StorageSection() {
   )
 }
 
-function ClientLogoWall({ colorScheme }: { colorScheme: string }) {
+function ClientLogoWall({
+  colorScheme,
+  testimonialLayout,
+}: {
+  colorScheme: string
+  testimonialLayout: TestimonialLayoutId
+}) {
   const useColorLogos = LIGHT_COLOR_SCHEMES.has(colorScheme)
 
   return (
@@ -1039,6 +1100,11 @@ function ClientLogoWall({ colorScheme }: { colorScheme: string }) {
             </div>
           ))}
         </div>
+        {testimonialLayout === 'compact-under-logos' ? (
+          <div className="mt-14 pt-10" style={{ borderTop: '1px solid var(--gep-divider)' }}>
+            <TestimonialsCompact />
+          </div>
+        ) : null}
       </div>
     </section>
   )
@@ -1160,17 +1226,74 @@ function ProductionStaffing() {
   )
 }
 
-function Testimonials() {
-  const [active, setActive] = useState(0)
-  const [paused, setPaused] = useState(false)
+function TestimonialNavDots({
+  active,
+  setActive,
+}: {
+  active: number
+  setActive: (i: number) => void
+}) {
+  return (
+    <div className="flex gap-2 justify-center">
+      {TESTIMONIALS.map((_, i) => (
+        <button
+          key={i}
+          type="button"
+          onClick={() => setActive(i)}
+          className="transition-all duration-200"
+          style={{
+            width: i === active ? 20 : 6,
+            height: 2,
+            background: i === active ? 'var(--gep-accent)' : 'var(--gep-divider)',
+          }}
+          aria-label={`Testimonial ${i + 1}`}
+        />
+      ))}
+    </div>
+  )
+}
 
-  useEffect(() => {
-    if (paused) return
-    const timer = setInterval(() => {
-      setActive((prev) => (prev + 1) % TESTIMONIALS.length)
-    }, 2000)
-    return () => clearInterval(timer)
-  }, [paused])
+function TestimonialsCompact() {
+  const { active, setActive, setPaused } = useTestimonialCarousel()
+  const item = TESTIMONIALS[active]
+
+  return (
+    <div
+      className="max-w-2xl mx-auto text-center"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
+      <p
+        className="text-[10px] tracking-[0.25em] uppercase mb-4"
+        style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}
+      >
+        What They&apos;re Saying
+      </p>
+      <blockquote key={active} className="animate-fade-up">
+        <p
+          className="text-sm leading-relaxed mb-3"
+          style={{ fontFamily: FONT_BODY, fontWeight: 400, color: 'var(--gep-text)' }}
+        >
+          &ldquo;{item.quote}&rdquo;
+        </p>
+        <footer>
+          <p className="text-xs font-medium" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text)' }}>
+            {item.author}
+          </p>
+          <p className="text-[11px] mt-0.5" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>
+            {item.title}
+          </p>
+        </footer>
+      </blockquote>
+      <div className="mt-4">
+        <TestimonialNavDots active={active} setActive={setActive} />
+      </div>
+    </div>
+  )
+}
+
+function TestimonialsStandalone() {
+  const { active, setActive, setPaused } = useTestimonialCarousel()
 
   return (
     <section className="py-24" style={{ background: 'var(--gep-bg-alt)' }}>
@@ -1188,7 +1311,6 @@ function Testimonials() {
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
         >
-          {/* Quote card */}
           <div className="p-10 lg:p-14 relative overflow-hidden" style={{ border: '1px solid var(--gep-divider)', background: 'var(--gep-card)' }}>
             <div
               className="absolute top-10 left-10 leading-none select-none"
@@ -1213,11 +1335,11 @@ function Testimonials() {
             </blockquote>
           </div>
 
-          {/* Nav dots */}
           <div className="flex gap-3 mt-6 justify-end">
             {TESTIMONIALS.map((_, i) => (
               <button
                 key={i}
+                type="button"
                 onClick={() => setActive(i)}
                 className="transition-all duration-200"
                 style={{
@@ -1343,6 +1465,7 @@ function Footer({ colorScheme }: { colorScheme: string }) {
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [colorScheme, setColorScheme] = useState('bone-dark')
+  const [testimonialLayout, setTestimonialLayout] = useState<TestimonialLayoutId>('compact-under-logos')
   const scheme = COLOR_SCHEMES.find((s) => s.id === colorScheme) ?? COLOR_SCHEMES[0]
 
   return (
@@ -1352,16 +1475,21 @@ export default function App() {
     >
       <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} colorScheme={colorScheme} />
       <Hero />
-      <ClientLogoWall colorScheme={colorScheme} />
+      <ClientLogoWall colorScheme={colorScheme} testimonialLayout={testimonialLayout} />
       <RecentProjectsCarousel />
       <WhyGEP />
       <AboutSection />
       <ServicesGrid />
       <StorageSection />
       <ProductionStaffing />
-      <Testimonials />
+      {testimonialLayout === 'standalone' ? <TestimonialsStandalone /> : null}
       <Footer colorScheme={colorScheme} />
-      <ThemePicker colorScheme={colorScheme} onColorSchemeChange={setColorScheme} />
+      <ThemePicker
+        colorScheme={colorScheme}
+        onColorSchemeChange={setColorScheme}
+        testimonialLayout={testimonialLayout}
+        onTestimonialLayoutChange={setTestimonialLayout}
+      />
     </div>
   )
 }
