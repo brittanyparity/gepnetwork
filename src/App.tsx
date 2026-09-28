@@ -842,22 +842,21 @@ function WhyGEP() {
             <div
               key={s.l}
               className="p-10 flex flex-col justify-end backdrop-blur-[2px]"
-              style={{ background: 'rgba(255, 255, 255, 0.45)' }}
+              style={{ background: 'color-mix(in srgb, var(--gep-accent) 45%, transparent)' }}
             >
               <div
-                className="uppercase leading-none mb-2"
+                className="uppercase leading-none mb-2 text-white"
                 style={{
                   fontFamily: FONT_DISPLAY,
                   fontWeight: DISPLAY_STAT_WEIGHT,
                   fontSize: '3.5rem',
-                  color: 'var(--gep-accent)',
                 }}
               >
                 {s.n}
               </div>
               <div
-                className="text-xs tracking-widest uppercase"
-                style={{ fontFamily: FONT_BODY, color: 'rgba(23, 20, 15, 0.72)' }}
+                className="text-xs tracking-widest uppercase text-white/70"
+                style={{ fontFamily: FONT_BODY }}
               >
                 {s.l}
               </div>
