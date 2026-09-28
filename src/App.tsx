@@ -221,11 +221,17 @@ function FooterSocialIcon({ id, className = '' }: { id: FooterSocialId; classNam
 
 // ─── Images ────────────────────────────────────────────────────────────────
 const HERO_IMG = 'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=1920&h=1080&fit=crop&auto=format'
-const WAREHOUSE1 = 'https://images.unsplash.com/photo-1758789667762-56175fe4601c?w=700&h=500&fit=crop&auto=format'
+const TOUR_STORAGE_MULTI_DOCK_IMG = '/gep-tour-storage-multi-dock.png'
 const WAREHOUSE2 = 'https://images.unsplash.com/photo-1772305336606-989a457ffbae?w=700&h=500&fit=crop&auto=format'
-const WAREHOUSE3 = 'https://images.unsplash.com/photo-1771531072574-af6ed6b954c0?w=700&h=500&fit=crop&auto=format'
+const TOUR_STORAGE_COURTEOUS_SERVICE_IMG = '/gep-tour-storage-courteous-service.png'
 const STAGE_BG = `${import.meta.env.BASE_URL}gep-production-staffing.jpg`
 const TEAM_COLLAB_IMG = '/gep-why-gep-team.jpg'
+const SERVICE_STAGE_MANAGEMENT_IMG = '/gep-service-stage-management.png'
+const SERVICE_PRODUCTION_MANAGEMENT_IMG = '/gep-service-production-management.png'
+const SERVICE_PRODUCTION_COORDINATION_IMG = '/gep-service-production-coordination.png'
+const SERVICE_TRAVEL_LOGISTICS_IMG = '/gep-service-travel-logistics.png'
+const SERVICE_EVENT_MANAGEMENT_IMG = '/gep-service-event-management.png'
+const SERVICE_DESIGN_SERVICES_IMG = '/gep-service-design-services.png'
 
 /** Tour art lives in `public/recent-projects/` (served as static URLs for preview). */
 const recentProjectImg = (file: string) => `${import.meta.env.BASE_URL}recent-projects/${file}`
@@ -369,19 +375,19 @@ const SERVICES = [
     title: 'Production Management',
     icon: '◈',
     desc: 'End-to-end oversight of live productions — from pre-production planning through load-out. We coordinate every moving part so your show runs flawlessly.',
-    img: 'https://images.unsplash.com/photo-1563841930606-67e2bce48b78?w=600&h=500&fit=crop&auto=format',
+    img: SERVICE_PRODUCTION_MANAGEMENT_IMG,
   },
   {
     title: 'Production Coordination',
     icon: '◉',
     desc: 'On-the-ground coordination between departments, vendors, and talent. Our coordinators are the connective tissue of any successful production.',
-    img: 'https://images.unsplash.com/photo-1565035010268-a3816f98589a?w=600&h=500&fit=crop&auto=format',
+    img: SERVICE_PRODUCTION_COORDINATION_IMG,
   },
   {
     title: 'Event Management',
     icon: '◎',
     desc: 'Full-scale event operations for concerts, festivals, and corporate experiences — from site logistics to day-of execution.',
-    img: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&h=500&fit=crop&auto=format',
+    img: SERVICE_EVENT_MANAGEMENT_IMG,
   },
   {
     title: 'Artist Services',
@@ -393,13 +399,13 @@ const SERVICES = [
     title: 'Stage Management',
     icon: '▣',
     desc: 'Precise cue-to-cue stage management with experienced crew who have worked the biggest shows in the industry.',
-    img: 'https://images.unsplash.com/photo-1576514129883-2f1d47a65da6?w=600&h=500&fit=crop&auto=format',
+    img: SERVICE_STAGE_MANAGEMENT_IMG,
   },
   {
     title: 'Travel Logistics',
     icon: '◆',
     desc: 'Ground transportation, hotel blocks, and movement logistics for crew and talent — nationwide and internationally.',
-    img: 'https://images.unsplash.com/photo-1570125909232-eb263c188f7e?w=600&h=500&fit=crop&auto=format',
+    img: SERVICE_TRAVEL_LOGISTICS_IMG,
   },
   {
     title: 'Tour Storage',
@@ -411,25 +417,38 @@ const SERVICES = [
     title: 'Design Services',
     icon: '◐',
     desc: 'Creative production design support — stage layouts, sight-line planning, and visual concept development in collaboration with your team.',
-    img: 'https://images.unsplash.com/photo-1599739291060-4578e77dac5d?w=600&h=500&fit=crop&auto=format',
+    img: SERVICE_DESIGN_SERVICES_IMG,
   },
 ]
 
-const STORAGE_FEATURES = [
+const STORAGE_FEATURES: {
+  title: string
+  desc: string
+  img: string
+  /** Zoom past object-cover to crop empty foreground/sky */
+  imgScale: number
+  imgPosition: string
+}[] = [
   {
     title: 'Multi-Dock Access',
     desc: 'Multiple loading bays for fast, efficient gear movement — in and out without delay.',
-    img: WAREHOUSE1,
+    img: TOUR_STORAGE_MULTI_DOCK_IMG,
+    imgScale: 1.55,
+    imgPosition: '52% 32%',
   },
   {
     title: 'Music Industry Expertise',
     desc: "Our team understands touring equipment. We've stored it, moved it, and protected it for 40+ years.",
     img: WAREHOUSE2,
+    imgScale: 1.35,
+    imgPosition: '50% 42%',
   },
   {
     title: 'Courteous Service',
     desc: 'Professional, responsive staff who treat your gear with the same care you do.',
-    img: WAREHOUSE3,
+    img: TOUR_STORAGE_COURTEOUS_SERVICE_IMG,
+    imgScale: 1.65,
+    imgPosition: '50% 28%',
   },
 ]
 
@@ -1140,7 +1159,11 @@ function StorageSection() {
               <img
                 src={f.img}
                 alt={f.title}
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 [transform:scale(var(--storage-img-scale))] group-hover:[transform:scale(calc(var(--storage-img-scale)*1.04))]"
+                style={{
+                  objectPosition: f.imgPosition,
+                  ['--storage-img-scale' as string]: String(f.imgScale),
+                }}
               />
               <div
                 className="absolute inset-0"
