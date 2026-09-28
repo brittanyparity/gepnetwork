@@ -1,4 +1,4 @@
-import { useState, useEffect, type CSSProperties, type FormEvent } from 'react'
+import { useState, useEffect, useRef, type CSSProperties, type FormEvent } from 'react'
 import liveNationColor from './imports/live-nation-logo-color.png'
 import liveNationWhite from './imports/live-nation-logo-white.png'
 import aegPresentsColor from './imports/aeg-presents-logo-color.png'
@@ -25,7 +25,24 @@ import { SITE_LAYOUTS, type SiteLayoutId } from './site-layouts'
 
 const HERO_VIDEO = '/gep-hero-video.mp4'
 
-const LIGHT_COLOR_SCHEMES = new Set(['light-slate', 'bone-light', 'bone-dark'])
+const LIGHT_COLOR_SCHEMES = new Set([
+  'light-slate',
+  'bone-dark',
+  'earth-palette',
+  'palette-ember',
+  'palette-brass',
+  'palette-clay',
+  'palette-dusk',
+  'palette-sage',
+])
+
+const PALETTE = {
+  ember: '#E2622C',
+  brass: '#C9982F',
+  clay: '#A8503C',
+  dusk: '#43627F',
+  sage: '#6E8467',
+} as const
 
 type ColorScheme = {
   id: string
@@ -33,34 +50,61 @@ type ColorScheme = {
   vars: Record<string, string>
 }
 
-const COLOR_SCHEMES: ColorScheme[] = [
-  {
-    id: 'bone-light',
-    name: 'Bone Light',
+function accentTextOn(accent: string): string {
+  return accent.toUpperCase() === PALETTE.brass.toUpperCase() ? '#17140F' : '#FFFFFF'
+}
+
+function lightBoneScheme(
+  id: string,
+  name: string,
+  accent: string,
+  heroWord: string,
+  extras: Record<string, string> = {},
+): ColorScheme {
+  return {
+    id,
+    name,
     vars: {
       '--gep-bg': '#F8F5F0',
       '--gep-bg-alt': '#F3EFE8',
       '--gep-card': '#ECE6DC',
-      '--gep-footer': 'linear-gradient(180deg, #5C5348 0%, #7A7064 100%)',
-      '--gep-accent': '#B44A18',
-      '--gep-accent-text': '#F8F5F0',
-      '--gep-header-scrolled': 'rgba(107, 99, 88, 0.68)',
+      '--gep-footer': extras['--gep-footer'] ?? 'linear-gradient(180deg, #43627F 0%, #6E8467 100%)',
+      '--gep-accent': accent,
+      '--gep-accent-text': accentTextOn(accent),
+      '--gep-header-scrolled': 'rgba(67, 98, 127, 0.72)',
       '--gep-overlay-top': 'rgba(0, 0, 0, 0.10)',
       '--gep-overlay-mid': 'rgba(0, 0, 0, 0.10)',
       '--gep-overlay-bottom': 'rgba(0, 0, 0, 0.10)',
-      '--gep-card-overlay': 'rgba(107, 99, 88, 0.72)',
+      '--gep-card-overlay': 'rgba(67, 98, 127, 0.72)',
       '--gep-staffing-overlay': 'linear-gradient(to bottom, rgba(0, 0, 50, 0.8) 0%, rgba(0, 0, 62, 0.72) 100%)',
       '--gep-text': '#17140F',
-      '--gep-text-muted': '#7A7064',
+      '--gep-text-muted': '#6B6358',
       '--gep-logo-filter': 'none',
       '--gep-client-logo-filter': 'brightness(0)',
       '--gep-divider': 'rgba(23, 20, 15, 0.12)',
-      '--gep-hero-word': '#B44A18',
+      '--gep-hero-word': heroWord,
       '--gep-hero-kicker': '#F8F5F0',
-      '--gep-why-gep-overlay': 'linear-gradient(105deg, rgba(23, 20, 15, 0.78) 0%, rgba(23, 20, 15, 0.42) 50%, rgba(23, 20, 15, 0.32) 100%)',
-      '--gep-storage-overlay': 'linear-gradient(to top, rgba(92, 83, 72, 0.78) 0%, rgba(140, 130, 118, 0.4) 55%, rgba(92, 83, 72, 0.16) 100%)',
+      '--gep-why-gep-overlay':
+        'linear-gradient(105deg, rgba(23, 20, 15, 0.78) 0%, rgba(23, 20, 15, 0.42) 50%, rgba(23, 20, 15, 0.32) 100%)',
+      '--gep-storage-overlay':
+        'linear-gradient(to top, rgba(67, 98, 127, 0.78) 0%, rgba(110, 132, 103, 0.4) 55%, rgba(67, 98, 127, 0.16) 100%)',
+      ...extras,
     },
-  },
+  }
+}
+
+const COLOR_SCHEMES: ColorScheme[] = [
+  lightBoneScheme('bone-dark', 'Bone Dark', '#B44A18', '#B44A18', {
+    '--gep-bg': '#F3EFE8',
+    '--gep-bg-alt': '#E4DDD2',
+    '--gep-card': '#E4DDD2',
+    '--gep-footer': 'linear-gradient(180deg, #17140F 0%, #2A2218 100%)',
+    '--gep-header-scrolled': 'rgba(23, 20, 15, 0.72)',
+    '--gep-card-overlay': 'rgba(23, 20, 15, 0.78)',
+    '--gep-divider': 'rgba(23, 20, 15, 0.16)',
+    '--gep-storage-overlay':
+      'linear-gradient(to top, rgba(45, 40, 34, 0.86) 0%, rgba(107, 99, 88, 0.46) 55%, rgba(45, 40, 34, 0.2) 100%)',
+  }),
   {
     id: 'light-slate',
     name: 'Platinum Light',
@@ -68,80 +112,48 @@ const COLOR_SCHEMES: ColorScheme[] = [
       '--gep-bg': '#FFFFFF',
       '--gep-bg-alt': '#F5F5F7',
       '--gep-card': '#F5F5F7',
-      '--gep-footer': 'linear-gradient(180deg, #000000 0%, #000032 100%)',
-      '--gep-accent': '#FFC52F',
-      '--gep-accent-text': '#000032',
-      '--gep-header-scrolled': 'rgba(0,0,0,0.93)',
+      '--gep-footer': 'linear-gradient(180deg, #43627F 0%, #2A2218 100%)',
+      '--gep-accent': PALETTE.dusk,
+      '--gep-accent-text': '#FFFFFF',
+      '--gep-header-scrolled': 'rgba(67, 98, 127, 0.88)',
       '--gep-overlay-top': 'rgba(0, 0, 0, 0.10)',
       '--gep-overlay-mid': 'rgba(0, 0, 0, 0.10)',
       '--gep-overlay-bottom': 'rgba(0, 0, 0, 0.10)',
-      '--gep-card-overlay': 'rgba(0,0,0,0.72)',
+      '--gep-card-overlay': 'rgba(67, 98, 127, 0.72)',
       '--gep-staffing-overlay': 'linear-gradient(to bottom, rgba(0, 0, 50, 0.8) 0%, rgba(0, 0, 62, 0.72) 100%)',
       '--gep-text': '#1D1D1F',
       '--gep-text-muted': '#6E6E73',
       '--gep-logo-filter': 'none',
       '--gep-client-logo-filter': 'brightness(0)',
       '--gep-divider': 'rgba(0,0,0,0.08)',
-      '--gep-hero-word': '#FFC52F',
+      '--gep-hero-word': PALETTE.ember,
       '--gep-hero-kicker': '#F5F5F0',
-      '--gep-why-gep-overlay': 'linear-gradient(105deg, rgba(0, 0, 0, 0.82) 0%, rgba(0, 0, 0, 0.48) 50%, rgba(0, 0, 0, 0.36) 100%)',
-      '--gep-storage-overlay': 'linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.48) 55%, rgba(0,0,0,0.22) 100%)',
+      '--gep-why-gep-overlay':
+        'linear-gradient(105deg, rgba(0, 0, 0, 0.82) 0%, rgba(0, 0, 0, 0.48) 50%, rgba(0, 0, 0, 0.36) 100%)',
+      '--gep-storage-overlay':
+        'linear-gradient(to top, rgba(67, 98, 127, 0.88) 0%, rgba(67, 98, 127, 0.48) 55%, rgba(67, 98, 127, 0.22) 100%)',
     },
   },
-  {
-    id: 'bone-dark',
-    name: 'Bone Dark',
-    vars: {
-      '--gep-bg': '#F3EFE8',
-      '--gep-bg-alt': '#E4DDD2',
-      '--gep-card': '#E4DDD2',
-      '--gep-footer': 'linear-gradient(180deg, #17140F 0%, #2A2218 100%)',
-      '--gep-accent': '#B44A18',
-      '--gep-accent-text': '#F8F5F0',
-      '--gep-header-scrolled': 'rgba(23, 20, 15, 0.72)',
-      '--gep-overlay-top': 'rgba(0, 0, 0, 0.10)',
-      '--gep-overlay-mid': 'rgba(0, 0, 0, 0.10)',
-      '--gep-overlay-bottom': 'rgba(0, 0, 0, 0.10)',
-      '--gep-card-overlay': 'rgba(23, 20, 15, 0.78)',
-      '--gep-staffing-overlay': 'linear-gradient(to bottom, rgba(0, 0, 50, 0.8) 0%, rgba(0, 0, 62, 0.72) 100%)',
-      '--gep-text': '#17140F',
-      '--gep-text-muted': '#6B6358',
-      '--gep-logo-filter': 'none',
-      '--gep-client-logo-filter': 'brightness(0)',
-      '--gep-divider': 'rgba(23, 20, 15, 0.16)',
-      '--gep-hero-word': '#B44A18',
-      '--gep-hero-kicker': '#F8F5F0',
-      '--gep-why-gep-overlay': 'linear-gradient(105deg, rgba(23, 20, 15, 0.8) 0%, rgba(23, 20, 15, 0.44) 50%, rgba(23, 20, 15, 0.34) 100%)',
-      '--gep-storage-overlay': 'linear-gradient(to top, rgba(45, 40, 34, 0.86) 0%, rgba(107, 99, 88, 0.46) 55%, rgba(45, 40, 34, 0.2) 100%)',
-    },
-  },
-  {
-    id: 'platinum',
-    name: 'Platinum Dark',
-    vars: {
-      '--gep-bg': '#0f0f12',
-      '--gep-bg-alt': '#1a1a1f',
-      '--gep-card': '#222228',
-      '--gep-footer': 'linear-gradient(180deg, #000000 0%, #000032 100%)',
-      '--gep-accent': '#FFC52F',
-      '--gep-accent-text': '#000032',
-      '--gep-header-scrolled': 'rgba(15,15,18,0.97)',
-      '--gep-overlay-top': 'rgba(0, 0, 0, 0.10)',
-      '--gep-overlay-mid': 'rgba(0, 0, 0, 0.10)',
-      '--gep-overlay-bottom': 'rgba(0, 0, 0, 0.10)',
-      '--gep-card-overlay': 'rgba(15,15,18,0.92)',
-      '--gep-staffing-overlay': 'linear-gradient(to bottom, rgba(0, 0, 50, 0.8) 0%, rgba(0, 0, 62, 0.72) 100%)',
-      '--gep-text': '#ffffff',
-      '--gep-text-muted': 'rgba(255,255,255,0.6)',
-      '--gep-logo-filter': 'none',
-      '--gep-client-logo-filter': 'brightness(0) invert(1)',
-      '--gep-divider': 'rgba(255,255,255,0.07)',
-      '--gep-hero-word': '#FFC52F',
-      '--gep-hero-kicker': '#F5F3F0',
-      '--gep-why-gep-overlay': 'linear-gradient(105deg, rgba(15, 15, 18, 0.85) 0%, rgba(15, 15, 18, 0.5) 50%, rgba(15, 15, 18, 0.38) 100%)',
-      '--gep-storage-overlay': 'linear-gradient(to top, rgba(15,15,18,0.92) 0%, rgba(15,15,18,0.52) 55%, rgba(15,15,18,0.26) 100%)',
-    },
-  },
+  lightBoneScheme('earth-palette', 'Earth Palette', PALETTE.ember, PALETTE.brass, {
+    '--gep-footer': `linear-gradient(135deg, ${PALETTE.dusk} 0%, ${PALETTE.sage} 50%, ${PALETTE.clay} 100%)`,
+    '--gep-hero-word': PALETTE.brass,
+    '--gep-accent-secondary': PALETTE.clay,
+    '--gep-accent-tertiary': PALETTE.sage,
+  }),
+  lightBoneScheme('palette-ember', 'Ember', PALETTE.ember, PALETTE.ember),
+  lightBoneScheme('palette-brass', 'Brass', PALETTE.brass, PALETTE.brass),
+  lightBoneScheme('palette-clay', 'Clay', PALETTE.clay, PALETTE.clay),
+  lightBoneScheme('palette-dusk', 'Dusk', PALETTE.dusk, PALETTE.dusk),
+  lightBoneScheme('palette-sage', 'Sage', PALETTE.sage, PALETTE.sage),
+]
+
+const HERO_INTRO =
+  'GEP Network executes concerts, tours, festivals, and corporate events at the highest level — backed by 40+ years of industry expertise.'
+
+const FOOTER_POSTS = [
+  { title: 'Press Release for Juneteenth Celebration', date: 'May 17, 2024', href: '#' },
+  { title: 'The Future of Event Production', date: 'March 5, 2024', href: '#' },
+  { title: 'The Art of Event Management', date: 'March 5, 2024', href: '#' },
 ]
 
 // ─── Images ────────────────────────────────────────────────────────────────
@@ -465,7 +477,7 @@ function Header({
   logoLockup: LogoLockupId
   siteLayout: SiteLayoutId
 }) {
-  const centeredLogoHero = siteLayout === 'centered-logo-hero'
+  const navLeftHero = siteLayout === 'centered-logo-hero' || siteLayout === 'crafting-tagline-hero'
   const [scrolled, setScrolled] = useState(false)
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 40)
@@ -483,11 +495,11 @@ function Header({
       }}
     >
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10 h-20 flex items-center w-full">
-        {!centeredLogoHero && (
+        {!navLeftHero && (
           <GEPLogoLockup globeSize={48} colorSchemeKey={colorScheme} lockupId={logoLockup} />
         )}
 
-        {centeredLogoHero && (
+        {navLeftHero && (
           <nav className="hidden lg:flex items-center gap-6 xl:gap-8 flex-wrap">
             {scrolled && (
               <GEPAbbrevGlobeMark
@@ -510,7 +522,7 @@ function Header({
           </nav>
         )}
 
-        {!centeredLogoHero && (
+        {!navLeftHero && (
           <div className="hidden lg:flex items-center gap-8 ml-auto">
             <nav className="flex items-center gap-8">
               {NAV_LINKS.map((link) => (
@@ -532,14 +544,14 @@ function Header({
           </div>
         )}
 
-        {centeredLogoHero && (
+        {navLeftHero && (
           <a href="tel:8774376381" className={`hidden lg:inline-flex ml-auto ${CALL_BUTTON_CLASS}`} style={callButtonStyle}>
             877-437-6381
           </a>
         )}
 
         <button
-          className={`lg:hidden flex flex-col gap-1.5 p-2 ${centeredLogoHero ? '' : 'ml-auto'} ${centeredLogoHero ? 'order-first' : ''}`}
+          className={`lg:hidden flex flex-col gap-1.5 p-2 ${navLeftHero ? '' : 'ml-auto'} ${navLeftHero ? 'order-first' : ''}`}
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
         >
@@ -548,7 +560,7 @@ function Header({
           <span className={`block w-6 h-px transition-all duration-200 ${menuOpen ? '-rotate-45 -translate-y-2' : ''}`} style={{ background: '#ffffff' }} />
         </button>
 
-        {centeredLogoHero && (
+        {navLeftHero && (
           <a href="tel:8774376381" className={`lg:hidden ml-auto ${CALL_BUTTON_CLASS} px-4 py-2 text-[10px]`} style={callButtonStyle}>
             877-437-6381
           </a>
@@ -595,6 +607,7 @@ function Hero({
   logoLockup: LogoLockupId
 }) {
   const centeredLogoHero = siteLayout === 'centered-logo-hero'
+  const craftingTaglineHero = siteLayout === 'crafting-tagline-hero'
 
   return (
     <section className="relative w-full min-h-screen flex items-center justify-center overflow-hidden" style={{ background: 'var(--gep-bg)' }}>
@@ -620,15 +633,7 @@ function Hero({
       />
 
       <div className="relative z-10 text-center max-w-5xl mx-auto px-6 pt-20">
-        {!centeredLogoHero && (
-          <p
-            className="text-xs tracking-[0.35em] uppercase mb-6"
-            style={{ fontFamily: FONT_BODY, color: 'var(--gep-hero-kicker, #F8F5F0)' }}
-          >
-            Full-Service Live Event Production
-          </p>
-        )}
-        {centeredLogoHero ? (
+        {centeredLogoHero && (
           <>
             <div className="flex justify-center mb-6 w-full max-w-[min(100%,64rem)] mx-auto px-2">
               <GEPLogoLockup
@@ -646,23 +651,28 @@ function Hero({
               Full-Service Live Event Production
             </p>
           </>
-        ) : (
-          <h1
-            className="text-white uppercase leading-none mb-6"
-            style={{
-              fontFamily: FONT_DISPLAY,
-              fontSize: 'clamp(3.5rem, 9vw, 8rem)',
-              fontWeight: 900,
-              letterSpacing: '0.02em',
-            }}
-          >
-            Production<br />
-            <span style={{ color: 'var(--gep-hero-word, var(--gep-accent))' }}>Without</span> Limits
-          </h1>
         )}
-        <p className="text-white/60 text-base lg:text-lg max-w-xl mx-auto mb-10 leading-relaxed" style={{ fontFamily: FONT_BODY }}>
-          GEP Network executes concerts, tours, festivals, and corporate events at the highest level — backed by 40+ years of industry expertise.
-        </p>
+        {craftingTaglineHero && (
+          <>
+            <p
+              className="text-xs tracking-[0.35em] uppercase mb-8"
+              style={{ fontFamily: FONT_BODY, color: 'var(--gep-hero-kicker, #F8F5F0)' }}
+            >
+              Full-Service Live Event Production
+            </p>
+            <h1
+              className="text-white uppercase leading-snug max-w-4xl mx-auto mb-10"
+              style={{
+                fontFamily: FONT_DISPLAY,
+                fontSize: 'clamp(1.75rem, 4.5vw, 3.25rem)',
+                fontWeight: 300,
+                letterSpacing: '0.14em',
+              }}
+            >
+              Crafting the Extraordinary in Global Entertainment
+            </h1>
+          </>
+        )}
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a
             href="#services"
@@ -1139,6 +1149,12 @@ function ClientLogoWall({ colorScheme }: { colorScheme: string }) {
     <section className="py-20" style={{ borderTop: '1px solid var(--gep-divider)', borderBottom: '1px solid var(--gep-divider)', background: 'var(--gep-bg)' }}>
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
         <p
+          className="text-base lg:text-lg leading-relaxed text-center max-w-3xl mx-auto mb-10"
+          style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}
+        >
+          {HERO_INTRO}
+        </p>
+        <p
           className="text-xs tracking-[0.3em] uppercase text-center mb-12"
           style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}
         >
@@ -1181,13 +1197,40 @@ function StaffingTriangle() {
 }
 
 function ProductionStaffing() {
+  const sectionRef = useRef<HTMLElement>(null)
+  const [parallaxY, setParallaxY] = useState(0)
+
+  useEffect(() => {
+    const onScroll = () => {
+      const el = sectionRef.current
+      if (!el) return
+      const rect = el.getBoundingClientRect()
+      const viewH = window.innerHeight
+      if (rect.bottom < 0 || rect.top > viewH) return
+      const progress = (viewH - rect.top) / (viewH + rect.height)
+      setParallaxY((progress - 0.5) * 100)
+    }
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+    }
+  }, [])
+
   return (
-    <section className="relative py-20 md:py-28 overflow-hidden min-h-[28rem]">
+    <section ref={sectionRef} className="relative py-20 md:py-28 overflow-hidden min-h-[28rem]">
       <img
         src={STAGE_BG}
         alt=""
         aria-hidden="true"
-        className="absolute inset-0 z-0 w-full h-full object-cover object-center"
+        className="absolute left-0 z-0 w-full object-cover object-center will-change-transform"
+        style={{
+          top: '-12%',
+          height: '124%',
+          transform: `translate3d(0, ${parallaxY}px, 0)`,
+        }}
       />
       <div
         className="absolute inset-0 z-[1] pointer-events-none"
@@ -1328,8 +1371,7 @@ function Footer({ colorScheme, logoLockup }: { colorScheme: string; logoLockup: 
     <footer id="contact" className="pt-20 pb-10 scroll-mt-24" style={{ borderTop: '1px solid rgba(255,255,255,0.07)', background: 'var(--gep-footer)' }}>
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-          {/* Brand */}
-          <div className="lg:col-span-1">
+          <div>
             <GEPLogoLockup
               globeSize={48}
               colorSchemeKey={colorScheme}
@@ -1339,7 +1381,6 @@ function Footer({ colorScheme, logoLockup }: { colorScheme: string; logoLockup: 
             <p className="text-white/35 text-sm leading-relaxed mb-6" style={{ fontFamily: FONT_BODY }}>
               Full-service live event production. 40+ years of experience. Global reach.
             </p>
-            {/* Social */}
             <div className="flex flex-wrap gap-x-4 gap-y-2">
               {[
                 { name: 'YouTube', href: 'https://www.youtube.com/@gepnetwork' },
@@ -1361,7 +1402,6 @@ function Footer({ colorScheme, logoLockup }: { colorScheme: string; logoLockup: 
             </div>
           </div>
 
-          {/* Navigation */}
           <div>
             <p className="text-white/20 text-[10px] tracking-[0.3em] uppercase mb-5" style={{ fontFamily: FONT_BODY }}>Navigate</p>
             <nav className="flex flex-col gap-3">
@@ -1373,8 +1413,33 @@ function Footer({ colorScheme, logoLockup }: { colorScheme: string; logoLockup: 
             </nav>
           </div>
 
-          {/* Contact */}
           <div>
+            <p className="text-white/20 text-[10px] tracking-[0.3em] uppercase mb-5" style={{ fontFamily: FONT_BODY }}>Latest Posts</p>
+            <ul className="flex flex-col gap-5">
+              {FOOTER_POSTS.map((post) => (
+                <li key={post.title}>
+                  <a
+                    href={post.href}
+                    className="block text-white/60 hover:text-white text-sm leading-snug transition-colors duration-200"
+                    style={{ fontFamily: FONT_BODY }}
+                  >
+                    {post.title}
+                  </a>
+                  <p className="text-white/30 text-xs mt-1" style={{ fontFamily: FONT_BODY }}>
+                    {post.date}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <p className="text-white/20 text-[10px] tracking-[0.3em] uppercase mb-5" style={{ fontFamily: FONT_BODY }}>Location</p>
+            <address className="not-italic text-white/50 text-sm leading-loose mb-8" style={{ fontFamily: FONT_BODY }}>
+              1390 Business Ctr Dr. SW<br />
+              Ste 200 - 300<br />
+              Conyers, GA 30094
+            </address>
             <p className="text-white/20 text-[10px] tracking-[0.3em] uppercase mb-5" style={{ fontFamily: FONT_BODY }}>Contact</p>
             <div className="flex flex-col gap-4">
               <div>
@@ -1389,20 +1454,10 @@ function Footer({ colorScheme, logoLockup }: { colorScheme: string; logoLockup: 
                   bookings@gepnetwork.com
                 </a>
               </div>
+              <a href="tel:8774376381" className="text-white/60 hover:text-white text-sm transition-colors" style={{ fontFamily: FONT_BODY }}>
+                877-437-6381
+              </a>
             </div>
-          </div>
-
-          {/* Address + Phone */}
-          <div>
-            <p className="text-white/20 text-[10px] tracking-[0.3em] uppercase mb-5" style={{ fontFamily: FONT_BODY }}>Location</p>
-            <address className="not-italic text-white/50 text-sm leading-loose mb-6" style={{ fontFamily: FONT_BODY }}>
-              1390 Business Ctr Dr. SW<br />
-              Ste 200 - 300<br />
-              Conyers, GA 30094
-            </address>
-            <a href="tel:8774376381" className="text-white/60 hover:text-white text-sm transition-colors" style={{ fontFamily: FONT_BODY }}>
-              877-437-6381
-            </a>
           </div>
         </div>
 
@@ -1422,7 +1477,7 @@ function Footer({ colorScheme, logoLockup }: { colorScheme: string; logoLockup: 
 // ─── App ─────────────────────────────────────────────────────────────────────
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false)
-  const [colorScheme, setColorScheme] = useState('bone-light')
+  const [colorScheme, setColorScheme] = useState('bone-dark')
   const [logoLockup, setLogoLockup] = useState<LogoLockupId>('century-globe')
   const [siteLayout, setSiteLayout] = useState<SiteLayoutId>('centered-logo-hero')
   const scheme = COLOR_SCHEMES.find((s) => s.id === colorScheme) ?? COLOR_SCHEMES[0]
