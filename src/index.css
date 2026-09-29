@@ -50,6 +50,11 @@ html {
   padding-left: 0.14em;
 }
 
+/* Header lockup only — footer keeps .gep-logo-century defaults above */
+.gep-header-logo .gep-logo-century {
+  font-size: clamp(1.5rem, 3.75vw, 2.45rem);
+}
+
 .gep-logo-century--hero {
   font-size: clamp(4.5rem, 16vw, 10rem);
   padding-left: 0.14em;
