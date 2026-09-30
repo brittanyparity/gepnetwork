@@ -569,11 +569,7 @@ const CLIENT_LOGOS: { name: string; logo: string; logoClass?: string }[] = [
   { name: 'J. Cole', logo: '/client-logos/j-cole.png' },
   { name: 'Dreamcrew Music, LLC', logo: '/client-logos/dreamcrew-music.png' },
   { name: 'Roots Picnic', logo: '/client-logos/roots-picnic.png' },
-  {
-    name: 'BPC',
-    logo: '/client-logos/bpc.png',
-    logoClass: 'gep-client-logo--light-on-dark',
-  },
+  { name: 'BPC', logo: '/client-logos/bpc.png' },
   { name: 'P-Funk Connection', logo: '/client-logos/p-funk-connection.png' },
   { name: 'The Tom Joyner Foundation Fantastic Voyage', logo: '/client-logos/tom-joyner-foundation.png' },
 ] as const
