@@ -1259,10 +1259,10 @@ function StorageSection() {
           Secure, accessible storage built for the music industry — not general warehousing.
         </p>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:items-stretch">
           {STORAGE_FEATURES.map((f) => (
-            <div key={f.title} className="group flex flex-col overflow-hidden">
-              <div className="relative h-[240px] sm:h-[260px] overflow-hidden" style={{ background: 'var(--gep-card)' }}>
+            <div key={f.title} className="group flex h-full min-h-0 flex-col overflow-hidden">
+              <div className="relative h-[240px] shrink-0 sm:h-[260px] overflow-hidden" style={{ background: 'var(--gep-card)' }}>
                 <img
                   src={f.img}
                   alt={f.title}
@@ -1274,7 +1274,7 @@ function StorageSection() {
                 />
               </div>
               <div
-                className="p-7"
+                className="flex flex-1 flex-col p-5 sm:p-6"
                 style={{
                   background: 'color-mix(in srgb, var(--gep-accent) 32%, #17140F 68%)',
                   color: 'var(--gep-staffing-text, #F3EFE8)',
@@ -1282,12 +1282,17 @@ function StorageSection() {
               >
                 <h3
                   className="uppercase mb-2 leading-tight"
-                  style={{ fontFamily: FONT_DISPLAY, fontWeight: DISPLAY_TITLE_WEIGHT, fontSize: '1.5rem', letterSpacing: '0.03em' }}
+                  style={{
+                    fontFamily: FONT_DISPLAY,
+                    fontWeight: DISPLAY_TITLE_WEIGHT,
+                    fontSize: 'clamp(1.05rem, 2vw, 1.25rem)',
+                    letterSpacing: '0.03em',
+                  }}
                 >
                   {f.title}
                 </h3>
                 <p
-                  className="text-sm leading-relaxed"
+                  className="text-xs leading-relaxed flex-1"
                   style={{ fontFamily: FONT_BODY, color: 'var(--gep-staffing-text-muted, rgba(243, 239, 232, 0.82))' }}
                 >
                   {f.desc}
