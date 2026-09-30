@@ -459,7 +459,11 @@ const NAV_LINKS = [
 
 
 const PRODUCTIONS = [
-  { name: 'Lollapalooza India', tour: '2026', img: recentProjectImg('lollapalooza-india-2026.png') },
+  {
+    name: 'Lollapalooza India',
+    tour: 'India · 2026',
+    img: recentProjectImg('lollapalooza-india-2026.png'),
+  },
   {
     name: 'Ballad Beast',
     tour: 'Saudi Arabia · 2026',
