@@ -91,6 +91,20 @@ a.gep-hero-logo-xl {
   justify-content: center;
 }
 
+/* Logo over tagline — ~70% viewport, centered */
+a.gep-hero-logo-xl.gep-hero-logo-xl--bounded {
+  width: min(70vw, 100%);
+  max-width: 52rem;
+  justify-content: center;
+}
+
+.gep-hero-logo-xl--bounded .gep-logo-century {
+  font-size: clamp(2.35rem, 9.5vw, 8.25rem);
+  width: 100%;
+  max-width: 100%;
+  justify-content: center;
+}
+
 .gep-logo-century__g {
   position: relative;
   top: -0.036em;

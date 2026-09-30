@@ -19,6 +19,10 @@ const HERO_LAYOUTS = [
 
 type HeroLayoutId = (typeof HERO_LAYOUTS)[number]['id']
 
+function headerHidesLogo(heroLayout: HeroLayoutId) {
+  return heroLayout === 'logo-over-tagline' || heroLayout === 'tagline-only'
+}
+
 const HERO_VIDEO = '/gep-hero-video.mp4'
 
 const LIGHT_COLOR_SCHEMES = new Set([
@@ -672,11 +676,14 @@ function Header({
   menuOpen,
   setMenuOpen,
   colorScheme,
+  heroLayout,
 }: {
   menuOpen: boolean
   setMenuOpen: (v: boolean) => void
   colorScheme: string
+  heroLayout: HeroLayoutId
 }) {
+  const hideHeaderLogo = headerHidesLogo(heroLayout)
   const [scrolled, setScrolled] = useState(false)
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 40)
@@ -695,17 +702,22 @@ function Header({
           : '1px solid transparent',
       }}
     >
-      <div className="relative max-w-[1400px] mx-auto px-6 lg:px-10 min-h-[5.5rem] py-2 flex items-center w-full">
-        <div className="gep-header-logo relative z-10 flex-shrink-0">
-          <GEPLogoLockup
-            globeSize={68}
-            colorSchemeKey={colorScheme}
-            lockupId={LOGO_LOCKUP}
-          />
-        </div>
+      <div className="relative max-w-[1400px] mx-auto px-6 lg:px-10 min-h-[5.5rem] py-2 flex items-center w-full gap-5 xl:gap-8">
+        {!hideHeaderLogo && (
+          <div className="gep-header-logo relative z-10 flex-shrink-0">
+            <GEPLogoLockup
+              globeSize={68}
+              colorSchemeKey={colorScheme}
+              lockupId={LOGO_LOCKUP}
+            />
+          </div>
+        )}
 
-        <div className="relative z-10 flex items-center gap-5 xl:gap-8 ml-auto">
-          <nav className="hidden lg:flex items-center gap-6 xl:gap-8 whitespace-nowrap" aria-label="Primary">
+        {hideHeaderLogo && (
+          <nav
+            className="relative z-10 hidden lg:flex items-center gap-6 xl:gap-8 whitespace-nowrap"
+            aria-label="Primary"
+          >
             {NAV_LINKS.map((link) => (
               <a
                 key={link.label}
@@ -717,6 +729,23 @@ function Header({
               </a>
             ))}
           </nav>
+        )}
+
+        <div className="relative z-10 flex items-center gap-5 xl:gap-8 ml-auto">
+          {!hideHeaderLogo && (
+            <nav className="hidden lg:flex items-center gap-6 xl:gap-8 whitespace-nowrap" aria-label="Primary">
+              {NAV_LINKS.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  className="gep-header-link text-xs tracking-widest uppercase"
+                  style={{ fontFamily: FONT_BODY }}
+                >
+                  {link.label}
+                </a>
+              ))}
+            </nav>
+          )}
           <CallButton className="inline-flex sm:hidden" iconOnly />
           <CallButton className="hidden sm:inline-flex shrink-0">
             877-437-6381
@@ -794,7 +823,7 @@ function Hero({ heroLayout, colorScheme }: { heroLayout: HeroLayoutId; colorSche
             variant="hero"
             colorSchemeKey={colorScheme}
             lockupId={LOGO_LOCKUP}
-            className="gep-hero-logo-xl text-white pointer-events-none"
+            className={`gep-hero-logo-xl text-white pointer-events-none${heroLayout === 'logo-over-tagline' ? ' gep-hero-logo-xl--bounded' : ''}`}
           />
         )}
         {showTagline && (
@@ -1574,7 +1603,12 @@ export default function App() {
       className="min-h-screen w-full"
       style={{ ...scheme.vars, background: 'var(--gep-bg)', color: 'var(--gep-text)' } as CSSProperties}
     >
-      <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} colorScheme={colorScheme} />
+      <Header
+        menuOpen={menuOpen}
+        setMenuOpen={setMenuOpen}
+        colorScheme={colorScheme}
+        heroLayout={heroLayout}
+      />
       <Hero heroLayout={heroLayout} colorScheme={colorScheme} />
       <ClientLogoWall />
       <RecentProjectsCarousel />
