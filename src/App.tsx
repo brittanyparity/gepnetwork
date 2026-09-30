@@ -7,29 +7,17 @@ import {
   type MouseEvent,
   type ReactNode,
 } from 'react'
-import liveNationColor from './imports/live-nation-logo-color.png'
-import liveNationWhite from './imports/live-nation-logo-white.png'
-import aegPresentsColor from './imports/aeg-presents-logo-color.png'
-import aegPresentsWhite from './imports/aeg-presents-logo-white.png'
-import betColor from './imports/BET-logo-color.png'
-import betWhite from './imports/BET-logo-white.png'
-import rocNationColor from './imports/roc-nation-logo-color.png'
-import rocNationWhite from './imports/roc-nation-logo-white.png'
-import atlanticRecordsColor from './imports/atlantic-records-logo-color.png'
-import atlanticRecordsWhite from './imports/atlantic-records-logo-white.png'
-import defJamColor from './imports/def-jam-logo-color.png'
-import defJamWhite from './imports/def-jam-logo-white.png'
-import universalMusicColor from './imports/universal-music-logo-color.png'
-import universalMusicWhite from './imports/universal-music-logo-white.png'
-import warnerMusicColor from './imports/warner-music-logo-color.png'
-import warnerMusicWhite from './imports/warner-music-logo-white.png'
-import sonyMusicColor from './imports/sony-music-logo-color.png'
-import sonyMusicWhite from './imports/sony-music-logo-white.png'
-import republicRecordsColor from './imports/republic-records-logo-color.svg'
-import republicRecordsWhite from './imports/republic-records-logo-white.png'
 import GEPLogoLockup from './components/GepGlobeMark'
 
 const LOGO_LOCKUP = 'century-globe' as const
+
+const HERO_LAYOUTS = [
+  { id: 'tagline-only', name: 'Tagline Only' },
+  { id: 'logo-over-tagline', name: 'Logo Over Tagline' },
+  { id: 'logo-only', name: 'Logo Only' },
+] as const
+
+type HeroLayoutId = (typeof HERO_LAYOUTS)[number]['id']
 
 const HERO_VIDEO = '/gep-hero-video.mp4'
 
@@ -40,6 +28,11 @@ const LIGHT_COLOR_SCHEMES = new Set([
   'palette-sage',
   'palette-amber',
   'palette-soul',
+  'palette-signal',
+  'palette-indigo',
+  'palette-coral',
+  'palette-chartreuse',
+  'palette-slate-blue',
 ])
 
 const PALETTE = {
@@ -56,6 +49,16 @@ const PALETTE = {
   /** Earth-toned brown */
   soul: '#6F5344',
   soulLight: '#8B6A55',
+  signal: '#00A6A6',
+  signalLight: '#33B8B8',
+  indigo: '#4B4EDB',
+  indigoLight: '#7073E8',
+  coral: '#FF6B5A',
+  coralLight: '#FF8A7C',
+  chartreuse: '#B6D430',
+  chartreuseLight: '#C8DE55',
+  slateBlue: '#27435C',
+  slateBlueLight: '#3D5D7A',
 } as const
 
 type ColorScheme = {
@@ -65,7 +68,13 @@ type ColorScheme = {
 }
 
 function accentTextOn(accent: string): string {
-  return accent.toUpperCase() === PALETTE.brass.toUpperCase() ? '#17140F' : '#FFFFFF'
+  const hex = accent.replace('#', '')
+  if (hex.length !== 6) return '#FFFFFF'
+  const r = parseInt(hex.slice(0, 2), 16)
+  const g = parseInt(hex.slice(2, 4), 16)
+  const b = parseInt(hex.slice(4, 6), 16)
+  const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255
+  return luminance > 0.62 ? '#17140F' : '#FFFFFF'
 }
 
 const FOOTER_DARK = '#17140F'
@@ -86,6 +95,11 @@ const HEADER_BAR = {
   sage: 'rgba(96, 108, 96, 0.68)',
   amber: 'rgba(98, 88, 96, 0.68)',
   soul: 'rgba(98, 90, 82, 0.68)',
+  signal: 'rgba(0, 130, 130, 0.68)',
+  indigo: 'rgba(75, 78, 219, 0.58)',
+  coral: 'rgba(200, 95, 82, 0.68)',
+  chartreuse: 'rgba(110, 125, 45, 0.68)',
+  slateBlue: 'rgba(39, 67, 92, 0.68)',
 } as const
 
 function lightBoneScheme(
@@ -177,10 +191,61 @@ const COLOR_SCHEMES: ColorScheme[] = [
     '--gep-storage-overlay':
       'linear-gradient(to top, rgba(62, 45, 58, 0.82) 0%, rgba(110, 79, 107, 0.42) 55%, rgba(62, 45, 58, 0.16) 100%)',
   }),
+  lightBoneScheme('palette-signal', 'Signal', PALETTE.signal, PALETTE.signalLight, {
+    '--gep-bg': '#F0FAFA',
+    '--gep-bg-alt': '#E4F4F4',
+    '--gep-card': '#D6ECEC',
+    '--gep-header-bar': HEADER_BAR.signal,
+    '--gep-header-scrolled': HEADER_BAR.signal,
+    '--gep-card-overlay': 'rgba(0, 100, 100, 0.74)',
+    '--gep-storage-overlay':
+      'linear-gradient(to top, rgba(0, 90, 90, 0.86) 0%, rgba(0, 166, 166, 0.44) 55%, rgba(0, 90, 90, 0.18) 100%)',
+  }),
+  lightBoneScheme('palette-indigo', 'Indigo', PALETTE.indigo, PALETTE.indigoLight, {
+    '--gep-bg': '#F5F5FC',
+    '--gep-bg-alt': '#EBEBF8',
+    '--gep-card': '#E0E0F2',
+    '--gep-header-bar': HEADER_BAR.indigo,
+    '--gep-header-scrolled': HEADER_BAR.indigo,
+    '--gep-card-overlay': 'rgba(45, 48, 140, 0.74)',
+    '--gep-storage-overlay':
+      'linear-gradient(to top, rgba(45, 48, 140, 0.86) 0%, rgba(75, 78, 219, 0.44) 55%, rgba(45, 48, 140, 0.18) 100%)',
+  }),
+  lightBoneScheme('palette-coral', 'Coral', PALETTE.coral, PALETTE.coralLight, {
+    '--gep-bg': '#FFF6F4',
+    '--gep-bg-alt': '#FFEEEA',
+    '--gep-card': '#FFE4DE',
+    '--gep-header-bar': HEADER_BAR.coral,
+    '--gep-header-scrolled': HEADER_BAR.coral,
+    '--gep-card-overlay': 'rgba(180, 70, 58, 0.74)',
+    '--gep-storage-overlay':
+      'linear-gradient(to top, rgba(180, 70, 58, 0.86) 0%, rgba(255, 107, 90, 0.44) 55%, rgba(180, 70, 58, 0.18) 100%)',
+  }),
+  lightBoneScheme('palette-chartreuse', 'Chartreuse', PALETTE.chartreuse, PALETTE.chartreuseLight, {
+    '--gep-bg': '#F9FAEF',
+    '--gep-bg-alt': '#F2F5E0',
+    '--gep-card': '#E8EEC8',
+    '--gep-header-bar': HEADER_BAR.chartreuse,
+    '--gep-header-scrolled': HEADER_BAR.chartreuse,
+    '--gep-card-overlay': 'rgba(90, 105, 35, 0.74)',
+    '--gep-storage-overlay':
+      'linear-gradient(to top, rgba(90, 105, 35, 0.86) 0%, rgba(182, 212, 48, 0.44) 55%, rgba(90, 105, 35, 0.18) 100%)',
+  }),
+  lightBoneScheme('palette-slate-blue', 'Slate Blue', PALETTE.slateBlue, PALETTE.slateBlueLight, {
+    '--gep-bg': '#F2F5F8',
+    '--gep-bg-alt': '#E8EEF3',
+    '--gep-card': '#DAE3EB',
+    '--gep-header-bar': HEADER_BAR.slateBlue,
+    '--gep-header-scrolled': HEADER_BAR.slateBlue,
+    '--gep-card-overlay': 'rgba(39, 67, 92, 0.76)',
+    '--gep-storage-overlay':
+      'linear-gradient(to top, rgba(39, 67, 92, 0.86) 0%, rgba(55, 90, 120, 0.44) 55%, rgba(39, 67, 92, 0.18) 100%)',
+  }),
 ]
 
-const HERO_INTRO =
-  'GEP Network executes concerts, tours, festivals, and corporate events at the highest level — backed by 40+ years of industry expertise.'
+const GEP_FULL_NAME = 'Global Events Production (GEP) Network'
+
+const HERO_INTRO = `${GEP_FULL_NAME} executes concerts, tours, festivals, and corporate events at the highest level — backed by 40+ years of industry expertise.`
 
 const FOOTER_POSTS = [
   { title: 'Press Release for Juneteenth Celebration', date: 'May 17, 2024', href: '#' },
@@ -233,7 +298,7 @@ const TOUR_STORAGE_COURTEOUS_SERVICE_IMG = '/gep-tour-storage-courteous-service.
 /** Tour bus — Travel Logistics service tile */
 const SERVICE_TRAVEL_LOGISTICS_BUS_IMG =
   'https://images.unsplash.com/photo-1570125909232-eb263c188f7e?w=600&h=500&fit=crop&auto=format'
-const STAGE_BG = `${import.meta.env.BASE_URL}gep-production-staffing.jpg`
+const STAGE_BG = `${import.meta.env.BASE_URL}gep-production-staffing.png`
 const TEAM_COLLAB_IMG = '/gep-why-gep-team.jpg'
 const SERVICE_STAGE_MANAGEMENT_IMG = '/gep-service-stage-management.png'
 const SERVICE_PRODUCTION_MANAGEMENT_IMG = '/gep-service-production-management.png'
@@ -484,18 +549,26 @@ const STORAGE_FEATURES: {
   },
 ]
 
-const CLIENTS = [
-  { name: 'Live Nation', colorLogo: liveNationColor, whiteLogo: liveNationWhite },
-  { name: 'AEG Presents', colorLogo: aegPresentsColor, whiteLogo: aegPresentsWhite },
-  { name: 'BET', colorLogo: betColor, whiteLogo: betWhite },
-  { name: 'Roc Nation', colorLogo: rocNationColor, whiteLogo: rocNationWhite },
-  { name: 'Atlantic Records', colorLogo: atlanticRecordsColor, whiteLogo: atlanticRecordsWhite },
-  { name: 'Def Jam', colorLogo: defJamColor, whiteLogo: defJamWhite },
-  { name: 'Universal Music', colorLogo: universalMusicColor, whiteLogo: universalMusicWhite },
-  { name: 'Warner Music', colorLogo: warnerMusicColor, whiteLogo: warnerMusicWhite },
-  { name: 'Sony Music', colorLogo: sonyMusicColor, whiteLogo: sonyMusicWhite },
-  { name: 'Republic Records', colorLogo: republicRecordsColor, whiteLogo: republicRecordsWhite },
-]
+const CLIENT_LOGOS = [
+  { name: 'Kendrick Lamar', logo: '/client-logos/kendrick-lamar.png' },
+  { name: 'Live Nation', logo: '/client-logos/live-nation.png' },
+  { name: 'Lil Baby', logo: '/client-logos/lil-baby.png' },
+  { name: 'BET Experience at L.A. LIVE', logo: '/client-logos/bet.png' },
+  { name: 'Mary J. Blige', logo: '/client-logos/mary-j-blige.png' },
+  { name: 'Earth, Wind & Fire', logo: '/client-logos/earth-wind-fire.png' },
+  { name: 'Nicki Minaj', logo: '/client-logos/nicki-minaj.png' },
+  { name: 'AEG Live', logo: '/client-logos/aeg-live.png' },
+  { name: 'Jill Scott', logo: '/client-logos/jill-scott.png' },
+  { name: 'Strength of a Woman Festival & Summit', logo: '/client-logos/strength-of-a-woman.png' },
+  { name: 'The Band Brick', logo: '/client-logos/the-band-brick.png' },
+  { name: 'Broccoli City Festival', logo: '/client-logos/broccoli-city-festival.png' },
+  { name: 'J. Cole', logo: '/client-logos/j-cole.png' },
+  { name: 'Dreamcrew Music, LLC', logo: '/client-logos/dreamcrew-music.png' },
+  { name: 'Roots Picnic', logo: '/client-logos/roots-picnic.png' },
+  { name: 'BPC', logo: '/client-logos/bpc.png' },
+  { name: 'P-Funk Connection', logo: '/client-logos/p-funk-connection.png' },
+  { name: 'The Tom Joyner Foundation Fantastic Voyage', logo: '/client-logos/tom-joyner-foundation.png' },
+] as const
 
 /** Matches live gepnetwork.com Production Staffing columns (incl. duplicate Video Techs). */
 const STAFFING_COLUMNS: [string[], string[]] = [
@@ -517,44 +590,6 @@ const STAFFING_COLUMNS: [string[], string[]] = [
   ],
 ]
 
-const TESTIMONIALS = [
-  {
-    quote: "GEP delivered a flawless production from start to finish. Their team anticipated every need before we even had to ask.",
-    author: 'Marcus T.',
-    title: 'Tour Manager, Live Nation',
-  },
-  {
-    quote: "After 15 years of working together, GEP is still the first call I make when a tour is going out. Unmatched reliability.",
-    author: 'Denise W.',
-    title: 'Production Director, AEG Presents',
-  },
-  {
-    quote: "The storage facility and logistics team made our multi-leg festival season completely seamless. Couldn't have done it without them.",
-    author: 'Kevin R.',
-    title: 'Festival Operations, Rolling Loud',
-  },
-  {
-    quote: "GEP's coordinators are the best in the business — calm under pressure, solutions-first, always two steps ahead.",
-    author: 'Sandra L.',
-    title: 'Artist Manager',
-  },
-]
-
-function useTestimonialCarousel() {
-  const [active, setActive] = useState(0)
-  const [paused, setPaused] = useState(false)
-
-  useEffect(() => {
-    if (paused) return
-    const timer = setInterval(() => {
-      setActive((prev) => (prev + 1) % TESTIMONIALS.length)
-    }, 2000)
-    return () => clearInterval(timer)
-  }, [paused])
-
-  return { active, setActive, paused, setPaused }
-}
-
 // ─── Sub-components ─────────────────────────────────────────────────────────
 
 function GoldRule() {
@@ -575,9 +610,13 @@ function themeSelectStyle(chevronHex: string): CSSProperties {
 function ThemePicker({
   colorScheme,
   onColorSchemeChange,
+  heroLayout,
+  onHeroLayoutChange,
 }: {
   colorScheme: string
   onColorSchemeChange: (id: string) => void
+  heroLayout: HeroLayoutId
+  onHeroLayoutChange: (id: HeroLayoutId) => void
 }) {
   const isLightScheme = LIGHT_COLOR_SCHEMES.has(colorScheme)
   const chevronColor = isLightScheme ? '1D1D1F' : 'ffffff'
@@ -589,6 +628,24 @@ function ThemePicker({
       className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-4"
       style={{ fontFamily: FONT_BODY }}
     >
+      <div className="flex flex-col items-end gap-2 w-full">
+        <label htmlFor="hero-layout" className="text-[10px] tracking-[0.2em] uppercase" style={{ color: 'var(--gep-text-muted)' }}>
+          Hero Layout
+        </label>
+        <select
+          id="hero-layout"
+          value={heroLayout}
+          onChange={(e) => onHeroLayoutChange(e.target.value as HeroLayoutId)}
+          className={selectClass}
+          style={themeSelectStyle(chevronColor)}
+        >
+          {HERO_LAYOUTS.map((layout) => (
+            <option key={layout.id} value={layout.id} style={{ background: 'var(--gep-bg)', color: 'var(--gep-text)' }}>
+              {layout.name}
+            </option>
+          ))}
+        </select>
+      </div>
       <div className="flex flex-col items-end gap-2 w-full">
         <label htmlFor="color-scheme" className="text-[10px] tracking-[0.2em] uppercase" style={{ color: 'var(--gep-text-muted)' }}>
           Color Scheme
@@ -638,10 +695,10 @@ function Header({
           : '1px solid transparent',
       }}
     >
-      <div className="relative max-w-[1400px] mx-auto px-6 lg:px-10 h-20 flex items-center w-full">
+      <div className="relative max-w-[1400px] mx-auto px-6 lg:px-10 min-h-[5.5rem] py-2 flex items-center w-full">
         <div className="gep-header-logo relative z-10 flex-shrink-0">
           <GEPLogoLockup
-            globeSize={48}
+            globeSize={68}
             colorSchemeKey={colorScheme}
             lockupId={LOGO_LOCKUP}
           />
@@ -699,7 +756,10 @@ function Header({
   )
 }
 
-function Hero() {
+function Hero({ heroLayout, colorScheme }: { heroLayout: HeroLayoutId; colorScheme: string }) {
+  const showHeroLogo = heroLayout === 'logo-over-tagline' || heroLayout === 'logo-only'
+  const showTagline = heroLayout !== 'logo-only'
+
   return (
     <section
       className="relative w-full min-h-screen overflow-hidden flex items-center justify-center"
@@ -722,18 +782,34 @@ function Hero() {
         }}
       />
 
-      <div className="relative z-10 text-center w-full px-6 pt-20">
-        <h1
-          className="text-white uppercase leading-snug max-w-4xl mx-auto"
-          style={{
-            fontFamily: FONT_DISPLAY,
-            fontSize: 'clamp(1.75rem, 4.5vw, 3.25rem)',
-            fontWeight: DISPLAY_TITLE_WEIGHT,
-            letterSpacing: '0.14em',
-          }}
-        >
-          Crafting the Extraordinary in Global Entertainment
-        </h1>
+      <div
+        className={`relative z-10 text-center w-full px-6 ${
+          showHeroLogo
+            ? `flex flex-col items-center ${showTagline ? 'pt-28 pb-12 gap-8 md:gap-10' : 'py-16 min-h-[min(100vh,100dvh)] justify-center'}`
+            : 'pt-20'
+        }`}
+      >
+        {showHeroLogo && (
+          <GEPLogoLockup
+            variant="hero"
+            colorSchemeKey={colorScheme}
+            lockupId={LOGO_LOCKUP}
+            className="gep-hero-logo-xl text-white pointer-events-none"
+          />
+        )}
+        {showTagline && (
+          <h1
+            className="text-white uppercase leading-snug max-w-4xl mx-auto"
+            style={{
+              fontFamily: FONT_DISPLAY,
+              fontSize: 'clamp(1.75rem, 4.5vw, 3.25rem)',
+              fontWeight: DISPLAY_TITLE_WEIGHT,
+              letterSpacing: '0.14em',
+            }}
+          >
+            Crafting the Extraordinary in Global Entertainment
+          </h1>
+        )}
       </div>
     </section>
   )
@@ -861,7 +937,7 @@ function WhyGEP() {
             Why GEP<br />Is the Right Choice
           </h2>
           <p className="text-base leading-relaxed mb-6 text-white/75" style={{ fontFamily: FONT_BODY }}>
-            For over four decades, GEP Network has been the production partner that the live entertainment industry turns to when execution matters most. We don't just staff shows — we build the infrastructure that makes them legendary.
+            For over four decades, {GEP_FULL_NAME} has been the production partner that the live entertainment industry turns to when execution matters most. We don't just staff shows — we build the infrastructure that makes them legendary.
           </p>
           <p className="text-base leading-relaxed mb-10 text-white/75" style={{ fontFamily: FONT_BODY }}>
             From 30,000-seat arenas to international festivals, our coordinators, managers, and crew are embedded in your production from first call to final load-out. We know the business because we've lived it.
@@ -925,10 +1001,10 @@ function AboutSection() {
         </h2>
         <div className="grid lg:grid-cols-2 gap-12 max-w-5xl">
           <p className="text-base leading-relaxed" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>
-            GEP Network is a full-service live event production company built on four decades of arena tours, festivals, and broadcast-ready experiences. Our teams integrate with yours — from production management and staffing to storage and logistics — so every show hits on time and on standard.
+            {GEP_FULL_NAME} is a full-service live event production company built on four decades of arena tours, festivals, and broadcast-ready experiences. Our teams integrate with yours — from production management and staffing to storage and logistics — so every show hits on time and on standard.
           </p>
           <p className="text-base leading-relaxed" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>
-            Headquartered in Conyers, Georgia, we deploy coordinators, managers, and crew nationwide. When the industry needs a partner who understands the pace of the road, GEP is the call.
+            Headquartered in Conyers, Georgia, we deploy coordinators, managers, and crew nationwide. When the industry needs a partner who understands the pace of the road, {GEP_FULL_NAME} is the call.
           </p>
         </div>
       </div>
@@ -1079,7 +1155,7 @@ function StorageInquiryModal({ onClose }: { onClose: () => void }) {
               Inquiry Received
             </h3>
             <p className="text-sm leading-relaxed mb-8" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>
-              Thank you for your interest in GEP tour storage. Our team will review your request and respond within one business day.
+              Thank you for your interest in {GEP_FULL_NAME} tour storage. Our team will review your request and respond within one business day.
             </p>
             <button
               onClick={onClose}
@@ -1185,32 +1261,37 @@ function StorageSection() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
           {STORAGE_FEATURES.map((f) => (
-            <div key={f.title} className="relative group overflow-hidden" style={{ height: 380, background: 'var(--gep-card)' }}>
-              <img
-                src={f.img}
-                alt={f.title}
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 [transform:scale(var(--storage-img-scale))] group-hover:[transform:scale(calc(var(--storage-img-scale)*1.04))]"
+            <div key={f.title} className="group flex flex-col overflow-hidden">
+              <div className="relative h-[240px] sm:h-[260px] overflow-hidden" style={{ background: 'var(--gep-card)' }}>
+                <img
+                  src={f.img}
+                  alt={f.title}
+                  className="block w-full h-full object-cover transition-transform duration-500 [transform:scale(var(--storage-img-scale))] group-hover:[transform:scale(calc(var(--storage-img-scale)*1.04))]"
+                  style={{
+                    objectPosition: f.imgPosition,
+                    ['--storage-img-scale' as string]: String(f.imgScale),
+                  }}
+                />
+              </div>
+              <div
+                className="p-7"
                 style={{
-                  objectPosition: f.imgPosition,
-                  ['--storage-img-scale' as string]: String(f.imgScale),
+                  background: 'color-mix(in srgb, var(--gep-accent) 32%, #17140F 68%)',
+                  color: 'var(--gep-staffing-text, #F3EFE8)',
                 }}
-              />
-              <div
-                className="absolute inset-0"
-                style={{ background: 'var(--gep-storage-overlay)' }}
-              />
-              <div
-                className="absolute top-0 left-0 right-0 h-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-              style={{ background: 'var(--gep-accent)' }}
-              />
-              <div className="absolute bottom-0 left-0 right-0 p-7">
+              >
                 <h3
-                  className="text-white uppercase mb-2 leading-tight"
+                  className="uppercase mb-2 leading-tight"
                   style={{ fontFamily: FONT_DISPLAY, fontWeight: DISPLAY_TITLE_WEIGHT, fontSize: '1.5rem', letterSpacing: '0.03em' }}
                 >
                   {f.title}
                 </h3>
-                <p className="text-white/55 text-sm leading-relaxed" style={{ fontFamily: FONT_BODY }}>{f.desc}</p>
+                <p
+                  className="text-sm leading-relaxed"
+                  style={{ fontFamily: FONT_BODY, color: 'var(--gep-staffing-text-muted, rgba(243, 239, 232, 0.82))' }}
+                >
+                  {f.desc}
+                </p>
               </div>
             </div>
           ))}
@@ -1227,9 +1308,7 @@ function StorageSection() {
   )
 }
 
-function ClientLogoWall({ colorScheme }: { colorScheme: string }) {
-  const useColorLogos = LIGHT_COLOR_SCHEMES.has(colorScheme)
-
+function ClientLogoWall() {
   return (
     <section className="pt-20 pb-10" style={{ borderTop: '1px solid var(--gep-divider)', borderBottom: '1px solid var(--gep-divider)', background: 'var(--gep-bg)' }}>
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
@@ -1245,25 +1324,22 @@ function ClientLogoWall({ colorScheme }: { colorScheme: string }) {
         >
           Trusted by the Industry's Best
         </p>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-          {CLIENTS.map((client) => (
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+          {CLIENT_LOGOS.map((client) => (
             <div
               key={client.name}
-              className="flex items-center justify-center py-8 px-8 group transition-colors duration-200"
+              className="flex items-center justify-center py-6 px-4 sm:py-8 sm:px-6 group transition-colors duration-200"
               style={{ minHeight: 96, background: 'var(--gep-bg)' }}
               onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--gep-card)' }}
               onMouseLeave={(e) => { e.currentTarget.style.background = 'var(--gep-bg)' }}
             >
               <img
-                src={useColorLogos ? client.colorLogo : client.whiteLogo}
+                src={client.logo}
                 alt={client.name}
-                className="max-h-8 w-auto object-contain opacity-50 group-hover:opacity-90 transition-opacity duration-200"
+                className="max-h-10 sm:max-h-12 w-full max-w-[160px] object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-200"
               />
             </div>
           ))}
-        </div>
-        <div className="mt-12 pt-8 pb-0" style={{ borderTop: '1px solid var(--gep-divider)' }}>
-          <TestimonialsCompact />
         </div>
       </div>
     </section>
@@ -1378,74 +1454,6 @@ function ProductionStaffing() {
   )
 }
 
-function TestimonialNavDots({
-  active,
-  setActive,
-  align = 'center',
-}: {
-  active: number
-  setActive: (i: number) => void
-  align?: 'left' | 'center'
-}) {
-  return (
-    <div className={`flex gap-2 ${align === 'left' ? 'justify-start' : 'justify-center'}`}>
-      {TESTIMONIALS.map((_, i) => (
-        <button
-          key={i}
-          type="button"
-          onClick={() => setActive(i)}
-          className="transition-all duration-200"
-          style={{
-            width: i === active ? 24 : 8,
-            height: 3,
-            background: i === active ? 'var(--gep-accent)' : 'var(--gep-divider)',
-          }}
-          aria-label={`Testimonial ${i + 1}`}
-        />
-      ))}
-    </div>
-  )
-}
-
-function TestimonialsCompact() {
-  const { active, setActive, setPaused } = useTestimonialCarousel()
-  const item = TESTIMONIALS[active]
-
-  return (
-    <div
-      className="w-full max-w-3xl mx-auto text-left"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-    >
-      <p
-        className="text-sm tracking-[0.22em] uppercase mb-5"
-        style={{ fontFamily: FONT_DISPLAY, fontWeight: DISPLAY_TITLE_WEIGHT, color: 'var(--gep-text-muted)' }}
-      >
-        What They&apos;re Saying
-      </p>
-      <blockquote key={active} className="animate-fade-up">
-        <p
-          className="text-lg md:text-xl leading-relaxed mb-4"
-          style={{ fontFamily: FONT_BODY, fontWeight: 400, color: 'var(--gep-text)' }}
-        >
-          &ldquo;{item.quote}&rdquo;
-        </p>
-        <footer>
-          <p className="text-base font-semibold" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text)' }}>
-            {item.author}
-          </p>
-          <p className="text-sm mt-1" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>
-            {item.title}
-          </p>
-        </footer>
-      </blockquote>
-      <div className="mt-4">
-        <TestimonialNavDots active={active} setActive={setActive} align="left" />
-      </div>
-    </div>
-  )
-}
-
 function Footer({ colorScheme }: { colorScheme: string }) {
   return (
     <footer
@@ -1460,7 +1468,7 @@ function Footer({ colorScheme }: { colorScheme: string }) {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           <div>
             <GEPLogoLockup
-              globeSize={48}
+              globeSize={56}
               colorSchemeKey={colorScheme}
               lockupId={LOGO_LOCKUP}
               className="mb-4"
@@ -1538,7 +1546,7 @@ function Footer({ colorScheme }: { colorScheme: string }) {
 
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4" style={{ borderTop: '1px solid var(--gep-footer-divider)' }}>
           <p className="text-xs" style={{ fontFamily: FONT_BODY, color: 'var(--gep-footer-text-muted)' }}>
-            © {new Date().getFullYear()} GEP Network, Inc. All rights reserved.
+            © {new Date().getFullYear()} {GEP_FULL_NAME}, Inc. All rights reserved.
           </p>
           <p className="text-xs" style={{ fontFamily: FONT_BODY, color: 'var(--gep-footer-text-muted)' }}>
             Full-Service Live Event Production
@@ -1553,6 +1561,7 @@ function Footer({ colorScheme }: { colorScheme: string }) {
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [colorScheme, setColorScheme] = useState('palette-soul')
+  const [heroLayout, setHeroLayout] = useState<HeroLayoutId>('tagline-only')
   const scheme = COLOR_SCHEMES.find((s) => s.id === colorScheme) ?? COLOR_SCHEMES[0]
 
   return (
@@ -1561,8 +1570,8 @@ export default function App() {
       style={{ ...scheme.vars, background: 'var(--gep-bg)', color: 'var(--gep-text)' } as CSSProperties}
     >
       <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} colorScheme={colorScheme} />
-      <Hero />
-      <ClientLogoWall colorScheme={colorScheme} />
+      <Hero heroLayout={heroLayout} colorScheme={colorScheme} />
+      <ClientLogoWall />
       <RecentProjectsCarousel />
       <WhyGEP />
       <AboutSection />
@@ -1570,7 +1579,12 @@ export default function App() {
       <StorageSection />
       <ProductionStaffing />
       <Footer colorScheme={colorScheme} />
-      <ThemePicker colorScheme={colorScheme} onColorSchemeChange={setColorScheme} />
+      <ThemePicker
+        colorScheme={colorScheme}
+        onColorSchemeChange={setColorScheme}
+        heroLayout={heroLayout}
+        onHeroLayoutChange={setHeroLayout}
+      />
     </div>
   )
 }

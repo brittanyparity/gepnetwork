@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { LOGO_LOCKUPS, type LogoLockupId } from '../logo-lockups'
 
-const FONT_BRUNO_ACE = "'Bruno Ace', sans-serif"
+const FONT_TELE_MARINES = "'Tele Marines GEP', 'Tele Marines', sans-serif"
 
 type GEPLogoLockupProps = {
   className?: string
@@ -30,19 +30,26 @@ function syncGlobeAttributes(root: HTMLElement | null) {
   })
 }
 
-function BrunoFullLockup({ globeSize, hero }: { globeSize: number; hero: boolean }) {
-  const wordStyle = {
-    fontFamily: FONT_BRUNO_ACE,
-    fontWeight: 400,
-    letterSpacing: '0.08em',
-  } as const
+function TeleMarinesOLetter() {
+  return (
+    <span className="gep-logo-tele__o">
+      <span className="gep-logo-tele__o-letter">O</span>
+      <span className="gep-logo-tele__o-bar" aria-hidden="true" />
+    </span>
+  )
+}
 
-  const fontSize = hero ? 'clamp(2rem, 6vw, 3.75rem)' : 'clamp(0.7rem, 2vw, 0.95rem)'
+function TeleMarinesNetworkLockup({ globeSize }: { globeSize: number; hero: boolean }) {
+  const wordStyle = {
+    fontFamily: FONT_TELE_MARINES,
+    fontWeight: 400,
+    letterSpacing: '0.02em',
+  } as const
 
   return (
     <>
-      <span className="uppercase leading-none text-white" style={{ ...wordStyle, fontSize }}>
-        GEP
+      <span className="leading-none text-inherit" style={wordStyle}>
+        ep
       </span>
       <span
         className="relative block flex-shrink-0"
@@ -51,8 +58,10 @@ function BrunoFullLockup({ globeSize, hero }: { globeSize: number; hero: boolean
       >
         <gep-globe />
       </span>
-      <span className="uppercase leading-none text-white" style={{ ...wordStyle, fontSize }}>
-        NETWORK
+      <span className="leading-none text-inherit whitespace-nowrap" style={wordStyle}>
+        NetW
+        <TeleMarinesOLetter />
+        rk
       </span>
     </>
   )
@@ -71,7 +80,11 @@ function CenturyGlobeLockup({ hero }: { hero: boolean }) {
           <gep-globe />
         </span>
       </span>
-      <span className="gep-logo-century__word uppercase">EP&nbsp;NETWORK</span>
+      <span className="gep-logo-century__word">
+        ep&nbsp;NetW
+        <TeleMarinesOLetter />
+        rk
+      </span>
     </span>
   )
 }
@@ -110,7 +123,7 @@ export function GEPAbbrevGlobeMark({
 
 export default function GEPLogoLockup({
   className = '',
-  globeSize = 48,
+  globeSize = 56,
   colorSchemeKey,
   lockupId,
   variant = 'header',
@@ -118,7 +131,7 @@ export default function GEPLogoLockup({
   const linkRef = useRef<HTMLAnchorElement>(null)
   const lockup = LOGO_LOCKUPS.find((l) => l.id === lockupId) ?? LOGO_LOCKUPS[0]
   const hero = variant === 'hero'
-  const effectiveGlobeSize = hero ? (lockup.id === 'bruno-full' ? 140 : globeSize) : globeSize
+  const effectiveGlobeSize = hero ? (lockup.id === 'bruno-full' ? 160 : globeSize) : globeSize
 
   useEffect(() => {
     syncGlobeAttributes(linkRef.current)
@@ -129,14 +142,16 @@ export default function GEPLogoLockup({
       ref={linkRef}
       href="#"
       className={`inline-flex items-center flex-shrink-0 ${
-        lockup.id === 'bruno-full' ? (hero ? 'gap-4 sm:gap-8' : 'gap-2 sm:gap-2.5') : ''
-      } ${hero ? 'justify-center' : ''} ${className}`}
+        lockup.id === 'bruno-full'
+          ? `gep-logo-tele ${hero ? 'gep-logo-tele--hero' : ''} gap-2 sm:gap-3 ${hero ? 'sm:gap-6' : ''}`
+          : ''
+      } ${hero ? 'justify-center text-white' : 'text-inherit'} ${className}`}
       aria-label="GEP Network home"
     >
       {lockup.id === 'century-globe' ? (
         <CenturyGlobeLockup hero={hero} />
       ) : (
-        <BrunoFullLockup globeSize={effectiveGlobeSize} hero={hero} />
+        <TeleMarinesNetworkLockup globeSize={effectiveGlobeSize} hero={hero} />
       )}
     </a>
   )
