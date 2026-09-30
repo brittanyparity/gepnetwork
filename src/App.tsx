@@ -828,12 +828,17 @@ function Hero({ heroLayout, colorScheme }: { heroLayout: HeroLayoutId; colorSche
         )}
         {showTagline && (
           <h1
-            className="text-white uppercase leading-snug max-w-4xl mx-auto"
+            className={`text-white uppercase leading-snug mx-auto text-center w-full ${
+              heroLayout === 'logo-over-tagline' ? 'gep-hero-tagline-under-logo' : 'max-w-4xl'
+            }`}
             style={{
               fontFamily: FONT_DISPLAY,
-              fontSize: 'clamp(1.75rem, 4.5vw, 3.25rem)',
+              fontSize:
+                heroLayout === 'logo-over-tagline'
+                  ? 'clamp(0.95rem, 2.1vw, 1.65rem)'
+                  : 'clamp(1.75rem, 4.5vw, 3.25rem)',
               fontWeight: DISPLAY_TITLE_WEIGHT,
-              letterSpacing: '0.14em',
+              letterSpacing: heroLayout === 'logo-over-tagline' ? '0.11em' : '0.14em',
             }}
           >
             Crafting the Extraordinary in Global Entertainment

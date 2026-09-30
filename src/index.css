@@ -105,6 +105,11 @@ a.gep-hero-logo-xl.gep-hero-logo-xl--bounded {
   justify-content: center;
 }
 
+/* Logo over tagline — tagline narrower than 75vw lockup, centered below */
+.gep-hero-tagline-under-logo {
+  max-width: min(52vw, 34rem);
+}
+
 .gep-logo-century__g {
   position: relative;
   top: -0.036em;
