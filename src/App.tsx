@@ -553,7 +553,7 @@ const STORAGE_FEATURES: {
   },
 ]
 
-const CLIENT_LOGOS = [
+const CLIENT_LOGOS: { name: string; logo: string; logoClass?: string }[] = [
   { name: 'Kendrick Lamar', logo: '/client-logos/kendrick-lamar.png' },
   { name: 'Live Nation', logo: '/client-logos/live-nation.png' },
   { name: 'Lil Baby', logo: '/client-logos/lil-baby.png' },
@@ -569,7 +569,11 @@ const CLIENT_LOGOS = [
   { name: 'J. Cole', logo: '/client-logos/j-cole.png' },
   { name: 'Dreamcrew Music, LLC', logo: '/client-logos/dreamcrew-music.png' },
   { name: 'Roots Picnic', logo: '/client-logos/roots-picnic.png' },
-  { name: 'BPC', logo: '/client-logos/bpc.png' },
+  {
+    name: 'BPC',
+    logo: '/client-logos/bpc.png',
+    logoClass: 'gep-client-logo--light-on-dark',
+  },
   { name: 'P-Funk Connection', logo: '/client-logos/p-funk-connection.png' },
   { name: 'The Tom Joyner Foundation Fantastic Voyage', logo: '/client-logos/tom-joyner-foundation.png' },
 ] as const
@@ -1370,7 +1374,7 @@ function ClientLogoWall() {
               <img
                 src={client.logo}
                 alt={client.name}
-                className="max-h-10 sm:max-h-12 w-full max-w-[160px] object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-200"
+                className={`max-h-10 sm:max-h-12 w-full max-w-[160px] object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-200${client.logoClass ? ` ${client.logoClass}` : ''}`}
               />
             </div>
           ))}

@@ -215,6 +215,11 @@ a.gep-hero-logo-xl.gep-hero-logo-xl--bounded {
 }
 
 /* Header chrome (optional per color scheme via CSS variables) */
+/* Outline-only marks exported on black (e.g. BPC) — drop the mat on light section bg */
+.gep-client-logo--light-on-dark {
+  mix-blend-mode: screen;
+}
+
 .gep-header-root .gep-header-logo {
   color: var(--gep-header-logo, #ffffff);
 }
