@@ -70,7 +70,7 @@ function TeleMarinesNetworkLockup({ globeSize }: { globeSize: number; hero: bool
 function CenturyGlobeLockup({ hero }: { hero: boolean }) {
   return (
     <span
-      className={`gep-logo-century inline-flex items-center leading-none whitespace-nowrap ${
+      className={`gep-logo-century inline-flex items-center leading-none whitespace-nowrap flex-nowrap flex-shrink-0 ${
         hero ? 'gep-logo-century--hero text-white' : 'text-inherit'
       }`}
     >
@@ -141,7 +141,7 @@ export default function GEPLogoLockup({
     <a
       ref={linkRef}
       href="#"
-      className={`inline-flex items-center flex-shrink-0 ${
+      className={`inline-flex items-center flex-shrink-0 flex-nowrap whitespace-nowrap ${
         lockup.id === 'bruno-full'
           ? `gep-logo-tele ${hero ? 'gep-logo-tele--hero' : ''} gap-2 sm:gap-3 ${hero ? 'sm:gap-6' : ''}`
           : ''
