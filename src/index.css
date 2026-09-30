@@ -91,10 +91,10 @@ a.gep-hero-logo-xl {
   justify-content: center;
 }
 
-/* Hero layout: logo only — ~70% viewport, centered */
+/* Hero: logo over tagline / logo only — 75% of site width (1400px max), centered */
 a.gep-hero-logo-xl.gep-hero-logo-xl--bounded {
-  width: min(70vw, 100%);
-  max-width: 52rem;
+  width: min(75vw, 1050px);
+  max-width: 75%;
   justify-content: center;
 }
 
