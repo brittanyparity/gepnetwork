@@ -459,6 +459,32 @@ const NAV_LINKS = [
 
 
 const PRODUCTIONS = [
+  { name: 'Lollapalooza India', tour: '2026', img: recentProjectImg('lollapalooza-india-2026.png') },
+  {
+    name: 'Ballad Beast',
+    tour: 'Saudi Arabia · 2026',
+    img: recentProjectImg('ballad-beast-saudi-arabia-2026.png'),
+  },
+  {
+    name: 'The Word Up Story',
+    tour: 'Funk Wars Tour',
+    img: recentProjectImg('the-word-up-story-funk-wars-tour.jpg'),
+  },
+  {
+    name: 'Lyrical Lemonade',
+    tour: 'Summer Smash Festival · 2026',
+    img: recentProjectImg('lyrical-lemonade-summer-smash-2026.png'),
+  },
+  {
+    name: 'ESSENCE Festival — George Clinton',
+    tour: '50th Anniversary of The Mothership Landing · 2026',
+    img: recentProjectImg('essence-festival-george-clinton-2026.jpg'),
+  },
+  {
+    name: 'Les Ardentes Festival',
+    tour: 'Liège, Belgium · 2026',
+    img: recentProjectImg('les-ardentes-festival-2026.jpg'),
+  },
   { name: 'J. Cole', tour: 'The Fall Off World Tour', img: recentProjectImg('jcole-fall-off-tour.jpg') },
   { name: 'Jill Scott', tour: 'To Whom This May Concern World Tour', img: recentProjectImg('jillscott-twtmc-tour.jpg') },
   { name: 'Playboi Carti', tour: 'After Hours til Dawn World Tour', img: recentProjectImg('playboi-carti-after-hours-tour.jpg') },
