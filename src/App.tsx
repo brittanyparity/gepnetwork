@@ -20,7 +20,7 @@ const HERO_LAYOUTS = [
 type HeroLayoutId = (typeof HERO_LAYOUTS)[number]['id']
 
 function headerHidesLogo(heroLayout: HeroLayoutId) {
-  return heroLayout === 'logo-over-tagline' || heroLayout === 'tagline-only'
+  return heroLayout === 'logo-only'
 }
 
 const HERO_VIDEO = '/gep-hero-video.mp4'
@@ -823,7 +823,7 @@ function Hero({ heroLayout, colorScheme }: { heroLayout: HeroLayoutId; colorSche
             variant="hero"
             colorSchemeKey={colorScheme}
             lockupId={LOGO_LOCKUP}
-            className={`gep-hero-logo-xl text-white pointer-events-none${heroLayout === 'logo-over-tagline' ? ' gep-hero-logo-xl--bounded' : ''}`}
+            className={`gep-hero-logo-xl text-white pointer-events-none${heroLayout === 'logo-only' ? ' gep-hero-logo-xl--bounded' : ''}`}
           />
         )}
         {showTagline && (
