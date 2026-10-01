@@ -7,7 +7,15 @@ import {
   type MouseEvent,
   type ReactNode,
 } from 'react'
+import { BrowserRouter, Link, Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import GEPLogoLockup from './components/GepGlobeMark'
+import AboutPage from './pages/AboutPage'
+import ContactPage from './pages/ContactPage'
+import EventsPage from './pages/EventsPage'
+import ServiceDetailPage from './pages/ServiceDetailPage'
+import ServicesPage from './pages/ServicesPage'
+import StoragePage from './pages/StoragePage'
+import TeamMemberPage from './pages/TeamMemberPage'
 
 const LOGO_LOCKUP = 'century-globe' as const
 
@@ -252,9 +260,9 @@ const GEP_FULL_NAME = 'Global Events Production (GEP) Network'
 const HERO_INTRO = `${GEP_FULL_NAME} executes concerts, tours, festivals, and corporate events at the highest level — backed by 40+ years of industry expertise.`
 
 const FOOTER_POSTS = [
-  { title: 'Press Release for Juneteenth Celebration', date: 'May 17, 2024', href: '#' },
-  { title: 'The Future of Event Production', date: 'March 5, 2024', href: '#' },
-  { title: 'The Art of Event Management', date: 'March 5, 2024', href: '#' },
+  { title: 'Press Release for Juneteenth Celebration', date: 'May 17, 2024', href: '/contact' },
+  { title: 'The Future of Event Production', date: 'March 5, 2024', href: '/contact' },
+  { title: 'The Art of Event Management', date: 'March 5, 2024', href: '/contact' },
 ]
 
 const FOOTER_SOCIAL = [
@@ -449,12 +457,12 @@ function CallButton({
 
 // ─── Data ───────────────────────────────────────────────────────────────────
 const NAV_LINKS = [
-  {label: 'Home', href: '#'}, 
-  {label: 'About Us', href: '#about'}, 
-  {label: 'Services', href: '#services'}, 
-  {label: 'Storage', href: '#storage'}, 
-  {label: 'Events', href: '#events'}, 
-  {label: 'Contact Us', href: '#contact'}, 
+  { label: 'Home', to: '/' },
+  { label: 'About Us', to: '/about' },
+  { label: 'Services', to: '/services' },
+  { label: 'Storage', to: '/storage' },
+  { label: 'Events', to: '/events' },
+  { label: 'Contact Us', to: '/contact' },
 ]
 
 
@@ -713,34 +721,39 @@ function Header({
   colorScheme: string
   heroLayout: HeroLayoutId
 }) {
-  const hideHeaderLogo = headerHidesLogo(heroLayout)
+  const location = useLocation()
+  const onHome = location.pathname === '/'
+  const hideHeaderLogo = onHome && headerHidesLogo(heroLayout)
   const [scrolled, setScrolled] = useState(false)
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 40)
+    fn()
     window.addEventListener('scroll', fn)
     return () => window.removeEventListener('scroll', fn)
-  }, [])
+  }, [location.pathname])
+
+  const navLinkClass = 'gep-header-link text-xs tracking-widest uppercase'
 
   return (
     <header
-      className={`gep-header-root fixed top-0 left-0 right-0 z-50 transition-all duration-300${scrolled ? ' is-scrolled' : ''}`}
+      className={`gep-header-root fixed top-0 left-0 right-0 z-50 transition-all duration-300${scrolled || !onHome ? ' is-scrolled' : ''}`}
       style={{
-        background: scrolled ? 'var(--gep-header-bar, rgba(107, 99, 88, 0.68))' : 'transparent',
-        backdropFilter: scrolled ? 'blur(12px)' : 'none',
-        borderBottom: scrolled
+        background: scrolled || !onHome ? 'var(--gep-header-bar, rgba(107, 99, 88, 0.68))' : 'transparent',
+        backdropFilter: scrolled || !onHome ? 'blur(12px)' : 'none',
+        borderBottom: scrolled || !onHome
           ? '1px solid var(--gep-header-border-scrolled, rgba(128, 128, 128, 0.15))'
           : '1px solid transparent',
       }}
     >
       <div className="relative max-w-[1400px] mx-auto px-6 lg:px-10 min-h-[5.5rem] py-2 flex items-center w-full gap-5 xl:gap-8">
         {!hideHeaderLogo && (
-          <div className="gep-header-logo relative z-10 flex-shrink-0">
+          <Link to="/" className="gep-header-logo relative z-10 flex-shrink-0" onClick={() => setMenuOpen(false)}>
             <GEPLogoLockup
               globeSize={68}
               colorSchemeKey={colorScheme}
               lockupId={LOGO_LOCKUP}
             />
-          </div>
+          </Link>
         )}
 
         {hideHeaderLogo && (
@@ -749,14 +762,14 @@ function Header({
             aria-label="Primary"
           >
             {NAV_LINKS.map((link) => (
-              <a
+              <Link
                 key={link.label}
-                href={link.href}
-                className="gep-header-link text-xs tracking-widest uppercase"
+                to={link.to}
+                className={navLinkClass}
                 style={{ fontFamily: FONT_BODY }}
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </nav>
         )}
@@ -765,14 +778,14 @@ function Header({
           {!hideHeaderLogo && (
             <nav className="hidden lg:flex items-center gap-6 xl:gap-8 whitespace-nowrap" aria-label="Primary">
               {NAV_LINKS.map((link) => (
-                <a
+                <Link
                   key={link.label}
-                  href={link.href}
-                  className="gep-header-link text-xs tracking-widest uppercase"
+                  to={link.to}
+                  className={navLinkClass}
                   style={{ fontFamily: FONT_BODY }}
                 >
                   {link.label}
-                </a>
+                </Link>
               ))}
             </nav>
           )}
@@ -797,15 +810,15 @@ function Header({
         <div className="lg:hidden" style={{ borderTop: '1px solid var(--gep-divider)', background: 'var(--gep-bg)' }}>
           <nav className="flex flex-col px-6 py-6 gap-4">
             {NAV_LINKS.map((link) => (
-              <a
+              <Link
                 key={link.label}
-                href={link.href}
+                to={link.to}
                 className="text-sm tracking-widest uppercase transition-colors"
                 onClick={() => setMenuOpen(false)}
                 style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
             <CallButton className="mt-2 self-start inline-flex" iconOnly onClick={() => setMenuOpen(false)} />
           </nav>
@@ -907,7 +920,7 @@ function RecentProjectsCarousel() {
           {marqueeItems.map((p, i) => (
             <a
               key={`${p.name}-${i}`}
-              href="#events"
+              href="/events"
               className="flex-shrink-0 relative group overflow-hidden block"
               style={{ width: 280, height: 370, background: 'var(--gep-card)' }}
             >
@@ -1007,7 +1020,7 @@ function WhyGEP() {
             From 30,000-seat arenas to international festivals, our coordinators, managers, and crew are embedded in your production from first call to final load-out. We know the business because we've lived it.
           </p>
           <a
-            href="#about"
+            href="/about"
             className="inline-flex items-center gap-3 text-xs tracking-widest uppercase font-semibold text-white hover:text-white/85 hover:gap-5 transition-all duration-200"
             style={{ fontFamily: FONT_BODY }}
           >
@@ -1515,7 +1528,7 @@ function ProductionStaffing() {
           ))}
         </div>
 
-        <AccentOutlineButton href="#contact" className="self-center">
+        <AccentOutlineButton href="/contact" className="self-center">
           Find Out More
         </AccentOutlineButton>
       </div>
@@ -1526,8 +1539,7 @@ function ProductionStaffing() {
 function Footer({ colorScheme }: { colorScheme: string }) {
   return (
     <footer
-      id="contact"
-      className="pt-20 pb-10 scroll-mt-24"
+      className="pt-20 pb-10"
       style={{
         background: 'var(--gep-footer)',
         color: 'var(--gep-footer-text)',
@@ -1627,23 +1639,30 @@ function Footer({ colorScheme }: { colorScheme: string }) {
 }
 
 // ─── App ─────────────────────────────────────────────────────────────────────
-export default function App() {
-  const [menuOpen, setMenuOpen] = useState(false)
-  const [colorScheme, setColorScheme] = useState('palette-soul')
-  const [heroLayout, setHeroLayout] = useState<HeroLayoutId>('tagline-only')
-  const scheme = COLOR_SCHEMES.find((s) => s.id === colorScheme) ?? COLOR_SCHEMES[0]
+function ScrollToTop() {
+  const { pathname, hash } = useLocation()
+  useEffect(() => {
+    if (hash) {
+      const id = hash.replace('#', '')
+      requestAnimationFrame(() => {
+        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+      })
+      return
+    }
+    window.scrollTo(0, 0)
+  }, [pathname, hash])
+  return null
+}
 
+function HomePage({
+  heroLayout,
+  colorScheme,
+}: {
+  heroLayout: HeroLayoutId
+  colorScheme: string
+}) {
   return (
-    <div
-      className="min-h-screen w-full"
-      style={{ ...scheme.vars, background: 'var(--gep-bg)', color: 'var(--gep-text)' } as CSSProperties}
-    >
-      <Header
-        menuOpen={menuOpen}
-        setMenuOpen={setMenuOpen}
-        colorScheme={colorScheme}
-        heroLayout={heroLayout}
-      />
+    <>
       <Hero heroLayout={heroLayout} colorScheme={colorScheme} />
       <ClientLogoWall />
       <RecentProjectsCarousel />
@@ -1652,6 +1671,44 @@ export default function App() {
       <ServicesGrid />
       <StorageSection />
       <ProductionStaffing />
+    </>
+  )
+}
+
+function AppShell() {
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [colorScheme, setColorScheme] = useState('palette-soul')
+  const [heroLayout, setHeroLayout] = useState<HeroLayoutId>('tagline-only')
+  const scheme = COLOR_SCHEMES.find((s) => s.id === colorScheme) ?? COLOR_SCHEMES[0]
+  const location = useLocation()
+
+  useEffect(() => {
+    setMenuOpen(false)
+  }, [location.pathname])
+
+  return (
+    <div
+      className="min-h-screen w-full"
+      style={{ ...scheme.vars, background: 'var(--gep-bg)', color: 'var(--gep-text)' } as CSSProperties}
+    >
+      <ScrollToTop />
+      <Header
+        menuOpen={menuOpen}
+        setMenuOpen={setMenuOpen}
+        colorScheme={colorScheme}
+        heroLayout={heroLayout}
+      />
+      <Routes>
+        <Route path="/" element={<HomePage heroLayout={heroLayout} colorScheme={colorScheme} />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/services" element={<ServicesPage />} />
+        <Route path="/services/:slug" element={<ServiceDetailPage />} />
+        <Route path="/storage" element={<StoragePage />} />
+        <Route path="/events" element={<EventsPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/team/:slug" element={<TeamMemberPage />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
       <Footer colorScheme={colorScheme} />
       <ThemePicker
         colorScheme={colorScheme}
@@ -1660,5 +1717,13 @@ export default function App() {
         onHeroLayoutChange={setHeroLayout}
       />
     </div>
+  )
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <AppShell />
+    </BrowserRouter>
   )
 }
