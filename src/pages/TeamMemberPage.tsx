@@ -12,7 +12,14 @@ export default function TeamMemberPage() {
 
   return (
     <>
-      <PageHero eyebrow="Our Team" title={member.name} subtitle={member.role} image={member.img} />
+      <PageHero
+        eyebrow="Our Team"
+        title={member.name}
+        subtitle={member.role}
+        image={member.img}
+        portrait
+        imagePosition={member.photoPosition ?? 'center 14%'}
+      />
 
       <SectionWrap>
         <div className="grid lg:grid-cols-[280px_1fr] gap-12">
@@ -112,8 +119,13 @@ export default function TeamMemberPage() {
               className="block overflow-hidden"
               style={{ background: 'var(--gep-card)' }}
             >
-              <div className="relative aspect-[4/3]">
-                <img src={m.img} alt={m.name} className="absolute inset-0 w-full h-full object-cover" />
+              <div className="relative aspect-[4/3] overflow-hidden">
+                <img
+                  src={m.img}
+                  alt={m.name}
+                  className="team-photo absolute inset-0 w-full h-full"
+                  style={m.photoPosition ? { objectPosition: m.photoPosition } : undefined}
+                />
               </div>
               <div className="p-4">
                 <h3
