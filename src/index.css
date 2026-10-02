@@ -68,7 +68,13 @@ html {
 
 /* Header lockup only — footer keeps .gep-logo-century defaults above */
 .gep-header-logo .gep-logo-century {
-  font-size: clamp(2.15rem, 6.2vw, 3.65rem);
+  font-size: clamp(2.35rem, 7vw, 3.85rem);
+}
+
+@media (max-width: 639px) {
+  .gep-header-logo .gep-logo-century {
+    font-size: clamp(2.15rem, 9.5vw, 2.75rem);
+  }
 }
 
 .gep-logo-century--hero {
