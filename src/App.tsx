@@ -325,7 +325,7 @@ const recentProjectImg = (file: string) => `${import.meta.env.BASE_URL}recent-pr
 const FONT_BODY = "'Inter', sans-serif"
 const FONT_DISPLAY = "'Barlow Condensed', sans-serif"
 /** Fuller display weight — client feedback that ultra-thin type felt too light */
-const DISPLAY_TITLE_WEIGHT = 400
+const DISPLAY_TITLE_WEIGHT = 500
 /** Bold Barlow Condensed for prominent figures (Why GEP stats) */
 const DISPLAY_STAT_WEIGHT = 700
 

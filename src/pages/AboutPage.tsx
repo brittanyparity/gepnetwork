@@ -87,7 +87,7 @@ export default function AboutPage() {
                   src={member.img}
                   alt={member.name}
                   className="team-photo absolute inset-0 w-full h-full transition-transform duration-500 group-hover:scale-105"
-                  style={member.photoPosition ? { objectPosition: member.photoPosition } : undefined}
+                  style={{ objectPosition: member.photoPosition ?? 'center top' }}
                 />
                 <div
                   className="absolute inset-0"

@@ -26,7 +26,7 @@ export const TEAM: TeamMember[] = [
     email: 'vreedsr@gepnetwork.com',
     phone: '877-437-6381',
     img: '/team/victor-reed-sr.jpg',
-    photoPosition: 'center 8%',
+    photoPosition: 'center top',
     summary:
       'Victor Reed brings creative visions to life, a calling for over 40 years. As CEO of GEP Network, he’s respected in Concert Touring, with a roster spanning decades.',
     aboutTitle: 'The Architect of Live Event Experiences',
@@ -58,7 +58,7 @@ export const TEAM: TeamMember[] = [
     email: 'belindapervall@gmail.com',
     phone: '877-437-6381',
     img: '/team/belinda-pervall.jpg',
-    photoPosition: 'center 14%',
+    photoPosition: 'center top',
     summary:
       'Artist manager, talent advisor, and hospitality consultant. Her sharp vision delivers bold ideas, connecting clients to new audiences.',
     aboutTitle: 'Artist Manager, Advisor & Hospitality Consultant',
@@ -83,7 +83,7 @@ export const TEAM: TeamMember[] = [
     email: 'cchapman@gepnetwork.com',
     phone: '877-437-6381',
     img: '/team/chico-chapman.jpg',
-    photoPosition: 'center 8%',
+    photoPosition: 'center top',
     summary:
       'With a diverse skill set spanning two decades, Chico Chapman serves as Chief Marketing Officer at GEP Network, bridging entertainment, technology, and marketing.',
     aboutTitle: 'Marketing, Technology & Production Coordination',
@@ -111,7 +111,7 @@ export const TEAM: TeamMember[] = [
     email: 'admin@gepnetwork.com',
     phone: '877-437-6381',
     img: '/team/victor-reed-jr.jpg',
-    photoPosition: 'center 14%',
+    photoPosition: 'center top',
     summary:
       'Victor L. Reed Jr. is a seasoned production professional with over 13 years of experience, whose creative leadership and technical acumen have elevated live events nationwide.',
     aboutTitle: 'Creative Leadership On the Road',
@@ -135,7 +135,7 @@ export const TEAM: TeamMember[] = [
     email: 'zachreed@gepnetwork.com',
     phone: '877-437-6381',
     img: '/team/zach-reed.jpg',
-    photoPosition: 'center 16%',
+    photoPosition: 'center top',
     summary:
       'Master of sound and production, with nearly a decade of expertise. Leading audio solutions at GEP Network.',
     aboutTitle: 'The Sonic Craftsman of Live Productions',
@@ -159,7 +159,7 @@ export const TEAM: TeamMember[] = [
     email: 'r.valines@yahoo.com',
     phone: '877-437-6381',
     img: '/team/ron-valines.jpg',
-    photoPosition: 'center 14%',
+    photoPosition: 'center top',
     summary:
       'Versatile stage manager and technical expert. Crafting seamless live event experiences for over a decade.',
     aboutTitle: 'Versatile Artisan of Live Event Staging',
@@ -183,7 +183,7 @@ export const TEAM: TeamMember[] = [
     email: 'donnalburns1@gmail.com',
     phone: '877-437-6381',
     img: '/team/donna-burns.jpg',
-    photoPosition: 'center 22%',
+    photoPosition: 'center top',
     summary:
       'Donna L. Burns’ distinguished career is marked by a resolute commitment to excellence in project and program management, consulting, and customer service.',
     aboutTitle: 'Strategist in Project Management and Customer Service Excellence',

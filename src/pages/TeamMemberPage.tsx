@@ -18,7 +18,6 @@ export default function TeamMemberPage() {
         subtitle={member.role}
         image={member.img}
         portrait
-        imagePosition={member.photoPosition ?? 'center 14%'}
       />
 
       <SectionWrap>
