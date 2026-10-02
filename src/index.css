@@ -122,19 +122,19 @@ a.gep-hero-logo-xl.gep-hero-logo-xl--bounded {
   display: inline-block;
   isolation: isolate;
   font-family: 'Century Gothic GEP', 'Century Gothic', 'CenturyGothic', sans-serif;
-  font-size: 0.94em;
-  font-weight: 700;
+  font-size: 0.82em;
+  font-weight: 400;
   letter-spacing: 0;
-  /* Stronger bevel + halo so the G locks to the spinning globe */
-  -webkit-text-stroke: 0.028em rgba(255, 255, 255, 0.35);
+  /* Thin Century G with a soft emboss bevel for dimension over the globe */
+  -webkit-text-stroke: 0.01em rgba(255, 255, 255, 0.22);
   paint-order: stroke fill;
-  filter: drop-shadow(0 0.04em 0.05em rgba(0, 0, 0, 0.55));
   text-shadow:
-    0 0 0.03em rgba(255, 255, 255, 0.7),
-    0 0.012em 0 rgba(255, 255, 255, 0.35),
-    0 0.035em 0.02em rgba(0, 0, 0, 0.65),
-    0 0.07em 0.12em rgba(0, 0, 0, 0.75),
-    0 0 0.16em rgba(0, 0, 0, 0.85);
+    -0.012em -0.014em 0 rgba(255, 255, 255, 0.55),
+    -0.006em -0.008em 0 rgba(255, 255, 255, 0.35),
+    0.01em 0.012em 0 rgba(0, 0, 0, 0.55),
+    0.018em 0.022em 0.01em rgba(0, 0, 0, 0.4),
+    0 0.03em 0.06em rgba(0, 0, 0, 0.5),
+    0 0 0.08em rgba(0, 0, 0, 0.55);
 }
 
 .gep-logo-century__globe {
@@ -277,11 +277,13 @@ a.gep-hero-logo-xl.gep-hero-logo-xl--bounded {
 }
 
 .gep-footer-light .gep-logo-century__g {
-  -webkit-text-stroke: 0.014em rgba(23, 20, 15, 0.18);
+  -webkit-text-stroke: 0.008em rgba(23, 20, 15, 0.12);
   text-shadow:
-    0 0 0.015em rgba(255, 255, 255, 0.85),
-    0 0.02em 0.03em rgba(0, 0, 0, 0.22),
-    0 0.04em 0.07em rgba(0, 0, 0, 0.18);
+    -0.01em -0.012em 0 rgba(255, 255, 255, 0.9),
+    -0.004em -0.006em 0 rgba(255, 255, 255, 0.55),
+    0.01em 0.012em 0 rgba(0, 0, 0, 0.28),
+    0.016em 0.02em 0.01em rgba(0, 0, 0, 0.18),
+    0 0.02em 0.04em rgba(0, 0, 0, 0.16);
 }
 /* Outline-only marks exported on black (e.g. BPC) — drop the mat on light section bg */
 .gep-client-logo--light-on-dark {
