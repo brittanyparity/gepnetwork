@@ -1,5 +1,7 @@
 import type { CSSProperties, ReactNode } from 'react'
 import { Link } from 'react-router-dom'
+import { AnimatedTitle } from './Motion'
+import { Reveal } from './Reveal'
 import { DISPLAY_TITLE_WEIGHT, FONT_BODY, FONT_DISPLAY } from '../site'
 
 export function GoldRule() {
@@ -33,17 +35,19 @@ export function PageHero({
           <img
             src={image}
             alt=""
-            className={`absolute inset-0 w-full h-full object-cover ${portrait ? 'page-hero-portrait-img' : ''}`}
+            className={`absolute inset-0 w-full h-full object-cover page-hero-fade ${portrait ? 'page-hero-portrait-img' : ''}`}
             style={imagePosition ? { objectPosition: imagePosition } : undefined}
           />
           <div className="absolute inset-0" style={{ background: 'rgba(23, 20, 15, 0.62)' }} />
         </>
       ) : null}
       <div className={`relative z-10 max-w-[1400px] mx-auto px-6 lg:px-10 pt-32 pb-20 ${image ? 'text-white' : ''}`}>
-        <GoldRule />
+        <div className="page-hero-fade page-hero-fade-delay-1">
+          <GoldRule />
+        </div>
         {eyebrow ? (
           <p
-            className="text-xs tracking-[0.22em] uppercase mb-4 font-medium"
+            className="text-xs tracking-[0.22em] uppercase mb-4 font-medium page-hero-fade page-hero-fade-delay-1"
             style={{
               fontFamily: FONT_BODY,
               color: image ? 'rgba(255,255,255,0.75)' : 'var(--gep-text-muted)',
@@ -53,7 +57,7 @@ export function PageHero({
           </p>
         ) : null}
         <h1
-          className="uppercase leading-tight max-w-4xl"
+          className="uppercase leading-tight max-w-4xl page-hero-fade page-hero-fade-delay-2"
           style={{
             fontFamily: FONT_DISPLAY,
             fontWeight: DISPLAY_TITLE_WEIGHT,
@@ -62,11 +66,11 @@ export function PageHero({
             color: image ? '#fff' : 'var(--gep-text)',
           }}
         >
-          {title}
+          <AnimatedTitle text={title} />
         </h1>
         {subtitle ? (
           <p
-            className="mt-6 text-base md:text-lg leading-relaxed max-w-2xl font-medium"
+            className="mt-6 text-base md:text-lg leading-relaxed max-w-2xl font-medium page-hero-fade page-hero-fade-delay-3"
             style={{
               fontFamily: FONT_BODY,
               color: image ? 'rgba(255,255,255,0.85)' : 'var(--gep-text-muted)',
@@ -138,22 +142,24 @@ export function CtaBand({
 }) {
   return (
     <SectionWrap alt>
-      <div className="max-w-3xl">
-        <GoldRule />
-        <h2
-          className="uppercase leading-tight mb-4"
-          style={{
-            fontFamily: FONT_DISPLAY,
-            fontWeight: DISPLAY_TITLE_WEIGHT,
-            fontSize: 'clamp(2rem, 4vw, 3rem)',
-            color: 'var(--gep-text)',
-          }}
-        >
-          {title}
-        </h2>
-        <BodyText className="mb-8">{body}</BodyText>
-        <AccentLinkButton to="/contact">Contact Us</AccentLinkButton>
-      </div>
+      <Reveal direction="up">
+        <div className="max-w-3xl">
+          <GoldRule />
+          <h2
+            className="uppercase leading-tight mb-4"
+            style={{
+              fontFamily: FONT_DISPLAY,
+              fontWeight: DISPLAY_TITLE_WEIGHT,
+              fontSize: 'clamp(2rem, 4vw, 3rem)',
+              color: 'var(--gep-text)',
+            }}
+          >
+            {title}
+          </h2>
+          <BodyText className="mb-8">{body}</BodyText>
+          <AccentLinkButton to="/contact">Contact Us</AccentLinkButton>
+        </div>
+      </Reveal>
     </SectionWrap>
   )
 }
