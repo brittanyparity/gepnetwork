@@ -147,10 +147,11 @@ a.gep-hero-logo-xl.gep-hero-logo-xl--bounded {
 
 .gep-logo-century__globe {
   position: absolute;
-  left: 0.05em;
-  top: 0.148em;
-  width: 0.78em;
-  height: 0.78em;
+  /* Smaller sphere, centered in the G counter with breathing room */
+  left: 0.15em;
+  top: 0.235em;
+  width: 0.56em;
+  height: 0.56em;
   border-radius: 50%;
   overflow: hidden;
   z-index: -1;
@@ -165,10 +166,10 @@ a.gep-hero-logo-xl.gep-hero-logo-xl--bounded {
 
 .gep-logo-century__globe gep-globe {
   position: absolute;
-  top: -11%;
-  left: -11%;
-  width: 122%;
-  height: 122%;
+  top: -6%;
+  left: -6%;
+  width: 112%;
+  height: 112%;
 }
 
 .gep-logo-century__word {
