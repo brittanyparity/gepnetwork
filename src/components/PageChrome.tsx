@@ -13,17 +13,31 @@ export function PageHero({
   title,
   subtitle,
   image,
+  imagePosition,
+  portrait,
 }: {
   eyebrow?: string
   title: string
   subtitle?: string
   image?: string
+  /** CSS object-position, e.g. "center 18%" */
+  imagePosition?: string
+  /** Prefer face-safe crop for portrait photos (team heroes) */
+  portrait?: boolean
 }) {
   return (
-    <section className="relative overflow-hidden" style={{ background: 'var(--gep-bg)' }}>
+    <section
+      className={`relative overflow-hidden ${portrait && image ? 'page-hero--portrait' : ''}`}
+      style={{ background: 'var(--gep-bg)' }}
+    >
       {image ? (
         <>
-          <img src={image} alt="" className="absolute inset-0 w-full h-full object-cover page-hero-fade" />
+          <img
+            src={image}
+            alt=""
+            className={`absolute inset-0 w-full h-full object-cover page-hero-fade ${portrait ? 'page-hero-portrait-img' : ''}`}
+            style={imagePosition ? { objectPosition: imagePosition } : undefined}
+          />
           <div className="absolute inset-0" style={{ background: 'rgba(23, 20, 15, 0.62)' }} />
         </>
       ) : null}
@@ -33,10 +47,10 @@ export function PageHero({
         </div>
         {eyebrow ? (
           <p
-            className="text-xs tracking-[0.25em] uppercase mb-4 page-hero-fade page-hero-fade-delay-1"
+            className="text-xs tracking-[0.22em] uppercase mb-4 font-medium page-hero-fade page-hero-fade-delay-1"
             style={{
               fontFamily: FONT_BODY,
-              color: image ? 'rgba(255,255,255,0.7)' : 'var(--gep-text-muted)',
+              color: image ? 'rgba(255,255,255,0.75)' : 'var(--gep-text-muted)',
             }}
           >
             {eyebrow}
@@ -56,10 +70,10 @@ export function PageHero({
         </h1>
         {subtitle ? (
           <p
-            className="mt-6 text-base md:text-lg leading-relaxed max-w-2xl page-hero-fade page-hero-fade-delay-3"
+            className="mt-6 text-base md:text-lg leading-relaxed max-w-2xl font-medium page-hero-fade page-hero-fade-delay-3"
             style={{
               fontFamily: FONT_BODY,
-              color: image ? 'rgba(255,255,255,0.8)' : 'var(--gep-text-muted)',
+              color: image ? 'rgba(255,255,255,0.85)' : 'var(--gep-text-muted)',
             }}
           >
             {subtitle}
@@ -84,7 +98,10 @@ export function SectionWrap({ children, id, alt }: { children: ReactNode; id?: s
 
 export function BodyText({ children, className = '' }: { children: ReactNode; className?: string }) {
   return (
-    <p className={`text-base leading-relaxed ${className}`} style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>
+    <p
+      className={`text-base leading-relaxed font-normal ${className}`}
+      style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)', fontWeight: 500 }}
+    >
       {children}
     </p>
   )

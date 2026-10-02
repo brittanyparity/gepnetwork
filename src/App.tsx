@@ -158,15 +158,15 @@ function lightBoneScheme(
 }
 
 const COLOR_SCHEMES: ColorScheme[] = [
-  lightBoneScheme('palette-soul', 'Soul', PALETTE.soul, PALETTE.soulLight, {
-    '--gep-bg': '#F6F1EB',
-    '--gep-bg-alt': '#EDE4D8',
-    '--gep-card': '#E5DACE',
-    '--gep-header-bar': HEADER_BAR.soul,
-    '--gep-header-scrolled': HEADER_BAR.soul,
-    '--gep-card-overlay': 'rgba(68, 48, 36, 0.76)',
+  lightBoneScheme('palette-slate-blue', 'Slate Blue', PALETTE.slateBlue, PALETTE.slateBlueLight, {
+    '--gep-bg': '#F2F5F8',
+    '--gep-bg-alt': '#E8EEF3',
+    '--gep-card': '#DAE3EB',
+    '--gep-header-bar': HEADER_BAR.slateBlue,
+    '--gep-header-scrolled': HEADER_BAR.slateBlue,
+    '--gep-card-overlay': 'rgba(39, 67, 92, 0.76)',
     '--gep-storage-overlay':
-      'linear-gradient(to top, rgba(68, 48, 36, 0.86) 0%, rgba(111, 83, 68, 0.46) 55%, rgba(68, 48, 36, 0.2) 100%)',
+      'linear-gradient(to top, rgba(39, 67, 92, 0.86) 0%, rgba(55, 90, 120, 0.44) 55%, rgba(39, 67, 92, 0.18) 100%)',
   }),
   lightBoneScheme('palette-silver', 'Silver', PALETTE.silver, PALETTE.silverLight, {
     '--gep-bg': '#FFFFFF',
@@ -183,6 +183,16 @@ const COLOR_SCHEMES: ColorScheme[] = [
       'linear-gradient(105deg, rgba(0, 0, 0, 0.82) 0%, rgba(0, 0, 0, 0.48) 50%, rgba(0, 0, 0, 0.36) 100%)',
     '--gep-storage-overlay':
       'linear-gradient(to top, rgba(45, 45, 50, 0.86) 0%, rgba(107, 114, 128, 0.44) 55%, rgba(45, 45, 50, 0.18) 100%)',
+  }),
+  lightBoneScheme('palette-soul', 'Soul', PALETTE.soul, PALETTE.soulLight, {
+    '--gep-bg': '#F6F1EB',
+    '--gep-bg-alt': '#EDE4D8',
+    '--gep-card': '#E5DACE',
+    '--gep-header-bar': HEADER_BAR.soul,
+    '--gep-header-scrolled': HEADER_BAR.soul,
+    '--gep-card-overlay': 'rgba(68, 48, 36, 0.76)',
+    '--gep-storage-overlay':
+      'linear-gradient(to top, rgba(68, 48, 36, 0.86) 0%, rgba(111, 83, 68, 0.46) 55%, rgba(68, 48, 36, 0.2) 100%)',
   }),
   lightBoneScheme('palette-clay', 'Clay', PALETTE.clay, PALETTE.clay),
   lightBoneScheme('palette-dusk', 'Dusk', PALETTE.dusk, PALETTE.dusk, {
@@ -242,16 +252,6 @@ const COLOR_SCHEMES: ColorScheme[] = [
     '--gep-card-overlay': 'rgba(90, 105, 35, 0.74)',
     '--gep-storage-overlay':
       'linear-gradient(to top, rgba(90, 105, 35, 0.86) 0%, rgba(182, 212, 48, 0.44) 55%, rgba(90, 105, 35, 0.18) 100%)',
-  }),
-  lightBoneScheme('palette-slate-blue', 'Slate Blue', PALETTE.slateBlue, PALETTE.slateBlueLight, {
-    '--gep-bg': '#F2F5F8',
-    '--gep-bg-alt': '#E8EEF3',
-    '--gep-card': '#DAE3EB',
-    '--gep-header-bar': HEADER_BAR.slateBlue,
-    '--gep-header-scrolled': HEADER_BAR.slateBlue,
-    '--gep-card-overlay': 'rgba(39, 67, 92, 0.76)',
-    '--gep-storage-overlay':
-      'linear-gradient(to top, rgba(39, 67, 92, 0.86) 0%, rgba(55, 90, 120, 0.44) 55%, rgba(39, 67, 92, 0.18) 100%)',
   }),
 ]
 
@@ -324,8 +324,8 @@ const recentProjectImg = (file: string) => `${import.meta.env.BASE_URL}recent-pr
 
 const FONT_BODY = "'Inter', sans-serif"
 const FONT_DISPLAY = "'Barlow Condensed', sans-serif"
-/** Thin Barlow Condensed for section and card titles (matches hero tagline) */
-const DISPLAY_TITLE_WEIGHT = 300
+/** Fuller display weight — client feedback that ultra-thin type felt too light */
+const DISPLAY_TITLE_WEIGHT = 500
 /** Bold Barlow Condensed for prominent figures (Why GEP stats) */
 const DISPLAY_STAT_WEIGHT = 700
 
@@ -749,7 +749,7 @@ function Header({
         {!hideHeaderLogo && (
           <Link to="/" className="gep-header-logo relative z-10 flex-shrink-0" onClick={() => setMenuOpen(false)}>
             <GEPLogoLockup
-              globeSize={68}
+              globeSize={82}
               colorSchemeKey={colorScheme}
               lockupId={LOGO_LOCKUP}
             />
@@ -1677,7 +1677,7 @@ function HomePage({
 
 function AppShell() {
   const [menuOpen, setMenuOpen] = useState(false)
-  const [colorScheme, setColorScheme] = useState('palette-soul')
+  const [colorScheme, setColorScheme] = useState('palette-slate-blue')
   const [heroLayout, setHeroLayout] = useState<HeroLayoutId>('tagline-only')
   const scheme = COLOR_SCHEMES.find((s) => s.id === colorScheme) ?? COLOR_SCHEMES[0]
   const location = useLocation()

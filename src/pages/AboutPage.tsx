@@ -86,11 +86,12 @@ export default function AboutPage() {
                 className="team-card group block overflow-hidden"
                 style={{ background: 'var(--gep-card)' }}
               >
-                <div className="relative aspect-[4/5] overflow-hidden">
+                <div className="team-card-media relative overflow-hidden">
                   <img
                     src={member.img}
                     alt={member.name}
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="team-photo absolute inset-0 w-full h-full transition-transform duration-500 group-hover:scale-105"
+                    style={{ objectPosition: member.photoPosition ?? 'center top' }}
                   />
                   <TeamSocialOverlay />
                   <div
@@ -104,13 +105,13 @@ export default function AboutPage() {
                     >
                       {member.name}
                     </h3>
-                    <p className="text-[11px] tracking-widest uppercase mt-1 text-white/70" style={{ fontFamily: FONT_BODY }}>
+                    <p className="text-[11px] tracking-widest uppercase mt-1 text-white/70 font-medium" style={{ fontFamily: FONT_BODY }}>
                       {member.role}
                     </p>
                   </div>
                 </div>
                 <div className="p-5">
-                  <p className="text-sm leading-relaxed mb-4" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>
+                  <p className="text-sm leading-relaxed mb-4 font-medium" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>
                     {member.summary}
                   </p>
                   <span

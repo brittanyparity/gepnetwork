@@ -1,6 +1,7 @@
 export const FONT_BODY = "'Inter', sans-serif"
 export const FONT_DISPLAY = "'Barlow Condensed', sans-serif"
-export const DISPLAY_TITLE_WEIGHT = 300
+/** Section / page titles — 500 reads fuller than ultra-thin 300 */
+export const DISPLAY_TITLE_WEIGHT = 500
 export const DISPLAY_STAT_WEIGHT = 700
 
 export const GEP_FULL_NAME = 'Global Events Production (GEP) Network'

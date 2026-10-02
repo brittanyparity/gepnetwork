@@ -14,7 +14,13 @@ export default function TeamMemberPage() {
 
   return (
     <>
-      <PageHero eyebrow="Our Team" title={member.name} subtitle={member.role} image={member.img} />
+      <PageHero
+        eyebrow="Our Team"
+        title={member.name}
+        subtitle={member.role}
+        image={member.img}
+        portrait
+      />
 
       <SectionWrap>
         <div className="grid lg:grid-cols-[280px_1fr] gap-12">
@@ -123,8 +129,13 @@ export default function TeamMemberPage() {
                 className="team-card group block overflow-hidden"
                 style={{ background: 'var(--gep-card)' }}
               >
-                <div className="relative aspect-[4/3]">
-                  <img src={m.img} alt={m.name} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                <div className="relative aspect-[4/3] overflow-hidden">
+                  <img
+                    src={m.img}
+                    alt={m.name}
+                    className="team-photo absolute inset-0 w-full h-full transition-transform duration-500 group-hover:scale-105"
+                    style={{ objectPosition: m.photoPosition ?? 'center top' }}
+                  />
                   <TeamSocialOverlay />
                 </div>
                 <div className="p-4">
