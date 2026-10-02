@@ -374,6 +374,8 @@ body {
 
 /* Team social overlay (eael-style) */
 .team-social-overlay {
+  opacity: 0;
+  pointer-events: none;
   transition: opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -387,22 +389,18 @@ body {
     border-color 0.2s ease;
 }
 
-.group:hover .team-social-overlay a,
-.group:focus-within .team-social-overlay a {
+.group:hover .team-social-overlay,
+.group:focus-within .team-social-overlay,
+.team-card.is-social-open .team-social-overlay {
   opacity: 1;
-  transform: translateY(0);
+  pointer-events: auto;
 }
 
-@media (hover: none) {
-  .team-card:focus-within .team-social-overlay,
-  .team-card:focus-within .team-social-overlay {
-    opacity: 1;
-    pointer-events: auto;
-  }
-  .team-card:focus-within .team-social-overlay a {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.group:hover .team-social-overlay a,
+.group:focus-within .team-social-overlay a,
+.team-card.is-social-open .team-social-overlay a {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Flip card */
@@ -446,7 +444,14 @@ body {
     transform: none !important;
   }
 
+  .team-social-overlay,
   .team-social-overlay a {
+    transition: none !important;
+  }
+
+  .group:hover .team-social-overlay a,
+  .group:focus-within .team-social-overlay a,
+  .team-card.is-social-open .team-social-overlay a {
     opacity: 1;
     transform: none;
   }

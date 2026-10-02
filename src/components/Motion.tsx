@@ -53,7 +53,7 @@ export function TeamSocialOverlay({
   links?: SocialLink[]
 }) {
   return (
-    <div className="team-social-overlay absolute inset-0 z-20 flex items-center justify-center gap-2.5 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:pointer-events-auto">
+    <div className="team-social-overlay absolute inset-0 z-20 flex items-center justify-center gap-2.5" aria-hidden="true">
       <div className="absolute inset-0 bg-black/55" />
       {links.map((s, i) => (
         <a
