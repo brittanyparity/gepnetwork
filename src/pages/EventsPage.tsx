@@ -1,4 +1,5 @@
 import { BodyText, CtaBand, GoldRule, PageHero, SectionWrap } from '../components/PageChrome'
+import { Reveal } from '../components/Reveal'
 import { DISPLAY_TITLE_WEIGHT, FONT_BODY, FONT_DISPLAY } from '../site'
 
 const recentProjectImg = (file: string) => `${import.meta.env.BASE_URL}recent-projects/${file}`
@@ -37,46 +38,50 @@ export default function EventsPage() {
       />
 
       <SectionWrap>
-        <GoldRule />
-        <h2
-          className="uppercase leading-tight mb-4"
-          style={{
-            fontFamily: FONT_DISPLAY,
-            fontWeight: DISPLAY_TITLE_WEIGHT,
-            fontSize: 'clamp(1.75rem, 3.5vw, 2.75rem)',
-            color: 'var(--gep-text)',
-          }}
-        >
-          Recent Projects
-        </h2>
-        <BodyText className="max-w-2xl mb-12">
-          From arena world tours to international festivals, our productions span the full spectrum of live entertainment.
-        </BodyText>
+        <Reveal direction="up">
+          <GoldRule />
+          <h2
+            className="uppercase leading-tight mb-4"
+            style={{
+              fontFamily: FONT_DISPLAY,
+              fontWeight: DISPLAY_TITLE_WEIGHT,
+              fontSize: 'clamp(1.75rem, 3.5vw, 2.75rem)',
+              color: 'var(--gep-text)',
+            }}
+          >
+            Recent Projects
+          </h2>
+          <BodyText className="max-w-2xl mb-12">
+            From arena world tours to international festivals, our productions span the full spectrum of live entertainment.
+          </BodyText>
+        </Reveal>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-          {EVENTS.map((event) => (
-            <article key={`${event.name}-${event.tour}`} className="relative overflow-hidden group" style={{ height: 320, background: 'var(--gep-card)' }}>
-              <img
-                src={event.img}
-                alt={event.name}
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-              />
-              <div
-                className="absolute inset-0"
-                style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.15) 60%, transparent 100%)' }}
-              />
-              <div className="absolute bottom-0 left-0 right-0 p-4">
-                <h3
-                  className="text-white uppercase leading-tight mb-1"
-                  style={{ fontFamily: FONT_DISPLAY, fontWeight: DISPLAY_TITLE_WEIGHT, fontSize: '1.15rem' }}
-                >
-                  {event.name}
-                </h3>
-                <p className="text-[11px] tracking-widest uppercase text-white/70" style={{ fontFamily: FONT_BODY }}>
-                  {event.tour}
-                </p>
+          {EVENTS.map((event, i) => (
+            <Reveal key={`${event.name}-${event.tour}`} direction="up" delay={(i % 4) * 70} as="article">
+              <div className="relative overflow-hidden group" style={{ height: 320, background: 'var(--gep-card)' }}>
+                <img
+                  src={event.img}
+                  alt={event.name}
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div
+                  className="absolute inset-0"
+                  style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.15) 60%, transparent 100%)' }}
+                />
+                <div className="absolute bottom-0 left-0 right-0 p-4">
+                  <h3
+                    className="text-white uppercase leading-tight mb-1"
+                    style={{ fontFamily: FONT_DISPLAY, fontWeight: DISPLAY_TITLE_WEIGHT, fontSize: '1.15rem' }}
+                  >
+                    {event.name}
+                  </h3>
+                  <p className="text-[11px] tracking-widest uppercase text-white/70" style={{ fontFamily: FONT_BODY }}>
+                    {event.tour}
+                  </p>
+                </div>
               </div>
-            </article>
+            </Reveal>
           ))}
         </div>
       </SectionWrap>

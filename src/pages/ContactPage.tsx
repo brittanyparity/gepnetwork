@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from 'react'
 import { BodyText, GoldRule, PageHero, SectionWrap } from '../components/PageChrome'
+import { Reveal } from '../components/Reveal'
 import { DISPLAY_TITLE_WEIGHT, FONT_BODY, FONT_DISPLAY } from '../site'
 
 const CONTACT_BLOCKS = [
@@ -48,7 +49,7 @@ export default function ContactPage() {
 
       <SectionWrap>
         <div className="grid lg:grid-cols-2 gap-14">
-          <div>
+          <Reveal direction="left">
             <GoldRule />
             <h2
               className="uppercase leading-tight mb-8"
@@ -62,8 +63,8 @@ export default function ContactPage() {
               Direct Contacts
             </h2>
             <div className="grid sm:grid-cols-2 gap-8">
-              {CONTACT_BLOCKS.map((block) => (
-                <div key={block.title}>
+              {CONTACT_BLOCKS.map((block, i) => (
+                <Reveal key={block.title} direction="up" delay={i * 70}>
                   <p
                     className="text-[10px] tracking-[0.25em] uppercase mb-3"
                     style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}
@@ -75,12 +76,12 @@ export default function ContactPage() {
                       {line}
                     </p>
                   ))}
-                </div>
+                </Reveal>
               ))}
             </div>
-          </div>
+          </Reveal>
 
-          <div>
+          <Reveal direction="right" delay={120}>
             <GoldRule />
             <h2
               className="uppercase leading-tight mb-4"
@@ -151,7 +152,7 @@ export default function ContactPage() {
                 </button>
               </form>
             )}
-          </div>
+          </Reveal>
         </div>
       </SectionWrap>
     </>

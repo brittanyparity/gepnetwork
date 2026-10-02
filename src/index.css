@@ -310,12 +310,99 @@ body {
   100% { transform: translateX(-50%); }
 }
 
+@keyframes titleWordIn {
+  from { opacity: 0; transform: translateY(110%); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes heroFadeIn {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 .animate-fade-up {
   animation: fadeUp 0.7s ease forwards;
 }
 
 .animate-marquee {
   animation: marquee 45s linear infinite;
+}
+
+/* Scroll / load reveals — Elementor-style fly-ins */
+.reveal {
+  opacity: 0;
+  transition:
+    opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-up { transform: translate3d(0, 48px, 0); }
+.reveal-down { transform: translate3d(0, -48px, 0); }
+.reveal-left { transform: translate3d(-56px, 0, 0); }
+.reveal-right { transform: translate3d(56px, 0, 0); }
+.reveal-fade { transform: none; }
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Hero title word cascade */
+.anim-title {
+  display: inline;
+}
+
+.anim-title-word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+
+.anim-title-inner {
+  display: inline-block;
+  animation: titleWordIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.page-hero-fade {
+  animation: heroFadeIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.page-hero-fade-delay-1 { animation-delay: 0.08s; }
+.page-hero-fade-delay-2 { animation-delay: 0.18s; }
+.page-hero-fade-delay-3 { animation-delay: 0.32s; }
+
+/* Team social overlay (eael-style) */
+.team-social-overlay {
+  transition: opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.team-social-overlay a {
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.group:hover .team-social-overlay a,
+.group:focus-within .team-social-overlay a {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (hover: none) {
+  .team-card:focus-within .team-social-overlay,
+  .team-card:focus-within .team-social-overlay {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .team-card:focus-within .team-social-overlay a {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Flip card */
@@ -338,4 +425,34 @@ body {
 }
 .flip-card-back {
   transform: rotateY(180deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-up,
+  .reveal-down,
+  .reveal-left,
+  .reveal-right,
+  .reveal-fade {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .anim-title-inner,
+  .page-hero-fade {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .team-social-overlay a {
+    opacity: 1;
+    transform: none;
+  }
+
+  .animate-fade-up,
+  .animate-marquee {
+    animation: none !important;
+  }
 }
