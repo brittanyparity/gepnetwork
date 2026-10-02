@@ -26,7 +26,7 @@ export const TEAM: TeamMember[] = [
     email: 'vreedsr@gepnetwork.com',
     phone: '877-437-6381',
     img: '/team/victor-reed-sr.jpg',
-    photoPosition: 'center 12%',
+    photoPosition: 'center 8%',
     summary:
       'Victor Reed brings creative visions to life, a calling for over 40 years. As CEO of GEP Network, he’s respected in Concert Touring, with a roster spanning decades.',
     aboutTitle: 'The Architect of Live Event Experiences',
@@ -83,7 +83,7 @@ export const TEAM: TeamMember[] = [
     email: 'cchapman@gepnetwork.com',
     phone: '877-437-6381',
     img: '/team/chico-chapman.jpg',
-    photoPosition: 'center 12%',
+    photoPosition: 'center 8%',
     summary:
       'With a diverse skill set spanning two decades, Chico Chapman serves as Chief Marketing Officer at GEP Network, bridging entertainment, technology, and marketing.',
     aboutTitle: 'Marketing, Technology & Production Coordination',

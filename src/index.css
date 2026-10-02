@@ -68,7 +68,7 @@ html {
 
 /* Header lockup only — footer keeps .gep-logo-century defaults above */
 .gep-header-logo .gep-logo-century {
-  font-size: clamp(1.95rem, 5.6vw, 3.35rem);
+  font-size: clamp(2.15rem, 6.2vw, 3.65rem);
 }
 
 .gep-logo-century--hero {
@@ -116,18 +116,19 @@ a.gep-hero-logo-xl.gep-hero-logo-xl--bounded {
   display: inline-block;
   isolation: isolate;
   font-family: 'Century Gothic GEP', 'Century Gothic', 'CenturyGothic', sans-serif;
-  font-size: 0.9em;
+  font-size: 0.94em;
   font-weight: 700;
   letter-spacing: 0;
-  /* Bevel + halo so the G reads over the spinning globe */
-  -webkit-text-stroke: 0.018em rgba(255, 255, 255, 0.22);
+  /* Stronger bevel + halo so the G locks to the spinning globe */
+  -webkit-text-stroke: 0.028em rgba(255, 255, 255, 0.35);
   paint-order: stroke fill;
+  filter: drop-shadow(0 0.04em 0.05em rgba(0, 0, 0, 0.55));
   text-shadow:
-    0 0 0.02em rgba(255, 255, 255, 0.55),
-    0 0.01em 0 rgba(255, 255, 255, 0.25),
-    0 0.03em 0.02em rgba(0, 0, 0, 0.55),
-    0 0.06em 0.1em rgba(0, 0, 0, 0.65),
-    0 0 0.12em rgba(0, 0, 0, 0.75);
+    0 0 0.03em rgba(255, 255, 255, 0.7),
+    0 0.012em 0 rgba(255, 255, 255, 0.35),
+    0 0.035em 0.02em rgba(0, 0, 0, 0.65),
+    0 0.07em 0.12em rgba(0, 0, 0, 0.75),
+    0 0 0.16em rgba(0, 0, 0, 0.85);
 }
 
 .gep-logo-century__globe {
@@ -228,7 +229,7 @@ a.gep-hero-logo-xl.gep-hero-logo-xl--bounded {
 /* Team portraits — keep faces in frame across crops */
 .team-photo {
   object-fit: cover;
-  object-position: center 16%;
+  object-position: center top;
 }
 
 .team-card-media {
@@ -239,19 +240,32 @@ a.gep-hero-logo-xl.gep-hero-logo-xl--bounded {
   .team-card-media {
     aspect-ratio: 4 / 5;
   }
+
+  .team-photo {
+    object-position: center 12%;
+  }
 }
 
-.page-hero-portrait-img {
+.page-hero--portrait {
+  /* Keep portrait art below the fixed header so faces aren’t clipped */
+  --page-hero-header-offset: 5.5rem;
+}
+
+.page-hero--portrait .page-hero-portrait-img {
+  top: var(--page-hero-header-offset);
+  height: calc(100% - var(--page-hero-header-offset));
   object-fit: cover;
-  object-position: center 14%;
+  object-position: center top;
 }
 
 @media (max-width: 767px) {
   .page-hero--portrait {
-    min-height: min(78vw, 28rem);
+    min-height: calc(var(--page-hero-header-offset) + min(92vw, 34rem));
   }
+}
 
-  .page-hero-portrait-img {
+@media (min-width: 768px) {
+  .page-hero--portrait .page-hero-portrait-img {
     object-position: center 10%;
   }
 }
