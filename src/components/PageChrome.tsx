@@ -15,6 +15,7 @@ export function PageHero({
   image,
   imagePosition,
   portrait,
+  solidBanner,
 }: {
   eyebrow?: string
   title: string
@@ -24,11 +25,15 @@ export function PageHero({
   imagePosition?: string
   /** Prefer face-safe crop for portrait photos (team heroes) */
   portrait?: boolean
+  /** Text-only hero on a solid surface (no photo banner) */
+  solidBanner?: boolean
 }) {
+  const bannerBackground = solidBanner ? 'var(--gep-card)' : 'var(--gep-bg)'
+
   return (
     <section
       className={`relative overflow-hidden ${portrait && image ? 'page-hero--portrait' : ''}`}
-      style={{ background: 'var(--gep-bg)' }}
+      style={{ background: bannerBackground }}
     >
       {image ? (
         <>

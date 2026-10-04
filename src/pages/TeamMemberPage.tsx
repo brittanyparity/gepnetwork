@@ -14,18 +14,20 @@ export default function TeamMemberPage() {
 
   return (
     <>
-      <PageHero
-        eyebrow="Our Team"
-        title={member.name}
-        subtitle={member.role}
-        image={member.img}
-        portrait
-      />
+      <PageHero eyebrow="Our Team" title={member.name} subtitle={member.role} solidBanner />
 
       <SectionWrap>
         <div className="grid lg:grid-cols-[280px_1fr] gap-12">
           <Reveal direction="left">
             <aside className="space-y-6">
+              <div className="overflow-hidden" style={{ background: 'var(--gep-card)' }}>
+                <img
+                  src={member.img}
+                  alt={member.name}
+                  className="w-full aspect-[4/5] object-cover"
+                  style={{ objectPosition: member.photoPosition ?? 'center top' }}
+                />
+              </div>
               <div>
                 <p className="text-[10px] tracking-[0.2em] uppercase mb-1" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>
                   Experience
