@@ -108,8 +108,8 @@
         displacementScale: 0.055,
         bumpMap: this._dispTex,
         bumpScale: 0.9,
-        roughness: 0.64,
-        metalness: 0.16,
+        roughness: 0.42,
+        metalness: 0.32,
       })
       this._mat = mat
       const globe = new THREE.Mesh(geo, mat)
@@ -183,27 +183,51 @@
 
     _paint() {
       if (!this._colorTex || !this._dispTex) return
-      const land = this.getAttribute('land') || '#F2EEE8'
-      const ocean = this.getAttribute('ocean') || '#0E1116'
+      const land = this.getAttribute('land') || '#0A0C10'
+      const ocean = this.getAttribute('ocean') || '#E6EEF6'
       const accent = this.getAttribute('accent') || '#FF5F1F'
       if (this._rim && this.THREE) this._rim.color = new this.THREE.Color(accent)
 
-      type GridSpec = { stroke: string; meridians: number; parallels: number; lineWidth: number }
+      type GridSpec = {
+        stroke: string
+        meridians: number
+        parallels: number
+        lineWidth: number
+        /** Second pass for embossed / bold wire look */
+        boldStroke?: string
+        boldWidth?: number
+      }
 
-      const draw = (
-        tex: CanvasTextureWithCanvas,
-        fills: { bg: string; land: string; grid?: GridSpec; blur?: number },
-      ) => {
-        const c = tex._canvas
-        const ctx = c.getContext('2d')!
-        ctx.setTransform(1, 0, 0, 1, 0, 0)
-        ctx.filter = 'none'
-        ctx.fillStyle = fills.bg
+      const paintClassicOcean = (ctx: CanvasRenderingContext2D, c: HTMLCanvasElement) => {
+        const g = ctx.createLinearGradient(0, c.height * 0.06, c.width, c.height * 0.94)
+        g.addColorStop(0, '#C8D4E2')
+        g.addColorStop(0.32, '#F2F6FA')
+        g.addColorStop(0.58, '#E8EEF5')
+        g.addColorStop(1, '#9AADBF')
+        ctx.fillStyle = g
         ctx.fillRect(0, 0, c.width, c.height)
-        if (fills.grid) {
-          const { stroke, meridians, parallels, lineWidth } = fills.grid
-          ctx.strokeStyle = stroke
-          ctx.lineWidth = lineWidth
+
+        const spec = ctx.createRadialGradient(
+          c.width * 0.34,
+          c.height * 0.26,
+          c.width * 0.02,
+          c.width * 0.34,
+          c.height * 0.26,
+          c.width * 0.42,
+        )
+        spec.addColorStop(0, 'rgba(255, 255, 255, 0.62)')
+        spec.addColorStop(0.45, 'rgba(255, 255, 255, 0.12)')
+        spec.addColorStop(1, 'rgba(255, 255, 255, 0)')
+        ctx.fillStyle = spec
+        ctx.fillRect(0, 0, c.width, c.height)
+      }
+
+      const strokeGrid = (ctx: CanvasRenderingContext2D, c: HTMLCanvasElement, grid: GridSpec) => {
+        const { stroke, meridians, parallels, lineWidth, boldStroke, boldWidth } = grid
+        const drawLines = (style: string, width: number) => {
+          ctx.strokeStyle = style
+          ctx.lineWidth = width
+          ctx.lineCap = 'round'
           for (let i = 1; i < meridians; i++) {
             const x = (c.width / meridians) * i
             ctx.beginPath()
@@ -219,6 +243,25 @@
             ctx.stroke()
           }
         }
+        if (boldStroke && boldWidth) drawLines(boldStroke, boldWidth)
+        drawLines(stroke, lineWidth)
+      }
+
+      const draw = (
+        tex: CanvasTextureWithCanvas,
+        fills: { classicOcean?: boolean; bg: string; land: string; grid?: GridSpec; blur?: number },
+      ) => {
+        const c = tex._canvas
+        const ctx = c.getContext('2d')!
+        ctx.setTransform(1, 0, 0, 1, 0, 0)
+        ctx.filter = 'none'
+        if (fills.classicOcean) {
+          paintClassicOcean(ctx, c)
+        } else {
+          ctx.fillStyle = fills.bg
+          ctx.fillRect(0, 0, c.width, c.height)
+        }
+        if (fills.grid) strokeGrid(ctx, c, fills.grid)
         const d3 = (window as Window & { d3?: { geoEquirectangular: () => { translate: (v: number[]) => unknown; scale: (v: number) => unknown }; geoPath: (p: unknown, c: CanvasRenderingContext2D) => (f: unknown) => void } }).d3
         if (this._features && d3) {
           const proj = d3
@@ -236,15 +279,18 @@
         tex.needsUpdate = true
       }
 
-      /* Wire-style lat/long over ocean; land stays solid on top */
+      /* Classic GEP: light metallic ocean + bold grid, dark continents on top */
       draw(this._colorTex, {
+        classicOcean: true,
         bg: ocean,
         land,
         grid: {
-          stroke: 'rgba(255, 255, 255, 0.26)',
+          boldStroke: 'rgba(255, 255, 255, 0.42)',
+          boldWidth: 3.25,
+          stroke: 'rgba(255, 255, 255, 0.92)',
           meridians: 24,
           parallels: 13,
-          lineWidth: 1.5,
+          lineWidth: 1.85,
         },
       })
       draw(this._dispTex, { bg: '#000000', land: '#ffffff', blur: 3 })

@@ -22,8 +22,8 @@ function syncGlobeAttributes(root: HTMLElement | null) {
   if (!root) return
   root.querySelectorAll('gep-globe').forEach((node) => {
     const el = node as HTMLElement
-    el.setAttribute('land', readCssVar('--gep-globe-land', '#F2EEE8'))
-    el.setAttribute('ocean', readCssVar('--gep-globe-ocean', '#141B23'))
+    el.setAttribute('land', readCssVar('--gep-globe-land', '#0A0C10'))
+    el.setAttribute('ocean', readCssVar('--gep-globe-ocean', '#E6EEF6'))
     el.setAttribute('accent', readCssVar('--gep-accent', '#FFC52F'))
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     el.setAttribute('speed', reduced ? '0' : '0.18')
