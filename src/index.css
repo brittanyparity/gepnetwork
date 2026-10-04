@@ -133,10 +133,12 @@ a.gep-hero-logo-xl.gep-hero-logo-xl--bounded {
 
 .gep-logo-century__globe {
   position: absolute;
-  left: 0.05em;
-  top: 0.148em;
-  width: 0.78em;
-  height: 0.78em;
+  /* Optical center of Century G counter (not the glyph bounding-box center) */
+  left: 56%;
+  top: 50%;
+  width: 0.74em;
+  height: 0.74em;
+  transform: translate(-50%, -50%);
   border-radius: 50%;
   overflow: hidden;
   z-index: -1;
@@ -151,10 +153,9 @@ a.gep-hero-logo-xl.gep-hero-logo-xl--bounded {
 
 .gep-logo-century__globe gep-globe {
   position: absolute;
-  top: -11%;
-  left: -11%;
-  width: 122%;
-  height: 122%;
+  inset: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .gep-logo-century__word {
@@ -224,10 +225,8 @@ a.gep-hero-logo-xl.gep-hero-logo-xl--bounded {
 }
 
 .gep-logo-abbrev .gep-logo-century__globe {
-  left: 0.05em;
-  top: 0.14em;
-  width: 0.76em;
-  height: 0.76em;
+  width: 0.72em;
+  height: 0.72em;
 }
 
 /* Team portraits — keep faces in frame across crops */
