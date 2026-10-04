@@ -188,9 +188,11 @@
       const accent = this.getAttribute('accent') || '#FF5F1F'
       if (this._rim && this.THREE) this._rim.color = new this.THREE.Color(accent)
 
+      type GridSpec = { stroke: string; meridians: number; parallels: number; lineWidth: number }
+
       const draw = (
         tex: CanvasTextureWithCanvas,
-        fills: { bg: string; land: string; grid?: string; blur?: number },
+        fills: { bg: string; land: string; grid?: GridSpec; blur?: number },
       ) => {
         const c = tex._canvas
         const ctx = c.getContext('2d')!
@@ -199,17 +201,18 @@
         ctx.fillStyle = fills.bg
         ctx.fillRect(0, 0, c.width, c.height)
         if (fills.grid) {
-          ctx.strokeStyle = fills.grid
-          ctx.lineWidth = 2
-          for (let i = 1; i < 12; i++) {
-            const x = (c.width / 12) * i
+          const { stroke, meridians, parallels, lineWidth } = fills.grid
+          ctx.strokeStyle = stroke
+          ctx.lineWidth = lineWidth
+          for (let i = 1; i < meridians; i++) {
+            const x = (c.width / meridians) * i
             ctx.beginPath()
             ctx.moveTo(x, 0)
             ctx.lineTo(x, c.height)
             ctx.stroke()
           }
-          for (let i = 1; i < 6; i++) {
-            const y = (c.height / 6) * i
+          for (let i = 1; i < parallels; i++) {
+            const y = (c.height / parallels) * i
             ctx.beginPath()
             ctx.moveTo(0, y)
             ctx.lineTo(c.width, y)
@@ -233,7 +236,17 @@
         tex.needsUpdate = true
       }
 
-      draw(this._colorTex, { bg: ocean, land, grid: 'rgba(255,255,255,0.06)' })
+      /* Wire-style lat/long over ocean; land stays solid on top */
+      draw(this._colorTex, {
+        bg: ocean,
+        land,
+        grid: {
+          stroke: 'rgba(255, 255, 255, 0.26)',
+          meridians: 24,
+          parallels: 13,
+          lineWidth: 1.5,
+        },
+      })
       draw(this._dispTex, { bg: '#000000', land: '#ffffff', blur: 3 })
     }
   }

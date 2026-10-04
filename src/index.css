@@ -126,11 +126,8 @@ a.gep-hero-logo-xl.gep-hero-logo-xl--bounded {
   font-weight: 400;
   letter-spacing: 0;
   z-index: 1;
-  /* G-only cast shadow (no filter — globe stays out of the silhouette shadow) */
-  text-shadow:
-    0.032em 0.048em 0.055em rgba(0, 0, 0, 0.58),
-    0.05em 0.072em 0.09em rgba(0, 0, 0, 0.4),
-    0 0 0.055em rgba(0, 0, 0, 0.5);
+  /* G-only soft halo (no filter — globe stays out of the silhouette shadow) */
+  text-shadow: 0 0 0.045em rgba(0, 0, 0, 0.45);
 }
 
 .gep-logo-century__globe {
@@ -277,10 +274,7 @@ a.gep-hero-logo-xl.gep-hero-logo-xl--bounded {
 }
 
 .gep-footer-light .gep-logo-century__g {
-  text-shadow:
-    0.028em 0.04em 0.045em rgba(0, 0, 0, 0.28),
-    0.042em 0.058em 0.07em rgba(0, 0, 0, 0.18),
-    0 0 0.04em rgba(0, 0, 0, 0.22);
+  text-shadow: 0 0 0.035em rgba(0, 0, 0, 0.2);
 }
 
 .gep-footer-light .gep-logo-century__globe {
