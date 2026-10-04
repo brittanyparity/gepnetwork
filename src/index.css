@@ -118,7 +118,7 @@ a.gep-hero-logo-xl.gep-hero-logo-xl--bounded {
 
 .gep-logo-century__g {
   position: relative;
-  top: -0.036em;
+  top: -0.028em;
   display: inline-block;
   isolation: isolate;
   font-family: 'Century Gothic GEP', 'Century Gothic', 'CenturyGothic', sans-serif;
@@ -126,23 +126,10 @@ a.gep-hero-logo-xl.gep-hero-logo-xl--bounded {
   font-weight: 400;
   letter-spacing: 0;
   z-index: 1;
-  /* Thin Century G raised above the globe — hard bevel + cast shadow */
-  -webkit-text-stroke: 0.012em rgba(255, 255, 255, 0.28);
-  paint-order: stroke fill;
-  filter: drop-shadow(0.02em 0.045em 0.028em rgba(0, 0, 0, 0.7));
-  text-shadow:
-    /* top-left highlight (raised face) */
-    -0.018em -0.02em 0 rgba(255, 255, 255, 0.8),
-    -0.01em -0.012em 0 rgba(255, 255, 255, 0.45),
-    /* bottom-right hard bevel edge */
-    0.014em 0.016em 0 rgba(0, 0, 0, 0.78),
-    0.022em 0.028em 0 rgba(0, 0, 0, 0.5),
-    /* contact shadow onto the globe surface */
-    0.028em 0.04em 0.018em rgba(0, 0, 0, 0.55),
-    0.04em 0.06em 0.045em rgba(0, 0, 0, 0.4),
-    /* dark halo so the thin stroke separates from globe colors */
-    0 0 0.018em rgba(0, 0, 0, 0.9),
-    0 0 0.055em rgba(0, 0, 0, 0.55);
+  /* Single G over globe — cast shadow only (no offset duplicate / bevel layers) */
+  filter: drop-shadow(0.028em 0.042em 0.04em rgba(0, 0, 0, 0.55))
+    drop-shadow(0.012em 0.02em 0.022em rgba(0, 0, 0, 0.35));
+  text-shadow: 0 0 0.045em rgba(0, 0, 0, 0.45);
 }
 
 .gep-logo-century__globe {
@@ -289,15 +276,8 @@ a.gep-hero-logo-xl.gep-hero-logo-xl--bounded {
 }
 
 .gep-footer-light .gep-logo-century__g {
-  -webkit-text-stroke: 0.01em rgba(23, 20, 15, 0.14);
-  filter: drop-shadow(0.015em 0.03em 0.02em rgba(0, 0, 0, 0.28));
-  text-shadow:
-    -0.014em -0.016em 0 rgba(255, 255, 255, 0.95),
-    -0.006em -0.008em 0 rgba(255, 255, 255, 0.65),
-    0.012em 0.014em 0 rgba(0, 0, 0, 0.35),
-    0.02em 0.024em 0.01em rgba(0, 0, 0, 0.22),
-    0.028em 0.036em 0.03em rgba(0, 0, 0, 0.18),
-    0 0 0.02em rgba(0, 0, 0, 0.25);
+  filter: drop-shadow(0.02em 0.032em 0.035em rgba(0, 0, 0, 0.22));
+  text-shadow: 0 0 0.035em rgba(0, 0, 0, 0.2);
 }
 
 .gep-footer-light .gep-logo-century__globe {
