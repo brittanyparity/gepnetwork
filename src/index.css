@@ -59,6 +59,15 @@ html {
   /* Classic GEP globe: dark continents, light silvery ocean + bold grid */
   --gep-globe-land: #0a0c10;
   --gep-globe-ocean: #96a2ae;
+  --gep-logo-g-font: 'myriad-pro', 'Myriad Pro', sans-serif;
+  /*
+   * Globe in Century G counter (tune here — matches PS artboard ~1250×1260 in 1693 G):
+   *   width/height ≈ 1.008 (globe slightly taller than wide)
+   */
+  --gep-globe-in-g-left: 51%;
+  --gep-globe-in-g-top: 54%;
+  --gep-globe-in-g-width: 0.71em;
+  --gep-globe-in-g-height: calc(var(--gep-globe-in-g-width) * 1.008);
 }
 
 /* Century G + globe lockup (matches Claude brand embed proportions) */
@@ -122,9 +131,10 @@ a.gep-hero-logo-xl.gep-hero-logo-xl--bounded {
   top: -0.028em;
   display: inline-block;
   isolation: isolate;
-  font-family: 'Century Gothic GEP', 'Century Gothic', 'CenturyGothic', sans-serif;
+  font-family: var(--gep-logo-g-font);
   font-size: 0.82em;
   font-weight: 400;
+  font-style: normal;
   letter-spacing: 0;
   z-index: 1;
   /* G-only soft halo (no filter — globe stays out of the silhouette shadow) */
@@ -140,10 +150,10 @@ a.gep-hero-logo-xl.gep-hero-logo-xl--bounded {
  */
 .gep-logo-century__globe {
   position: absolute;
-  left: 51%;
-  top: 54%;
-  width: 0.56em;
-  height: 0.56em;
+  left: var(--gep-globe-in-g-left);
+  top: var(--gep-globe-in-g-top);
+  width: var(--gep-globe-in-g-width);
+  height: var(--gep-globe-in-g-height);
   transform: translate(-50%, -50%);
   border-radius: 50%;
   overflow: hidden;
@@ -231,8 +241,8 @@ a.gep-hero-logo-xl.gep-hero-logo-xl--bounded {
 }
 
 .gep-logo-abbrev .gep-logo-century__globe {
-  width: 0.54em;
-  height: 0.54em;
+  --gep-globe-in-g-width: 0.68em;
+  --gep-globe-in-g-height: calc(var(--gep-globe-in-g-width) * 1.008);
 }
 
 /* Team portraits — keep faces in frame across crops */
