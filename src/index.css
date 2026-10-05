@@ -133,8 +133,8 @@ a.gep-hero-logo-xl.gep-hero-logo-xl--bounded {
 
 @media (max-width: 639px) {
   a.gep-hero-logo-xl.gep-hero-logo-xl--bounded {
-    width: 90%;
-    max-width: 90%;
+    width: 100%;
+    max-width: 100%;
   }
 
   .gep-hero-tagline-under-logo {
