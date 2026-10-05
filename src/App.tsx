@@ -783,7 +783,6 @@ function Header({
         <div className="lg:hidden" style={{ borderTop: '1px solid var(--gep-divider)', background: 'var(--gep-bg)' }}>
           <div className="px-6 py-6 flex flex-col gap-4">
             <PrimaryNavMobile onNavigate={() => setMenuOpen(false)} className="flex flex-col gap-4" />
-            <CallButton className="mt-2 self-start inline-flex" iconOnly onClick={() => setMenuOpen(false)} />
           </div>
         </div>
       )}
