@@ -619,6 +619,7 @@ const STAFFING_COLUMNS: [string[], string[]] = [
     'FOH & Monitor Engineers',
     'Tour & Venue Security',
     'Video Techs',
+    'Production Designers',
   ],
   [
     'Stage Managers',
