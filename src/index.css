@@ -58,7 +58,7 @@ html {
 :root {
   /* Classic GEP globe: dark continents, light silvery ocean + bold grid */
   --gep-globe-land: #0a0c10;
-  --gep-globe-ocean: #8f9dab;
+  --gep-globe-ocean: #96a2ae;
 }
 
 /* Century G + globe lockup (matches Claude brand embed proportions) */
@@ -131,11 +131,17 @@ a.gep-hero-logo-xl.gep-hero-logo-xl--bounded {
   text-shadow: 0 0 0.045em rgba(0, 0, 0, 0.45);
 }
 
+/*
+ * Globe placement inside the Century "G" (all sizes use .gep-logo-century__globe):
+ *   left, top     — anchor point within the G glyph box (% of the "G" character width/height)
+ *   width, height — globe diameter in em (relative to the G's font size)
+ *   transform     — translate(-50%, -50%) centers the circle on that anchor
+ * Abbrev header: .gep-logo-abbrev .gep-logo-century__globe overrides width/height only.
+ */
 .gep-logo-century__globe {
   position: absolute;
-  /* Centered in counter — inset so sphere clears bowl + crossbar */
   left: 51%;
-  top: 47%;
+  top: 54%;
   width: 0.56em;
   height: 0.56em;
   transform: translate(-50%, -50%);

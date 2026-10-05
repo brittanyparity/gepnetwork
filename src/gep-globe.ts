@@ -183,20 +183,30 @@
       }
 
       const paintClassicOcean = (ctx: CanvasRenderingContext2D, c: HTMLCanvasElement) => {
-        /* Metallic dark silver — tight value range (reads even on BasicMaterial) */
-        const g = ctx.createLinearGradient(c.width * 0.12, c.height * 0.1, c.width * 0.88, c.height * 0.92)
-        g.addColorStop(0, '#7E8C9A')
-        g.addColorStop(0.38, '#96A3B1')
-        g.addColorStop(0.62, '#8A98A6')
-        g.addColorStop(1, '#727F8D')
+        /*
+         * Metallic silver: vertical + radial sheen only (no left→right gradient —
+         * that reads as two hemispheres on the sphere).
+         */
+        const g = ctx.createLinearGradient(0, 0, 0, c.height)
+        g.addColorStop(0, '#96A2AE')
+        g.addColorStop(0.42, '#B0BAC6')
+        g.addColorStop(0.58, '#8F9CAA')
+        g.addColorStop(1, '#788592')
         ctx.fillStyle = g
         ctx.fillRect(0, 0, c.width, c.height)
 
-        const sheen = ctx.createLinearGradient(0, c.height * 0.08, c.width, c.height * 0.55)
-        sheen.addColorStop(0, 'rgba(255, 255, 255, 0.14)')
-        sheen.addColorStop(0.45, 'rgba(255, 255, 255, 0.04)')
-        sheen.addColorStop(1, 'rgba(255, 255, 255, 0)')
-        ctx.fillStyle = sheen
+        const spec = ctx.createRadialGradient(
+          c.width * 0.5,
+          c.height * 0.46,
+          c.width * 0.02,
+          c.width * 0.5,
+          c.height * 0.46,
+          c.width * 0.5,
+        )
+        spec.addColorStop(0, 'rgba(255, 255, 255, 0.16)')
+        spec.addColorStop(0.55, 'rgba(255, 255, 255, 0.04)')
+        spec.addColorStop(1, 'rgba(255, 255, 255, 0)')
+        ctx.fillStyle = spec
         ctx.fillRect(0, 0, c.width, c.height)
       }
 
