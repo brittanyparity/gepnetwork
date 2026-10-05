@@ -131,6 +131,21 @@ a.gep-hero-logo-xl.gep-hero-logo-xl--bounded {
   max-width: min(52vw, 34rem);
 }
 
+@media (max-width: 639px) {
+  a.gep-hero-logo-xl.gep-hero-logo-xl--bounded {
+    width: min(96vw, 1100px);
+    max-width: 96%;
+  }
+
+  .gep-hero-logo-xl--bounded .gep-logo-century {
+    font-size: clamp(3.35rem, 22vw, 9rem);
+  }
+
+  .gep-hero-tagline-under-logo {
+    max-width: min(88vw, 34rem);
+  }
+}
+
 .gep-logo-century__g {
   position: relative;
   top: -0.028em;

@@ -612,14 +612,12 @@ const CLIENT_LOGOS: { name: string; logo: string; logoClass?: string }[] = [
   { name: 'The Tom Joyner Foundation Fantastic Voyage', logo: '/client-logos/tom-joyner-foundation.png' },
 ] as const
 
-/** Matches live gepnetwork.com Production Staffing columns (incl. duplicate Video Techs). */
 const STAFFING_COLUMNS: [string[], string[]] = [
   [
     'Production Managers',
     'Production Coordinators',
     'FOH & Monitor Engineers',
     'Tour & Venue Security',
-    'Video Techs',
     'Video Techs',
   ],
   [
@@ -884,7 +882,14 @@ function Hero({ heroLayout, colorScheme }: { heroLayout: HeroLayoutId; colorSche
               letterSpacing: heroLayout === 'logo-over-tagline' ? '0.11em' : '0.14em',
             }}
           >
-            Crafting the Extraordinary in Global Entertainment
+            {heroLayout === 'logo-over-tagline' ? (
+              <>
+                <span className="block">Crafting the Extraordinary</span>
+                <span className="block">In Global Entertainment</span>
+              </>
+            ) : (
+              'Crafting the Extraordinary in Global Entertainment'
+            )}
           </h1>
         )}
       </div>
