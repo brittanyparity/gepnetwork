@@ -11,7 +11,17 @@ export default function ServiceDetailPage() {
 
   return (
     <>
-      <PageHero eyebrow={page.eyebrow} title={page.title} subtitle={page.summary} image={page.heroImg} />
+      <PageHero
+        eyebrow={page.eyebrow}
+        title={page.title}
+        subtitle={page.summary}
+        image={page.heroImg}
+        breadcrumbs={[
+          { label: 'Home', to: '/' },
+          { label: 'Services', to: '/services' },
+          { label: page.title },
+        ]}
+      />
 
       <SectionWrap>
         <Reveal direction="up">

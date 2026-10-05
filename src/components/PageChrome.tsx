@@ -1,5 +1,6 @@
 import type { CSSProperties, ReactNode } from 'react'
 import { Link } from 'react-router-dom'
+import { Breadcrumbs, type BreadcrumbItem } from './Breadcrumbs'
 import { AnimatedTitle } from './Motion'
 import { Reveal } from './Reveal'
 import { DISPLAY_TITLE_WEIGHT, FONT_BODY, FONT_DISPLAY } from '../site'
@@ -16,6 +17,7 @@ export function PageHero({
   imagePosition,
   portrait,
   solidBanner,
+  breadcrumbs,
 }: {
   eyebrow?: string
   title: string
@@ -27,6 +29,7 @@ export function PageHero({
   portrait?: boolean
   /** Text-only hero on a solid surface (no photo banner) */
   solidBanner?: boolean
+  breadcrumbs?: BreadcrumbItem[]
 }) {
   const bannerBackground = solidBanner ? 'var(--gep-card)' : 'var(--gep-bg)'
 
@@ -47,6 +50,11 @@ export function PageHero({
         </>
       ) : null}
       <div className={`relative z-10 max-w-[1400px] mx-auto px-6 lg:px-10 pt-32 pb-20 ${image ? 'text-white' : ''}`}>
+        {breadcrumbs?.length ? (
+          <div className={image ? 'text-white/75' : ''} style={image ? undefined : { color: 'var(--gep-text-muted)' }}>
+            <Breadcrumbs items={breadcrumbs} />
+          </div>
+        ) : null}
         <div className="page-hero-fade page-hero-fade-delay-1">
           <GoldRule />
         </div>

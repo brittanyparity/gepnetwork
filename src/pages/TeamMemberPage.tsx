@@ -14,7 +14,17 @@ export default function TeamMemberPage() {
 
   return (
     <>
-      <PageHero eyebrow="Our Team" title={member.name} subtitle={member.role} solidBanner />
+      <PageHero
+        eyebrow="Our Team"
+        title={member.name}
+        subtitle={member.role}
+        solidBanner
+        breadcrumbs={[
+          { label: 'Home', to: '/' },
+          { label: 'About Us', to: '/about' },
+          { label: member.name },
+        ]}
+      />
 
       <SectionWrap>
         <div className="grid lg:grid-cols-[280px_1fr] gap-12">

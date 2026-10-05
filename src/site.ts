@@ -6,14 +6,7 @@ export const DISPLAY_STAT_WEIGHT = 700
 
 export const GEP_FULL_NAME = 'Global Events Production (GEP) Network'
 
-export const NAV_LINKS = [
-  { label: 'Home', to: '/' },
-  { label: 'About Us', to: '/about' },
-  { label: 'Services', to: '/services' },
-  { label: 'Storage', to: '/storage' },
-  { label: 'Events', to: '/events' },
-  { label: 'Contact Us', to: '/contact' },
-] as const
+export { NAV_LINKS } from './content/nav'
 
 export const FOOTER_POSTS = [
   { title: 'Press Release for Juneteenth Celebration', date: 'May 17, 2024', to: '/articles/press-release-for-juneteenth-celebration' },

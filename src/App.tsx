@@ -9,6 +9,7 @@ import {
 } from 'react'
 import { BrowserRouter, Link, Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import GEPLogoLockup from './components/GepGlobeMark'
+import { PrimaryNavDesktop, PrimaryNavMobile } from './components/PrimaryNav'
 import AboutPage from './pages/AboutPage'
 import ContactPage from './pages/ContactPage'
 import EventsPage from './pages/EventsPage'
@@ -456,16 +457,6 @@ function CallButton({
 }
 
 // ─── Data ───────────────────────────────────────────────────────────────────
-const NAV_LINKS = [
-  { label: 'Home', to: '/' },
-  { label: 'About Us', to: '/about' },
-  { label: 'Services', to: '/services' },
-  { label: 'Storage', to: '/storage' },
-  { label: 'Events', to: '/events' },
-  { label: 'Contact Us', to: '/contact' },
-]
-
-
 const PRODUCTIONS = [
   {
     name: 'Lollapalooza India',
@@ -756,37 +747,20 @@ function Header({
         )}
 
         {hideHeaderLogo && (
-          <nav
+          <PrimaryNavDesktop
+            linkClass={navLinkClass}
             className="relative z-10 hidden lg:flex items-center gap-6 xl:gap-8 whitespace-nowrap"
-            aria-label="Primary"
-          >
-            {NAV_LINKS.map((link) => (
-              <Link
-                key={link.label}
-                to={link.to}
-                className={navLinkClass}
-                style={{ fontFamily: FONT_BODY }}
-              >
-                {link.label}
-              </Link>
-            ))}
-          </nav>
+            onNavigate={() => setMenuOpen(false)}
+          />
         )}
 
         <div className="relative z-10 flex items-center gap-5 xl:gap-8 ml-auto">
           {!hideHeaderLogo && (
-            <nav className="hidden lg:flex items-center gap-6 xl:gap-8 whitespace-nowrap" aria-label="Primary">
-              {NAV_LINKS.map((link) => (
-                <Link
-                  key={link.label}
-                  to={link.to}
-                  className={navLinkClass}
-                  style={{ fontFamily: FONT_BODY }}
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </nav>
+            <PrimaryNavDesktop
+              linkClass={navLinkClass}
+              className="hidden lg:flex items-center gap-6 xl:gap-8 whitespace-nowrap"
+              onNavigate={() => setMenuOpen(false)}
+            />
           )}
           <CallButton className="inline-flex sm:hidden" iconOnly />
           <CallButton className="hidden sm:inline-flex shrink-0">
@@ -807,20 +781,10 @@ function Header({
       {/* Mobile Menu */}
       {menuOpen && (
         <div className="lg:hidden" style={{ borderTop: '1px solid var(--gep-divider)', background: 'var(--gep-bg)' }}>
-          <nav className="flex flex-col px-6 py-6 gap-4">
-            {NAV_LINKS.map((link) => (
-              <Link
-                key={link.label}
-                to={link.to}
-                className="text-sm tracking-widest uppercase transition-colors"
-                onClick={() => setMenuOpen(false)}
-                style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}
-              >
-                {link.label}
-              </Link>
-            ))}
+          <div className="px-6 py-6 flex flex-col gap-4">
+            <PrimaryNavMobile onNavigate={() => setMenuOpen(false)} className="flex flex-col gap-4" />
             <CallButton className="mt-2 self-start inline-flex" iconOnly onClick={() => setMenuOpen(false)} />
-          </nav>
+          </div>
         </div>
       )}
     </header>
