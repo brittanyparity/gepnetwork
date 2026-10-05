@@ -102,18 +102,11 @@
       const geo = new THREE.SphereGeometry(2, 256, 128)
       this._colorTex = this._makeTexture('color')
       this._dispTex = this._makeTexture('disp')
-      const mat = new THREE.MeshStandardMaterial({
-        map: this._colorTex,
-        displacementMap: this._dispTex,
-        displacementScale: 0.055,
-        bumpMap: this._dispTex,
-        bumpScale: 0.9,
-        roughness: 0.42,
-        metalness: 0.32,
-      })
+      /* BasicMaterial = texture reads flat (no half-lit sphere); logo-style globe */
+      const mat = new THREE.MeshBasicMaterial({ map: this._colorTex })
       this._mat = mat
       const globe = new THREE.Mesh(geo, mat)
-      globe.rotation.z = -0.38
+      globe.rotation.set(0, 0, 0)
       scene.add(globe)
 
       const halo = new THREE.Mesh(
@@ -127,17 +120,8 @@
       )
       scene.add(halo)
 
-      scene.add(new THREE.AmbientLight(0xffffff, 1.15))
-      const key = new THREE.DirectionalLight(0xffffff, 2.0)
-      key.position.set(4, 3, 5)
-      scene.add(key)
-      const rim = new THREE.DirectionalLight(0xffffff, 1.3)
-      rim.position.set(-5, 1.5, -1.5)
-      scene.add(rim)
-      this._rim = rim
-      const fill = new THREE.DirectionalLight(0xffffff, 0.5)
-      fill.position.set(-2, -3, 2)
-      scene.add(fill)
+      /* Lights unused with MeshBasicMaterial; keep rim ref for accent API */
+      this._rim = null
 
       this._paint()
 
@@ -198,27 +182,13 @@
         boldWidth?: number
       }
 
-      const paintClassicOcean = (ctx: CanvasRenderingContext2D, c: HTMLCanvasElement) => {
-        const g = ctx.createLinearGradient(0, c.height * 0.06, c.width, c.height * 0.94)
-        g.addColorStop(0, '#C8D4E2')
-        g.addColorStop(0.32, '#F2F6FA')
-        g.addColorStop(0.58, '#E8EEF5')
-        g.addColorStop(1, '#9AADBF')
+      const paintClassicOcean = (ctx: CanvasRenderingContext2D, c: HTMLCanvasElement, base: string) => {
+        /* Uniform darker silver — subtle tone only, no bright half-sphere highlight */
+        const g = ctx.createLinearGradient(0, 0, 0, c.height)
+        g.addColorStop(0, base)
+        g.addColorStop(0.5, base)
+        g.addColorStop(1, base)
         ctx.fillStyle = g
-        ctx.fillRect(0, 0, c.width, c.height)
-
-        const spec = ctx.createRadialGradient(
-          c.width * 0.34,
-          c.height * 0.26,
-          c.width * 0.02,
-          c.width * 0.34,
-          c.height * 0.26,
-          c.width * 0.42,
-        )
-        spec.addColorStop(0, 'rgba(255, 255, 255, 0.62)')
-        spec.addColorStop(0.45, 'rgba(255, 255, 255, 0.12)')
-        spec.addColorStop(1, 'rgba(255, 255, 255, 0)')
-        ctx.fillStyle = spec
         ctx.fillRect(0, 0, c.width, c.height)
       }
 
@@ -256,7 +226,7 @@
         ctx.setTransform(1, 0, 0, 1, 0, 0)
         ctx.filter = 'none'
         if (fills.classicOcean) {
-          paintClassicOcean(ctx, c)
+          paintClassicOcean(ctx, c, fills.bg)
         } else {
           ctx.fillStyle = fills.bg
           ctx.fillRect(0, 0, c.width, c.height)
@@ -279,18 +249,20 @@
         tex.needsUpdate = true
       }
 
-      /* Classic GEP: light metallic ocean + bold grid, dark continents on top */
+      const oceanSilver = '#9DABB9'
+
+      /* Classic GEP: darker silver ocean + distinct grid, dark continents on top */
       draw(this._colorTex, {
         classicOcean: true,
-        bg: ocean,
+        bg: oceanSilver,
         land,
         grid: {
-          boldStroke: 'rgba(255, 255, 255, 0.42)',
-          boldWidth: 3.25,
-          stroke: 'rgba(255, 255, 255, 0.92)',
+          boldStroke: 'rgba(58, 72, 88, 0.45)',
+          boldWidth: 4.25,
+          stroke: 'rgba(48, 60, 74, 0.88)',
           meridians: 24,
           parallels: 13,
-          lineWidth: 1.85,
+          lineWidth: 2.65,
         },
       })
       draw(this._dispTex, { bg: '#000000', land: '#ffffff', blur: 3 })
