@@ -149,9 +149,10 @@ function MobileNavItem({
         </Link>
         <button
           type="button"
-          className="text-xs tracking-widest uppercase px-2 py-1 gep-header-link"
-          style={{ fontFamily: FONT_BODY }}
+          className="text-base leading-none px-2 py-1 font-semibold"
+          style={{ fontFamily: FONT_BODY, color: 'var(--gep-text)' }}
           aria-expanded={open}
+          aria-label={open ? 'Collapse submenu' : 'Expand submenu'}
           onClick={() => setOpen((v) => !v)}
         >
           {open ? '−' : '+'}
