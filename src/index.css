@@ -58,7 +58,7 @@ html {
 :root {
   /* Classic GEP globe: dark continents, light silvery ocean + bold grid */
   --gep-globe-land: #0a0c10;
-  --gep-globe-ocean: #9dabb9;
+  --gep-globe-ocean: #8f9dab;
 }
 
 /* Century G + globe lockup (matches Claude brand embed proportions) */
@@ -133,11 +133,11 @@ a.gep-hero-logo-xl.gep-hero-logo-xl--bounded {
 
 .gep-logo-century__globe {
   position: absolute;
-  /* Optical center of Century G counter (not the glyph bounding-box center) */
-  left: 56%;
-  top: 50%;
-  width: 0.63em;
-  height: 0.63em;
+  /* Centered in counter — inset so sphere clears bowl + crossbar */
+  left: 51%;
+  top: 47%;
+  width: 0.56em;
+  height: 0.56em;
   transform: translate(-50%, -50%);
   border-radius: 50%;
   overflow: hidden;
@@ -225,8 +225,8 @@ a.gep-hero-logo-xl.gep-hero-logo-xl--bounded {
 }
 
 .gep-logo-abbrev .gep-logo-century__globe {
-  width: 0.61em;
-  height: 0.61em;
+  width: 0.54em;
+  height: 0.54em;
 }
 
 /* Team portraits — keep faces in frame across crops */

@@ -182,13 +182,21 @@
         boldWidth?: number
       }
 
-      const paintClassicOcean = (ctx: CanvasRenderingContext2D, c: HTMLCanvasElement, base: string) => {
-        /* Uniform darker silver — subtle tone only, no bright half-sphere highlight */
-        const g = ctx.createLinearGradient(0, 0, 0, c.height)
-        g.addColorStop(0, base)
-        g.addColorStop(0.5, base)
-        g.addColorStop(1, base)
+      const paintClassicOcean = (ctx: CanvasRenderingContext2D, c: HTMLCanvasElement) => {
+        /* Metallic dark silver — tight value range (reads even on BasicMaterial) */
+        const g = ctx.createLinearGradient(c.width * 0.12, c.height * 0.1, c.width * 0.88, c.height * 0.92)
+        g.addColorStop(0, '#7E8C9A')
+        g.addColorStop(0.38, '#96A3B1')
+        g.addColorStop(0.62, '#8A98A6')
+        g.addColorStop(1, '#727F8D')
         ctx.fillStyle = g
+        ctx.fillRect(0, 0, c.width, c.height)
+
+        const sheen = ctx.createLinearGradient(0, c.height * 0.08, c.width, c.height * 0.55)
+        sheen.addColorStop(0, 'rgba(255, 255, 255, 0.14)')
+        sheen.addColorStop(0.45, 'rgba(255, 255, 255, 0.04)')
+        sheen.addColorStop(1, 'rgba(255, 255, 255, 0)')
+        ctx.fillStyle = sheen
         ctx.fillRect(0, 0, c.width, c.height)
       }
 
@@ -219,19 +227,26 @@
 
       const draw = (
         tex: CanvasTextureWithCanvas,
-        fills: { classicOcean?: boolean; bg: string; land: string; grid?: GridSpec; blur?: number },
+        fills: {
+          classicOcean?: boolean
+          bg: string
+          land: string
+          grid?: GridSpec
+          gridOnTop?: boolean
+          blur?: number
+        },
       ) => {
         const c = tex._canvas
         const ctx = c.getContext('2d')!
         ctx.setTransform(1, 0, 0, 1, 0, 0)
         ctx.filter = 'none'
         if (fills.classicOcean) {
-          paintClassicOcean(ctx, c, fills.bg)
+          paintClassicOcean(ctx, c)
         } else {
           ctx.fillStyle = fills.bg
           ctx.fillRect(0, 0, c.width, c.height)
         }
-        if (fills.grid) strokeGrid(ctx, c, fills.grid)
+        if (fills.grid && !fills.gridOnTop) strokeGrid(ctx, c, fills.grid)
         const d3 = (window as Window & { d3?: { geoEquirectangular: () => { translate: (v: number[]) => unknown; scale: (v: number) => unknown }; geoPath: (p: unknown, c: CanvasRenderingContext2D) => (f: unknown) => void } }).d3
         if (this._features && d3) {
           const proj = d3
@@ -246,24 +261,26 @@
           ctx.fill()
           ctx.filter = 'none'
         }
+        if (fills.grid && fills.gridOnTop) strokeGrid(ctx, c, fills.grid)
         tex.needsUpdate = true
       }
 
-      const oceanSilver = '#9DABB9'
+      const classicGrid: GridSpec = {
+        boldStroke: 'rgba(30, 38, 48, 0.38)',
+        boldWidth: 3.75,
+        stroke: 'rgba(245, 248, 252, 0.94)',
+        meridians: 24,
+        parallels: 13,
+        lineWidth: 2.35,
+      }
 
-      /* Classic GEP: darker silver ocean + distinct grid, dark continents on top */
+      /* Classic GEP: metallic ocean → continents → light grid on top */
       draw(this._colorTex, {
         classicOcean: true,
-        bg: oceanSilver,
+        bg: ocean,
         land,
-        grid: {
-          boldStroke: 'rgba(58, 72, 88, 0.45)',
-          boldWidth: 4.25,
-          stroke: 'rgba(48, 60, 74, 0.88)',
-          meridians: 24,
-          parallels: 13,
-          lineWidth: 2.65,
-        },
+        grid: classicGrid,
+        gridOnTop: true,
       })
       draw(this._dispTex, { bg: '#000000', land: '#ffffff', blur: 3 })
     }
