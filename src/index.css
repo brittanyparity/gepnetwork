@@ -132,9 +132,18 @@ a.gep-hero-logo-xl.gep-hero-logo-xl--bounded {
 }
 
 @media (max-width: 639px) {
+  /* 90% of viewport — centered in hero; cqi scales lockup to this box. */
   a.gep-hero-logo-xl.gep-hero-logo-xl--bounded {
+    container-type: inline-size;
+    width: 90vw;
+    max-width: 90vw;
+  }
+
+  a.gep-hero-logo-xl.gep-hero-logo-xl--bounded .gep-logo-century {
     width: 100%;
     max-width: 100%;
+    justify-content: center;
+    font-size: 11.75cqi;
   }
 
   .gep-hero-tagline-under-logo {
