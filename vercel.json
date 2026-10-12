@@ -5,6 +5,10 @@
   "framework": "vite",
   "rewrites": [
     {
+      "source": "/globe-playground.html",
+      "destination": "/globe-playground"
+    },
+    {
       "source": "/:path((?!.*\\..*).*)",
       "destination": "/index.html"
     }
