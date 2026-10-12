@@ -1,4 +1,5 @@
 import { ClientLogoCarousel } from './ClientLogoCarousel'
+import { DISPLAY_TITLE_WEIGHT, FONT_BODY, FONT_DISPLAY } from '../site'
 
 /** Scrolling client logos — matches legacy WP carousel at bottom of inner pages. */
 export function ClientPartnersSection(props: { title?: string }) {

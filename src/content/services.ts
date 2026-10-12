@@ -224,7 +224,7 @@ export const SERVICE_PAGES: ServicePage[] = [
       'At GEP Network, our storage solutions are designed with the unique needs of the entertainment industry in mind. From tour pulls and equipment storage to long-term warehousing needs, we offer flexible, secure, and easily accessible storage services.',
     ],
     introImage: '/gep-tour-storage-music-industry.png',
-    sectionBanners: ['/gep-tour-storage-multi-dock.png', '/gep-production-staffing.jpg'],
+    sectionBanners: ['/gep-tour-storage-multi-dock.png', '/gep-production-staffing.png'],
     processImages: ['/gep-tour-storage-courteous-service.png'],
     processTitle: 'Storage Solutions',
     process: [

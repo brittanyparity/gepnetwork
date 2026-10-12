@@ -8,7 +8,7 @@ import { DISPLAY_TITLE_WEIGHT, FONT_BODY, FONT_DISPLAY, GEP_FULL_NAME } from '..
 
 const MISSION_IMG = '/recent-projects/roots-picnic-2026.jpg'
 const STORY_IMG = '/gep-service-stage-management.png'
-const ABOUT_BANNER = '/gep-production-staffing.jpg'
+const ABOUT_BANNER = '/gep-service-production-coordination.png'
 const ABOUT_GALLERY = [
   '/recent-projects/jcole-fall-off-tour.jpg',
   '/recent-projects/rolling-loud-2026.png',
@@ -53,7 +53,7 @@ export default function AboutPage() {
         </div>
       </SectionWrap>
 
-      <FullWidthPhoto src={ABOUT_BANNER} alt="Production staffing on site" maxHeight="min(65vh, 480px)" />
+      <FullWidthPhoto src={ABOUT_BANNER} alt="Sound engineer at the mixing console" maxHeight="min(65vh, 480px)" />
 
       <SectionWrap alt>
         <div className="grid lg:grid-cols-2 gap-12 max-w-6xl">

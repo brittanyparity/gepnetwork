@@ -67,6 +67,7 @@ function DesktopNavItem({
   linkClass: string
   onNavigate?: () => void
 }) {
+  const [menuOpen, setMenuOpen] = useState(false)
   const hasMenu = Boolean(item.groups?.length)
 
   if (!hasMenu) {
@@ -78,13 +79,17 @@ function DesktopNavItem({
   }
 
   return (
-    <div className="gep-nav-dropdown group relative">
+    <div
+      className={`gep-nav-dropdown relative${menuOpen ? ' gep-nav-dropdown--open' : ''}`}
+      onMouseEnter={() => setMenuOpen(true)}
+      onMouseLeave={() => setMenuOpen(false)}
+    >
       <div className="flex items-center gap-1">
         <Link to={item.to} className={linkClass} style={{ fontFamily: FONT_BODY }} onClick={onNavigate}>
           {item.label}
         </Link>
         <span
-          className="gep-header-link text-[10px] opacity-60 transition-transform duration-200 group-hover:rotate-180 group-focus-within:rotate-180"
+          className={`gep-header-link text-[10px] opacity-60 transition-transform duration-200${menuOpen ? ' rotate-180' : ''}`}
           aria-hidden
         >
           ▾

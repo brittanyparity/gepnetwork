@@ -347,20 +347,28 @@ a.gep-hero-logo-xl.gep-hero-logo-xl--bounded {
   color: var(--gep-header-nav-hover, #ffffff);
 }
 
-/* Primary nav — hover / focus dropdowns (desktop) */
+/* Primary nav — desktop dropdown (open via hover on .gep-nav-dropdown--open) */
 .gep-nav-dropdown-panel {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
   transform: translate(-50%, 4px);
   transition:
-    opacity 0.18s ease,
-    transform 0.18s ease,
-    visibility 0.18s;
+    opacity 0.15s ease,
+    transform 0.15s ease,
+    visibility 0.15s;
 }
 
-.gep-nav-dropdown:hover .gep-nav-dropdown-panel,
-.gep-nav-dropdown:focus-within .gep-nav-dropdown-panel {
+.gep-nav-dropdown-panel::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -0.75rem;
+  height: 0.75rem;
+}
+
+.gep-nav-dropdown--open .gep-nav-dropdown-panel {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;

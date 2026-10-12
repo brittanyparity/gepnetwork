@@ -95,7 +95,7 @@ export default function StoragePage() {
         </div>
       </SectionWrap>
 
-      <FullWidthPhoto src="/gep-production-staffing.jpg" alt="Loading tour equipment" />
+      <FullWidthPhoto src="/gep-tour-storage-multi-dock.png" alt="Loading tour equipment" />
 
       <SectionWrap alt>
         <Reveal direction="up">
