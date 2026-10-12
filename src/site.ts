@@ -9,9 +9,24 @@ export const GEP_FULL_NAME = 'Global Events Production (GEP) Network'
 export { NAV_LINKS } from './content/nav'
 
 export const FOOTER_POSTS = [
-  { title: 'Press Release for Juneteenth Celebration', date: 'May 17, 2024', to: '/articles/press-release-for-juneteenth-celebration' },
-  { title: 'The Future of Event Production', date: 'March 5, 2024', to: '/articles/the-future-of-event-production' },
-  { title: 'The Art of Event Management', date: 'March 5, 2024', to: '/articles/the-art-of-event-management' },
+  {
+    title: 'Press Release for Juneteenth Celebration',
+    date: 'May 17, 2024',
+    to: '/contact',
+    image: '/recent-projects/roots-picnic-2026.jpg',
+  },
+  {
+    title: 'The Future of Event Production',
+    date: 'March 5, 2024',
+    to: '/contact',
+    image: '/recent-projects/jcole-fall-off-tour.jpg',
+  },
+  {
+    title: 'The Art of Event Management',
+    date: 'March 5, 2024',
+    to: '/contact',
+    image: '/recent-projects/broccoli-city2026.png',
+  },
 ]
 
 export const FOOTER_SOCIAL = [

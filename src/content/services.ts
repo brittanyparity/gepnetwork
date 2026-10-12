@@ -5,6 +5,12 @@ export type ServicePage = {
   summary: string
   heroImg: string
   intro: string[]
+  /** Photo beside intro copy (legacy About/Services layout). */
+  introImage?: string
+  /** Full-width photos between sections. */
+  sectionBanners?: string[]
+  /** Photos alongside process / capabilities (legacy multi-column layouts). */
+  processImages?: string[]
   processTitle?: string
   process?: { title: string; body: string }[]
   lists?: { title: string; items: string[] }[]
@@ -25,6 +31,9 @@ export const SERVICE_PAGES: ServicePage[] = [
       'GEP Network is a leading provider of comprehensive tour production services, specializing in producing and executing concert tours of all sizes and complexities. With decades of experience and a dedicated team of industry professionals, we offer a wide range of services to ensure the success of every tour.',
       'With a roster of past and present clients that include iconic artists such as Mary J. Blige, Nicki Minaj, Kendrick Lamar, and Earth, Wind & Fire, as well as ongoing working relationships with top-tier promoters like Live Nation, AEG, and the Black Promoters Collective, GEP Network has a proven track record of success in concert tour production.',
     ],
+    introImage: '/gep-service-production-management.png',
+    sectionBanners: [recent('playboi-carti-after-hours-tour.jpg'), recent('rolling-loud-2026.png')],
+    processImages: ['/gep-service-stage-management.png', '/gep-service-production-coordination.png'],
     processTitle: 'Trust the Process',
     process: [
       {
@@ -100,6 +109,9 @@ export const SERVICE_PAGES: ServicePage[] = [
       'GEP Network produces festivals that balance creative ambition with operational discipline — from site builds and stage packages to artist flow, security, and day-of execution.',
       'Whether it’s a city festival, brand activation weekend, or multi-stage annual event, our teams coordinate vendors, talent, and production departments so the audience experience stays seamless from gates open to final load-out.',
     ],
+    introImage: recent('broccoli-city2026.png'),
+    sectionBanners: [recent('lyrical-lemonade-summer-smash-2026.png'), recent('les-ardentes-festival-2026.jpg')],
+    processImages: ['/gep-service-travel-logistics.png'],
     processTitle: 'Festival Production Approach',
     process: [
       {
@@ -141,6 +153,9 @@ export const SERVICE_PAGES: ServicePage[] = [
       'GEP Network brings touring-grade production standards to corporate gatherings — conferences, brand launches, private concerts, and hybrid experiences.',
       'Our teams integrate creative direction with reliable logistics so executives, talent, and guests experience a polished, on-brand event from arrival through wrap.',
     ],
+    introImage: '/gep-service-design-services.png',
+    sectionBanners: [recent('essence-festival-george-clinton-2026.jpg'), '/gep-why-gep-team.jpg'],
+    processImages: ['/gep-service-production-coordination.png', '/gep-tour-storage-music-industry.png'],
     processTitle: 'Corporate Production Pillars',
     process: [
       {
@@ -181,6 +196,9 @@ export const SERVICE_PAGES: ServicePage[] = [
     intro: [
       'As expert event managers, GEP Network offers a comprehensive process that addresses front-of-house and back-of-house needs — creating a cohesive experience for attendees, talent, and stakeholders.',
     ],
+    introImage: '/gep-service-event-management.png',
+    sectionBanners: [recent('awarefest-2026.png'), recent('the-word-up-story-funk-wars-tour.jpg')],
+    processImages: ['/gep-service-travel-logistics.png', '/gep-service-production-management.png'],
     processTitle: 'Event Management, The Right Way',
     process: [
       { title: 'Theme Development', body: 'Creating and implementing thematic concepts for the event.' },
@@ -205,6 +223,9 @@ export const SERVICE_PAGES: ServicePage[] = [
     intro: [
       'At GEP Network, our storage solutions are designed with the unique needs of the entertainment industry in mind. From tour pulls and equipment storage to long-term warehousing needs, we offer flexible, secure, and easily accessible storage services.',
     ],
+    introImage: '/gep-tour-storage-music-industry.png',
+    sectionBanners: ['/gep-tour-storage-multi-dock.png', '/gep-production-staffing.jpg'],
+    processImages: ['/gep-tour-storage-courteous-service.png'],
     processTitle: 'Storage Solutions',
     process: [
       {
@@ -250,6 +271,13 @@ export const SERVICE_PAGES: ServicePage[] = [
       'GEP Network’s creative team helps translate artistic vision into buildable, tourable, and brand-true production design.',
       'We collaborate with artists, directors, and promoters on looks that photograph beautifully and execute cleanly night after night.',
     ],
+    introImage: '/gep-service-design-services.png',
+    sectionBanners: [
+      recent('lollapalooza-india-2026.png'),
+      '/gep-service-stage-management.png',
+      recent('ballad-beast-saudi-arabia-2026.png'),
+    ],
+    processImages: ['/gep-service-production-coordination.png', '/gep-service-design-services.png'],
     lists: [
       {
         title: 'Creative Capabilities',
@@ -271,9 +299,12 @@ export function getServicePage(slug: string) {
   return SERVICE_PAGES.find((s) => s.slug === slug)
 }
 
-export const SERVICE_NAV = SERVICE_PAGES.map((s) => ({
+/** Tour Storage lives at `/storage` — not duplicated as a service detail route. */
+export const SERVICE_NAV = SERVICE_PAGES.filter((s) => s.slug !== 'tour-pulls-and-tour-storage').map((s) => ({
   title: s.title,
   summary: s.summary,
   slug: s.slug,
   img: s.heroImg,
 }))
+
+export const TOUR_STORAGE_PAGE = SERVICE_PAGES.find((s) => s.slug === 'tour-pulls-and-tour-storage')!

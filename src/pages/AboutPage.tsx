@@ -1,9 +1,20 @@
 import { Link } from 'react-router-dom'
-import { AccentLinkButton, BodyText, CtaBand, GoldRule, PageHero, SectionWrap } from '../components/PageChrome'
+import { ClientPartnersSection } from '../components/ClientPartnersSection'
+import { BodyText, CtaBand, FullWidthPhoto, GoldRule, PageHero, SectionWrap, SideBySidePhoto } from '../components/PageChrome'
 import { TeamSocialOverlay } from '../components/Motion'
 import { Reveal } from '../components/Reveal'
 import { TEAM } from '../content/team'
 import { DISPLAY_TITLE_WEIGHT, FONT_BODY, FONT_DISPLAY, GEP_FULL_NAME } from '../site'
+
+const MISSION_IMG = '/recent-projects/roots-picnic-2026.jpg'
+const STORY_IMG = '/gep-service-stage-management.png'
+const ABOUT_BANNER = '/gep-production-staffing.jpg'
+const ABOUT_GALLERY = [
+  '/recent-projects/jcole-fall-off-tour.jpg',
+  '/recent-projects/rolling-loud-2026.png',
+  '/recent-projects/essence-festival-george-clinton-2026.jpg',
+  '/recent-projects/lyrical-lemonade-summer-smash-2026.png',
+] as const
 
 export default function AboutPage() {
   return (
@@ -16,7 +27,7 @@ export default function AboutPage() {
       />
 
       <SectionWrap>
-        <div className="grid lg:grid-cols-2 gap-12 max-w-5xl">
+        <div className="grid lg:grid-cols-2 gap-12 max-w-6xl">
           <Reveal direction="left">
             <GoldRule />
             <h2
@@ -37,6 +48,19 @@ export default function AboutPage() {
             </BodyText>
           </Reveal>
           <Reveal direction="right" delay={120}>
+            <SideBySidePhoto src={MISSION_IMG} alt="Festival production" />
+          </Reveal>
+        </div>
+      </SectionWrap>
+
+      <FullWidthPhoto src={ABOUT_BANNER} alt="Production staffing on site" maxHeight="min(65vh, 480px)" />
+
+      <SectionWrap alt>
+        <div className="grid lg:grid-cols-2 gap-12 max-w-6xl">
+          <Reveal direction="left">
+            <SideBySidePhoto src={STORY_IMG} alt="Stage and production" />
+          </Reveal>
+          <Reveal direction="right" delay={120}>
             <GoldRule />
             <h2
               className="uppercase leading-tight mb-6"
@@ -55,6 +79,30 @@ export default function AboutPage() {
               leadership have propelled GEP Network to the forefront of the entertainment world.
             </BodyText>
           </Reveal>
+        </div>
+      </SectionWrap>
+
+      <SectionWrap>
+        <Reveal direction="up">
+          <GoldRule />
+          <h2
+            className="uppercase leading-tight mb-8"
+            style={{
+              fontFamily: FONT_DISPLAY,
+              fontWeight: DISPLAY_TITLE_WEIGHT,
+              fontSize: 'clamp(1.5rem, 3vw, 2.25rem)',
+              color: 'var(--gep-text)',
+            }}
+          >
+            Production in Motion
+          </h2>
+        </Reveal>
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
+          {ABOUT_GALLERY.map((src, i) => (
+            <Reveal key={src} direction="up" delay={i * 70}>
+              <img src={src} alt="" className="w-full aspect-[4/3] object-cover" />
+            </Reveal>
+          ))}
         </div>
       </SectionWrap>
 
@@ -127,7 +175,8 @@ export default function AboutPage() {
         </div>
       </SectionWrap>
 
-      <CtaBand title="We've served hundreds of notable clients & partners" />
+      <ClientPartnersSection />
+      <CtaBand />
     </>
   )
 }

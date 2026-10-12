@@ -9,6 +9,51 @@ export function GoldRule() {
   return <div className="w-12 h-px mb-6" style={{ background: 'var(--gep-accent)' }} />
 }
 
+/** Full-bleed section photo (matches legacy WP breaks between copy blocks). */
+export function FullWidthPhoto({
+  src,
+  alt = '',
+  maxHeight = 'min(70vh, 520px)',
+}: {
+  src: string
+  alt?: string
+  maxHeight?: string
+}) {
+  return (
+    <div className="w-full py-2 md:py-4" style={{ background: 'var(--gep-bg)' }}>
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
+        <img
+          src={src}
+          alt={alt}
+          className="w-full object-cover"
+          style={{ maxHeight, minHeight: 220 }}
+        />
+      </div>
+    </div>
+  )
+}
+
+export function SideBySidePhoto({
+  src,
+  alt = '',
+  objectPosition,
+  className = '',
+}: {
+  src: string
+  alt?: string
+  objectPosition?: string
+  className?: string
+}) {
+  return (
+    <img
+      src={src}
+      alt={alt}
+      className={`w-full aspect-[4/3] object-cover ${className}`}
+      style={objectPosition ? { objectPosition } : undefined}
+    />
+  )
+}
+
 export function PageHero({
   eyebrow,
   title,

@@ -45,6 +45,7 @@ export default function ContactPage() {
         eyebrow="Get in touch"
         title="Contact Us"
         subtitle="Reach production, bookings, storage, or promotions — or send us a message and we’ll follow up."
+        image="/recent-projects/playboi-carti-after-hours-tour.jpg"
       />
 
       <SectionWrap>

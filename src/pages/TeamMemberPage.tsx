@@ -10,7 +10,7 @@ export default function TeamMemberPage() {
   const member = slug ? getTeamMember(slug) : undefined
   if (!member) return <Navigate to="/about" replace />
 
-  const others = TEAM.filter((m) => m.slug !== member.slug).slice(0, 3)
+  const others = TEAM.filter((m) => m.slug !== member.slug)
 
   return (
     <>
@@ -133,12 +133,12 @@ export default function TeamMemberPage() {
             Other Team Members
           </h2>
         </Reveal>
-        <div className="grid sm:grid-cols-3 gap-4">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {others.map((m, i) => (
-            <Reveal key={m.slug} direction="up" delay={i * 90}>
+            <Reveal key={m.slug} direction="up" delay={(i % 3) * 90}>
               <Link
                 to={`/team/${m.slug}`}
-                className="team-card group block overflow-hidden"
+                className="team-card group block overflow-hidden h-full"
                 style={{ background: 'var(--gep-card)' }}
               >
                 <div className="relative aspect-[4/3] overflow-hidden">
@@ -150,16 +150,22 @@ export default function TeamMemberPage() {
                   />
                   <TeamSocialOverlay />
                 </div>
-                <div className="p-4">
+                <div className="p-5">
                   <h3
                     className="uppercase"
                     style={{ fontFamily: FONT_DISPLAY, fontWeight: DISPLAY_TITLE_WEIGHT, fontSize: '1.15rem', color: 'var(--gep-text)' }}
                   >
                     {m.name}
                   </h3>
-                  <p className="text-xs mt-1" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>
+                  <p className="text-xs mt-1 mb-3" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>
                     {m.role}
                   </p>
+                  <p className="text-sm leading-relaxed line-clamp-3" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>
+                    {m.summary}
+                  </p>
+                  <span className="inline-block mt-3 text-xs tracking-widest uppercase font-semibold" style={{ fontFamily: FONT_BODY, color: 'var(--gep-accent)' }}>
+                    Read More →
+                  </span>
                 </div>
               </Link>
             </Reveal>

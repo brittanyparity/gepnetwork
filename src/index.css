@@ -506,6 +506,32 @@ body {
     border-color 0.2s ease;
 }
 
+.team-social-brand--facebook:hover {
+  background: #1877f2 !important;
+  border-color: #1877f2 !important;
+  color: #fff !important;
+}
+.team-social-brand--instagram:hover {
+  background: #e4405f !important;
+  border-color: #e4405f !important;
+  color: #fff !important;
+}
+.team-social-brand--youtube:hover {
+  background: #ff0000 !important;
+  border-color: #ff0000 !important;
+  color: #fff !important;
+}
+.team-social-brand--twitter:hover {
+  background: #000 !important;
+  border-color: #000 !important;
+  color: #fff !important;
+}
+.team-social-brand--linkedin:hover {
+  background: #0a66c2 !important;
+  border-color: #0a66c2 !important;
+  color: #fff !important;
+}
+
 .group:hover .team-social-overlay,
 .group:focus-within .team-social-overlay,
 .team-card.is-social-open .team-social-overlay {

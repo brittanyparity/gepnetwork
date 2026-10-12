@@ -47,6 +47,14 @@ export const DEFAULT_TEAM_SOCIAL: SocialLink[] = [
   { id: 'instagram', label: 'Instagram', href: 'https://www.instagram.com/gep.network/' },
 ]
 
+const SOCIAL_BRAND_CLASS: Record<SocialId, string> = {
+  facebook: 'team-social-brand team-social-brand--facebook',
+  twitter: 'team-social-brand team-social-brand--twitter',
+  youtube: 'team-social-brand team-social-brand--youtube',
+  instagram: 'team-social-brand team-social-brand--instagram',
+  linkedin: 'team-social-brand team-social-brand--linkedin',
+}
+
 export function TeamSocialOverlay({
   links = DEFAULT_TEAM_SOCIAL,
 }: {
@@ -63,7 +71,7 @@ export function TeamSocialOverlay({
           rel="noopener noreferrer"
           aria-label={s.label}
           onClick={(e) => e.stopPropagation()}
-          className="relative z-10 inline-flex items-center justify-center w-10 h-10 text-white border border-white/40 bg-black/30 backdrop-blur-sm hover:bg-[color:var(--gep-accent)] hover:border-[color:var(--gep-accent)]"
+          className={`relative z-10 inline-flex items-center justify-center w-10 h-10 text-white border border-white/40 bg-black/30 backdrop-blur-sm ${SOCIAL_BRAND_CLASS[s.id]}`}
           style={{ transitionDelay: `${80 + i * 45}ms` }}
         >
           <SocialIcon id={s.id} className="w-4 h-4" />
@@ -73,7 +81,15 @@ export function TeamSocialOverlay({
   )
 }
 
-export function SocialRow({ links, className = '' }: { links: SocialLink[]; className?: string }) {
+export function SocialRow({
+  links,
+  className = '',
+  variant = 'brand',
+}: {
+  links: SocialLink[]
+  className?: string
+  variant?: 'muted' | 'brand'
+}) {
   return (
     <div className={`flex flex-wrap items-center gap-3 ${className}`}>
       {links.map((s) => (
@@ -83,8 +99,14 @@ export function SocialRow({ links, className = '' }: { links: SocialLink[]; clas
           target="_blank"
           rel="noopener noreferrer"
           aria-label={s.label}
-          className="inline-flex items-center justify-center w-10 h-10 transition-colors duration-200 hover:text-[color:var(--gep-accent)]"
-          style={{ color: 'var(--gep-text-muted)', border: '1px solid var(--gep-divider)' }}
+          className={`inline-flex items-center justify-center w-10 h-10 transition-all duration-200 ${
+            variant === 'brand' ? SOCIAL_BRAND_CLASS[s.id] : ''
+          }`}
+          style={
+            variant === 'muted'
+              ? { color: 'var(--gep-text-muted)', border: '1px solid var(--gep-divider)' }
+              : { color: '#fff', border: '1px solid var(--gep-divider)', background: 'var(--gep-card)' }
+          }
         >
           <SocialIcon id={s.id} className="w-4 h-4" />
         </a>

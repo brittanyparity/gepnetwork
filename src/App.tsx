@@ -18,6 +18,8 @@ import ServicesPage from './pages/ServicesPage'
 import StoragePage from './pages/StoragePage'
 import GlobePlaygroundPage from './pages/GlobePlaygroundPage'
 import TeamMemberPage from './pages/TeamMemberPage'
+import { CLIENT_LOGOS } from './content/clients'
+import { FOOTER_POSTS, FOOTER_SOCIAL, type FooterSocialId } from './site'
 
 const LOGO_LOCKUP = 'century-globe' as const
 
@@ -260,21 +262,6 @@ const COLOR_SCHEMES: ColorScheme[] = [
 const GEP_FULL_NAME = 'Global Events Production (GEP) Network'
 
 const HERO_INTRO = `${GEP_FULL_NAME} executes concerts, tours, festivals, and corporate events at the highest level — backed by 40+ years of industry expertise.`
-
-const FOOTER_POSTS = [
-  { title: 'Press Release for Juneteenth Celebration', date: 'May 17, 2024', href: '/contact' },
-  { title: 'The Future of Event Production', date: 'March 5, 2024', href: '/contact' },
-  { title: 'The Art of Event Management', date: 'March 5, 2024', href: '/contact' },
-]
-
-const FOOTER_SOCIAL = [
-  { id: 'youtube', label: 'YouTube', href: 'https://www.youtube.com/@gepnetwork' },
-  { id: 'instagram', label: 'Instagram', href: 'https://www.instagram.com/gep.network/' },
-  { id: 'linkedin', label: 'LinkedIn', href: 'https://www.linkedin.com/company/gepnetwork/posts/?feedView=all' },
-  { id: 'facebook', label: 'Facebook', href: 'https://www.facebook.com/p/GEP-Network-61558628911648/' },
-] as const
-
-type FooterSocialId = (typeof FOOTER_SOCIAL)[number]['id']
 
 function FooterSocialIcon({ id, className = '' }: { id: FooterSocialId; className?: string }) {
   const shared = { className, fill: 'currentColor', 'aria-hidden': true as const }
@@ -582,27 +569,6 @@ const STORAGE_FEATURES: {
     imgPosition: '50% 28%',
   },
 ]
-
-const CLIENT_LOGOS: { name: string; logo: string; logoClass?: string }[] = [
-  { name: 'Kendrick Lamar', logo: '/client-logos/kendrick-lamar.png' },
-  { name: 'Live Nation', logo: '/client-logos/live-nation.png' },
-  { name: 'Lil Baby', logo: '/client-logos/lil-baby.png' },
-  { name: 'BET Experience at L.A. LIVE', logo: '/client-logos/bet.png' },
-  { name: 'Mary J. Blige', logo: '/client-logos/mary-j-blige.png' },
-  { name: 'Earth, Wind & Fire', logo: '/client-logos/earth-wind-fire.png' },
-  { name: 'Nicki Minaj', logo: '/client-logos/nicki-minaj.png' },
-  { name: 'AEG Live', logo: '/client-logos/aeg-live.png' },
-  { name: 'Jill Scott', logo: '/client-logos/jill-scott.png' },
-  { name: 'Strength of a Woman Festival & Summit', logo: '/client-logos/strength-of-a-woman.png' },
-  { name: 'The Band Brick', logo: '/client-logos/the-band-brick.png' },
-  { name: 'Broccoli City Festival', logo: '/client-logos/broccoli-city-festival.png' },
-  { name: 'J. Cole', logo: '/client-logos/j-cole.png' },
-  { name: 'Dreamcrew Music, LLC', logo: '/client-logos/dreamcrew-music.png' },
-  { name: 'Roots Picnic', logo: '/client-logos/roots-picnic.png' },
-  { name: 'BPC', logo: '/client-logos/bpc.png' },
-  { name: 'P-Funk Connection', logo: '/client-logos/p-funk-connection.png' },
-  { name: 'The Tom Joyner Foundation Fantastic Voyage', logo: '/client-logos/tom-joyner-foundation.png' },
-] as const
 
 const STAFFING_COLUMNS: [string[], string[]] = [
   [
@@ -1550,15 +1516,24 @@ function Footer({ colorScheme }: { colorScheme: string }) {
               {FOOTER_POSTS.map((post) => (
                 <li key={post.title}>
                   <a
-                    href={post.href}
-                    className="block text-sm leading-snug transition-colors duration-200 hover:text-[color:var(--gep-accent)]"
+                    href={post.to}
+                    className="flex gap-3 group transition-colors duration-200 hover:text-[color:var(--gep-accent)]"
                     style={{ fontFamily: FONT_BODY, color: 'var(--gep-footer-text)' }}
                   >
-                    {post.title}
+                    {post.image ? (
+                      <img
+                        src={post.image}
+                        alt=""
+                        className="w-14 h-14 object-cover flex-shrink-0 opacity-90 group-hover:opacity-100"
+                      />
+                    ) : null}
+                    <span>
+                      <span className="block text-sm leading-snug">{post.title}</span>
+                      <span className="block text-xs mt-1" style={{ color: 'var(--gep-footer-text-muted)' }}>
+                        {post.date}
+                      </span>
+                    </span>
                   </a>
-                  <p className="text-xs mt-1" style={{ fontFamily: FONT_BODY, color: 'var(--gep-footer-text-muted)' }}>
-                    {post.date}
-                  </p>
                 </li>
               ))}
             </ul>

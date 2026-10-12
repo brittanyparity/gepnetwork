@@ -1,11 +1,24 @@
-import { Link, Navigate, useParams } from 'react-router-dom'
-import { AccentLinkButton, BodyText, CtaBand, GoldRule, PageHero, SectionWrap } from '../components/PageChrome'
+import { Navigate, useParams } from 'react-router-dom'
+import { ClientPartnersSection } from '../components/ClientPartnersSection'
+import { ServiceMoreGrid } from '../components/ServiceMoreGrid'
+import {
+  AccentLinkButton,
+  BodyText,
+  CtaBand,
+  FullWidthPhoto,
+  GoldRule,
+  PageHero,
+  SectionWrap,
+  SideBySidePhoto,
+} from '../components/PageChrome'
 import { Reveal } from '../components/Reveal'
 import { getServicePage, SERVICE_NAV } from '../content/services'
 import { DISPLAY_TITLE_WEIGHT, FONT_BODY, FONT_DISPLAY } from '../site'
 
 export default function ServiceDetailPage() {
   const { slug } = useParams()
+  if (slug === 'tour-pulls-and-tour-storage') return <Navigate to="/storage" replace />
+
   const page = slug ? getServicePage(slug) : undefined
   if (!page) return <Navigate to="/services" replace />
 
@@ -25,13 +38,18 @@ export default function ServiceDetailPage() {
 
       <SectionWrap>
         <Reveal direction="up">
-          <div className="max-w-3xl space-y-5">
-            {page.intro.map((p) => (
-              <BodyText key={p.slice(0, 24)}>{p}</BodyText>
-            ))}
+          <div className={`grid gap-10 items-start ${page.introImage ? 'lg:grid-cols-2' : ''}`}>
+            <div className="max-w-3xl space-y-5">
+              {page.intro.map((p) => (
+                <BodyText key={p.slice(0, 24)}>{p}</BodyText>
+              ))}
+            </div>
+            {page.introImage ? <SideBySidePhoto src={page.introImage} alt="" /> : null}
           </div>
         </Reveal>
       </SectionWrap>
+
+      {page.sectionBanners?.[0] ? <FullWidthPhoto src={page.sectionBanners[0]} alt="" /> : null}
 
       {page.process?.length ? (
         <SectionWrap alt>
@@ -49,31 +67,46 @@ export default function ServiceDetailPage() {
               {page.processTitle ?? 'Our Process'}
             </h2>
           </Reveal>
-          <div className="grid md:grid-cols-2 gap-8">
-            {page.process.map((step, i) => (
-              <Reveal key={step.title} direction={i % 2 === 0 ? 'left' : 'right'} delay={(i % 2) * 100}>
-                <div className="flex gap-4">
-                  <div
-                    className="flex-shrink-0 w-10 h-10 flex items-center justify-center text-sm font-semibold"
-                    style={{ background: 'var(--gep-accent)', color: 'var(--gep-accent-text)', fontFamily: FONT_BODY }}
-                  >
-                    {i + 1}
+          <div className="grid lg:grid-cols-[1fr_min(36%,420px)] gap-10 items-start">
+            <div className="grid md:grid-cols-2 gap-8">
+              {page.process.map((step, i) => (
+                <Reveal key={step.title} direction={i % 2 === 0 ? 'left' : 'right'} delay={(i % 2) * 100}>
+                  <div className="flex gap-4">
+                    <div
+                      className="flex-shrink-0 w-10 h-10 flex items-center justify-center text-sm font-semibold"
+                      style={{ background: 'var(--gep-accent)', color: 'var(--gep-accent-text)', fontFamily: FONT_BODY }}
+                    >
+                      {i + 1}
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-semibold mb-2" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text)' }}>
+                        {step.title}
+                      </h3>
+                      <BodyText>{step.body}</BodyText>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="text-lg font-semibold mb-2" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text)' }}>
-                      {step.title}
-                    </h3>
-                    <BodyText>{step.body}</BodyText>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
+                </Reveal>
+              ))}
+            </div>
+            {page.processImages?.length ? (
+              <div className="space-y-6">
+                {page.processImages.map((src) => (
+                  <SideBySidePhoto key={src} src={src} alt="" className="aspect-[3/2]" />
+                ))}
+              </div>
+            ) : null}
           </div>
         </SectionWrap>
       ) : null}
 
-      {page.lists?.map((list) => (
-        <SectionWrap key={list.title}>
+      {page.sectionBanners?.[1] ? <FullWidthPhoto src={page.sectionBanners[1]} alt="" /> : null}
+
+      {page.sectionBanners?.slice(2).map((src) => (
+        <FullWidthPhoto key={src} src={src} alt="" />
+      ))}
+
+      {page.lists?.map((list, listIndex) => (
+        <SectionWrap key={list.title} alt={listIndex % 2 === 1}>
           <Reveal direction="up">
             <GoldRule />
             <h2
@@ -125,29 +158,10 @@ export default function ServiceDetailPage() {
             More Services
           </h2>
         </Reveal>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {SERVICE_NAV.filter((s) => s.slug !== page.slug).map((svc, i) => (
-            <Reveal key={svc.slug} direction="up" delay={(i % 3) * 80}>
-              <Link
-                to={`/services/${svc.slug}`}
-                className="block p-6 transition-colors h-full"
-                style={{ background: 'var(--gep-card)', color: 'var(--gep-text)' }}
-              >
-                <h3
-                  className="uppercase mb-2"
-                  style={{ fontFamily: FONT_DISPLAY, fontWeight: DISPLAY_TITLE_WEIGHT, fontSize: '1.15rem' }}
-                >
-                  {svc.title}
-                </h3>
-                <p className="text-sm leading-relaxed" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>
-                  {svc.summary}
-                </p>
-              </Link>
-            </Reveal>
-          ))}
-        </div>
+        <ServiceMoreGrid services={SERVICE_NAV} excludeSlug={page.slug} />
       </SectionWrap>
 
+      <ClientPartnersSection />
       <CtaBand />
     </>
   )
