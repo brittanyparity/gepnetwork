@@ -44,7 +44,7 @@ export default function GlobePlaygroundPage() {
   const [globeHeightEm, setGlobeHeightEm] = useState(0.535)
   const [land, setLand] = useState('#0a0c10')
   const [ocean, setOcean] = useState('#96a2ae')
-  const [speed, setSpeed] = useState(0.18)
+  const [speed, setSpeed] = useState(0.6)
 
   const lockupVars = useMemo(
     () =>

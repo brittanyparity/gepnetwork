@@ -26,7 +26,7 @@ function syncGlobeAttributes(root: HTMLElement | null) {
     el.setAttribute('ocean', readCssVar('--gep-globe-ocean', '#96A2AE'))
     el.setAttribute('accent', readCssVar('--gep-accent', '#FFC52F'))
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    el.setAttribute('speed', reduced ? '0' : '0.18')
+    el.setAttribute('speed', reduced ? '0' : '0.60')
   })
 }
 

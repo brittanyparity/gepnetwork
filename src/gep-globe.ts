@@ -140,7 +140,7 @@
         this._raf = requestAnimationFrame(tick)
         const dt = Math.min((t - last) / 1000, 0.1)
         last = t
-        globe.rotation.y += dt * (parseFloat(this.getAttribute('speed') || '') || 0.18)
+        globe.rotation.y += dt * (parseFloat(this.getAttribute('speed') || '') || 0.6)
         renderer.render(scene, camera)
       }
       this._raf = requestAnimationFrame(tick)
