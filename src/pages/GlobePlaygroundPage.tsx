@@ -38,10 +38,10 @@ function SliderControl({
 
 export default function GlobePlaygroundPage() {
   const [gFontSizeRem, setGFontSizeRem] = useState(9)
-  const [globeLeft, setGlobeLeft] = useState(51)
-  const [globeTop, setGlobeTop] = useState(54)
-  const [globeWidthEm, setGlobeWidthEm] = useState(0.71)
-  const [globeHeightEm, setGlobeHeightEm] = useState(0.715)
+  const [globeLeft, setGlobeLeft] = useState(51.5)
+  const [globeTop, setGlobeTop] = useState(53)
+  const [globeWidthEm, setGlobeWidthEm] = useState(0.535)
+  const [globeHeightEm, setGlobeHeightEm] = useState(0.535)
   const [land, setLand] = useState('#0a0c10')
   const [ocean, setOcean] = useState('#96a2ae')
   const [speed, setSpeed] = useState(0.18)

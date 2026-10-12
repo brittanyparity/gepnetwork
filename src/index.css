@@ -65,14 +65,11 @@ html {
   --gep-logo-g-shadow-inset:
     0 0.026em 0.05em rgba(0, 0, 0, 0.32),
     0 -0.014em 0.022em rgba(255, 255, 255, 0.12);
-  /*
-   * Globe in Century G counter (tune here — matches PS artboard ~1250×1260 in 1693 G):
-   *   width/height ≈ 1.008 (globe slightly taller than wide)
-   */
-  --gep-globe-in-g-left: 51%;
-  --gep-globe-in-g-top: 54%;
-  --gep-globe-in-g-width: 0.71em;
-  --gep-globe-in-g-height: calc(var(--gep-globe-in-g-width) * 1.008);
+  /* Globe in Century G counter — tuned in /globe-playground */
+  --gep-globe-in-g-left: 51.5%;
+  --gep-globe-in-g-top: 53%;
+  --gep-globe-in-g-width: 0.535em;
+  --gep-globe-in-g-height: 0.535em;
 }
 
 /* Century G + globe lockup (matches Claude brand embed proportions) */
@@ -266,8 +263,8 @@ a.gep-hero-logo-xl.gep-hero-logo-xl--bounded {
 }
 
 .gep-logo-abbrev .gep-logo-century__globe {
-  --gep-globe-in-g-width: 0.68em;
-  --gep-globe-in-g-height: calc(var(--gep-globe-in-g-width) * 1.008);
+  --gep-globe-in-g-width: 0.512em;
+  --gep-globe-in-g-height: 0.512em;
 }
 
 /* Team portraits — keep faces in frame across crops */
