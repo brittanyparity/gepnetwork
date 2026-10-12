@@ -16,6 +16,7 @@ import EventsPage from './pages/EventsPage'
 import ServiceDetailPage from './pages/ServiceDetailPage'
 import ServicesPage from './pages/ServicesPage'
 import StoragePage from './pages/StoragePage'
+import GlobePlaygroundPage from './pages/GlobePlaygroundPage'
 import TeamMemberPage from './pages/TeamMemberPage'
 
 const LOGO_LOCKUP = 'century-globe' as const
@@ -1677,6 +1678,7 @@ function AppShell() {
         <Route path="/events" element={<EventsPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/team/:slug" element={<TeamMemberPage />} />
+        <Route path="/globe-playground" element={<GlobePlaygroundPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       <Footer colorScheme={colorScheme} />
