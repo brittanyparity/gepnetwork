@@ -11,8 +11,13 @@ const ABOUT_HERO_IMG = '/about-page-hero.jpg'
 const ABOUT_INTRO_IMG = '/about-text-section.png'
 const ABOUT_BAND_IMG = '/about-section-max-width.jpg'
 const OUR_STORY_IMG = '/our-story-text-section.png'
+/** Festival stock — full-bleed behind Our Team tiles */
+const TEAM_SECTION_BG = '/recent-projects/rolling-loud-2026.png'
 
 const ABOUT_TEAM = TEAM.filter((member) => member.slug !== 'donna-burns')
+
+/** Slate blue wash over photo (lighter than --gep-card-overlay so the festival shows through) */
+const TEAM_SECTION_OVERLAY = 'rgba(39, 67, 92, 0.48)'
 
 const ABOUT_US_P1 =
   'At GEP Network, we are more than just an event production and management company - we are visionaries, collaborators, and innovators. with a rich history of crafting unforgettable experiences and a commitment to excellence that is unrivaled, we stand as a beacon of creativity and professionalism in the entertainment industry.'
@@ -80,24 +85,34 @@ export default function AboutPage() {
         </div>
       </SectionWrap>
 
-      <SectionWrap id="ourteam">
-        <Reveal direction="up">
-          <GoldRule />
-          <h2
-            className="uppercase leading-tight mb-4"
-            style={{
-              fontFamily: FONT_DISPLAY,
-              fontWeight: DISPLAY_TITLE_WEIGHT,
-              fontSize: 'clamp(2.25rem, 5vw, 3.5rem)',
-              color: 'var(--gep-text)',
-            }}
-          >
-            Our Team
-          </h2>
-          <BodyText className="max-w-3xl mb-12">{TEAM_INTRO}</BodyText>
-        </Reveal>
+      <section id="ourteam" className="relative overflow-hidden py-20 md:py-24">
+        <div className="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
+          <img src={TEAM_SECTION_BG} alt="" className="absolute inset-0 w-full h-full object-cover object-center" />
+          <div className="absolute inset-0" style={{ background: TEAM_SECTION_OVERLAY }} />
+        </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-10">
+          <Reveal direction="up">
+            <GoldRule />
+            <h2
+              className="uppercase leading-tight mb-4 text-white"
+              style={{
+                fontFamily: FONT_DISPLAY,
+                fontWeight: DISPLAY_TITLE_WEIGHT,
+                fontSize: 'clamp(2.25rem, 5vw, 3.5rem)',
+              }}
+            >
+              Our Team
+            </h2>
+            <p
+              className="text-base leading-relaxed font-normal max-w-3xl mb-12"
+              style={{ fontFamily: FONT_BODY, color: 'rgba(255, 255, 255, 0.82)', fontWeight: 500 }}
+            >
+              {TEAM_INTRO}
+            </p>
+          </Reveal>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {ABOUT_TEAM.map((member, i) => (
             <Reveal key={member.slug} direction="up" delay={(i % 3) * 90}>
               <Link
@@ -143,8 +158,9 @@ export default function AboutPage() {
               </Link>
             </Reveal>
           ))}
+          </div>
         </div>
-      </SectionWrap>
+      </section>
 
       <ClientPartnersSection layout="about" />
     </>
