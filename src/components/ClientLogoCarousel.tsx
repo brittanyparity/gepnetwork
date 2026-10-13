@@ -8,7 +8,7 @@ const ABOUT_CLIENTS_SUB =
 /** Legacy-style scrolling partner logos (WP carousel energy). */
 export function ClientLogoCarousel({
   title = "We've served hundreds of notable clients & partners",
-  layout = 'default',
+  layout = 'about',
 }: {
   title?: string
   layout?: 'default' | 'about'

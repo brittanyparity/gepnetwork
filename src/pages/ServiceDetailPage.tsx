@@ -4,7 +4,6 @@ import { ServiceMoreGrid } from '../components/ServiceMoreGrid'
 import {
   AccentLinkButton,
   BodyText,
-  CtaBand,
   FullWidthPhoto,
   GoldRule,
   PageHero,
@@ -162,7 +161,6 @@ export default function ServiceDetailPage() {
       </SectionWrap>
 
       <ClientPartnersSection />
-      <CtaBand />
     </>
   )
 }

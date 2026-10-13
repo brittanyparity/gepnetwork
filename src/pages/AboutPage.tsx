@@ -162,7 +162,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <ClientPartnersSection layout="about" />
+      <ClientPartnersSection />
     </>
   )
 }

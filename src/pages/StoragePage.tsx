@@ -2,7 +2,6 @@ import { ClientPartnersSection } from '../components/ClientPartnersSection'
 import {
   AccentLinkButton,
   BodyText,
-  CtaBand,
   FullWidthPhoto,
   GoldRule,
   PageHero,
@@ -152,7 +151,6 @@ export default function StoragePage() {
       </SectionWrap>
 
       <ClientPartnersSection />
-      <CtaBand />
     </>
   )
 }
