@@ -16,9 +16,6 @@ const TEAM_SECTION_BG = '/recent-projects/rolling-loud-2026.png'
 
 const ABOUT_TEAM = TEAM.filter((member) => member.slug !== 'donna-burns')
 
-/** Slate blue wash over photo (lighter than --gep-card-overlay so the festival shows through) */
-const TEAM_SECTION_OVERLAY = 'rgba(39, 67, 92, 0.48)'
-
 const ABOUT_US_P1 =
   'At GEP Network, we are more than just an event production and management company - we are visionaries, collaborators, and innovators. with a rich history of crafting unforgettable experiences and a commitment to excellence that is unrivaled, we stand as a beacon of creativity and professionalism in the entertainment industry.'
 
@@ -88,7 +85,7 @@ export default function AboutPage() {
       <section id="ourteam" className="relative overflow-hidden py-20 md:py-24">
         <div className="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
           <img src={TEAM_SECTION_BG} alt="" className="absolute inset-0 w-full h-full object-cover object-center" />
-          <div className="absolute inset-0" style={{ background: TEAM_SECTION_OVERLAY }} />
+          <div className="absolute inset-0 gep-about-team-section__wash" />
         </div>
 
         <div className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-10">

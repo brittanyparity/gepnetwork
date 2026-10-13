@@ -375,6 +375,11 @@ a.gep-hero-logo-xl.gep-hero-logo-xl--bounded {
   transform: translate(-50%, 0);
 }
 
+/* About — Our Team photo wash tracks --gep-card-overlay per color scheme */
+.gep-about-team-section__wash {
+  background: color-mix(in srgb, var(--gep-card-overlay) 62%, transparent);
+}
+
 .gep-header-root.is-scrolled .gep-header-link:hover {
   color: var(--gep-header-nav-scrolled-hover, var(--gep-header-nav-hover, #ffffff));
 }
