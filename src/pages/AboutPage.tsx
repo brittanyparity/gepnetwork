@@ -1,14 +1,16 @@
 import { Link } from 'react-router-dom'
 import { AboutTypewriterHero } from '../components/AboutTypewriterHero'
 import { ClientPartnersSection } from '../components/ClientPartnersSection'
-import { BodyText, FullWidthPhoto, GoldRule, SectionWrap } from '../components/PageChrome'
+import { BodyText, FullWidthPhoto, GoldRule, SectionWrap, SideBySidePhoto } from '../components/PageChrome'
 import { TeamSocialOverlay } from '../components/Motion'
 import { Reveal } from '../components/Reveal'
 import { TEAM } from '../content/team'
 import { DISPLAY_TITLE_WEIGHT, FONT_BODY, FONT_DISPLAY } from '../site'
 
 const ABOUT_HERO_IMG = '/about-page-hero.jpg'
+const ABOUT_INTRO_IMG = '/about-text-section.png'
 const ABOUT_BAND_IMG = '/about-section-max-width.jpg'
+const OUR_STORY_IMG = '/our-story-text-section.png'
 
 const ABOUT_TEAM = TEAM.filter((member) => member.slug !== 'donna-burns')
 
@@ -30,8 +32,8 @@ export default function AboutPage() {
       <AboutTypewriterHero image={ABOUT_HERO_IMG} />
 
       <SectionWrap>
-        <Reveal direction="up">
-          <div className="max-w-3xl">
+        <div className="grid lg:grid-cols-2 gap-12 max-w-6xl items-center">
+          <Reveal direction="left">
             <GoldRule />
             <h2
               className="uppercase leading-tight mb-6"
@@ -46,15 +48,18 @@ export default function AboutPage() {
             </h2>
             <BodyText className="mb-6">{ABOUT_US_P1}</BodyText>
             <BodyText>{ABOUT_US_P2}</BodyText>
-          </div>
-        </Reveal>
+          </Reveal>
+          <Reveal direction="right" delay={120}>
+            <SideBySidePhoto src={ABOUT_INTRO_IMG} alt="Live event production" />
+          </Reveal>
+        </div>
       </SectionWrap>
 
       <FullWidthPhoto src={ABOUT_BAND_IMG} alt="Live event production" maxHeight="none" />
 
       <SectionWrap alt>
-        <Reveal direction="up">
-          <div className="max-w-3xl">
+        <div className="grid lg:grid-cols-2 gap-12 max-w-6xl items-center">
+          <Reveal direction="left">
             <GoldRule />
             <h2
               className="uppercase leading-tight mb-6"
@@ -68,8 +73,11 @@ export default function AboutPage() {
               Our Story
             </h2>
             <BodyText>{OUR_STORY_BODY}</BodyText>
-          </div>
-        </Reveal>
+          </Reveal>
+          <Reveal direction="right" delay={120}>
+            <SideBySidePhoto src={OUR_STORY_IMG} alt="Stage crew building a production" />
+          </Reveal>
+        </div>
       </SectionWrap>
 
       <SectionWrap id="ourteam">

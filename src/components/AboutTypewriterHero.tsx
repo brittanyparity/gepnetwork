@@ -63,13 +63,14 @@ export function AboutTypewriterHero({ image }: { image: string }) {
           <GoldRule />
         </div>
         <h1
-          className="uppercase leading-tight max-w-4xl min-h-[1.15em] page-hero-fade page-hero-fade-delay-2"
+          className="leading-tight max-w-4xl min-h-[1.15em] page-hero-fade page-hero-fade-delay-2 normal-case"
           style={{
             fontFamily: FONT_DISPLAY,
             fontWeight: DISPLAY_TITLE_WEIGHT,
             fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
-            letterSpacing: '0.02em',
+            letterSpacing: '0.01em',
             color: '#fff',
+            textTransform: 'none',
           }}
           aria-live="polite"
           aria-label={`${phrase.lead}${phrase.accent}`}
