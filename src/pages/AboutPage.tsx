@@ -1,34 +1,37 @@
 import { Link } from 'react-router-dom'
+import { AboutTypewriterHero } from '../components/AboutTypewriterHero'
 import { ClientPartnersSection } from '../components/ClientPartnersSection'
-import { BodyText, CtaBand, FullWidthPhoto, GoldRule, PageHero, SectionWrap, SideBySidePhoto } from '../components/PageChrome'
+import { BodyText, FullWidthPhoto, GoldRule, SectionWrap } from '../components/PageChrome'
 import { TeamSocialOverlay } from '../components/Motion'
 import { Reveal } from '../components/Reveal'
 import { TEAM } from '../content/team'
-import { DISPLAY_TITLE_WEIGHT, FONT_BODY, FONT_DISPLAY, GEP_FULL_NAME } from '../site'
+import { DISPLAY_TITLE_WEIGHT, FONT_BODY, FONT_DISPLAY } from '../site'
 
-const MISSION_IMG = '/recent-projects/roots-picnic-2026.jpg'
-const STORY_IMG = '/gep-service-stage-management.png'
-const ABOUT_BANNER = '/gep-service-production-coordination.png'
-const ABOUT_GALLERY = [
-  '/recent-projects/jcole-fall-off-tour.jpg',
-  '/recent-projects/rolling-loud-2026.png',
-  '/recent-projects/essence-festival-george-clinton-2026.jpg',
-  '/recent-projects/lyrical-lemonade-summer-smash-2026.png',
-] as const
+const ABOUT_HERO_IMG = '/about-page-hero.jpg'
+const ABOUT_BAND_IMG = '/about-section-max-width.jpg'
+
+const ABOUT_TEAM = TEAM.filter((member) => member.slug !== 'donna-burns')
+
+const ABOUT_US_P1 =
+  'At GEP Network, we are more than just an event production and management company - we are visionaries, collaborators, and innovators. with a rich history of crafting unforgettable experiences and a commitment to excellence that is unrivaled, we stand as a beacon of creativity and professionalism in the entertainment industry.'
+
+const ABOUT_US_P2 =
+  "Our mission is simple to bring your event's vision to life with unmatched expertise, creativity, and precision. Whether it's a concert tour, festival, corporate event, or beyond, we are dedicated to exceeding expectations and delivering extraordinary results that leave a lasting impression on audiences worldwide."
+
+const OUR_STORY_BODY =
+  "Founded by veteran production manager Victor Reed, GEP Network has become synonymous with excellence in event production and management. With over 40 years of experience in the industry, Victor's vision and leadership have propelled GEP Network to the forefront of the entertainment world, earning the trust and admiration of clients and colleagues alike."
+
+const TEAM_INTRO =
+  'At GEP Network, we are more than just an event production and management company - we are visionaries, collaborators, and innovators. With a rich history of crafting unforgettable experiences and a commitment to excellence that is unrivaled, we stand as a beacon of creativity and professionalism in the entertainment industry.'
 
 export default function AboutPage() {
   return (
     <>
-      <PageHero
-        eyebrow="Who we are"
-        title="About Us"
-        subtitle="We are more than an event production company — we are visionaries, collaborators, and innovators crafting unforgettable live experiences."
-        image="/gep-why-gep-team.jpg"
-      />
+      <AboutTypewriterHero image={ABOUT_HERO_IMG} />
 
       <SectionWrap>
-        <div className="grid lg:grid-cols-2 gap-12 max-w-6xl">
-          <Reveal direction="left">
+        <Reveal direction="up">
+          <div className="max-w-3xl">
             <GoldRule />
             <h2
               className="uppercase leading-tight mb-6"
@@ -39,28 +42,19 @@ export default function AboutPage() {
                 color: 'var(--gep-text)',
               }}
             >
-              Our Mission
+              About Us
             </h2>
-            <BodyText>
-              At {GEP_FULL_NAME}, our mission is simple: to bring your event’s vision to life with unmatched expertise,
-              creativity, and precision. Whether it’s a concert tour, festival, corporate event, or beyond, we are
-              dedicated to exceeding expectations and delivering extraordinary results.
-            </BodyText>
-          </Reveal>
-          <Reveal direction="right" delay={120}>
-            <SideBySidePhoto src={MISSION_IMG} alt="Festival production" />
-          </Reveal>
-        </div>
+            <BodyText className="mb-6">{ABOUT_US_P1}</BodyText>
+            <BodyText>{ABOUT_US_P2}</BodyText>
+          </div>
+        </Reveal>
       </SectionWrap>
 
-      <FullWidthPhoto src={ABOUT_BANNER} alt="Sound engineer at the mixing console" maxHeight="min(65vh, 480px)" />
+      <FullWidthPhoto src={ABOUT_BAND_IMG} alt="Live event production" maxHeight="none" />
 
       <SectionWrap alt>
-        <div className="grid lg:grid-cols-2 gap-12 max-w-6xl">
-          <Reveal direction="left">
-            <SideBySidePhoto src={STORY_IMG} alt="Stage and production" />
-          </Reveal>
-          <Reveal direction="right" delay={120}>
+        <Reveal direction="up">
+          <div className="max-w-3xl">
             <GoldRule />
             <h2
               className="uppercase leading-tight mb-6"
@@ -73,40 +67,12 @@ export default function AboutPage() {
             >
               Our Story
             </h2>
-            <BodyText>
-              Founded by veteran production manager Victor Reed, GEP Network has become synonymous with excellence in
-              event production and management. With over 40 years of experience in the industry, Victor’s vision and
-              leadership have propelled GEP Network to the forefront of the entertainment world.
-            </BodyText>
-          </Reveal>
-        </div>
-      </SectionWrap>
-
-      <SectionWrap>
-        <Reveal direction="up">
-          <GoldRule />
-          <h2
-            className="uppercase leading-tight mb-8"
-            style={{
-              fontFamily: FONT_DISPLAY,
-              fontWeight: DISPLAY_TITLE_WEIGHT,
-              fontSize: 'clamp(1.5rem, 3vw, 2.25rem)',
-              color: 'var(--gep-text)',
-            }}
-          >
-            Production in Motion
-          </h2>
+            <BodyText>{OUR_STORY_BODY}</BodyText>
+          </div>
         </Reveal>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
-          {ABOUT_GALLERY.map((src, i) => (
-            <Reveal key={src} direction="up" delay={i * 70}>
-              <img src={src} alt="" className="w-full aspect-[4/3] object-cover" />
-            </Reveal>
-          ))}
-        </div>
       </SectionWrap>
 
-      <SectionWrap id="ourteam" alt>
+      <SectionWrap id="ourteam">
         <Reveal direction="up">
           <GoldRule />
           <h2
@@ -120,14 +86,11 @@ export default function AboutPage() {
           >
             Our Team
           </h2>
-          <BodyText className="max-w-2xl mb-12">
-            The people behind the productions — operators, creatives, and road veterans who keep shows moving at the
-            highest level.
-          </BodyText>
+          <BodyText className="max-w-3xl mb-12">{TEAM_INTRO}</BodyText>
         </Reveal>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {TEAM.map((member, i) => (
+          {ABOUT_TEAM.map((member, i) => (
             <Reveal key={member.slug} direction="up" delay={(i % 3) * 90}>
               <Link
                 to={`/team/${member.slug}`}
@@ -175,8 +138,7 @@ export default function AboutPage() {
         </div>
       </SectionWrap>
 
-      <ClientPartnersSection />
-      <CtaBand />
+      <ClientPartnersSection layout="about" />
     </>
   )
 }
