@@ -1,4 +1,5 @@
 import { Navigate, useParams } from 'react-router-dom'
+import ConcertTourProductionDetail from './ConcertTourProductionDetail'
 import { ClientPartnersSection } from '../components/ClientPartnersSection'
 import { ServiceMoreGrid } from '../components/ServiceMoreGrid'
 import {
@@ -20,6 +21,10 @@ export default function ServiceDetailPage() {
 
   const page = slug ? getServicePage(slug) : undefined
   if (!page) return <Navigate to="/services" replace />
+
+  if (page.slug === 'concert-and-tour-production') {
+    return <ConcertTourProductionDetail />
+  }
 
   return (
     <>

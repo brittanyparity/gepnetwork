@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type ReactNode } from 'react'
 import { GoldRule } from './PageChrome'
 import { DISPLAY_TITLE_WEIGHT, FONT_DISPLAY } from '../site'
 
@@ -11,9 +11,11 @@ export type TypewriterPhrase = { lead: string; accent: string }
 export function TypewriterHero({
   image,
   phrases,
+  breadcrumbs,
 }: {
   image: string
   phrases: readonly TypewriterPhrase[]
+  breadcrumbs?: ReactNode
 }) {
   const [phraseIndex, setPhraseIndex] = useState(0)
   const [charCount, setCharCount] = useState(0)
@@ -40,7 +42,7 @@ export function TypewriterHero({
       if (!deleting) {
         if (charCount < full.length) {
           setCharCount((c) => c + 1)
-        } else if (phrases.length > 1) {
+        } else {
           setDeleting(true)
         }
       } else if (charCount > 0) {
@@ -63,6 +65,7 @@ export function TypewriterHero({
       <img src={image} alt="" className="absolute inset-0 w-full h-full object-cover page-hero-fade" />
       <div className="absolute inset-0" style={{ background: 'rgba(23, 20, 15, 0.62)' }} />
       <div className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-10 pt-32 pb-20 text-white">
+        {breadcrumbs ? <div className="text-white/75 mb-4 page-hero-fade page-hero-fade-delay-1">{breadcrumbs}</div> : null}
         <div className="page-hero-fade page-hero-fade-delay-1">
           <GoldRule />
         </div>
