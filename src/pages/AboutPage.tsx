@@ -109,12 +109,12 @@ export default function AboutPage() {
             </p>
           </Reveal>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
           {ABOUT_TEAM.map((member, i) => (
-            <Reveal key={member.slug} direction="up" delay={(i % 3) * 90}>
+            <Reveal key={member.slug} direction="up" delay={(i % 3) * 90} className="h-full">
               <Link
                 to={`/team/${member.slug}`}
-                className="team-card group block overflow-hidden"
+                className="team-card group overflow-hidden h-full"
                 style={{ background: 'var(--gep-card)' }}
               >
                 <div className="team-card-media relative overflow-hidden">
@@ -141,12 +141,15 @@ export default function AboutPage() {
                     </p>
                   </div>
                 </div>
-                <div className="p-5">
-                  <p className="text-sm leading-relaxed mb-4 font-medium" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>
+                <div className="team-card-body p-5">
+                  <p
+                    className="team-card-summary text-sm leading-relaxed mb-4 font-medium"
+                    style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}
+                  >
                     {member.summary}
                   </p>
                   <span
-                    className="text-xs tracking-widest uppercase font-semibold"
+                    className="text-xs tracking-widest uppercase font-semibold mt-auto"
                     style={{ fontFamily: FONT_BODY, color: 'var(--gep-accent)' }}
                   >
                     Read More →

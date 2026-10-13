@@ -273,7 +273,24 @@ a.gep-hero-logo-xl.gep-hero-logo-xl--bounded {
   object-position: center top;
 }
 
+.team-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.team-card-body {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.team-card-summary {
+  flex: 1 1 auto;
+}
+
 .team-card-media {
+  flex-shrink: 0;
   aspect-ratio: 3 / 4;
 }
 
