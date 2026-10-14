@@ -373,6 +373,72 @@ a.gep-hero-logo-xl.gep-hero-logo-xl--bounded {
   color: var(--gep-header-nav-hover, #ffffff);
 }
 
+/* Inner-page typewriter heroes (About, Services, service detail) */
+.gep-typewriter-hero__title {
+  font-size: clamp(1.85rem, 5.5vw, 2.65rem);
+  max-width: min(100%, 56rem);
+}
+
+@media (min-width: 1024px) {
+  .gep-typewriter-hero__title {
+    font-size: clamp(1.65rem, 2.15vw, 2.35rem);
+    max-width: none;
+    white-space: nowrap;
+  }
+}
+
+.gep-typewriter-hero__accent {
+  color: var(--gep-hero-word, color-mix(in srgb, var(--gep-accent) 68%, white));
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  -webkit-font-smoothing: antialiased;
+}
+
+.gep-typewriter-hero__cursor {
+  height: 0.85em;
+  background: var(--gep-hero-word, color-mix(in srgb, var(--gep-accent) 68%, white));
+}
+
+/* More Services footer — one row on desktop */
+.gep-service-more-grid {
+  --svc-more-count: 5;
+}
+
+@media (min-width: 1024px) {
+  .gep-service-more-grid {
+    grid-template-columns: repeat(var(--svc-more-count), minmax(0, 1fr));
+  }
+
+  .gep-service-more-tile {
+    min-height: 11.5rem;
+  }
+
+  .gep-service-more-tile__body {
+    min-height: 11.5rem;
+    padding: 1rem 1.1rem;
+  }
+
+  .gep-service-more-tile__title {
+    font-size: clamp(0.85rem, 1.05vw, 1.05rem);
+  }
+}
+
+@media (max-width: 1023px) {
+  .gep-service-more-tile {
+    min-height: 13.5rem;
+  }
+
+  .gep-service-more-tile__body {
+    min-height: 13.5rem;
+    padding: 1.25rem 1.35rem;
+  }
+
+  .gep-service-more-tile__title {
+    font-size: 1.15rem;
+  }
+}
+
 /* Primary nav — desktop dropdown (open via hover on .gep-nav-dropdown--open) */
 .gep-nav-dropdown-panel {
   opacity: 0;

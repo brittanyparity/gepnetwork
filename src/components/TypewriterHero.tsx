@@ -70,11 +70,10 @@ export function TypewriterHero({
           <GoldRule />
         </div>
         <h1
-          className="leading-tight max-w-4xl min-h-[1.15em] page-hero-fade page-hero-fade-delay-2 normal-case"
+          className="gep-typewriter-hero__title leading-tight min-h-[1.15em] page-hero-fade page-hero-fade-delay-2 normal-case"
           style={{
             fontFamily: FONT_DISPLAY,
             fontWeight: DISPLAY_TITLE_WEIGHT,
-            fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
             letterSpacing: '0.01em',
             color: '#fff',
             textTransform: 'none',
@@ -83,14 +82,8 @@ export function TypewriterHero({
           aria-label={`${phrase.lead}${phrase.accent}`}
         >
           <span>{leadPart}</span>
-          {accentPart ? (
-            <span style={{ color: 'var(--gep-accent)', fontWeight: 800 }}>{accentPart}</span>
-          ) : null}
-          <span
-            className="inline-block w-[0.06em] ml-0.5 align-baseline animate-pulse"
-            style={{ background: 'var(--gep-accent)', height: '0.85em' }}
-            aria-hidden
-          />
+          {accentPart ? <span className="gep-typewriter-hero__accent">{accentPart}</span> : null}
+          <span className="gep-typewriter-hero__cursor inline-block w-[0.06em] ml-0.5 align-baseline animate-pulse" aria-hidden />
         </h1>
       </div>
     </section>

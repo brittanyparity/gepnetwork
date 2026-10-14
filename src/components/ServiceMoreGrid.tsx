@@ -21,15 +21,20 @@ export function ServiceMoreGrid({
   const items = services.filter((s) => s.slug !== excludeSlug)
 
   return (
-    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-0 border" style={{ borderColor: 'var(--gep-divider)' }}>
+    <div
+      className="gep-service-more-grid grid sm:grid-cols-2 gap-0 border"
+      style={{
+        borderColor: 'var(--gep-divider)',
+        ['--svc-more-count' as string]: String(items.length),
+      }}
+    >
       {items.map((svc, i) => (
         <Reveal key={svc.slug} direction="up" delay={(i % 3) * 80}>
           <Link
             to={`/services/${svc.slug}`}
-            className={`group relative overflow-hidden border-b sm:border-r block ${showImages ? '' : 'h-full'}`}
+            className={`gep-service-more-tile group relative overflow-hidden border-b sm:border-r block ${showImages ? '' : 'h-full'}`}
             style={{
               borderColor: 'var(--gep-divider)',
-              minHeight: showImages ? 280 : undefined,
               background: showImages ? undefined : 'var(--gep-card)',
             }}
           >
@@ -44,15 +49,13 @@ export function ServiceMoreGrid({
               </>
             ) : null}
             <div
-              className={`relative z-10 h-full flex flex-col ${showImages ? 'justify-end p-7' : 'p-7 min-h-[200px]'}`}
-              style={showImages ? { minHeight: 280 } : undefined}
+              className={`gep-service-more-tile__body relative z-10 h-full flex flex-col ${showImages ? 'justify-end' : ''}`}
             >
               <h3
-                className={`uppercase leading-tight mb-3 ${showImages ? 'text-white' : ''}`}
+                className={`gep-service-more-tile__title uppercase leading-tight mb-2 line-clamp-2 ${showImages ? 'text-white' : ''}`}
                 style={{
                   fontFamily: FONT_DISPLAY,
                   fontWeight: DISPLAY_TITLE_WEIGHT,
-                  fontSize: '1.35rem',
                   letterSpacing: '0.04em',
                   color: showImages ? undefined : 'var(--gep-text)',
                 }}
@@ -60,7 +63,7 @@ export function ServiceMoreGrid({
                 {svc.title}
               </h3>
               <p
-                className={`text-sm leading-relaxed mb-4 flex-1 ${showImages ? 'text-white/75' : ''}`}
+                className={`gep-service-more-tile__summary text-xs leading-snug mb-3 flex-1 line-clamp-3 ${showImages ? 'text-white/75' : ''}`}
                 style={{ fontFamily: FONT_BODY, color: showImages ? undefined : 'var(--gep-text-muted)' }}
               >
                 {svc.summary}
