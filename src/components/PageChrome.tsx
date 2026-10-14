@@ -20,15 +20,13 @@ export function FullWidthPhoto({
   maxHeight?: string
 }) {
   return (
-    <div className="w-full py-2 md:py-4" style={{ background: 'var(--gep-bg)' }}>
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-        <img
-          src={src}
-          alt={alt}
-          className="w-full object-cover"
-          style={{ maxHeight, minHeight: 220 }}
-        />
-      </div>
+    <div className="w-full" style={{ background: 'var(--gep-bg)' }}>
+      <img
+        src={src}
+        alt={alt}
+        className="block w-full object-cover"
+        style={{ maxHeight: maxHeight === 'none' ? undefined : maxHeight, minHeight: maxHeight === 'none' ? undefined : 220 }}
+      />
     </div>
   )
 }
