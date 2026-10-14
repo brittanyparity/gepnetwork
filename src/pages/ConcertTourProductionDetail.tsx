@@ -137,8 +137,7 @@ export default function ConcertTourProductionDetail() {
       <TypewriterHero
         image="/c-p-hero.png"
         phrases={HERO_PHRASES}
-        size="tall"
-        imagePosition="48% 36%"
+        imagePosition="50% top"
         breadcrumbs={
           <Breadcrumbs
             items={[
