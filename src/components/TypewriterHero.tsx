@@ -12,10 +12,13 @@ export function TypewriterHero({
   image,
   phrases,
   breadcrumbs,
+  imagePosition = 'center center',
 }: {
   image: string
   phrases: readonly TypewriterPhrase[]
   breadcrumbs?: ReactNode
+  /** CSS object-position — tune per asset so people/faces stay in frame */
+  imagePosition?: string
 }) {
   const [phraseIndex, setPhraseIndex] = useState(0)
   const [charCount, setCharCount] = useState(0)
@@ -62,7 +65,12 @@ export function TypewriterHero({
 
   return (
     <section className="relative overflow-hidden" style={{ background: 'var(--gep-bg)' }}>
-      <img src={image} alt="" className="absolute inset-0 w-full h-full object-cover page-hero-fade" />
+      <img
+        src={image}
+        alt=""
+        className="absolute inset-0 w-full h-full object-cover page-hero-fade"
+        style={{ objectPosition: imagePosition }}
+      />
       <div className="absolute inset-0" style={{ background: 'rgba(23, 20, 15, 0.62)' }} />
       <div className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-10 pt-32 pb-20 text-white">
         {breadcrumbs ? <div className="text-white/75 mb-4 page-hero-fade page-hero-fade-delay-1">{breadcrumbs}</div> : null}

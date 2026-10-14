@@ -388,7 +388,7 @@ a.gep-hero-logo-xl.gep-hero-logo-xl--bounded {
 }
 
 .gep-typewriter-hero__accent {
-  color: var(--gep-hero-word, color-mix(in srgb, var(--gep-accent) 68%, white));
+  color: var(--gep-typewriter-accent, color-mix(in srgb, var(--gep-hero-word) 38%, white));
   font-family: var(--font-body, 'Inter', sans-serif);
   font-weight: 600;
   letter-spacing: 0.03em;
@@ -397,7 +397,7 @@ a.gep-hero-logo-xl.gep-hero-logo-xl--bounded {
 
 .gep-typewriter-hero__cursor {
   height: 0.85em;
-  background: var(--gep-hero-word, color-mix(in srgb, var(--gep-accent) 68%, white));
+  background: var(--gep-typewriter-accent, color-mix(in srgb, var(--gep-hero-word) 38%, white));
 }
 
 /* More Services footer — one row on desktop */

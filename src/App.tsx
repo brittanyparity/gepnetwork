@@ -93,6 +93,37 @@ function accentTextOn(accent: string): string {
   return luminance > 0.62 ? '#17140F' : '#FFFFFF'
 }
 
+function mixHex(a: string, b: string, t: number): string {
+  const parse = (h: string) => {
+    const x = h.replace('#', '')
+    return [parseInt(x.slice(0, 2), 16), parseInt(x.slice(2, 4), 16), parseInt(x.slice(4, 6), 16)] as const
+  }
+  const [ar, ag, ab] = parse(a)
+  const [br, bg, bb] = parse(b)
+  const blend = (c1: number, c2: number) => Math.round(c1 + (c2 - c1) * t)
+  const toHex = (n: number) => n.toString(16).padStart(2, '0')
+  return `#${toHex(blend(ar, br))}${toHex(blend(ag, bg))}${toHex(blend(ab, bb))}`
+}
+
+/** Light tinted accent for typewriter hero emphasis on dark photo banners */
+function typewriterHeroAccent(accent: string, heroWord: string): string {
+  const hex = accent.replace('#', '')
+  if (hex.length !== 6) return mixHex(heroWord, '#FFFFFF', 0.72)
+  const r = parseInt(hex.slice(0, 2), 16)
+  const g = parseInt(hex.slice(2, 4), 16)
+  const b = parseInt(hex.slice(4, 6), 16)
+  if (b >= r && b >= g - 12) {
+    return mixHex(heroWord, '#C5E8FF', 0.78)
+  }
+  if (r >= b && r >= g - 12) {
+    return mixHex(heroWord, '#FFDCCF', 0.78)
+  }
+  if (g >= r && g >= b - 12) {
+    return mixHex(heroWord, '#E4F4C8', 0.78)
+  }
+  return mixHex(heroWord, '#E6E4FF', 0.78)
+}
+
 const FOOTER_DARK = '#17140F'
 
 const FOOTER_VARS: Record<string, string> = {
@@ -151,6 +182,7 @@ function lightBoneScheme(
       '--gep-client-logo-filter': 'brightness(0)',
       '--gep-divider': 'rgba(23, 20, 15, 0.12)',
       '--gep-hero-word': heroWord,
+      '--gep-typewriter-accent': typewriterHeroAccent(accent, heroWord),
       '--gep-hero-kicker': '#F8F5F0',
       '--gep-why-gep-overlay':
         'linear-gradient(105deg, rgba(23, 20, 15, 0.78) 0%, rgba(23, 20, 15, 0.42) 50%, rgba(23, 20, 15, 0.32) 100%)',
@@ -166,6 +198,7 @@ const COLOR_SCHEMES: ColorScheme[] = [
     '--gep-bg': '#F2F5F8',
     '--gep-bg-alt': '#E8EEF3',
     '--gep-card': '#DAE3EB',
+    '--gep-typewriter-accent': '#A8D8F5',
     '--gep-header-bar': HEADER_BAR.slateBlue,
     '--gep-header-scrolled': HEADER_BAR.slateBlue,
     '--gep-card-overlay': 'rgba(39, 67, 92, 0.76)',
