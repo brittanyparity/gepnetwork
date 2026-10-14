@@ -13,12 +13,15 @@ export function TypewriterHero({
   phrases,
   breadcrumbs,
   imagePosition = 'center center',
+  size = 'default',
 }: {
   image: string
   phrases: readonly TypewriterPhrase[]
   breadcrumbs?: ReactNode
   /** CSS object-position — tune per asset so people/faces stay in frame */
   imagePosition?: string
+  /** Taller banner — more vertical photo visible (object-cover) */
+  size?: 'default' | 'tall'
 }) {
   const [phraseIndex, setPhraseIndex] = useState(0)
   const [charCount, setCharCount] = useState(0)
@@ -64,7 +67,10 @@ export function TypewriterHero({
   const accentPart = visible.length > leadLen ? visible.slice(leadLen) : ''
 
   return (
-    <section className="relative overflow-hidden" style={{ background: 'var(--gep-bg)' }}>
+    <section
+      className={`relative overflow-hidden${size === 'tall' ? ' gep-typewriter-hero--tall' : ''}`}
+      style={{ background: 'var(--gep-bg)' }}
+    >
       <img
         src={image}
         alt=""

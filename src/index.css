@@ -374,6 +374,16 @@ a.gep-hero-logo-xl.gep-hero-logo-xl--bounded {
 }
 
 /* Inner-page typewriter heroes (About, Services, service detail) */
+.gep-typewriter-hero--tall {
+  min-height: min(78vh, 820px);
+}
+
+@media (min-width: 1024px) {
+  .gep-typewriter-hero--tall {
+    min-height: min(72vh, 880px);
+  }
+}
+
 .gep-typewriter-hero__title {
   font-size: clamp(1.85rem, 5.5vw, 2.65rem);
   max-width: min(100%, 56rem);
@@ -388,7 +398,7 @@ a.gep-hero-logo-xl.gep-hero-logo-xl--bounded {
 }
 
 .gep-typewriter-hero__accent {
-  color: var(--gep-typewriter-accent, color-mix(in srgb, var(--gep-hero-word) 38%, white));
+  color: var(--gep-typewriter-accent, color-mix(in srgb, var(--gep-hero-word) 55%, #9aadb6));
   font-family: var(--font-body, 'Inter', sans-serif);
   font-weight: 600;
   letter-spacing: 0.03em;
@@ -397,7 +407,7 @@ a.gep-hero-logo-xl.gep-hero-logo-xl--bounded {
 
 .gep-typewriter-hero__cursor {
   height: 0.85em;
-  background: var(--gep-typewriter-accent, color-mix(in srgb, var(--gep-hero-word) 38%, white));
+  background: var(--gep-typewriter-accent, color-mix(in srgb, var(--gep-hero-word) 55%, #9aadb6));
 }
 
 /* More Services footer — one row on desktop */

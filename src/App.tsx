@@ -105,23 +105,24 @@ function mixHex(a: string, b: string, t: number): string {
   return `#${toHex(blend(ar, br))}${toHex(blend(ag, bg))}${toHex(blend(ab, bb))}`
 }
 
-/** Light tinted accent for typewriter hero emphasis on dark photo banners */
+/** Muted teal/grey accent for typewriter hero emphasis on dark photo banners */
 function typewriterHeroAccent(accent: string, heroWord: string): string {
   const hex = accent.replace('#', '')
-  if (hex.length !== 6) return mixHex(heroWord, '#FFFFFF', 0.72)
+  if (hex.length !== 6) return mixHex(heroWord, '#9AADB6', 0.52)
   const r = parseInt(hex.slice(0, 2), 16)
   const g = parseInt(hex.slice(2, 4), 16)
   const b = parseInt(hex.slice(4, 6), 16)
+  const base = mixHex(accent, heroWord, 0.45)
   if (b >= r && b >= g - 12) {
-    return mixHex(heroWord, '#C5E8FF', 0.78)
+    return mixHex(base, '#8FA8B3', 0.58)
   }
   if (r >= b && r >= g - 12) {
-    return mixHex(heroWord, '#FFDCCF', 0.78)
+    return mixHex(base, '#B5A49C', 0.58)
   }
   if (g >= r && g >= b - 12) {
-    return mixHex(heroWord, '#E4F4C8', 0.78)
+    return mixHex(base, '#9AAA95', 0.58)
   }
-  return mixHex(heroWord, '#E6E4FF', 0.78)
+  return mixHex(base, '#A39EB5', 0.58)
 }
 
 const FOOTER_DARK = '#17140F'
@@ -198,7 +199,7 @@ const COLOR_SCHEMES: ColorScheme[] = [
     '--gep-bg': '#F2F5F8',
     '--gep-bg-alt': '#E8EEF3',
     '--gep-card': '#DAE3EB',
-    '--gep-typewriter-accent': '#A8D8F5',
+    '--gep-typewriter-accent': '#8BAAB4',
     '--gep-header-bar': HEADER_BAR.slateBlue,
     '--gep-header-scrolled': HEADER_BAR.slateBlue,
     '--gep-card-overlay': 'rgba(39, 67, 92, 0.76)',
