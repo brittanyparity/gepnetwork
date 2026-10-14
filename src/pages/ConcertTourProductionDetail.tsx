@@ -1,10 +1,8 @@
-import { ClientPartnersSection } from '../components/ClientPartnersSection'
-import { ServiceMoreGrid } from '../components/ServiceMoreGrid'
+import { ServicePageFooter } from '../components/ServicePageFooter'
 import { TypewriterHero } from '../components/TypewriterHero'
 import { Breadcrumbs } from '../components/Breadcrumbs'
 import { BodyText, FullWidthPhoto, GoldRule, SectionWrap, SideBySidePhoto } from '../components/PageChrome'
 import { Reveal } from '../components/Reveal'
-import { SERVICE_NAV } from '../content/services'
 import { DISPLAY_TITLE_WEIGHT, FONT_BODY, FONT_DISPLAY } from '../site'
 
 const HERO_PHRASES = [{ lead: 'We Do ', accent: 'Concerts and Tour Production' }] as const
@@ -252,25 +250,7 @@ export default function ConcertTourProductionDetail() {
         </Reveal>
       </SectionWrap>
 
-      <SectionWrap alt>
-        <Reveal direction="up">
-          <GoldRule />
-          <h2
-            className="uppercase leading-tight mb-8"
-            style={{
-              fontFamily: FONT_DISPLAY,
-              fontWeight: DISPLAY_TITLE_WEIGHT,
-              fontSize: 'clamp(1.5rem, 3vw, 2.25rem)',
-              color: 'var(--gep-text)',
-            }}
-          >
-            More Services
-          </h2>
-        </Reveal>
-        <ServiceMoreGrid services={SERVICE_NAV} excludeSlug="concert-and-tour-production" showImages={false} />
-      </SectionWrap>
-
-      <ClientPartnersSection />
+      <ServicePageFooter excludeSlug="concert-and-tour-production" />
     </>
   )
 }

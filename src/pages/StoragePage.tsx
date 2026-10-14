@@ -1,4 +1,4 @@
-import { ClientPartnersSection } from '../components/ClientPartnersSection'
+import { ServicePageFooter } from '../components/ServicePageFooter'
 import {
   AccentLinkButton,
   BodyText,
@@ -150,7 +150,7 @@ export default function StoragePage() {
         </Reveal>
       </SectionWrap>
 
-      <ClientPartnersSection />
+      <ServicePageFooter />
     </>
   )
 }

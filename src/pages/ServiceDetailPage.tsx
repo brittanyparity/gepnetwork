@@ -1,7 +1,6 @@
 import { Navigate, useParams } from 'react-router-dom'
 import ConcertTourProductionDetail from './ConcertTourProductionDetail'
-import { ClientPartnersSection } from '../components/ClientPartnersSection'
-import { ServiceMoreGrid } from '../components/ServiceMoreGrid'
+import { ServicePageFooter } from '../components/ServicePageFooter'
 import {
   AccentLinkButton,
   BodyText,
@@ -12,7 +11,7 @@ import {
   SideBySidePhoto,
 } from '../components/PageChrome'
 import { Reveal } from '../components/Reveal'
-import { getServicePage, SERVICE_NAV } from '../content/services'
+import { getServicePage } from '../content/services'
 import { DISPLAY_TITLE_WEIGHT, FONT_BODY, FONT_DISPLAY } from '../site'
 
 export default function ServiceDetailPage() {
@@ -147,25 +146,7 @@ export default function ServiceDetailPage() {
         </SectionWrap>
       ) : null}
 
-      <SectionWrap>
-        <Reveal direction="up">
-          <GoldRule />
-          <h2
-            className="uppercase leading-tight mb-8"
-            style={{
-              fontFamily: FONT_DISPLAY,
-              fontWeight: DISPLAY_TITLE_WEIGHT,
-              fontSize: 'clamp(1.5rem, 3vw, 2.25rem)',
-              color: 'var(--gep-text)',
-            }}
-          >
-            More Services
-          </h2>
-        </Reveal>
-        <ServiceMoreGrid services={SERVICE_NAV} excludeSlug={page.slug} />
-      </SectionWrap>
-
-      <ClientPartnersSection />
+      <ServicePageFooter excludeSlug={page.slug} />
     </>
   )
 }
