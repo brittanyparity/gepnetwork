@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react'
+import { Children, useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react'
 
 type RevealDirection = 'up' | 'down' | 'left' | 'right' | 'fade'
 
@@ -83,6 +83,38 @@ export function RevealStagger({
   return (
     <div className={className}>
       {children.map((child, i) => (
+        <Reveal key={i} direction={direction} delay={i * step}>
+          {child}
+        </Reveal>
+      ))}
+    </div>
+  )
+}
+
+/** Stagger any number of top-level children (text blocks, headings, etc.). */
+export function RevealGroup({
+  children,
+  direction = 'fade',
+  step = 60,
+  className = '',
+}: {
+  children: ReactNode
+  direction?: RevealDirection
+  step?: number
+  className?: string
+}) {
+  const items = Children.toArray(children).filter((child) => child !== null && child !== false)
+  if (items.length === 0) return null
+  if (items.length === 1) {
+    return (
+      <Reveal direction={direction} className={className}>
+        {items[0]}
+      </Reveal>
+    )
+  }
+  return (
+    <div className={className}>
+      {items.map((child, i) => (
         <Reveal key={i} direction={direction} delay={i * step}>
           {child}
         </Reveal>

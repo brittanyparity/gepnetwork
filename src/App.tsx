@@ -9,6 +9,7 @@ import {
 } from 'react'
 import { BrowserRouter, Link, Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import GEPLogoLockup from './components/GepGlobeMark'
+import { Reveal, RevealGroup } from './components/Reveal'
 import { PrimaryNavDesktop, PrimaryNavMobile } from './components/PrimaryNav'
 import AboutPage from './pages/AboutPage'
 import ContactPage from './pages/ContactPage'
@@ -868,7 +869,7 @@ function RecentProjectsCarousel() {
 
   return (
     <section id="events" className="py-24 overflow-hidden" style={{ background: 'var(--gep-bg)' }}>
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-10 mb-10">
+      <RevealGroup direction="fade" step={55} className="max-w-[1400px] mx-auto px-6 lg:px-10 mb-10">
         <GoldRule />
         <h2
           className="uppercase leading-none"
@@ -876,7 +877,7 @@ function RecentProjectsCarousel() {
         >
           Recent Projects
         </h2>
-      </div>
+      </RevealGroup>
 
       <div
         className="overflow-hidden"
@@ -975,7 +976,7 @@ function WhyGEP() {
       </div>
       <div className="relative z-10 py-28 min-h-[90vh] flex items-center max-w-[1400px] mx-auto px-6 lg:px-10">
         <div className="grid lg:grid-cols-2 gap-16 items-center w-full">
-        <div>
+        <RevealGroup direction="fade" step={55}>
           <GoldRule />
           <h2
             className="text-white uppercase leading-tight mb-8"
@@ -996,7 +997,7 @@ function WhyGEP() {
           >
             Learn More About Us <span className="text-lg leading-none">→</span>
           </a>
-        </div>
+        </RevealGroup>
 
         <div className="grid grid-cols-2 gap-px bg-white/15">
           {[
@@ -1004,29 +1005,30 @@ function WhyGEP() {
             { n: '500+', l: 'Productions Executed' },
             { n: '50+', l: 'Active Crew Members' },
             { n: '100%', l: 'Client Retention Rate' },
-          ].map((s) => (
-            <div
-              key={s.l}
-              className="p-10 flex flex-col justify-end backdrop-blur-[2px]"
-              style={{ background: 'color-mix(in srgb, var(--gep-accent) 45%, transparent)' }}
-            >
+          ].map((s, i) => (
+            <Reveal key={s.l} direction="up" delay={i * 70}>
               <div
-                className="uppercase leading-none mb-2 text-white"
-                style={{
-                  fontFamily: FONT_DISPLAY,
-                  fontWeight: DISPLAY_STAT_WEIGHT,
-                  fontSize: '3.5rem',
-                }}
+                className="p-10 flex flex-col justify-end backdrop-blur-[2px] h-full"
+                style={{ background: 'color-mix(in srgb, var(--gep-accent) 45%, transparent)' }}
               >
-                {s.n}
+                <div
+                  className="uppercase leading-none mb-2 text-white"
+                  style={{
+                    fontFamily: FONT_DISPLAY,
+                    fontWeight: DISPLAY_STAT_WEIGHT,
+                    fontSize: '3.5rem',
+                  }}
+                >
+                  {s.n}
+                </div>
+                <div
+                  className="text-xs tracking-widest uppercase text-white/70"
+                  style={{ fontFamily: FONT_BODY }}
+                >
+                  {s.l}
+                </div>
               </div>
-              <div
-                className="text-xs tracking-widest uppercase text-white/70"
-                style={{ fontFamily: FONT_BODY }}
-              >
-                {s.l}
-              </div>
-            </div>
+            </Reveal>
           ))}
         </div>
         </div>
@@ -1039,21 +1041,23 @@ function AboutSection() {
   return (
     <section id="about" className="py-24 scroll-mt-24" style={{ background: 'var(--gep-bg)' }}>
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-        <GoldRule />
-        <h2
-          className="uppercase leading-tight mb-8 max-w-3xl"
-          style={{ fontFamily: FONT_DISPLAY, fontWeight: DISPLAY_TITLE_WEIGHT, fontSize: 'clamp(2rem, 3.5vw, 3rem)', letterSpacing: '0.02em', color: 'var(--gep-text)' }}
-        >
-          About GEP Network
-        </h2>
-        <div className="grid lg:grid-cols-2 gap-12 max-w-5xl">
-          <p className="text-base leading-relaxed" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>
-            {GEP_FULL_NAME} is a full-service live event production company built on four decades of arena tours, festivals, and broadcast-ready experiences. Our teams integrate with yours — from production management and staffing to storage and logistics — so every show hits on time and on standard.
-          </p>
-          <p className="text-base leading-relaxed" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>
-            Headquartered in Conyers, Georgia, we deploy coordinators, managers, and crew nationwide. When the industry needs a partner who understands the pace of the road, {GEP_FULL_NAME} is the call.
-          </p>
-        </div>
+        <RevealGroup direction="fade" step={55}>
+          <GoldRule />
+          <h2
+            className="uppercase leading-tight mb-8 max-w-3xl"
+            style={{ fontFamily: FONT_DISPLAY, fontWeight: DISPLAY_TITLE_WEIGHT, fontSize: 'clamp(2rem, 3.5vw, 3rem)', letterSpacing: '0.02em', color: 'var(--gep-text)' }}
+          >
+            About GEP Network
+          </h2>
+          <div className="grid lg:grid-cols-2 gap-12 max-w-5xl">
+            <p className="text-base leading-relaxed" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>
+              {GEP_FULL_NAME} is a full-service live event production company built on four decades of arena tours, festivals, and broadcast-ready experiences. Our teams integrate with yours — from production management and staffing to storage and logistics — so every show hits on time and on standard.
+            </p>
+            <p className="text-base leading-relaxed" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>
+              Headquartered in Conyers, Georgia, we deploy coordinators, managers, and crew nationwide. When the industry needs a partner who understands the pace of the road, {GEP_FULL_NAME} is the call.
+            </p>
+          </div>
+        </RevealGroup>
       </div>
     </section>
   )
@@ -1062,7 +1066,7 @@ function AboutSection() {
 function ServicesGrid() {
   return (
     <section id="services" className="pt-24 pb-0" style={{ background: 'var(--gep-bg)' }}>
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
+      <RevealGroup direction="fade" step={55} className="max-w-[1400px] mx-auto px-6 lg:px-10">
         <GoldRule />
         <h2
           className="uppercase leading-tight mb-14"
@@ -1070,7 +1074,7 @@ function ServicesGrid() {
         >
           What We Do
         </h2>
-      </div>
+      </RevealGroup>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-0">
           {SERVICES.map((svc) => (
@@ -1295,20 +1299,23 @@ function StorageSection() {
       {showForm && <StorageInquiryModal onClose={() => setShowForm(false)} />}
       <section id="storage" className="pt-24 pb-24" style={{ background: 'var(--gep-bg-alt)' }}>
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-        <GoldRule />
-        <h2
-          className="uppercase leading-tight mb-4"
-          style={{ fontFamily: FONT_DISPLAY, fontWeight: DISPLAY_TITLE_WEIGHT, fontSize: 'clamp(2.5rem, 5vw, 4rem)', letterSpacing: '0.02em', color: 'var(--gep-text)' }}
-        >
-          Tour Storage
-        </h2>
-        <p className="text-sm max-w-2xl mb-14" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>
-          Secure, accessible storage built for the music industry — not general warehousing.
-        </p>
+        <RevealGroup direction="fade" step={55} className="mb-14">
+          <GoldRule />
+          <h2
+            className="uppercase leading-tight mb-4"
+            style={{ fontFamily: FONT_DISPLAY, fontWeight: DISPLAY_TITLE_WEIGHT, fontSize: 'clamp(2.5rem, 5vw, 4rem)', letterSpacing: '0.02em', color: 'var(--gep-text)' }}
+          >
+            Tour Storage
+          </h2>
+          <p className="text-sm max-w-2xl" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>
+            Secure, accessible storage built for the music industry — not general warehousing.
+          </p>
+        </RevealGroup>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:items-stretch">
-          {STORAGE_FEATURES.map((f) => (
-            <div key={f.title} className="group flex h-full min-h-0 flex-col overflow-hidden">
+          {STORAGE_FEATURES.map((f, i) => (
+            <Reveal key={f.title} direction="up" delay={i * 80} className="h-full">
+            <div className="group flex h-full min-h-0 flex-col overflow-hidden">
               <div className="relative h-[240px] shrink-0 sm:h-[260px] overflow-hidden" style={{ background: 'var(--gep-card)' }}>
                 <img
                   src={f.img}
@@ -1346,14 +1353,15 @@ function StorageSection() {
                 </p>
               </div>
             </div>
+            </Reveal>
           ))}
         </div>
 
-        <div className="mt-8 text-center">
+        <Reveal direction="fade" className="mt-8 text-center">
           <AccentOutlineButton type="button" onClick={() => setShowForm(true)}>
             Inquire About Storage
           </AccentOutlineButton>
-        </div>
+        </Reveal>
       </div>
     </section>
     </>
@@ -1364,18 +1372,20 @@ function ClientLogoWall() {
   return (
     <section className="pt-20 pb-10" style={{ borderTop: '1px solid var(--gep-divider)', borderBottom: '1px solid var(--gep-divider)', background: 'var(--gep-bg)' }}>
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-        <p
-          className="text-base lg:text-lg leading-relaxed text-center max-w-3xl mx-auto mb-10"
-          style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}
-        >
-          {HERO_INTRO}
-        </p>
-        <p
-          className="text-xs tracking-[0.3em] uppercase text-center mb-12"
-          style={{ fontFamily: FONT_DISPLAY, fontWeight: DISPLAY_TITLE_WEIGHT, color: 'var(--gep-text-muted)' }}
-        >
-          Trusted by the Industry's Best
-        </p>
+        <RevealGroup direction="fade" step={55} className="mb-12">
+          <p
+            className="text-base lg:text-lg leading-relaxed text-center max-w-3xl mx-auto"
+            style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}
+          >
+            {HERO_INTRO}
+          </p>
+          <p
+            className="text-xs tracking-[0.3em] uppercase text-center"
+            style={{ fontFamily: FONT_DISPLAY, fontWeight: DISPLAY_TITLE_WEIGHT, color: 'var(--gep-text-muted)' }}
+          >
+            Trusted by the Industry's Best
+          </p>
+        </RevealGroup>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
           {CLIENT_LOGOS.map((client) => (
             <div
@@ -1461,30 +1471,32 @@ function ProductionStaffing() {
       </div>
 
       <div className="relative z-10 py-20 md:py-28 min-h-[110vh] flex flex-col justify-center max-w-[1100px] mx-auto px-6 lg:px-10 text-center">
-        <h2
-          className="uppercase leading-tight mb-6"
-          style={{
-            fontFamily: FONT_DISPLAY,
-            fontWeight: DISPLAY_TITLE_WEIGHT,
-            fontSize: 'clamp(2.75rem, 6.5vw, 4.5rem)',
-            letterSpacing: '0.04em',
-            color: 'var(--gep-staffing-text, #F3EFE8)',
-          }}
-        >
-          Production Staffing
-        </h2>
-        <p
-          className="text-lg md:text-xl leading-relaxed max-w-3xl mx-auto mb-12 md:mb-16"
-          style={{ fontFamily: FONT_BODY, fontWeight: 400, color: 'var(--gep-staffing-text-muted, rgba(243, 239, 232, 0.82))' }}
-        >
-          Let our skilled professionals handle the intricacies of your event.
-        </p>
+        <RevealGroup direction="fade" step={55}>
+          <h2
+            className="uppercase leading-tight mb-6"
+            style={{
+              fontFamily: FONT_DISPLAY,
+              fontWeight: DISPLAY_TITLE_WEIGHT,
+              fontSize: 'clamp(2.75rem, 6.5vw, 4.5rem)',
+              letterSpacing: '0.04em',
+              color: 'var(--gep-staffing-text, #F3EFE8)',
+            }}
+          >
+            Production Staffing
+          </h2>
+          <p
+            className="text-lg md:text-xl leading-relaxed max-w-3xl mx-auto mb-12 md:mb-16"
+            style={{ fontFamily: FONT_BODY, fontWeight: 400, color: 'var(--gep-staffing-text-muted, rgba(243, 239, 232, 0.82))' }}
+          >
+            Let our skilled professionals handle the intricacies of your event.
+          </p>
+        </RevealGroup>
 
         <div className="flex flex-col sm:flex-row justify-center items-center sm:items-start gap-10 sm:gap-16 md:gap-24 mb-14 md:mb-16">
           {STAFFING_COLUMNS.map((column, colIdx) => (
             <ul key={colIdx} className="flex flex-col gap-4 w-full max-w-[340px] sm:w-auto sm:min-w-[280px] text-left mx-auto sm:mx-0">
               {column.map((role, rowIdx) => (
-                <li key={`${colIdx}-${rowIdx}`} className="flex items-center gap-3.5">
+                <Reveal key={`${colIdx}-${rowIdx}`} as="li" direction="fade" delay={(colIdx * 4 + rowIdx) * 35} className="flex items-center gap-3.5">
                   <StaffingTriangle />
                   <span
                     className="text-lg md:text-xl"
@@ -1492,15 +1504,17 @@ function ProductionStaffing() {
                   >
                     {role}
                   </span>
-                </li>
+                </Reveal>
               ))}
             </ul>
           ))}
         </div>
 
-        <AccentOutlineButton href="/contact" className="self-center">
-          Find Out More
-        </AccentOutlineButton>
+        <Reveal direction="fade">
+          <AccentOutlineButton href="/contact" className="self-center">
+            Find Out More
+          </AccentOutlineButton>
+        </Reveal>
       </div>
     </section>
   )

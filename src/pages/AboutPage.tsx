@@ -3,7 +3,7 @@ import { AboutTypewriterHero } from '../components/AboutTypewriterHero'
 import { ClientPartnersSection } from '../components/ClientPartnersSection'
 import { BodyText, FullWidthPhoto, GoldRule, SectionWrap, SideBySidePhoto } from '../components/PageChrome'
 import { TeamSocialOverlay } from '../components/Motion'
-import { Reveal } from '../components/Reveal'
+import { Reveal, RevealGroup } from '../components/Reveal'
 import { TEAM } from '../content/team'
 import { DISPLAY_TITLE_WEIGHT, FONT_BODY, FONT_DISPLAY } from '../site'
 
@@ -36,20 +36,22 @@ export default function AboutPage() {
       <SectionWrap>
         <div className="grid lg:grid-cols-2 gap-12 max-w-6xl items-center">
           <Reveal direction="left">
-            <GoldRule />
-            <h2
-              className="uppercase leading-tight mb-6"
-              style={{
-                fontFamily: FONT_DISPLAY,
-                fontWeight: DISPLAY_TITLE_WEIGHT,
-                fontSize: 'clamp(1.75rem, 3vw, 2.5rem)',
-                color: 'var(--gep-text)',
-              }}
-            >
-              About Us
-            </h2>
-            <BodyText className="mb-6">{ABOUT_US_P1}</BodyText>
-            <BodyText>{ABOUT_US_P2}</BodyText>
+            <RevealGroup direction="fade" step={50}>
+              <GoldRule />
+              <h2
+                className="uppercase leading-tight mb-6"
+                style={{
+                  fontFamily: FONT_DISPLAY,
+                  fontWeight: DISPLAY_TITLE_WEIGHT,
+                  fontSize: 'clamp(1.75rem, 3vw, 2.5rem)',
+                  color: 'var(--gep-text)',
+                }}
+              >
+                About Us
+              </h2>
+              <BodyText className="mb-6">{ABOUT_US_P1}</BodyText>
+              <BodyText>{ABOUT_US_P2}</BodyText>
+            </RevealGroup>
           </Reveal>
           <Reveal direction="right" delay={120}>
             <SideBySidePhoto src={ABOUT_INTRO_IMG} alt="Live event production" />
@@ -62,19 +64,21 @@ export default function AboutPage() {
       <SectionWrap alt>
         <div className="grid lg:grid-cols-2 gap-12 max-w-6xl items-center">
           <Reveal direction="left">
-            <GoldRule />
-            <h2
-              className="uppercase leading-tight mb-6"
-              style={{
-                fontFamily: FONT_DISPLAY,
-                fontWeight: DISPLAY_TITLE_WEIGHT,
-                fontSize: 'clamp(1.75rem, 3vw, 2.5rem)',
-                color: 'var(--gep-text)',
-              }}
-            >
-              Our Story
-            </h2>
-            <BodyText>{OUR_STORY_BODY}</BodyText>
+            <RevealGroup direction="fade" step={50}>
+              <GoldRule />
+              <h2
+                className="uppercase leading-tight mb-6"
+                style={{
+                  fontFamily: FONT_DISPLAY,
+                  fontWeight: DISPLAY_TITLE_WEIGHT,
+                  fontSize: 'clamp(1.75rem, 3vw, 2.5rem)',
+                  color: 'var(--gep-text)',
+                }}
+              >
+                Our Story
+              </h2>
+              <BodyText>{OUR_STORY_BODY}</BodyText>
+            </RevealGroup>
           </Reveal>
           <Reveal direction="right" delay={120}>
             <SideBySidePhoto src={OUR_STORY_IMG} alt="Stage crew building a production" />
@@ -89,7 +93,7 @@ export default function AboutPage() {
         </div>
 
         <div className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-10">
-          <Reveal direction="up">
+          <RevealGroup direction="fade" step={55}>
             <GoldRule />
             <h2
               className="uppercase leading-tight mb-4 text-white"
@@ -107,7 +111,7 @@ export default function AboutPage() {
             >
               {TEAM_INTRO}
             </p>
-          </Reveal>
+          </RevealGroup>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
           {ABOUT_TEAM.map((member, i) => (

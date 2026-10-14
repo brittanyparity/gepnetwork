@@ -10,7 +10,7 @@ import {
   SectionWrap,
   SideBySidePhoto,
 } from '../components/PageChrome'
-import { Reveal } from '../components/Reveal'
+import { Reveal, RevealGroup } from '../components/Reveal'
 import { getServicePage } from '../content/services'
 import { DISPLAY_TITLE_WEIGHT, FONT_BODY, FONT_DISPLAY } from '../site'
 
@@ -40,16 +40,18 @@ export default function ServiceDetailPage() {
       />
 
       <SectionWrap>
-        <Reveal direction="up">
-          <div className={`grid gap-10 items-start ${page.introImage ? 'lg:grid-cols-2' : ''}`}>
-            <div className="max-w-3xl space-y-5">
-              {page.intro.map((p) => (
-                <BodyText key={p.slice(0, 24)}>{p}</BodyText>
-              ))}
-            </div>
-            {page.introImage ? <SideBySidePhoto src={page.introImage} alt="" /> : null}
-          </div>
-        </Reveal>
+        <div className={`grid gap-10 items-start ${page.introImage ? 'lg:grid-cols-2' : ''}`}>
+          <RevealGroup direction="fade" step={55} className="max-w-3xl space-y-5">
+            {page.intro.map((p) => (
+              <BodyText key={p.slice(0, 24)}>{p}</BodyText>
+            ))}
+          </RevealGroup>
+          {page.introImage ? (
+            <Reveal direction="right" delay={80}>
+              <SideBySidePhoto src={page.introImage} alt="" />
+            </Reveal>
+          ) : null}
+        </div>
       </SectionWrap>
 
       {page.sectionBanners?.[0] ? <FullWidthPhoto src={page.sectionBanners[0]} alt="" /> : null}

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { RevealGroup } from './Reveal'
 import { ClientLogoCarousel } from './ClientLogoCarousel'
 import { DISPLAY_TITLE_WEIGHT, FONT_BODY, FONT_DISPLAY } from '../site'
 
@@ -55,35 +56,37 @@ export function ClientSatisfactionBlock() {
 
   return (
     <div ref={blockRef} className="mt-10 pt-8 border-t max-w-xl" style={{ borderColor: 'var(--gep-divider)' }}>
-      <h3
-        className="uppercase leading-tight mb-5"
-        style={{
-          fontFamily: FONT_DISPLAY,
-          fontWeight: DISPLAY_TITLE_WEIGHT,
-          fontSize: 'clamp(1.15rem, 2.2vw, 1.5rem)',
-          color: 'var(--gep-text)',
-        }}
-      >
-        Our Commitment to Client Satisfaction
-      </h3>
-      <div className="h-2 w-full overflow-hidden rounded-sm" style={{ background: 'var(--gep-divider)' }}>
-        <div
-          className="h-full rounded-sm transition-[width] duration-75 ease-out"
-          style={{ width: `${percent}%`, background: 'var(--gep-accent)' }}
-        />
-      </div>
-      <p
-        className="mt-3 tabular-nums leading-none"
-        style={{
-          fontFamily: FONT_DISPLAY,
-          fontWeight: DISPLAY_TITLE_WEIGHT,
-          fontSize: 'clamp(2rem, 5vw, 2.75rem)',
-          color: 'var(--gep-accent)',
-        }}
-        aria-live="polite"
-      >
-        {percent}%
-      </p>
+      <RevealGroup direction="fade" step={50}>
+        <h3
+          className="uppercase leading-tight mb-5"
+          style={{
+            fontFamily: FONT_DISPLAY,
+            fontWeight: DISPLAY_TITLE_WEIGHT,
+            fontSize: 'clamp(1.15rem, 2.2vw, 1.5rem)',
+            color: 'var(--gep-text)',
+          }}
+        >
+          Our Commitment to Client Satisfaction
+        </h3>
+        <div className="h-2 w-full overflow-hidden rounded-sm" style={{ background: 'var(--gep-divider)' }}>
+          <div
+            className="h-full rounded-sm transition-[width] duration-75 ease-out"
+            style={{ width: `${percent}%`, background: 'var(--gep-accent)' }}
+          />
+        </div>
+        <p
+          className="mt-3 tabular-nums leading-none"
+          style={{
+            fontFamily: FONT_DISPLAY,
+            fontWeight: DISPLAY_TITLE_WEIGHT,
+            fontSize: 'clamp(2rem, 5vw, 2.75rem)',
+            color: 'var(--gep-accent)',
+          }}
+          aria-live="polite"
+        >
+          {percent}%
+        </p>
+      </RevealGroup>
     </div>
   )
 }

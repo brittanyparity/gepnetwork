@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { RevealGroup } from './Reveal'
 import { CLIENT_LOGOS } from '../content/clients'
 import { DISPLAY_TITLE_WEIGHT, FONT_BODY, FONT_DISPLAY } from '../site'
 
@@ -16,7 +17,11 @@ export function ClientLogoCarousel({
   const track = [...CLIENT_LOGOS, ...CLIENT_LOGOS]
 
   const header = (
-    <div className={`max-w-[1400px] mx-auto px-6 lg:px-10 ${layout === 'about' ? 'mb-12' : 'mb-10'}`}>
+    <RevealGroup
+      direction="fade"
+      step={55}
+      className={`max-w-[1400px] mx-auto px-6 lg:px-10 ${layout === 'about' ? 'mb-12' : 'mb-10'}`}
+    >
       <h2
         className="uppercase text-center leading-tight max-w-3xl mx-auto"
         style={{
@@ -60,7 +65,7 @@ export function ClientLogoCarousel({
           </div>
         </>
       ) : null}
-    </div>
+    </RevealGroup>
   )
 
   return (

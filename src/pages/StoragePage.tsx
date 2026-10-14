@@ -8,7 +8,7 @@ import {
   SectionWrap,
   SideBySidePhoto,
 } from '../components/PageChrome'
-import { Reveal } from '../components/Reveal'
+import { Reveal, RevealGroup } from '../components/Reveal'
 import { TOUR_STORAGE_PAGE } from '../content/services'
 import { DISPLAY_TITLE_WEIGHT, FONT_BODY, FONT_DISPLAY } from '../site'
 
@@ -43,30 +43,30 @@ export default function StoragePage() {
       />
 
       <SectionWrap>
-        <Reveal direction="up">
-          <div className="grid lg:grid-cols-2 gap-10 items-start mb-12">
-            <div>
-              <GoldRule />
-              <h2
-                className="uppercase leading-tight mb-6"
-                style={{
-                  fontFamily: FONT_DISPLAY,
-                  fontWeight: DISPLAY_TITLE_WEIGHT,
-                  fontSize: 'clamp(1.75rem, 3.5vw, 2.75rem)',
-                  color: 'var(--gep-text)',
-                }}
-              >
-                Storage Solutions
-              </h2>
-              <div className="space-y-5">
-                {STORAGE.intro.map((p) => (
-                  <BodyText key={p.slice(0, 20)}>{p}</BodyText>
-                ))}
-              </div>
+        <div className="grid lg:grid-cols-2 gap-10 items-start mb-12">
+          <RevealGroup direction="fade" step={55}>
+            <GoldRule />
+            <h2
+              className="uppercase leading-tight mb-6"
+              style={{
+                fontFamily: FONT_DISPLAY,
+                fontWeight: DISPLAY_TITLE_WEIGHT,
+                fontSize: 'clamp(1.75rem, 3.5vw, 2.75rem)',
+                color: 'var(--gep-text)',
+              }}
+            >
+              Storage Solutions
+            </h2>
+            <div className="space-y-5">
+              {STORAGE.intro.map((p) => (
+                <BodyText key={p.slice(0, 20)}>{p}</BodyText>
+              ))}
             </div>
+          </RevealGroup>
+          <Reveal direction="right" delay={80}>
             <SideBySidePhoto src="/gep-tour-storage-music-industry.png" alt="Tour storage facility" />
-          </div>
-        </Reveal>
+          </Reveal>
+        </div>
 
         <div className="grid md:grid-cols-3 gap-4 mb-16">
           {FEATURES.map((f, i) => (

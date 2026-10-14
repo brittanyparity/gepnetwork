@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { ClientPartnersSection, ClientSatisfactionBlock } from '../components/ClientPartnersSection'
 import { TypewriterHero } from '../components/TypewriterHero'
 import { BodyText, GoldRule, SectionWrap, SideBySidePhoto } from '../components/PageChrome'
-import { Reveal } from '../components/Reveal'
+import { Reveal, RevealGroup } from '../components/Reveal'
 import { SERVICE_NAV } from '../content/services'
 import { DISPLAY_TITLE_WEIGHT, FONT_BODY, FONT_DISPLAY } from '../site'
 
@@ -25,20 +25,22 @@ export default function ServicesPage() {
             <SideBySidePhoto src={CRAFTING_IMG} alt="Festival production" />
           </Reveal>
           <Reveal direction="right" delay={120}>
-            <GoldRule />
-            <h2
-              className="uppercase leading-tight mb-6"
-              style={{
-                fontFamily: FONT_DISPLAY,
-                fontWeight: DISPLAY_TITLE_WEIGHT,
-                fontSize: 'clamp(1.75rem, 3.5vw, 2.75rem)',
-                color: 'var(--gep-text)',
-              }}
-            >
-              Crafting Exceptional Events with Expert Precision
-            </h2>
-            <BodyText>{CRAFTING_BODY}</BodyText>
-            <ClientSatisfactionBlock />
+            <RevealGroup direction="fade" step={50}>
+              <GoldRule />
+              <h2
+                className="uppercase leading-tight mb-6"
+                style={{
+                  fontFamily: FONT_DISPLAY,
+                  fontWeight: DISPLAY_TITLE_WEIGHT,
+                  fontSize: 'clamp(1.75rem, 3.5vw, 2.75rem)',
+                  color: 'var(--gep-text)',
+                }}
+              >
+                Crafting Exceptional Events with Expert Precision
+              </h2>
+              <BodyText>{CRAFTING_BODY}</BodyText>
+              <ClientSatisfactionBlock />
+            </RevealGroup>
           </Reveal>
         </div>
 

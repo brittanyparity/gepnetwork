@@ -1,5 +1,5 @@
 import { BodyText, CtaBand, GoldRule, PageHero, SectionWrap } from '../components/PageChrome'
-import { Reveal } from '../components/Reveal'
+import { Reveal, RevealGroup } from '../components/Reveal'
 import { DISPLAY_TITLE_WEIGHT, FONT_BODY, FONT_DISPLAY } from '../site'
 
 const recentProjectImg = (file: string) => `${import.meta.env.BASE_URL}recent-projects/${file}`
@@ -38,7 +38,7 @@ export default function EventsPage() {
       />
 
       <SectionWrap>
-        <Reveal direction="up">
+        <RevealGroup direction="fade" step={55} className="mb-12">
           <GoldRule />
           <h2
             className="uppercase leading-tight mb-4"
@@ -51,10 +51,10 @@ export default function EventsPage() {
           >
             Recent Projects
           </h2>
-          <BodyText className="max-w-2xl mb-12">
+          <BodyText className="max-w-2xl">
             From arena world tours to international festivals, our productions span the full spectrum of live entertainment.
           </BodyText>
-        </Reveal>
+        </RevealGroup>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
           {EVENTS.map((event, i) => (

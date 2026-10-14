@@ -1,12 +1,57 @@
-import type { CSSProperties, ReactNode } from 'react'
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode, type RefObject } from 'react'
 import { Link } from 'react-router-dom'
 import { Breadcrumbs, type BreadcrumbItem } from './Breadcrumbs'
 import { AnimatedTitle } from './Motion'
-import { Reveal } from './Reveal'
+import { Reveal, RevealGroup } from './Reveal'
 import { DISPLAY_TITLE_WEIGHT, FONT_BODY, FONT_DISPLAY } from '../site'
 
 export function GoldRule() {
   return <div className="w-12 h-px mb-6" style={{ background: 'var(--gep-accent)' }} />
+}
+
+function useFullWidthParallax(
+  containerRef: RefObject<HTMLDivElement | null>,
+  imageRef: RefObject<HTMLImageElement | null>,
+) {
+  const [translateY, setTranslateY] = useState(0)
+
+  useEffect(() => {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (reduce) return
+
+    let raf = 0
+    const update = () => {
+      const el = containerRef.current
+      const img = imageRef.current
+      if (!el || !img) return
+
+      const rect = el.getBoundingClientRect()
+      const vh = window.innerHeight
+      if (rect.bottom <= 0 || rect.top >= vh) return
+
+      const travel = rect.height + vh
+      const distance = vh - rect.top
+      const progress = Math.min(1, Math.max(0, distance / travel))
+      const range = Math.min(Math.max(img.offsetHeight, el.offsetHeight) * 0.18, 140)
+      setTranslateY((progress - 0.5) * range * 2)
+    }
+
+    const onScroll = () => {
+      cancelAnimationFrame(raf)
+      raf = requestAnimationFrame(update)
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll, { passive: true })
+    onScroll()
+    return () => {
+      cancelAnimationFrame(raf)
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+    }
+  }, [containerRef, imageRef])
+
+  return translateY
 }
 
 /** Full-bleed section photo (matches legacy WP breaks between copy blocks). */
@@ -19,13 +64,38 @@ export function FullWidthPhoto({
   alt?: string
   maxHeight?: string
 }) {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const imageRef = useRef<HTMLImageElement>(null)
+  const translateY = useFullWidthParallax(containerRef, imageRef)
+  const naturalHeight = maxHeight === 'none'
+
   return (
-    <div className="w-full" style={{ background: 'var(--gep-bg)' }}>
+    <div
+      ref={containerRef}
+      className="gep-fullwidth-parallax relative z-0 w-full overflow-hidden"
+      style={{
+        background: 'var(--gep-bg)',
+        ...(naturalHeight ? undefined : { height: maxHeight, minHeight: 220 }),
+      }}
+    >
       <img
+        ref={imageRef}
         src={src}
         alt={alt}
-        className="block w-full object-cover"
-        style={{ maxHeight: maxHeight === 'none' ? undefined : maxHeight, minHeight: maxHeight === 'none' ? undefined : 220 }}
+        className={
+          naturalHeight
+            ? 'block w-full scale-[1.06] origin-center will-change-transform'
+            : 'absolute left-0 w-full object-cover will-change-transform'
+        }
+        style={
+          naturalHeight
+            ? { transform: `translate3d(0, ${translateY}px, 0)` }
+            : {
+                height: '122%',
+                top: '-11%',
+                transform: `translate3d(0, ${translateY}px, 0)`,
+              }
+        }
       />
     </div>
   )
@@ -144,10 +214,14 @@ export function SectionWrap({ children, id, alt }: { children: ReactNode; id?: s
   return (
     <section
       id={id}
-      className="py-20 md:py-24"
+      className="relative z-[1] py-20 md:py-24"
       style={{ background: alt ? 'var(--gep-bg-alt)' : 'var(--gep-bg)' }}
     >
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-10">{children}</div>
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
+        <RevealGroup direction="fade" step={55}>
+          {children}
+        </RevealGroup>
+      </div>
     </section>
   )
 }
@@ -198,24 +272,22 @@ export function CtaBand({
 }) {
   return (
     <SectionWrap alt>
-      <Reveal direction="up">
-        <div className="max-w-3xl">
-          <GoldRule />
-          <h2
-            className="uppercase leading-tight mb-4"
-            style={{
-              fontFamily: FONT_DISPLAY,
-              fontWeight: DISPLAY_TITLE_WEIGHT,
-              fontSize: 'clamp(2rem, 4vw, 3rem)',
-              color: 'var(--gep-text)',
-            }}
-          >
-            {title}
-          </h2>
-          <BodyText className="mb-8">{body}</BodyText>
-          <AccentLinkButton to="/contact">Contact Us</AccentLinkButton>
-        </div>
-      </Reveal>
+      <RevealGroup direction="fade" step={55} className="max-w-3xl">
+        <GoldRule />
+        <h2
+          className="uppercase leading-tight mb-4"
+          style={{
+            fontFamily: FONT_DISPLAY,
+            fontWeight: DISPLAY_TITLE_WEIGHT,
+            fontSize: 'clamp(2rem, 4vw, 3rem)',
+            color: 'var(--gep-text)',
+          }}
+        >
+          {title}
+        </h2>
+        <BodyText className="mb-8">{body}</BodyText>
+        <AccentLinkButton to="/contact">Contact Us</AccentLinkButton>
+      </RevealGroup>
     </SectionWrap>
   )
 }

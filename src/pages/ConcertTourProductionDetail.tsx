@@ -2,7 +2,7 @@ import { ServicePageFooter } from '../components/ServicePageFooter'
 import { TypewriterHero } from '../components/TypewriterHero'
 import { Breadcrumbs } from '../components/Breadcrumbs'
 import { BodyText, FullWidthPhoto, GoldRule, SectionWrap, SideBySidePhoto } from '../components/PageChrome'
-import { Reveal } from '../components/Reveal'
+import { Reveal, RevealGroup } from '../components/Reveal'
 import { DISPLAY_TITLE_WEIGHT, FONT_BODY, FONT_DISPLAY } from '../site'
 
 const HERO_PHRASES = [{ lead: 'We Do ', accent: 'Concerts and Tour Production' }] as const
@@ -152,13 +152,15 @@ export default function ConcertTourProductionDetail() {
       <SectionWrap>
         <div className="grid lg:grid-cols-2 gap-12 max-w-6xl items-start">
           <Reveal direction="left">
-            <BodyText className="mb-6">{INTRO_P1}</BodyText>
-            <p className="text-base leading-relaxed font-normal" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)', fontWeight: 500 }}>
-              <span className="font-semibold" style={{ color: 'var(--gep-text)' }}>
-                Client Base/History:{' '}
-              </span>
-              {INTRO_CLIENT_HISTORY}
-            </p>
+            <RevealGroup direction="fade" step={55}>
+              <BodyText className="mb-6">{INTRO_P1}</BodyText>
+              <p className="text-base leading-relaxed font-normal" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)', fontWeight: 500 }}>
+                <span className="font-semibold" style={{ color: 'var(--gep-text)' }}>
+                  Client Base/History:{' '}
+                </span>
+                {INTRO_CLIENT_HISTORY}
+              </p>
+            </RevealGroup>
           </Reveal>
           <Reveal direction="right" delay={120}>
             <SideBySidePhoto src="/c-p-text-section.png" alt="Tour production on site" />
@@ -169,7 +171,7 @@ export default function ConcertTourProductionDetail() {
       <FullWidthPhoto src="/c-p-max-width.png" alt="Concert production" maxHeight="none" />
 
       <SectionWrap alt>
-        <Reveal direction="up">
+        <RevealGroup direction="fade" step={55} className="mb-12">
           <GoldRule />
           <h2
             className="uppercase leading-tight mb-6"
@@ -182,8 +184,8 @@ export default function ConcertTourProductionDetail() {
           >
             Trust the Process
           </h2>
-          <BodyText className="max-w-4xl mb-12">{PROCESS_INTRO}</BodyText>
-        </Reveal>
+          <BodyText className="max-w-4xl">{PROCESS_INTRO}</BodyText>
+        </RevealGroup>
 
         <div className="grid lg:grid-cols-2 gap-12 items-start mb-12">
           <div className="space-y-8">
