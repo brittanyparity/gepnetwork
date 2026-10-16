@@ -510,6 +510,20 @@ a.gep-hero-logo-xl.gep-hero-logo-xl--bounded {
   height: 100%;
 }
 
+.gep-side-by-side-copy.gep-side-by-side-copy--top {
+  justify-content: flex-start;
+}
+
+@media (min-width: 1024px) {
+  .gep-side-by-side-row--stacked-match > .reveal > .gep-stacked-photos {
+    min-height: 100%;
+  }
+
+  .gep-side-by-side-row--stacked-match .gep-stacked-photos img {
+    min-height: 12rem;
+  }
+}
+
 .gep-side-by-side-copy p.text-base,
 .gep-side-by-side-copy .text-base {
   font-size: 0.9375rem;

@@ -97,9 +97,17 @@ const bodyMuted: CSSProperties = {
   fontWeight: 500,
 }
 
-function LabeledParagraph({ label, children }: { label: string; children: string }) {
+function LabeledParagraph({
+  label,
+  children,
+  className = '',
+}: {
+  label: string
+  children: string
+  className?: string
+}) {
   return (
-    <p className="text-base leading-relaxed font-normal" style={bodyMuted}>
+    <p className={`text-base leading-relaxed font-normal ${className}`.trim()} style={bodyMuted}>
       <span className="font-semibold" style={{ color: 'var(--gep-text)' }}>
         {label}
       </span>{' '}
@@ -227,7 +235,7 @@ export default function FestivalProductionDetail() {
           >
             Excellence, it&apos;s our Competitive Edge
           </h2>
-          <LabeledParagraph label="Cutting-Edge Equipment:">
+          <LabeledParagraph label="Cutting-Edge Equipment:" className="mb-6">
             We boast a vast inventory of cutting-edge technical equipment, including audio, lighting, LED video, special effects, and more. Our team ensures that every visual and auditory aspect of your festival is top-notch, enhancing the overall attendee experience.
           </LabeledParagraph>
           <LabeledParagraph label="Collaborative Approach and Proven Results:">

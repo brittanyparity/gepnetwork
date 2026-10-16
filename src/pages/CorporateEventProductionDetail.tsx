@@ -145,24 +145,23 @@ export default function CorporateEventProductionDetail() {
       <FullWidthPhoto src="/ce-img-3.png" alt="LED wall at corporate venue" maxHeight="none" />
 
       <SectionWrap alt>
-        <RevealGroup direction="fade" step={55} className="mb-10">
-          <GoldRule />
-          <h2
-            className="uppercase leading-tight"
-            style={{
-              fontFamily: FONT_DISPLAY,
-              fontWeight: DISPLAY_TITLE_WEIGHT,
-              fontSize: 'clamp(1.75rem, 3.5vw, 2.75rem)',
-              color: 'var(--gep-text)',
-            }}
-          >
-            Trust the Process
-          </h2>
-        </RevealGroup>
-
-        <SideBySideRow>
+        <SideBySideRow className="gep-side-by-side-row--stacked-match">
           <Reveal direction="left" className="h-full">
-            <SideBySideCopy>
+            <SideBySideCopy className="gep-side-by-side-copy--top">
+              <RevealGroup direction="fade" step={55} className="mb-8">
+                <GoldRule />
+                <h2
+                  className="uppercase leading-tight"
+                  style={{
+                    fontFamily: FONT_DISPLAY,
+                    fontWeight: DISPLAY_TITLE_WEIGHT,
+                    fontSize: 'clamp(1.75rem, 3.5vw, 2.75rem)',
+                    color: 'var(--gep-text)',
+                  }}
+                >
+                  Trust the Process
+                </h2>
+              </RevealGroup>
               <BodyText className="mb-4">{PROCESS_INTRO}</BodyText>
               <ol className="gep-compact-steps list-none p-0 m-0">
                 {PROCESS_ITEMS.map((item, i) => (
@@ -178,7 +177,7 @@ export default function CorporateEventProductionDetail() {
                 fillHeight
                 src="/ce-img-5.jpg"
                 alt="Corporate panel discussion"
-                objectPosition="50% top"
+                objectPosition="50% 22%"
               />
             </StackedSidePhotos>
           </Reveal>

@@ -1,6 +1,5 @@
 import { Link, Navigate, useParams } from 'react-router-dom'
 import { AccentLinkButton, BodyText, CtaBand, GoldRule, PageHero, SectionWrap } from '../components/PageChrome'
-import { DEFAULT_TEAM_SOCIAL, SocialRow, TeamSocialOverlay } from '../components/Motion'
 import { Reveal } from '../components/Reveal'
 import { getTeamMember, TEAM } from '../content/team'
 import { DISPLAY_TITLE_WEIGHT, FONT_BODY, FONT_DISPLAY } from '../site'
@@ -81,7 +80,6 @@ export default function TeamMemberPage() {
                   {member.email}
                 </a>
               </div>
-              <SocialRow links={DEFAULT_TEAM_SOCIAL} />
             </aside>
           </Reveal>
 
@@ -148,7 +146,6 @@ export default function TeamMemberPage() {
                     className="team-photo absolute inset-0 w-full h-full transition-transform duration-500 group-hover:scale-105"
                     style={{ objectPosition: m.photoPosition ?? 'center top' }}
                   />
-                  <TeamSocialOverlay />
                 </div>
                 <div className="team-card-body p-5">
                   <h3

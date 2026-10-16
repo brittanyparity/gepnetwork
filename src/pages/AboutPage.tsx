@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom'
 import { AboutTypewriterHero } from '../components/AboutTypewriterHero'
 import { ClientPartnersSection } from '../components/ClientPartnersSection'
 import { BodyText, FullWidthPhoto, GoldRule, SectionWrap, SideBySidePhoto } from '../components/PageChrome'
-import { TeamSocialOverlay } from '../components/Motion'
 import { Reveal, RevealGroup } from '../components/Reveal'
 import { TEAM } from '../content/team'
 import { DISPLAY_TITLE_WEIGHT, FONT_BODY, FONT_DISPLAY } from '../site'
@@ -128,7 +127,6 @@ export default function AboutPage() {
                     className="team-photo absolute inset-0 w-full h-full transition-transform duration-500 group-hover:scale-105"
                     style={{ objectPosition: member.photoPosition ?? 'center top' }}
                   />
-                  <TeamSocialOverlay />
                   <div
                     className="absolute inset-0 z-10 pointer-events-none"
                     style={{ background: 'linear-gradient(to top, rgba(23,20,15,0.85) 0%, transparent 55%)' }}
