@@ -16,7 +16,6 @@ import ContactPage from './pages/ContactPage'
 import EventsPage from './pages/EventsPage'
 import ServiceDetailPage from './pages/ServiceDetailPage'
 import ServicesPage from './pages/ServicesPage'
-import GlobePlaygroundPage from './pages/GlobePlaygroundPage'
 import TeamMemberPage from './pages/TeamMemberPage'
 import BlogPostPage from './pages/BlogPostPage'
 import { CLIENT_LOGOS } from './content/clients'
@@ -24,13 +23,13 @@ import { FOOTER_POSTS, FOOTER_SOCIAL, type FooterSocialId } from './site'
 
 const LOGO_LOCKUP = 'century-globe' as const
 
-const HERO_LAYOUTS = [
-  { id: 'tagline-only', name: 'Tagline Only' },
-  { id: 'logo-over-tagline', name: 'Logo Over Tagline' },
-  { id: 'logo-only', name: 'Logo Only' },
-] as const
+type HeroLayoutId = 'tagline-only' | 'logo-over-tagline' | 'logo-only'
 
-type HeroLayoutId = (typeof HERO_LAYOUTS)[number]['id']
+/** Client-approved homepage hero (no dev picker). */
+const ACTIVE_HERO_LAYOUT: HeroLayoutId = 'tagline-only'
+
+/** Client-approved color scheme (no dev picker). */
+const ACTIVE_COLOR_SCHEME = 'palette-slate-blue'
 
 function headerHidesLogo(heroLayout: HeroLayoutId) {
   return heroLayout === 'logo-only' || heroLayout === 'logo-over-tagline'
@@ -621,78 +620,6 @@ const STAFFING_COLUMNS: [string[], string[]] = [
 
 function GoldRule() {
   return <div className="w-12 h-px mb-6" style={{ background: 'var(--gep-accent)' }} />
-}
-
-function themeSelectStyle(chevronHex: string): CSSProperties {
-  return {
-    background: 'var(--gep-card)',
-    color: 'var(--gep-text)',
-    borderColor: 'rgba(128,128,128,0.25)',
-    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23${chevronHex}' fill-opacity='0.5' d='M3 5l3 3 3-3'/%3E%3C/svg%3E")`,
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'right 12px center',
-  }
-}
-
-function ThemePicker({
-  colorScheme,
-  onColorSchemeChange,
-  heroLayout,
-  onHeroLayoutChange,
-}: {
-  colorScheme: string
-  onColorSchemeChange: (id: string) => void
-  heroLayout: HeroLayoutId
-  onHeroLayoutChange: (id: HeroLayoutId) => void
-}) {
-  const isLightScheme = LIGHT_COLOR_SCHEMES.has(colorScheme)
-  const chevronColor = isLightScheme ? '1D1D1F' : 'ffffff'
-  const selectClass =
-    'w-full min-w-[220px] max-w-[min(100vw-3rem,280px)] px-4 py-2.5 text-xs tracking-wide border cursor-pointer appearance-none pr-8'
-
-  return (
-    <div
-      className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-4"
-      style={{ fontFamily: FONT_BODY }}
-    >
-      <div className="flex flex-col items-end gap-2 w-full">
-        <label htmlFor="hero-layout" className="text-[10px] tracking-[0.2em] uppercase" style={{ color: 'var(--gep-text-muted)' }}>
-          Hero Layout
-        </label>
-        <select
-          id="hero-layout"
-          value={heroLayout}
-          onChange={(e) => onHeroLayoutChange(e.target.value as HeroLayoutId)}
-          className={selectClass}
-          style={themeSelectStyle(chevronColor)}
-        >
-          {HERO_LAYOUTS.map((layout) => (
-            <option key={layout.id} value={layout.id} style={{ background: 'var(--gep-bg)', color: 'var(--gep-text)' }}>
-              {layout.name}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div className="flex flex-col items-end gap-2 w-full">
-        <label htmlFor="color-scheme" className="text-[10px] tracking-[0.2em] uppercase" style={{ color: 'var(--gep-text-muted)' }}>
-          Color Scheme
-        </label>
-        <select
-          id="color-scheme"
-          value={colorScheme}
-          onChange={(e) => onColorSchemeChange(e.target.value)}
-          className={selectClass}
-          style={themeSelectStyle(chevronColor)}
-        >
-          {COLOR_SCHEMES.map((scheme) => (
-            <option key={scheme.id} value={scheme.id} style={{ background: 'var(--gep-bg)', color: 'var(--gep-text)' }}>
-              {scheme.name}
-            </option>
-          ))}
-        </select>
-      </div>
-    </div>
-  )
 }
 
 function Header({
@@ -1665,8 +1592,8 @@ function HomePage({
 
 function AppShell() {
   const [menuOpen, setMenuOpen] = useState(false)
-  const [colorScheme, setColorScheme] = useState('palette-slate-blue')
-  const [heroLayout, setHeroLayout] = useState<HeroLayoutId>('tagline-only')
+  const colorScheme = ACTIVE_COLOR_SCHEME
+  const heroLayout = ACTIVE_HERO_LAYOUT
   const scheme = COLOR_SCHEMES.find((s) => s.id === colorScheme) ?? COLOR_SCHEMES[0]
   const location = useLocation()
 
@@ -1696,16 +1623,9 @@ function AppShell() {
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/blog/:slug" element={<BlogPostPage />} />
         <Route path="/team/:slug" element={<TeamMemberPage />} />
-        <Route path="/globe-playground" element={<GlobePlaygroundPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       <Footer colorScheme={colorScheme} />
-      <ThemePicker
-        colorScheme={colorScheme}
-        onColorSchemeChange={setColorScheme}
-        heroLayout={heroLayout}
-        onHeroLayoutChange={setHeroLayout}
-      />
     </div>
   )
 }

@@ -69,7 +69,7 @@ html {
   --gep-logo-lockup-shadow:
     drop-shadow(0 0.035em 0.08em rgba(0, 0, 0, 0.45))
     drop-shadow(0 0.07em 0.22em rgba(0, 0, 0, 0.32));
-  /* Globe in Century G counter — tuned in /globe-playground */
+  /* Globe in Century G counter */
   --gep-globe-in-g-left: 51.5%;
   --gep-globe-in-g-top: 53%;
   --gep-globe-in-g-width: 0.535em;
