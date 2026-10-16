@@ -7,8 +7,11 @@ import {
   BodyText,
   FullWidthPhoto,
   GoldRule,
+  SectionProse,
   SectionWrap,
+  SideBySideCopy,
   SideBySidePhoto,
+  SideBySideRow,
 } from '../components/PageChrome'
 import { Reveal, RevealGroup } from '../components/Reveal'
 import { DISPLAY_TITLE_WEIGHT, FONT_BODY, FONT_DISPLAY } from '../site'
@@ -87,11 +90,10 @@ function Subheading({ children, className = '' }: { children: string; className?
 
 function StorageMap() {
   return (
-    <div className="w-full overflow-hidden aspect-[4/3] lg:aspect-auto lg:min-h-[420px]" style={{ background: 'var(--gep-card)' }}>
+    <div className="gep-map-embed" style={{ background: 'var(--gep-card)' }}>
       <iframe
         title="GEP Network storage facility location"
         src={MAP_EMBED_SRC}
-        className="w-full h-full min-h-[320px] border-0"
         loading="lazy"
         referrerPolicy="no-referrer-when-downgrade"
         allowFullScreen
@@ -119,64 +121,68 @@ export default function TourPullsTourStorageDetail() {
       />
 
       <SectionWrap>
-        <RevealGroup direction="fade" step={55} className="max-w-4xl mb-12">
-          <GoldRule />
-          <h2
-            className="uppercase leading-tight mb-4"
-            style={{
-              fontFamily: FONT_DISPLAY,
-              fontWeight: DISPLAY_TITLE_WEIGHT,
-              fontSize: 'clamp(1.75rem, 3.5vw, 2.75rem)',
-              color: 'var(--gep-text)',
-            }}
-          >
-            Storage Solutions
-          </h2>
-          <Subheading className="mb-4">Secure, Accessible, and Customized Storage Services</Subheading>
-          <BodyText>{INTRO_BODY}</BodyText>
-        </RevealGroup>
+        <SectionProse className="mb-12">
+          <RevealGroup direction="fade" step={55}>
+            <GoldRule />
+            <h2
+              className="uppercase leading-tight mb-4"
+              style={{
+                fontFamily: FONT_DISPLAY,
+                fontWeight: DISPLAY_TITLE_WEIGHT,
+                fontSize: 'clamp(1.75rem, 3.5vw, 2.75rem)',
+                color: 'var(--gep-text)',
+              }}
+            >
+              Storage Solutions
+            </h2>
+            <Subheading className="mb-4">Secure, Accessible, and Customized Storage Services</Subheading>
+            <BodyText>{INTRO_BODY}</BodyText>
+          </RevealGroup>
+        </SectionProse>
 
-        <div className="grid lg:grid-cols-2 gap-12 max-w-6xl items-start">
-          <Reveal direction="left">
-            <RevealGroup direction="fade" step={50}>
-              <Subheading className="mb-3">Convenient Location &amp; Availability</Subheading>
-              <BodyText className="mb-8">{LOCATION_BODY}</BodyText>
-              <Subheading className="mb-3">Warehouse Storage With Loading Dock</Subheading>
-              <BodyText>{DOCK_BODY}</BodyText>
-            </RevealGroup>
+        <SideBySideRow>
+          <Reveal direction="left" className="h-full">
+            <SideBySideCopy>
+              <Subheading className="mb-2">Convenient Location &amp; Availability</Subheading>
+              <BodyText className="mb-4">{LOCATION_BODY}</BodyText>
+              <Subheading className="mb-2">Warehouse Storage With Loading Dock</Subheading>
+              <BodyText className="!mb-0">{DOCK_BODY}</BodyText>
+            </SideBySideCopy>
           </Reveal>
-          <Reveal direction="right" delay={120}>
+          <Reveal direction="right" delay={120} className="h-full">
             <StorageMap />
           </Reveal>
-        </div>
+        </SideBySideRow>
       </SectionWrap>
 
       <FullWidthPhoto src="/ts-img-2.jpg" alt="Warehouse loading docks" maxHeight="none" />
 
       <SectionWrap alt>
-        <RevealGroup direction="fade" step={55} className="max-w-4xl mb-10">
-          <Subheading className="mb-3">Commercial Equipment Storage</Subheading>
-          <BodyText className="mb-8">{COMMERCIAL_BODY}</BodyText>
-          <Subheading className="mb-3">Bulk Storage Solutions</Subheading>
-          <BodyText>{BULK_BODY}</BodyText>
-        </RevealGroup>
+        <SectionProse className="mb-10">
+          <RevealGroup direction="fade" step={55}>
+            <Subheading className="mb-3">Commercial Equipment Storage</Subheading>
+            <BodyText className="mb-8">{COMMERCIAL_BODY}</BodyText>
+            <Subheading className="mb-3">Bulk Storage Solutions</Subheading>
+            <BodyText>{BULK_BODY}</BodyText>
+          </RevealGroup>
+        </SectionProse>
 
-        <div className="grid lg:grid-cols-2 gap-12 max-w-6xl items-start mb-12">
-          <Reveal direction="left">
-            <SideBySidePhoto src="/ts-img-3.jpg" alt="Forklift moving equipment in warehouse" />
+        <SideBySideRow className="mb-12">
+          <Reveal direction="left" className="h-full">
+            <SideBySidePhoto fillHeight src="/ts-img-3.jpg" alt="Forklift moving equipment in warehouse" />
           </Reveal>
-          <Reveal direction="right" delay={120}>
-            <RevealGroup direction="fade" step={50}>
-              <Subheading className="mb-3">Long-Term Storage</Subheading>
-              <BodyText className="mb-8">{LONG_TERM_BODY}</BodyText>
-              <Subheading className="mb-3">Short-Term Storage</Subheading>
-              <BodyText>{SHORT_TERM_BODY}</BodyText>
-            </RevealGroup>
+          <Reveal direction="right" delay={120} className="h-full">
+            <SideBySideCopy>
+              <Subheading className="mb-2">Long-Term Storage</Subheading>
+              <BodyText className="mb-4">{LONG_TERM_BODY}</BodyText>
+              <Subheading className="mb-2">Short-Term Storage</Subheading>
+              <BodyText className="!mb-0">{SHORT_TERM_BODY}</BodyText>
+            </SideBySideCopy>
           </Reveal>
-        </div>
+        </SideBySideRow>
 
         <Reveal direction="up">
-          <div className="max-w-3xl">
+          <SectionProse>
             <BodyText className="mb-6">{COMMITMENT_INTRO}</BodyText>
             <ul className="space-y-4 mb-8">
               {COMMITMENT_ITEMS.map((item) => (
@@ -193,7 +199,7 @@ export default function TourPullsTourStorageDetail() {
             </ul>
             <BodyText className="mb-8">{CLOSING}</BodyText>
             <AccentLinkButton to="/contact">Contact Us</AccentLinkButton>
-          </div>
+          </SectionProse>
         </Reveal>
       </SectionWrap>
 

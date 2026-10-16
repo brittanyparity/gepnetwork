@@ -2,7 +2,17 @@ import type { CSSProperties } from 'react'
 import { ServicePageFooter } from '../components/ServicePageFooter'
 import { TypewriterHero } from '../components/TypewriterHero'
 import { Breadcrumbs } from '../components/Breadcrumbs'
-import { BodyText, FullWidthPhoto, GoldRule, SectionWrap, SideBySidePhoto } from '../components/PageChrome'
+import {
+  BodyText,
+  FullWidthPhoto,
+  GoldRule,
+  SectionProse,
+  SectionWrap,
+  SideBySideCopy,
+  SideBySidePhoto,
+  SideBySideRow,
+  StackedSidePhotos,
+} from '../components/PageChrome'
 import { Reveal, RevealGroup } from '../components/Reveal'
 import { DISPLAY_TITLE_WEIGHT, FONT_BODY, FONT_DISPLAY } from '../site'
 
@@ -81,7 +91,7 @@ function SectionHeading({ children }: { children: string }) {
 
 function OrderedServiceItem({ index, title, body }: { index: number; title: string; body: string }) {
   return (
-    <li className="flex gap-4">
+    <li className="gep-ordered-step flex gap-4">
       <span
         className="flex-shrink-0 w-8 h-8 flex items-center justify-center text-sm font-semibold tabular-nums"
         style={{ background: 'var(--gep-accent)', color: 'var(--gep-accent-text)', fontFamily: FONT_BODY }}
@@ -118,18 +128,18 @@ export default function CorporateEventProductionDetail() {
       />
 
       <SectionWrap>
-        <div className="grid lg:grid-cols-2 gap-12 max-w-6xl items-start">
-          <Reveal direction="left">
-            <RevealGroup direction="fade" step={55}>
-              <BodyText className="mb-6">{INTRO_P1}</BodyText>
+        <SideBySideRow>
+          <Reveal direction="left" className="h-full">
+            <SideBySideCopy>
+              <BodyText className="mb-4">{INTRO_P1}</BodyText>
               <SectionHeading>Understanding Corporate Event Production</SectionHeading>
-              <BodyText>{INTRO_P2}</BodyText>
-            </RevealGroup>
+              <BodyText className="!mb-0">{INTRO_P2}</BodyText>
+            </SideBySideCopy>
           </Reveal>
-          <Reveal direction="right" delay={120}>
-            <SideBySidePhoto src="/ce-img-2.jpg" alt="Corporate conference audience" />
+          <Reveal direction="right" delay={120} className="h-full">
+            <SideBySidePhoto fillHeight src="/ce-img-2.jpg" alt="Corporate conference audience" />
           </Reveal>
-        </div>
+        </SideBySideRow>
       </SectionWrap>
 
       <FullWidthPhoto src="/ce-img-3.png" alt="LED wall at corporate venue" maxHeight="none" />
@@ -150,50 +160,52 @@ export default function CorporateEventProductionDetail() {
           </h2>
         </RevealGroup>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
-          <Reveal direction="left">
-            <RevealGroup direction="fade" step={50}>
-              <BodyText className="mb-8">{PROCESS_INTRO}</BodyText>
-              <ol className="space-y-6 list-none p-0 m-0">
+        <SideBySideRow>
+          <Reveal direction="left" className="h-full">
+            <SideBySideCopy>
+              <BodyText className="mb-4">{PROCESS_INTRO}</BodyText>
+              <ol className="gep-compact-steps list-none p-0 m-0">
                 {PROCESS_ITEMS.map((item, i) => (
                   <OrderedServiceItem key={item.title} index={i + 1} title={item.title} body={item.body} />
                 ))}
               </ol>
-            </RevealGroup>
+            </SideBySideCopy>
           </Reveal>
-          <Reveal direction="right" delay={120}>
-            <div className="space-y-6">
-              <SideBySidePhoto src="/ce-img-4.jpg" alt="Arena stage production setup" />
-              <SideBySidePhoto src="/ce-img-5.jpg" alt="Corporate panel discussion" />
-            </div>
+          <Reveal direction="right" delay={120} className="h-full">
+            <StackedSidePhotos>
+              <SideBySidePhoto fillHeight src="/ce-img-4.jpg" alt="Arena stage production setup" />
+              <SideBySidePhoto fillHeight src="/ce-img-5.jpg" alt="Corporate panel discussion" />
+            </StackedSidePhotos>
           </Reveal>
-        </div>
+        </SideBySideRow>
       </SectionWrap>
 
       <FullWidthPhoto src="/ce-img-6.jpeg" alt="Large-scale corporate gala" maxHeight="none" />
 
       <SectionWrap>
-        <RevealGroup direction="fade" step={55}>
-          <GoldRule />
-          <h2
-            className="uppercase leading-tight mb-6"
-            style={{
-              fontFamily: FONT_DISPLAY,
-              fontWeight: DISPLAY_TITLE_WEIGHT,
-              fontSize: 'clamp(1.75rem, 3.5vw, 2.75rem)',
-              color: 'var(--gep-text)',
-            }}
-          >
-            Corporate Event Production Capabilities
-          </h2>
-          <SectionHeading>Our Comprehensive Capabilities</SectionHeading>
-          <BodyText className="mb-8">{CAPABILITIES_P1}</BodyText>
-          <ol className="space-y-6 list-none p-0 m-0 max-w-4xl">
-            {CAPABILITY_ITEMS.map((item, i) => (
-              <OrderedServiceItem key={item.title} index={i + 1} title={item.title} body={item.body} />
-            ))}
-          </ol>
-        </RevealGroup>
+        <SectionProse>
+          <RevealGroup direction="fade" step={55}>
+            <GoldRule />
+            <h2
+              className="uppercase leading-tight mb-6"
+              style={{
+                fontFamily: FONT_DISPLAY,
+                fontWeight: DISPLAY_TITLE_WEIGHT,
+                fontSize: 'clamp(1.75rem, 3.5vw, 2.75rem)',
+                color: 'var(--gep-text)',
+              }}
+            >
+              Corporate Event Production Capabilities
+            </h2>
+            <SectionHeading>Our Comprehensive Capabilities</SectionHeading>
+            <BodyText className="mb-8">{CAPABILITIES_P1}</BodyText>
+            <ol className="space-y-6 list-none p-0 m-0">
+              {CAPABILITY_ITEMS.map((item, i) => (
+                <OrderedServiceItem key={item.title} index={i + 1} title={item.title} body={item.body} />
+              ))}
+            </ol>
+          </RevealGroup>
+        </SectionProse>
       </SectionWrap>
 
       <ServicePageFooter excludeSlug="corporate-event-production" />

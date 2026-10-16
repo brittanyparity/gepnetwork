@@ -1037,12 +1037,12 @@ function AboutSection() {
         <RevealGroup direction="fade" step={55}>
           <GoldRule />
           <h2
-            className="uppercase leading-tight mb-8 max-w-3xl"
+            className="uppercase leading-tight mb-8"
             style={{ fontFamily: FONT_DISPLAY, fontWeight: DISPLAY_TITLE_WEIGHT, fontSize: 'clamp(2rem, 3.5vw, 3rem)', letterSpacing: '0.02em', color: 'var(--gep-text)' }}
           >
             About GEP Network
           </h2>
-          <div className="grid lg:grid-cols-2 gap-12 max-w-5xl">
+          <div className="grid lg:grid-cols-2 gap-12 w-full">
             <p className="text-base leading-relaxed" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>
               {GEP_FULL_NAME} is a full-service live event production company built on four decades of arena tours, festivals, and broadcast-ready experiences. Our teams integrate with yours — from production management and staffing to storage and logistics — so every show hits on time and on standard.
             </p>
@@ -1069,11 +1069,12 @@ function ServicesGrid() {
         </h2>
       </RevealGroup>
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-0">
-          {SERVICES.map((svc) => (
+      <div className="max-w-[1400px] mx-auto">
+        <div className="grid grid-cols-2 lg:grid-cols-12 gap-0">
+          {SERVICES.map((svc, i) => (
             <div
               key={svc.title}
-              className="flip-card cursor-pointer"
+              className={`flip-card cursor-pointer col-span-1 ${i < 4 ? 'lg:col-span-3' : 'lg:col-span-4'}`}
               style={{ height: 280, perspective: '1000px' }}
             >
               <div className="flip-card-inner">
@@ -1141,6 +1142,7 @@ function ServicesGrid() {
               </div>
             </div>
           ))}
+        </div>
       </div>
     </section>
   )

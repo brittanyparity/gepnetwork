@@ -7,8 +7,11 @@ import {
   BodyText,
   FullWidthPhoto,
   GoldRule,
+  SectionProse,
   SectionWrap,
+  SideBySideCopy,
   SideBySidePhoto,
+  SideBySideRow,
 } from '../components/PageChrome'
 import { Reveal, RevealGroup } from '../components/Reveal'
 import { DISPLAY_TITLE_WEIGHT, FONT_BODY, FONT_DISPLAY } from '../site'
@@ -16,7 +19,7 @@ import { DISPLAY_TITLE_WEIGHT, FONT_BODY, FONT_DISPLAY } from '../site'
 const HERO_PHRASES = [{ lead: 'We do ', accent: 'Event Management' }] as const
 
 /** Production action shot — technical crew on site (stock). */
-const PRODUCTION_ACTION_IMG = '/process-1.jpg'
+const PRODUCTION_ACTION_IMG = '/em-img-6.jpg'
 
 const INTRO_LEAD = `Welcome to GEP Network, your trusted partner in event management with years of experience in delivering exceptional events.
 
@@ -110,7 +113,7 @@ function CompareDivider() {
 
 function OrderedStep({ index, title, body }: { index: number; title: string; body: string }) {
   return (
-    <li className="flex gap-4">
+    <li className="gep-ordered-step flex gap-4">
       <span
         className="flex-shrink-0 w-8 h-8 flex items-center justify-center text-sm font-semibold tabular-nums"
         style={{ background: 'var(--gep-accent)', color: 'var(--gep-accent-text)', fontFamily: FONT_BODY }}
@@ -130,7 +133,7 @@ function OrderedStep({ index, title, body }: { index: number; title: string; bod
 
 function StepList({ items, startIndex }: { items: { title: string; body: string }[]; startIndex: number }) {
   return (
-    <ol className="space-y-6 list-none p-0 m-0">
+    <ol className="gep-compact-steps list-none p-0 m-0">
       {items.map((item, i) => (
         <OrderedStep key={item.title} index={startIndex + i} title={item.title} body={item.body} />
       ))}
@@ -148,7 +151,7 @@ export default function EventManagementDetail() {
       <TypewriterHero
         image="/em-img-1.png"
         phrases={HERO_PHRASES}
-        imagePosition="50% 38%"
+        imagePosition="50% top"
         breadcrumbs={
           <Breadcrumbs
             items={[
@@ -161,34 +164,36 @@ export default function EventManagementDetail() {
       />
 
       <SectionWrap>
-        <div className="grid lg:grid-cols-2 gap-12 max-w-6xl items-start mb-10">
-          <Reveal direction="left">
-            <RevealGroup direction="fade" step={55}>
-              <h2
-                className="uppercase leading-tight mb-6"
-                style={{
-                  fontFamily: FONT_DISPLAY,
-                  fontWeight: DISPLAY_TITLE_WEIGHT,
-                  fontSize: 'clamp(1.5rem, 3vw, 2.25rem)',
-                  color: 'var(--gep-text)',
-                }}
-              >
-                Event Production vs EVENT MANAGEMENT
-              </h2>
-              <BodyText className="whitespace-pre-line">{INTRO_LEAD}</BodyText>
-            </RevealGroup>
+        <SideBySideRow className="mb-10">
+          <Reveal direction="left" className="h-full">
+            <SideBySideCopy>
+              <RevealGroup direction="fade" step={55}>
+                <h2
+                  className="uppercase leading-tight mb-4"
+                  style={{
+                    fontFamily: FONT_DISPLAY,
+                    fontWeight: DISPLAY_TITLE_WEIGHT,
+                    fontSize: 'clamp(1.35rem, 2.5vw, 2rem)',
+                    color: 'var(--gep-text)',
+                  }}
+                >
+                  Event Production vs EVENT MANAGEMENT
+                </h2>
+                <BodyText className="whitespace-pre-line !mb-0">{INTRO_LEAD}</BodyText>
+              </RevealGroup>
+            </SideBySideCopy>
           </Reveal>
-          <Reveal direction="right" delay={120}>
-            <SideBySidePhoto src={PRODUCTION_ACTION_IMG} alt="Live event production on stage" />
+          <Reveal direction="right" delay={120} className="h-full">
+            <SideBySidePhoto fillHeight src={PRODUCTION_ACTION_IMG} alt="Live event production on stage" />
           </Reveal>
-        </div>
+        </SideBySideRow>
 
         <Reveal direction="up">
-          <div className="max-w-4xl">
+          <SectionProse>
             <BodyText>{COMPARE_PRODUCTION}</BodyText>
             <CompareDivider />
             <BodyText>{COMPARE_MANAGEMENT}</BodyText>
-          </div>
+          </SectionProse>
         </Reveal>
       </SectionWrap>
 
@@ -210,37 +215,41 @@ export default function EventManagementDetail() {
           </h2>
         </RevealGroup>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-start mb-12">
-          <Reveal direction="left">
-            <RevealGroup direction="fade" step={50}>
-              <BodyText className="mb-8">{PROCESS_INTRO}</BodyText>
+        <SideBySideRow className="mb-12">
+          <Reveal direction="left" className="h-full">
+            <SideBySideCopy>
+              <BodyText className="mb-4">{PROCESS_INTRO}</BodyText>
               <StepList items={stepsA} startIndex={1} />
-            </RevealGroup>
+            </SideBySideCopy>
           </Reveal>
-          <Reveal direction="right" delay={120}>
-            <SideBySidePhoto src="/em-img-3.jpg" alt="Event planning and strategy session" />
+          <Reveal direction="right" delay={120} className="h-full">
+            <SideBySidePhoto fillHeight src="/em-img-3.jpg" alt="Event planning and strategy session" />
           </Reveal>
-        </div>
+        </SideBySideRow>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-start mb-12">
-          <Reveal direction="left" className="order-2 lg:order-1">
-            <SideBySidePhoto src="/em-img-4.jpg" alt="On-site event coordination" />
+        <SideBySideRow className="mb-12">
+          <Reveal direction="left" className="order-2 lg:order-1 h-full">
+            <SideBySidePhoto fillHeight src="/em-img-4.jpg" alt="On-site event coordination" />
           </Reveal>
-          <Reveal direction="right" delay={120} className="order-1 lg:order-2">
-            <StepList items={stepsB} startIndex={6} />
+          <Reveal direction="right" delay={120} className="order-1 lg:order-2 h-full">
+            <SideBySideCopy>
+              <StepList items={stepsB} startIndex={6} />
+            </SideBySideCopy>
           </Reveal>
-        </div>
+        </SideBySideRow>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-start mb-16">
-          <Reveal direction="left">
-            <StepList items={stepsC} startIndex={11} />
+        <SideBySideRow className="mb-16">
+          <Reveal direction="left" className="h-full">
+            <SideBySideCopy>
+              <StepList items={stepsC} startIndex={11} />
+            </SideBySideCopy>
           </Reveal>
-          <Reveal direction="right" delay={120}>
-            <SideBySidePhoto src="/em-img-5.jpg" alt="Event budgeting and reporting" />
+          <Reveal direction="right" delay={120} className="h-full">
+            <SideBySidePhoto fillHeight src="/em-img-5.jpg" alt="Event budgeting and reporting" />
           </Reveal>
-        </div>
+        </SideBySideRow>
 
-        <div className="max-w-3xl pt-8 border-t" style={{ borderColor: 'var(--gep-divider)' }}>
+        <SectionProse className="pt-8 border-t" style={{ borderColor: 'var(--gep-divider)' }}>
           <RevealGroup direction="fade" step={55}>
           <h2
             className="uppercase leading-tight mb-4"
@@ -256,7 +265,7 @@ export default function EventManagementDetail() {
           <BodyText className="mb-8">{CLOSING_BODY}</BodyText>
           <AccentLinkButton to="/contact">Contact Us</AccentLinkButton>
           </RevealGroup>
-        </div>
+        </SectionProse>
       </SectionWrap>
 
       <ServicePageFooter excludeSlug="event-management" />

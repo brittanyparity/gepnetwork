@@ -106,19 +106,53 @@ export function SideBySidePhoto({
   alt = '',
   objectPosition,
   className = '',
+  fillHeight = false,
 }: {
   src: string
   alt?: string
   objectPosition?: string
   className?: string
+  /** Match adjacent copy column height (use inside `.gep-side-by-side-row`). */
+  fillHeight?: boolean
 }) {
   return (
     <img
       src={src}
       alt={alt}
-      className={`w-full aspect-[4/3] object-cover ${className}`}
+      className={`w-full object-cover ${fillHeight ? 'h-full min-h-[280px] aspect-auto' : 'aspect-[4/3]'} ${className}`}
       style={objectPosition ? { objectPosition } : undefined}
     />
+  )
+}
+
+/** Two-column text + image rows — equal column height on large screens. */
+export function SideBySideRow({ children, className = '' }: { children: ReactNode; className?: string }) {
+  return <div className={`gep-side-by-side-row ${className}`.trim()}>{children}</div>
+}
+
+/** Copy column aligned to image height with slightly tighter typography. */
+export function SideBySideCopy({ children, className = '' }: { children: ReactNode; className?: string }) {
+  return <div className={`gep-side-by-side-copy ${className}`.trim()}>{children}</div>
+}
+
+export function StackedSidePhotos({ children }: { children: ReactNode }) {
+  return <div className="gep-stacked-photos">{children}</div>
+}
+
+/** Full-width prose within SectionWrap (no narrow max-width). */
+export function SectionProse({
+  children,
+  className = '',
+  style,
+}: {
+  children: ReactNode
+  className?: string
+  style?: CSSProperties
+}) {
+  return (
+    <div className={`gep-section-prose w-full ${className}`.trim()} style={style}>
+      {children}
+    </div>
   )
 }
 

@@ -42,7 +42,6 @@ export function SocialIcon({ id, className = '' }: { id: SocialId; className?: s
 
 export const DEFAULT_TEAM_SOCIAL: SocialLink[] = [
   { id: 'facebook', label: 'Facebook', href: 'https://www.facebook.com/p/GEP-Network-61558628911648/' },
-  { id: 'twitter', label: 'Twitter', href: 'https://twitter.com/' },
   { id: 'youtube', label: 'YouTube', href: 'https://www.youtube.com/@gepnetwork' },
   { id: 'instagram', label: 'Instagram', href: 'https://www.instagram.com/gep.network/' },
 ]
