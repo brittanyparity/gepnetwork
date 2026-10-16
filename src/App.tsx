@@ -997,7 +997,7 @@ function ServicesGrid() {
       </RevealGroup>
 
       <div className="max-w-[1400px] mx-auto">
-        <div className="grid grid-cols-2 lg:grid-cols-12 gap-0">
+        <div className="gep-home-services-grid grid grid-cols-2 lg:grid-cols-12 gap-0">
           {SERVICES.map((svc, i) => (
             <div
               key={svc.title}

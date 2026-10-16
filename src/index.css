@@ -389,6 +389,21 @@ a.gep-hero-logo-xl.gep-hero-logo-xl--bounded {
   max-width: min(100%, 56rem);
 }
 
+/* Keep typewriter on one line while animating — avoids mobile layout jump */
+@media (max-width: 1023px) {
+  .gep-typewriter-hero__title {
+    font-size: clamp(0.8125rem, 2.75vw + 0.45rem, 1.35rem);
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .gep-typewriter-hero__accent {
+    font-size: 0.94em;
+    letter-spacing: 0.01em;
+  }
+}
+
 @media (min-width: 1024px) {
   .gep-typewriter-hero__title {
     font-size: clamp(1.65rem, 2.15vw, 2.35rem);
@@ -467,6 +482,13 @@ a.gep-hero-logo-xl.gep-hero-logo-xl--bounded {
 
   .gep-service-more-grid[data-svc-count='3'] {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Homepage “What We Do” flip grid — lone last tile spans full row on mobile */
+@media (max-width: 1023px) {
+  .gep-home-services-grid > *:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
   }
 }
 
