@@ -19,7 +19,8 @@ import { DISPLAY_TITLE_WEIGHT, FONT_BODY, FONT_DISPLAY } from '../site'
 const HERO_PHRASES = [{ lead: 'We do ', accent: 'Tour Pulls and Tour Storage' }] as const
 
 const STORAGE_ADDRESS = '1390 Business Center Dr SW, Conyers, GA 30094'
-const MAP_EMBED_SRC = `https://maps.google.com/maps?q=${encodeURIComponent(STORAGE_ADDRESS)}&z=14&output=embed`
+/** Label in the query so the embedded map pin shows the address. */
+const MAP_EMBED_SRC = `https://maps.google.com/maps?q=${encodeURIComponent(`${STORAGE_ADDRESS} (GEP Network)`)}&z=16&hl=en&output=embed`
 
 const INTRO_BODY =
   'At GEP Network, our storage solutions are designed with the unique needs of the entertainment industry in mind. From tour pulls and equipment storage to long-term warehousing needs, we offer flexible, secure, and easily accessible storage services. Our commitment is to provide peace of mind with a storage solution that is as reliable as it is convenient.'
@@ -89,6 +90,8 @@ function Subheading({ children, className = '' }: { children: string; className?
 }
 
 function StorageMap() {
+  const mapsLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(STORAGE_ADDRESS)}`
+
   return (
     <div className="gep-map-embed" style={{ background: 'var(--gep-card)' }}>
       <iframe
@@ -98,6 +101,15 @@ function StorageMap() {
         referrerPolicy="no-referrer-when-downgrade"
         allowFullScreen
       />
+      <a
+        href={mapsLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="gep-map-pin-label"
+        aria-label={`Open ${STORAGE_ADDRESS} in Google Maps`}
+      >
+        <span className="gep-map-pin-label__card">{STORAGE_ADDRESS}</span>
+      </a>
     </div>
   )
 }

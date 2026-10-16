@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import { BodyText, GoldRule, PageHero, SectionWrap } from '../components/PageChrome'
 import { Reveal } from '../components/Reveal'
+import { sendGeneralInquiry, COMPANY_GENERAL_EMAIL } from '../contactMail'
 import { DISPLAY_TITLE_WEIGHT, FONT_BODY, FONT_DISPLAY } from '../site'
 
 const CONTACT_BLOCKS = [
@@ -28,6 +29,12 @@ export default function ContactPage() {
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault()
+    sendGeneralInquiry({
+      name: form.name.trim(),
+      email: form.email.trim(),
+      company: form.company.trim(),
+      message: form.message.trim(),
+    })
     setSubmitted(true)
   }
 
@@ -105,7 +112,13 @@ export default function ContactPage() {
                 >
                   Message Received
                 </h3>
-                <BodyText>Thank you — our team will get back to you shortly.</BodyText>
+                <BodyText>
+                  Your email app should open with a message addressed to{' '}
+                  <a href={`mailto:${COMPANY_GENERAL_EMAIL}`} className="underline" style={{ color: 'var(--gep-accent)' }}>
+                    {COMPANY_GENERAL_EMAIL}
+                  </a>
+                  . Send that email and our team will get back to you shortly.
+                </BodyText>
               </div>
             ) : (
               <form onSubmit={onSubmit} className="flex flex-col gap-4">

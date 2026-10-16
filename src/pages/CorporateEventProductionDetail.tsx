@@ -174,7 +174,12 @@ export default function CorporateEventProductionDetail() {
           <Reveal direction="right" delay={120} className="h-full">
             <StackedSidePhotos>
               <SideBySidePhoto fillHeight src="/ce-img-4.jpg" alt="Arena stage production setup" />
-              <SideBySidePhoto fillHeight src="/ce-img-5.jpg" alt="Corporate panel discussion" />
+              <SideBySidePhoto
+                fillHeight
+                src="/ce-img-5.jpg"
+                alt="Corporate panel discussion"
+                objectPosition="50% top"
+              />
             </StackedSidePhotos>
           </Reveal>
         </SideBySideRow>

@@ -179,7 +179,8 @@ export default function EventManagementDetail() {
                 >
                   Event Production vs EVENT MANAGEMENT
                 </h2>
-                <BodyText className="whitespace-pre-line !mb-0">{INTRO_LEAD}</BodyText>
+                <BodyText className="whitespace-pre-line">{INTRO_LEAD}</BodyText>
+                <BodyText className="!mb-0">{COMPARE_PRODUCTION}</BodyText>
               </RevealGroup>
             </SideBySideCopy>
           </Reveal>
@@ -188,13 +189,12 @@ export default function EventManagementDetail() {
           </Reveal>
         </SideBySideRow>
 
-        <Reveal direction="up">
-          <SectionProse>
-            <BodyText>{COMPARE_PRODUCTION}</BodyText>
-            <CompareDivider />
-            <BodyText>{COMPARE_MANAGEMENT}</BodyText>
-          </SectionProse>
-        </Reveal>
+        <SectionProse>
+          <CompareDivider />
+          <Reveal direction="fade">
+            <BodyText className="!mb-0">{COMPARE_MANAGEMENT}</BodyText>
+          </Reveal>
+        </SectionProse>
       </SectionWrap>
 
       <FullWidthPhoto src="/em-img-2.png" alt="Festival production with pyrotechnics" maxHeight="none" />
@@ -218,8 +218,10 @@ export default function EventManagementDetail() {
         <SideBySideRow className="mb-12">
           <Reveal direction="left" className="h-full">
             <SideBySideCopy>
-              <BodyText className="mb-4">{PROCESS_INTRO}</BodyText>
-              <StepList items={stepsA} startIndex={1} />
+              <RevealGroup direction="fade" step={55}>
+                <BodyText className="mb-4">{PROCESS_INTRO}</BodyText>
+                <StepList items={stepsA} startIndex={1} />
+              </RevealGroup>
             </SideBySideCopy>
           </Reveal>
           <Reveal direction="right" delay={120} className="h-full">
@@ -233,7 +235,9 @@ export default function EventManagementDetail() {
           </Reveal>
           <Reveal direction="right" delay={120} className="order-1 lg:order-2 h-full">
             <SideBySideCopy>
-              <StepList items={stepsB} startIndex={6} />
+              <Reveal direction="fade">
+                <StepList items={stepsB} startIndex={6} />
+              </Reveal>
             </SideBySideCopy>
           </Reveal>
         </SideBySideRow>
@@ -241,7 +245,9 @@ export default function EventManagementDetail() {
         <SideBySideRow className="mb-16">
           <Reveal direction="left" className="h-full">
             <SideBySideCopy>
-              <StepList items={stepsC} startIndex={11} />
+              <Reveal direction="fade">
+                <StepList items={stepsC} startIndex={11} />
+              </Reveal>
             </SideBySideCopy>
           </Reveal>
           <Reveal direction="right" delay={120} className="h-full">
