@@ -49,17 +49,13 @@ export const PRIMARY_NAV: NavItem[] = [
       },
       {
         heading: 'Expertise',
-        items: [
-          ...SERVICE_NAV.map((service) => ({
-            label: service.title,
-            to: `/services/${service.slug}`,
-          })),
-          { label: 'Tour Storage', to: '/storage' },
-        ],
+        items: SERVICE_NAV.map((service) => ({
+          label: service.title,
+          to: `/services/${service.slug}`,
+        })),
       },
     ],
   },
-  { label: 'Storage', to: '/storage' },
   { label: 'Events', to: '/events' },
   { label: 'Contact Us', to: '/contact' },
 ]

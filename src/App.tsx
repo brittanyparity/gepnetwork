@@ -16,9 +16,9 @@ import ContactPage from './pages/ContactPage'
 import EventsPage from './pages/EventsPage'
 import ServiceDetailPage from './pages/ServiceDetailPage'
 import ServicesPage from './pages/ServicesPage'
-import StoragePage from './pages/StoragePage'
 import GlobePlaygroundPage from './pages/GlobePlaygroundPage'
 import TeamMemberPage from './pages/TeamMemberPage'
+import BlogPostPage from './pages/BlogPostPage'
 import { CLIENT_LOGOS } from './content/clients'
 import { FOOTER_POSTS, FOOTER_SOCIAL, type FooterSocialId } from './site'
 
@@ -341,7 +341,6 @@ const SERVICE_PRODUCTION_MANAGEMENT_IMG = '/gep-service-production-management.pn
 const SERVICE_PRODUCTION_COORDINATION_IMG = '/gep-service-production-coordination.png'
 const SERVICE_TRAVEL_LOGISTICS_IMG = '/gep-service-travel-logistics.png'
 const SERVICE_EVENT_MANAGEMENT_IMG = '/gep-service-event-management.png'
-const SERVICE_DESIGN_SERVICES_IMG = '/gep-service-design-services.png'
 
 /** Tour art lives in `public/recent-projects/` (served as static URLs for preview). */
 const recentProjectImg = (file: string) => `${import.meta.env.BASE_URL}recent-projects/${file}`
@@ -561,16 +560,10 @@ const SERVICES = [
     img: SERVICE_TRAVEL_LOGISTICS_BUS_IMG,
   },
   {
-    title: 'Tour Storage',
+    title: 'Tour Pulls & Tour Storage',
     icon: '▤',
     desc: 'Secure, climate-appropriate storage for touring equipment between legs — in our dedicated facility near major venue corridors.',
     img: 'https://images.unsplash.com/photo-1772305336606-989a457ffbae?w=600&h=500&fit=crop&auto=format',
-  },
-  {
-    title: 'Design Services',
-    icon: '◐',
-    desc: 'Creative production design support — stage layouts, sight-line planning, and visual concept development in collaboration with your team.',
-    img: SERVICE_DESIGN_SERVICES_IMG,
   },
 ]
 
@@ -1305,10 +1298,10 @@ function StorageSection() {
             className="uppercase leading-tight mb-4"
             style={{ fontFamily: FONT_DISPLAY, fontWeight: DISPLAY_TITLE_WEIGHT, fontSize: 'clamp(2.5rem, 5vw, 4rem)', letterSpacing: '0.02em', color: 'var(--gep-text)' }}
           >
-            Tour Storage
+            Tour Pulls & Tour Storage
           </h2>
           <p className="text-sm max-w-2xl" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)' }}>
-            Secure, accessible storage built for the music industry — not general warehousing.
+            Secure tour pulls and warehouse storage built for the entertainment industry.
           </p>
         </RevealGroup>
 
@@ -1563,8 +1556,8 @@ function Footer({ colorScheme }: { colorScheme: string }) {
             <ul className="flex flex-col gap-5">
               {FOOTER_POSTS.map((post) => (
                 <li key={post.title}>
-                  <a
-                    href={post.to}
+                  <Link
+                    to={post.to}
                     className="flex gap-3 group transition-colors duration-200 hover:text-[color:var(--gep-accent)]"
                     style={{ fontFamily: FONT_BODY, color: 'var(--gep-footer-text)' }}
                   >
@@ -1581,7 +1574,7 @@ function Footer({ colorScheme }: { colorScheme: string }) {
                         {post.date}
                       </span>
                     </span>
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -1696,9 +1689,10 @@ function AppShell() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/services/:slug" element={<ServiceDetailPage />} />
-        <Route path="/storage" element={<StoragePage />} />
+        <Route path="/storage" element={<Navigate to="/services/tour-pulls-and-tour-storage" replace />} />
         <Route path="/events" element={<EventsPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/blog/:slug" element={<BlogPostPage />} />
         <Route path="/team/:slug" element={<TeamMemberPage />} />
         <Route path="/globe-playground" element={<GlobePlaygroundPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />

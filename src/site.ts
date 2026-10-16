@@ -1,3 +1,5 @@
+import { BLOG_POSTS } from './content/blogPosts'
+
 export const FONT_BODY = "'Inter', sans-serif"
 export const FONT_DISPLAY = "'Barlow Condensed', sans-serif"
 /** Section / page titles — 500 reads fuller than ultra-thin 300 */
@@ -8,26 +10,12 @@ export const GEP_FULL_NAME = 'Global Events Production (GEP) Network'
 
 export { NAV_LINKS } from './content/nav'
 
-export const FOOTER_POSTS = [
-  {
-    title: 'Press Release for Juneteenth Celebration',
-    date: 'May 17, 2024',
-    to: '/contact',
-    image: '/recent-projects/roots-picnic-2026.jpg',
-  },
-  {
-    title: 'The Future of Event Production',
-    date: 'March 5, 2024',
-    to: '/contact',
-    image: '/recent-projects/jcole-fall-off-tour.jpg',
-  },
-  {
-    title: 'The Art of Event Management',
-    date: 'March 5, 2024',
-    to: '/contact',
-    image: '/recent-projects/broccoli-city2026.png',
-  },
-]
+export const FOOTER_POSTS = BLOG_POSTS.map((post) => ({
+  title: post.title,
+  date: post.date,
+  to: `/blog/${post.slug}`,
+  image: post.thumbnail,
+}))
 
 export const FOOTER_SOCIAL = [
   { id: 'youtube', label: 'YouTube', href: 'https://www.youtube.com/@gepnetwork' },

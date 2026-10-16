@@ -410,7 +410,7 @@ a.gep-hero-logo-xl.gep-hero-logo-xl--bounded {
   background: var(--gep-typewriter-accent, color-mix(in srgb, var(--gep-hero-word) 55%, #9aadb6));
 }
 
-/* More Services footer — one row on desktop */
+/* Service grids — column count follows --svc-more-count (set inline from item count) */
 .gep-service-more-grid {
   --svc-more-count: 5;
 }
@@ -432,6 +432,42 @@ a.gep-hero-logo-xl.gep-hero-logo-xl--bounded {
   .gep-service-more-tile__title {
     font-size: clamp(0.85rem, 1.05vw, 1.05rem);
   }
+
+  .gep-service-more-grid--large .gep-service-more-tile,
+  .gep-service-more-grid--large .gep-service-more-tile__body {
+    min-height: 17.5rem;
+  }
+
+  .gep-service-more-grid--large .gep-service-more-tile__body {
+    padding: 1.75rem;
+  }
+
+  .gep-service-more-grid--large .gep-service-more-tile__title {
+    font-size: clamp(1rem, 1.35vw, 1.35rem);
+  }
+
+  .gep-service-more-grid--large .gep-service-more-tile__summary {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  .gep-service-more-grid[data-svc-count='4'] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .gep-service-more-grid[data-svc-count='5'] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .gep-service-more-grid[data-svc-count='5'] > *:nth-child(5) {
+    grid-column: 1 / -1;
+  }
+
+  .gep-service-more-grid[data-svc-count='3'] {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 1023px) {
@@ -446,6 +482,11 @@ a.gep-hero-logo-xl.gep-hero-logo-xl--bounded {
 
   .gep-service-more-tile__title {
     font-size: 1.15rem;
+  }
+
+  .gep-service-more-grid--large .gep-service-more-tile,
+  .gep-service-more-grid--large .gep-service-more-tile__body {
+    min-height: 17.5rem;
   }
 }
 

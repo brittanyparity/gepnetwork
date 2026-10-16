@@ -1,5 +1,9 @@
 import { Navigate, useParams } from 'react-router-dom'
 import ConcertTourProductionDetail from './ConcertTourProductionDetail'
+import CorporateEventProductionDetail from './CorporateEventProductionDetail'
+import EventManagementDetail from './EventManagementDetail'
+import TourPullsTourStorageDetail from './TourPullsTourStorageDetail'
+import FestivalProductionDetail from './FestivalProductionDetail'
 import { ServicePageFooter } from '../components/ServicePageFooter'
 import {
   AccentLinkButton,
@@ -16,13 +20,27 @@ import { DISPLAY_TITLE_WEIGHT, FONT_BODY, FONT_DISPLAY } from '../site'
 
 export default function ServiceDetailPage() {
   const { slug } = useParams()
-  if (slug === 'tour-pulls-and-tour-storage') return <Navigate to="/storage" replace />
-
   const page = slug ? getServicePage(slug) : undefined
   if (!page) return <Navigate to="/services" replace />
 
   if (page.slug === 'concert-and-tour-production') {
     return <ConcertTourProductionDetail />
+  }
+
+  if (page.slug === 'festival-production') {
+    return <FestivalProductionDetail />
+  }
+
+  if (page.slug === 'corporate-event-production') {
+    return <CorporateEventProductionDetail />
+  }
+
+  if (page.slug === 'event-management') {
+    return <EventManagementDetail />
+  }
+
+  if (page.slug === 'tour-pulls-and-tour-storage') {
+    return <TourPullsTourStorageDetail />
   }
 
   return (

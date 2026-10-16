@@ -219,7 +219,7 @@ export const SERVICE_PAGES: ServicePage[] = [
     eyebrow: 'We do tour pulls and tour storage',
     summary:
       'Entrust your touring essentials to our tour pulls and storage solutions, where they’re stored and managed with the utmost care and precision.',
-    heroImg: '/gep-tour-storage-multi-dock.png',
+    heroImg: '/ts-img-1.jpg',
     intro: [
       'At GEP Network, our storage solutions are designed with the unique needs of the entertainment industry in mind. From tour pulls and equipment storage to long-term warehousing needs, we offer flexible, secure, and easily accessible storage services.',
     ],
@@ -260,47 +260,13 @@ export const SERVICE_PAGES: ServicePage[] = [
     closing:
       'Choose GEP Network for storage solutions that harmonize with the demands of your events.',
   },
-  {
-    slug: 'creative-design-services',
-    title: 'Creative Design Services',
-    eyebrow: 'We do creative design',
-    summary:
-      'Elevate your event with our creative and design expertise — from video content and venue conceptualization to stage configuration and merch design.',
-    heroImg: '/gep-service-design-services.png',
-    intro: [
-      'GEP Network’s creative team helps translate artistic vision into buildable, tourable, and brand-true production design.',
-      'We collaborate with artists, directors, and promoters on looks that photograph beautifully and execute cleanly night after night.',
-    ],
-    introImage: '/gep-service-design-services.png',
-    sectionBanners: [
-      recent('lollapalooza-india-2026.png'),
-      '/gep-service-stage-management.png',
-      recent('ballad-beast-saudi-arabia-2026.png'),
-    ],
-    processImages: ['/gep-service-production-coordination.png', '/gep-service-design-services.png'],
-    lists: [
-      {
-        title: 'Creative Capabilities',
-        items: [
-          'Venue conceptualization',
-          'Stage configuration & scenic',
-          'Video content direction',
-          'Show flow & visual planning',
-          'Merch design support',
-          'Collaborative creative development',
-        ],
-      },
-    ],
-    closing: 'Bring us the idea — we’ll help shape it into a production audiences remember.',
-  },
 ]
 
 export function getServicePage(slug: string) {
   return SERVICE_PAGES.find((s) => s.slug === slug)
 }
 
-/** Tour Storage lives at `/storage` — not duplicated as a service detail route. */
-export const SERVICE_NAV = SERVICE_PAGES.filter((s) => s.slug !== 'tour-pulls-and-tour-storage').map((s) => ({
+export const SERVICE_NAV = SERVICE_PAGES.map((s) => ({
   title: s.title,
   summary: s.summary,
   slug: s.slug,

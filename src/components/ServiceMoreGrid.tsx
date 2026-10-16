@@ -13,16 +13,22 @@ export function ServiceMoreGrid({
   services,
   excludeSlug,
   showImages = true,
+  size = 'default',
+  className = '',
 }: {
   services: ServiceCard[]
   excludeSlug?: string
   showImages?: boolean
+  /** Larger tiles for the main Services page grid */
+  size?: 'default' | 'large'
+  className?: string
 }) {
   const items = services.filter((s) => s.slug !== excludeSlug)
 
   return (
     <div
-      className="gep-service-more-grid grid sm:grid-cols-2 gap-0 border"
+      className={`gep-service-more-grid grid sm:grid-cols-2 gap-0 border ${size === 'large' ? 'gep-service-more-grid--large' : ''} ${className}`.trim()}
+      data-svc-count={items.length}
       style={{
         borderColor: 'var(--gep-divider)',
         ['--svc-more-count' as string]: String(items.length),
