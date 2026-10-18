@@ -105,7 +105,7 @@ export default function AboutPage() {
               Our Team
             </h2>
             <p
-              className="text-base leading-relaxed font-normal max-w-3xl mb-12"
+              className="text-base leading-relaxed font-normal mb-12"
               style={{ fontFamily: FONT_BODY, color: 'rgba(255, 255, 255, 0.82)', fontWeight: 500 }}
             >
               {TEAM_INTRO}
