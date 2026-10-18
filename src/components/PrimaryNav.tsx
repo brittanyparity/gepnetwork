@@ -8,7 +8,7 @@ function NavDropdownPanel({ item, onNavigate }: { item: NavItem; onNavigate?: ()
 
   return (
     <div
-      className="gep-nav-dropdown-panel absolute left-1/2 top-full z-50 pt-3 -translate-x-1/2 min-w-[16rem] max-w-[min(92vw,20rem)]"
+      className="gep-nav-dropdown-panel absolute left-0 top-full z-50 pt-3 min-w-[16rem] max-w-[min(92vw,20rem)]"
       role="menu"
       aria-label={`${item.label} submenu`}
     >

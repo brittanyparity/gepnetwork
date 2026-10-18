@@ -562,7 +562,7 @@ const SERVICES = [
     title: 'Tour Pulls & Tour Storage',
     icon: '▤',
     desc: 'Secure, climate-appropriate storage for touring equipment between legs — in our dedicated facility near major venue corridors.',
-    img: 'https://images.unsplash.com/photo-1772305336606-989a457ffbae?w=600&h=500&fit=crop&auto=format',
+    img: '/ts-img-4.png',
   },
 ]
 
@@ -1022,11 +1022,10 @@ function ServicesGrid() {
                     }}
                   />
                   <h3
-                    className="absolute inset-0 flex items-center justify-center px-3 sm:px-4 uppercase text-center leading-snug text-white"
+                    className="gep-home-service-tile__label absolute inset-0 flex items-center justify-center px-3 sm:px-4 uppercase text-center leading-snug text-white"
                     style={{
                       fontFamily: FONT_DISPLAY,
                       fontWeight: DISPLAY_TITLE_WEIGHT,
-                      fontSize: 'clamp(0.75rem, 2.9vw, 1.05rem)',
                       letterSpacing: '0.05em',
                       textShadow: '0 2px 20px rgba(0, 0, 0, 0.45)',
                     }}
@@ -1302,7 +1301,7 @@ function ClientLogoWall() {
             {HERO_INTRO}
           </p>
           <p
-            className="text-xs tracking-[0.3em] uppercase text-center"
+            className="mt-10 text-xs tracking-[0.3em] uppercase text-center"
             style={{ fontFamily: FONT_DISPLAY, fontWeight: DISPLAY_TITLE_WEIGHT, color: 'var(--gep-text-muted)' }}
           >
             Trusted by the Industry's Best
