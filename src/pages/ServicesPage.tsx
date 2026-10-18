@@ -39,10 +39,11 @@ export default function ServicesPage() {
                 Crafting Exceptional Events with Expert Precision
               </h2>
               <BodyText>{CRAFTING_BODY}</BodyText>
-              <ClientSatisfactionBlock />
             </RevealGroup>
           </Reveal>
         </div>
+
+        <ClientSatisfactionBlock fullWidth />
 
         <ServiceMoreGrid services={SERVICE_NAV} size="large" className="mt-16" />
       </SectionWrap>

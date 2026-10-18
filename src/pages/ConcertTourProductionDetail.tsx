@@ -1,7 +1,16 @@
+import type { CSSProperties } from 'react'
 import { ServicePageFooter } from '../components/ServicePageFooter'
 import { TypewriterHero } from '../components/TypewriterHero'
 import { Breadcrumbs } from '../components/Breadcrumbs'
-import { BodyText, FullWidthPhoto, GoldRule, SectionWrap, SideBySidePhoto } from '../components/PageChrome'
+import {
+  BodyText,
+  FullWidthPhoto,
+  GoldRule,
+  SectionWrap,
+  SideBySideCopy,
+  SideBySidePhoto,
+  SideBySideRow,
+} from '../components/PageChrome'
 import { Reveal, RevealGroup } from '../components/Reveal'
 import { DISPLAY_TITLE_WEIGHT, FONT_BODY, FONT_DISPLAY } from '../site'
 
@@ -92,22 +101,39 @@ const STAFFING_INTRO =
 const CLOSING =
   'Ready to take your concert tour to the next level with GEP Network’s tour production services? Contact us today to discuss your tour requirements and discover how we can bring your vision to life.'
 
-function ProcessStep({ index, title, body }: { index: number; title: string; body: string }) {
+const bodyMuted: CSSProperties = {
+  fontFamily: FONT_BODY,
+  color: 'var(--gep-text-muted)',
+  fontWeight: 500,
+}
+
+function CompactProcessStep({ index, title, body }: { index: number; title: string; body: string }) {
   return (
-    <div className="flex gap-4">
-      <div
-        className="flex-shrink-0 w-10 h-10 flex items-center justify-center text-sm font-semibold"
+    <li className="gep-ordered-step flex gap-4">
+      <span
+        className="flex-shrink-0 w-8 h-8 flex items-center justify-center text-sm font-semibold tabular-nums"
         style={{ background: 'var(--gep-accent)', color: 'var(--gep-accent-text)', fontFamily: FONT_BODY }}
+        aria-hidden
       >
         {index}
-      </div>
-      <div>
-        <h3 className="text-lg font-semibold mb-2" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text)' }}>
-          {title}
-        </h3>
-        <BodyText>{body}</BodyText>
-      </div>
-    </div>
+      </span>
+      <p className="text-base leading-relaxed pt-0.5" style={bodyMuted}>
+        <span className="font-semibold" style={{ color: 'var(--gep-text)' }}>
+          {title}:
+        </span>{' '}
+        {body}
+      </p>
+    </li>
+  )
+}
+
+function ProcessStepList({ steps, startIndex }: { steps: { title: string; body: string }[]; startIndex: number }) {
+  return (
+    <ol className="gep-compact-steps list-none p-0 m-0">
+      {steps.map((step, i) => (
+        <CompactProcessStep key={step.title} index={startIndex + i} title={step.title} body={step.body} />
+      ))}
+    </ol>
   )
 }
 
@@ -187,31 +213,27 @@ export default function ConcertTourProductionDetail() {
           <BodyText className="max-w-4xl">{PROCESS_INTRO}</BodyText>
         </RevealGroup>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-start mb-12">
-          <div className="space-y-8">
-            {stepsA.map((step, i) => (
-              <Reveal key={step.title} direction="left" delay={i * 80}>
-                <ProcessStep index={i + 1} title={step.title} body={step.body} />
-              </Reveal>
-            ))}
-          </div>
-          <Reveal direction="right" delay={120}>
-            <SideBySidePhoto src="/process-1.jpg" alt="Tour logistics planning" className="aspect-[3/4] lg:aspect-auto lg:min-h-[480px]" />
+        <SideBySideRow className="mb-12">
+          <Reveal direction="left" className="h-full">
+            <SideBySideCopy className="gep-side-by-side-copy--top">
+              <ProcessStepList steps={stepsA} startIndex={1} />
+            </SideBySideCopy>
           </Reveal>
-        </div>
+          <Reveal direction="right" delay={120} className="h-full">
+            <SideBySidePhoto fillHeight src="/process-1.jpg" alt="Tour logistics planning" />
+          </Reveal>
+        </SideBySideRow>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
-          <Reveal direction="left" className="order-2 lg:order-1">
-            <SideBySidePhoto src="/process-2.jpg" alt="Live concert production" className="aspect-[3/4] lg:aspect-auto lg:min-h-[480px]" />
+        <SideBySideRow>
+          <Reveal direction="left" className="order-2 lg:order-1 h-full">
+            <SideBySidePhoto fillHeight src="/process-2.jpg" alt="Live concert production" />
           </Reveal>
-          <div className="space-y-8 order-1 lg:order-2">
-            {stepsB.map((step, i) => (
-              <Reveal key={step.title} direction="right" delay={i * 80}>
-                <ProcessStep index={i + 4} title={step.title} body={step.body} />
-              </Reveal>
-            ))}
-          </div>
-        </div>
+          <Reveal direction="right" delay={120} className="order-1 lg:order-2 h-full">
+            <SideBySideCopy className="gep-side-by-side-copy--top">
+              <ProcessStepList steps={stepsB} startIndex={4} />
+            </SideBySideCopy>
+          </Reveal>
+        </SideBySideRow>
       </SectionWrap>
 
       <FullWidthPhoto src="/c-p-max-width-2.png" alt="Arena tour production" maxHeight="none" />
@@ -245,11 +267,11 @@ export default function ConcertTourProductionDetail() {
           >
             Staffing & Vendor Procurement
           </h2>
-          <BodyText className="max-w-3xl mb-8">{STAFFING_INTRO}</BodyText>
+          <BodyText className="mb-8">{STAFFING_INTRO}</BodyText>
         </Reveal>
         <CheckList items={STAFFING_ITEMS} />
         <Reveal direction="up">
-          <BodyText className="max-w-3xl mt-12">{CLOSING}</BodyText>
+          <BodyText className="mt-12">{CLOSING}</BodyText>
         </Reveal>
       </SectionWrap>
 

@@ -8,7 +8,13 @@ export function ClientPartnersSection(props: { title?: string; layout?: 'default
   return <ClientLogoCarousel {...props} />
 }
 
-export function ClientSatisfactionBlock() {
+export function ClientSatisfactionBlock({
+  fullWidth = false,
+  className = '',
+}: {
+  fullWidth?: boolean
+  className?: string
+}) {
   const blockRef = useRef<HTMLDivElement>(null)
   const [percent, setPercent] = useState(0)
   const [animate, setAnimate] = useState(false)
@@ -55,7 +61,11 @@ export function ClientSatisfactionBlock() {
   }, [animate])
 
   return (
-    <div ref={blockRef} className="mt-10 pt-8 border-t max-w-xl" style={{ borderColor: 'var(--gep-divider)' }}>
+    <div
+      ref={blockRef}
+      className={`pt-8 border-t ${fullWidth ? 'w-full max-w-none mt-16' : 'max-w-xl mt-10'} ${className}`.trim()}
+      style={{ borderColor: 'var(--gep-divider)' }}
+    >
       <RevealGroup direction="fade" step={50}>
         <h3
           className="uppercase leading-tight mb-5"

@@ -2,7 +2,15 @@ import type { CSSProperties } from 'react'
 import { ServicePageFooter } from '../components/ServicePageFooter'
 import { TypewriterHero } from '../components/TypewriterHero'
 import { Breadcrumbs } from '../components/Breadcrumbs'
-import { BodyText, FullWidthPhoto, GoldRule, SectionWrap, SideBySidePhoto } from '../components/PageChrome'
+import {
+  BodyText,
+  FullWidthPhoto,
+  GoldRule,
+  SectionWrap,
+  SideBySideCopy,
+  SideBySidePhoto,
+  SideBySideRow,
+} from '../components/PageChrome'
 import { Reveal, RevealGroup } from '../components/Reveal'
 import { DISPLAY_TITLE_WEIGHT, FONT_BODY, FONT_DISPLAY } from '../site'
 
@@ -118,7 +126,7 @@ function LabeledParagraph({
 
 function OrderedServiceItem({ index, title, body }: { index: number; title: string; body: string }) {
   return (
-    <li className="flex gap-4">
+    <li className="gep-ordered-step flex gap-4">
       <span
         className="flex-shrink-0 w-8 h-8 flex items-center justify-center text-sm font-semibold tabular-nums"
         style={{ background: 'var(--gep-accent)', color: 'var(--gep-accent-text)', fontFamily: FONT_BODY }}
@@ -126,13 +134,23 @@ function OrderedServiceItem({ index, title, body }: { index: number; title: stri
       >
         {index}
       </span>
-      <p className="text-base leading-relaxed pt-0.5" style={{ fontFamily: FONT_BODY, color: 'var(--gep-text-muted)', fontWeight: 500 }}>
+      <p className="text-base leading-relaxed pt-0.5" style={bodyMuted}>
         <span className="font-semibold" style={{ color: 'var(--gep-text)' }}>
           {title}:
         </span>{' '}
         {body}
       </p>
     </li>
+  )
+}
+
+function ServiceStepList({ items, startIndex }: { items: { title: string; body: string }[]; startIndex: number }) {
+  return (
+    <ol className="gep-compact-steps list-none p-0 m-0">
+      {items.map((item, i) => (
+        <OrderedServiceItem key={item.title} index={startIndex + i} title={item.title} body={item.body} />
+      ))}
+    </ol>
   )
 }
 
@@ -158,17 +176,21 @@ export default function FestivalProductionDetail() {
       />
 
       <SectionWrap>
-        <div className="grid lg:grid-cols-2 gap-12 max-w-6xl items-start">
-          <Reveal direction="left">
-            <RevealGroup direction="fade" step={55}>
-              <BodyText className="mb-6">{INTRO_P1}</BodyText>
-              <LabeledParagraph label="Our Experience:">{INTRO_EXPERIENCE}</LabeledParagraph>
-            </RevealGroup>
+        <SideBySideRow>
+          <Reveal direction="left" className="h-full">
+            <SideBySideCopy>
+              <RevealGroup direction="fade" step={55}>
+                <BodyText className="mb-4">{INTRO_P1}</BodyText>
+                <LabeledParagraph label="Our Experience:" className="!mb-0">
+                  {INTRO_EXPERIENCE}
+                </LabeledParagraph>
+              </RevealGroup>
+            </SideBySideCopy>
           </Reveal>
-          <Reveal direction="right" delay={120}>
-            <SideBySidePhoto src="/fp-img-1.jpg" alt="Festival stage production" />
+          <Reveal direction="right" delay={120} className="h-full">
+            <SideBySidePhoto fillHeight src="/fp-img-1.jpg" alt="Festival stage production" />
           </Reveal>
-        </div>
+        </SideBySideRow>
       </SectionWrap>
 
       <FullWidthPhoto src="/fp-img-2.png" alt="Festival crowd and stage" maxHeight="none" />
@@ -189,34 +211,28 @@ export default function FestivalProductionDetail() {
           </h2>
         </Reveal>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-start mb-12">
-          <Reveal direction="left">
-            <RevealGroup direction="fade" step={50}>
-              <BodyText className="mb-8">{SERVICES_INTRO}</BodyText>
-              <ol className="space-y-6 list-none p-0 m-0">
-                {servicesA.map((item, i) => (
-                  <OrderedServiceItem key={item.title} index={i + 1} title={item.title} body={item.body} />
-                ))}
-              </ol>
-            </RevealGroup>
+        <SideBySideRow className="mb-12">
+          <Reveal direction="left" className="h-full">
+            <SideBySideCopy className="gep-side-by-side-copy--top">
+              <BodyText className="mb-4">{SERVICES_INTRO}</BodyText>
+              <ServiceStepList items={servicesA} startIndex={1} />
+            </SideBySideCopy>
           </Reveal>
-          <Reveal direction="right" delay={120}>
-            <SideBySidePhoto src="/fp-img-3.jpg" alt="Festival production planning" className="aspect-[4/3] lg:min-h-[420px]" />
+          <Reveal direction="right" delay={120} className="h-full">
+            <SideBySidePhoto fillHeight src="/fp-img-3.jpg" alt="Festival production planning" />
           </Reveal>
-        </div>
+        </SideBySideRow>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
-          <Reveal direction="left" className="order-2 lg:order-1">
-            <SideBySidePhoto src="/fp-img-4.jpg" alt="Festival stage build" className="aspect-[4/3] lg:min-h-[420px]" />
+        <SideBySideRow>
+          <Reveal direction="left" className="order-2 lg:order-1 h-full">
+            <SideBySidePhoto fillHeight src="/fp-img-4.jpg" alt="Festival stage build" />
           </Reveal>
-          <Reveal direction="right" delay={120} className="order-1 lg:order-2">
-            <ol className="space-y-6 list-none p-0 m-0">
-              {servicesB.map((item, i) => (
-                <OrderedServiceItem key={item.title} index={i + 7} title={item.title} body={item.body} />
-              ))}
-            </ol>
+          <Reveal direction="right" delay={120} className="order-1 lg:order-2 h-full">
+            <SideBySideCopy className="gep-side-by-side-copy--top">
+              <ServiceStepList items={servicesB} startIndex={7} />
+            </SideBySideCopy>
           </Reveal>
-        </div>
+        </SideBySideRow>
       </SectionWrap>
 
       <FullWidthPhoto src="/fp-img-5.png" alt="Festival production at night" maxHeight="none" />
