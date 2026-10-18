@@ -6,7 +6,7 @@
   src: url('/fonts/centurygothic.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -14,7 +14,7 @@
   src: url('/fonts/centurygothic_bold.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -22,7 +22,7 @@
   src: url('/fonts/TeleMarines-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -30,7 +30,7 @@
   src: url('/fonts/TeleMarines-Bold.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @theme {
@@ -59,7 +59,7 @@ html {
   /* Classic GEP globe: dark continents, light silvery ocean + bold grid */
   --gep-globe-land: #0a0c10;
   --gep-globe-ocean: #96a2ae;
-  --gep-logo-g-font: 'Century Gothic GEP', 'Century Gothic', 'CenturyGothic', sans-serif;
+  --gep-logo-g-font: 'Century Gothic GEP', sans-serif;
   /* G depth: outer halo + soft inset (down-right shade, top-left rim) */
   --gep-logo-g-shadow-halo: 0 0 0.045em rgba(0, 0, 0, 0.45);
   --gep-logo-g-shadow-inset:
@@ -74,6 +74,17 @@ html {
   --gep-globe-in-g-top: 53%;
   --gep-globe-in-g-width: 0.535em;
   --gep-globe-in-g-height: 0.535em;
+}
+
+/* Hide lockup until custom logo fonts load (avoids wrong “G” fallback flash) */
+.gep-logo-century,
+.gep-logo-tele {
+  visibility: hidden;
+}
+
+html.gep-fonts-ready .gep-logo-century,
+html.gep-fonts-ready .gep-logo-tele {
+  visibility: visible;
 }
 
 /* Century G + globe lockup (matches Claude brand embed proportions) */

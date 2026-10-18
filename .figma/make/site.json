@@ -8,5 +8,8 @@
   "accessibility": {
     "addBypassLinks": true,
     "ignoreReducedMotion": false
+  },
+  "customScripts": {
+    "headEnd": "<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\" /><link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin /><link rel=\"preload\" href=\"/fonts/centurygothic.ttf\" as=\"font\" type=\"font/ttf\" crossorigin /><link rel=\"preload\" href=\"/fonts/TeleMarines-Regular.ttf\" as=\"font\" type=\"font/ttf\" crossorigin />"
   }
 }
